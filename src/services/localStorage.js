@@ -1,10 +1,10 @@
-const ACESS_TOKEN = "accessToken";
-const MOD_TOKEN = "modToken";
+const ACCESS_TOKEN = 'accessToken';
+const MOD_TOKEN = 'modToken';
 
-export const getAccessToken = () => localStorage.getItem(ACESS_TOKEN);
+export const getAccessToken = () => localStorage.getItem(ACCESS_TOKEN);
 export const setAccessToken = (token) =>
-  localStorage.setItem(ACESS_TOKEN, token);
-export const removeAccessTOken = () => localStorage.removeItem(ACESS_TOKEN);
+  localStorage.setItem(ACCESS_TOKEN, token);
+export const removeAccessTOken = () => localStorage.removeItem(ACCESS_TOKEN);
 
 export const getModsToken = () => localStorage.getItem(MOD_TOKEN);
 export const setModsToken = (token) => localStorage.setItem(MOD_TOKEN, token);

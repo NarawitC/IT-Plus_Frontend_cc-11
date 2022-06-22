@@ -1,11 +1,11 @@
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import AdminLayout from "../pages/AdminLayout";
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import AdminLayout from '../pages/AdminLayout';
 
 function Router() {
   return (
     <Routes>
-      <Route path="/admin" element={<AdminLayout />}></Route>
-      <Route path="*" element={useNavigate("/admin")} />
+      <Route path='/admin' element={<AdminLayout />}></Route>
+      <Route path='*' element={useNavigate('/admin')} />
     </Routes>
   );
 }
