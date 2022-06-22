@@ -4,6 +4,8 @@ import AdminLayout from '../pages/AdminLayout';
 function Router() {
   return (
     <Routes>
+      <Route path='/user' element={<AdminLayout />}></Route>
+      <Route path='/seller' element={<AdminLayout />}></Route>
       <Route path='/admin' element={<AdminLayout />}></Route>
       <Route path='*' element={useNavigate('/admin')} />
     </Routes>
