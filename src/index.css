@@ -9,6 +9,15 @@
     'Fira Sans', 'Droid Sans', 'Helvetica Neue';
 }
 
+.gradeient1 {
+  background: rgb(15, 203, 247);
+  background: linear-gradient(
+    130deg,
+    rgba(15, 203, 247, 1) 0%,
+    rgba(0, 110, 223, 1) 97%
+  );
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -16,7 +25,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f0f2f5;
+  /* background-color: #f0f2f5; */
+  background-color: #ffffff;
 }
 
 .bg-gray-100 {
