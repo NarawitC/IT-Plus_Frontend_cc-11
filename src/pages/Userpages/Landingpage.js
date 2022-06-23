@@ -1,7 +1,12 @@
 import React from 'react';
+import Carusel from '../../components/Client/layout/Carusel';
 
 function Landingpage() {
-  return <div>LANDOING</div>;
+  return (
+    <>
+      <Carusel />
+    </>
+  );
 }
 
 export default Landingpage;
