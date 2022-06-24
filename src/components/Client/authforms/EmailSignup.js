@@ -111,7 +111,7 @@ function EmailSignup() {
           />
         </div>
         <label className='label cursor-pointer -mb-2 text-left'>
-          <InputYup
+          <input
             type='checkbox'
             className='checkbox'
             onClick={(e) => {
@@ -134,15 +134,17 @@ function EmailSignup() {
           />
           <span className='text-left label-text'>accept terms of service</span>
         </label> */}
+        <SubmitButtonYup>
+          <SmPillButton
+            text={'SIGN UP'}
+            className=' bg-[#fffff] hover:bg-transparent border-2 w-full text-gray-900 hover:text-gray-900 font-medium h-9'
+            // icon={<AiOutlineMail size={25} className='absolute' />}
+            onClick={(e) => {
+              // setauthOption(1);
+            }}
+          />
+        </SubmitButtonYup>
       </FormYup>
-      <SmPillButton
-        text={'SIGN UP'}
-        className=' bg-[#fffff] hover:bg-transparent border-2 w-full text-gray-900 hover:text-gray-900 font-medium h-9'
-        // icon={<AiOutlineMail size={25} className='absolute' />}
-        onClick={(e) => {
-          // setauthOption(1);
-        }}
-      />
     </>
   );
 }
