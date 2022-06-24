@@ -56,7 +56,7 @@ function AddProductForm() {
                 {imageURL ? (
                   <>
                     <img
-                      className='w-[200px] h-[200px] rounded-full'
+                      className='w-32 h-32 rounded-md'
                       src={imageURL}
                       alt='imageURL'
                     />
@@ -64,31 +64,31 @@ function AddProductForm() {
                 ) : (
                   <div className='flex gap-4'>
                     <div className='flex flex-col'>
-                      <div className='border-2 border-primary hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                      <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
                         {<MdAddAPhoto />}
                       </div>
                       <p className='text-center'>Cover Photo</p>
                     </div>
                     <div className='flex flex-col'>
-                      <div className='border-2 border-primary hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                      <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
                         {<MdAddAPhoto />}
                       </div>
                       <p className='text-center'>Image 1</p>
                     </div>
                     <div className='flex flex-col'>
-                      <div className='border-2 border-primary hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                      <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
                         {<MdAddAPhoto />}
                       </div>
                       <p className='text-center'>Image 2</p>
                     </div>
                     <div className='flex flex-col'>
-                      <div className='border-2 border-primary hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                      <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
                         {<MdAddAPhoto />}
                       </div>
                       <p className='text-center'>Image 3</p>
                     </div>
                     <div className='flex flex-col'>
-                      <div className='border-2 border-primary hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                      <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
                         {<MdAddAPhoto />}
                       </div>
                       <p className='text-center'>Image 4</p>
@@ -233,9 +233,11 @@ function AddProductForm() {
               />
             </div>
           </div>
-          <button type='button' className='btn btn-secondary'>
-            เพิ่มสินค้า
-          </button>
+          <div className='flex justify-center'>
+            <button type='button' className='btn btn-secondary btn-md '>
+              เพิ่มสินค้า
+            </button>
+          </div>
           <br />
         </div>
       </form>

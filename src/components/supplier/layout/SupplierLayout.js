@@ -7,11 +7,11 @@ function SupplierLayout() {
       <div className=''>
         <Header />
       </div>
-      <div className='flex align-middle justify-between '>
+      <div className='flex align-middle gap-24  '>
         <div className=' bg-base-content'>
           <SideBar />
         </div>
-        <div className='flex justify-center  w-[900px] items-center'>
+        <div className='flex justify-start  w-[900px] items-center '>
           <Outlet />
         </div>
       </div>

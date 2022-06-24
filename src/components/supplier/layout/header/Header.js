@@ -14,8 +14,8 @@ function Header() {
   const modalRef = useRef();
   return (
     <>
-      <div className='w-full h-[80px] bg-primary flex items-center'>
-        <div className='flex justify-between w-full '>
+      <div className=' h-[80px] bg-primary flex items-center w-screen'>
+        <div className='flex justify-between w-screen '>
           <Link to={`/supplier`}>
             <button className='flex items-center text-white text-3xl w-[150px] justify-center gap-1'>
               {<AiOutlineSmile />}
