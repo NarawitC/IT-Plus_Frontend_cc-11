@@ -28,6 +28,9 @@ body {
   /* background-color: #f0f2f5; */
   background-color: #ffffff;
 }
+.box {
+  border: 1px solid black;
+}
 
 .bg-gray-100 {
   background-color: #f3f4f6;

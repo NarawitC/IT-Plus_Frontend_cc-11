@@ -1,12 +1,15 @@
 module.exports = {
-  content: ['./src/**/*.{html,js}'],
+  content: [
+    './src/**/*.{html,js}',
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
+  ],
   theme: {
     extend: {},
   },
   plugins: [require('daisyui')],
   daisyui: {
     styled: true,
-    themes: ['luxury', 'winter'],
+    themes: ['light', 'luxury'],
     base: true,
     utils: true,
     logs: true,
@@ -15,3 +18,11 @@ module.exports = {
     darkTheme: 'dark',
   },
 };
+
+// module.exports = {
+//   content: [
+//     ...,
+//     'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
+//   ],
+//   plugins: [..., require('flowbite/plugin')],
+// };

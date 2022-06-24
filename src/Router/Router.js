@@ -1,8 +1,17 @@
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import AdminLayout from '../pages/AdminLayout';
 import Clientlayout from '../pages/Clientlayout';
 import Landingpage from '../pages/Userpages/Landingpage';
+import SupplierLayout from '../components/supplier/layout/SupplierLayout';
 
+
+import SupplierHomePage from '../pages/supplier/SupplierHomePage';
+import SupplierSignUpPage from '../pages/supplier/SupplierSignUpPage';
+import DynamicAddProductPage from '../pages/supplier/DynamicAddProductPage';
+import MyShopPage from '../pages/supplier/MyShopPage';
+import DynamicBalancePage from '../pages/supplier/DynamicBalancePage';
+import DynamicOrderTrackingPage from '../pages/supplier/DynamicOrderTrackingPage';
+import DynamicProductPage from '../pages/supplier/DynamicProductPage';
 function Router() {
   return (
     <Routes>
