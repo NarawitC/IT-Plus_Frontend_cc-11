@@ -17,35 +17,13 @@ function Landingpage() {
   //   // r.style.setProperty('--value', num);
   // }
 
-  const [countdown, setcountdown] = useState(60);
   useEffect(() => {
     // styleGet();
-    setInterval(() => {
-      if (countdown > 0) {
-        console.log(countdown);
-        setcountdown((prev) => prev - 1);
-        // styleSet(countdown);
-      }
-    }, 1000);
   }, []);
   return (
     <>
       <Carusel />
 
-      <span
-        className='countdown w-full bg-blue-50 h-2'
-        onClick={() => {
-          setcountdown((prev) => prev - 1);
-        }}
-      >
-        <span style={{ '--value': countdown }}></span>
-      </span>
-      <SmPillButton
-        text='hi'
-        onClick={() => {
-          console.log(countdown);
-        }}
-      />
       <CardItems />
     </>
   );
