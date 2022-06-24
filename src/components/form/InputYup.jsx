@@ -6,10 +6,10 @@ function InputYup({ name, text, ...props }) {
     formState: { errors },
   } = useFormContext();
   return (
-    <div className="col d-flex flex-column gap-2">
+    <div className='col d-flex flex-column gap-1'>
       <label
         htmlFor={`${text}Input`}
-        className="font-text-primary font-weight-500 ms-2"
+        className='font-text-primary font-weight-500 ms-2'
       >
         {text}
       </label>
@@ -18,7 +18,7 @@ function InputYup({ name, text, ...props }) {
         render={({ field: { onChange, value } }) => {
           return (
             <input
-              className="form-control"
+              className='form-control'
               value={value}
               onChange={onChange}
               {...props}
@@ -29,12 +29,11 @@ function InputYup({ name, text, ...props }) {
         name={name}
       />
       {errors[name] ? (
-        <div className="text-danger font-size-8 me-2 align-self-end ">
+        <div className='text-red-600 text-sm mt-1 align-self-end '>
           {errors[name].message}
-          <i className="fa-solid fa-circle-exclamation ms-2 font-size-12"></i>
         </div>
       ) : (
-        <div className="text-danger font-size-8 ms-2">&nbsp;</div>
+        <div className='text-red-600  ms-2'>&nbsp;</div>
       )}
     </div>
   );

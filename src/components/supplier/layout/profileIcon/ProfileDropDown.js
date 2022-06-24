@@ -10,12 +10,12 @@ function ProfileDropDown() {
   return (
     <>
       <div class='dropdown dropdown-end dropdown-hover'>
-        <label tabindex='0' className='btn m-1 gap-2 rounded-3xl  '>
+        <label tabIndex='0' className='btn m-1 gap-2 rounded-3xl  '>
           {<CgProfile />}
           <p className=''>Hirun</p>
         </label>
         <ul
-          tabindex='0'
+          tabIndex='0'
           className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
         >
           <li>

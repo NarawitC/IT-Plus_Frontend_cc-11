@@ -26,7 +26,7 @@ function AuthContextProvider({ children }) {
         }
       } catch (err) {
         removeAccessTOken();
-        navigate('/auth/signIn');
+        // navigate('/auth/signIn');
       }
     };
     fetchMe();
@@ -49,13 +49,16 @@ function AuthContextProvider({ children }) {
     address,
     addressDescription,
   }) => {
-    if (!address.trim()) {
-      address = null;
-    }
-    if (!addressDescription.trim()) {
-      addressDescription = null;
-    }
-    await userSignUp({
+    // if (!address.trim()) {
+    //   address = null;
+    // }
+    // if (!addressDescription.trim()) {
+    //   addressDescription = null;
+    // }
+
+    // console.log('hi');
+    // console.log(email);
+    const res = await userSignUp({
       firstName,
       lastName,
       phoneNumber,
@@ -65,6 +68,8 @@ function AuthContextProvider({ children }) {
       address,
       addressDescription,
     });
+    console.log(res);
+    return res;
   };
 
   const signOut = () => {

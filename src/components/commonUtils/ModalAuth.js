@@ -32,7 +32,7 @@ function ModalAny({ inputEmodal }) {
         >
           {authOption ? (
             authOption === 1 ? (
-              <CSignin />
+              <CSignin setauthOption={setauthOption} />
             ) : authOption === 2 ? (
               ''
             ) : (

@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { AiOutlineMail } from 'react-icons/ai';
+import { FaAngleLeft } from 'react-icons/fa';
 import EmailSignin from './EmailSignin';
 import EmailSignup from './EmailSignup';
-function CSignin() {
+function CSignin({ setauthOption }) {
   const [isSignIn, setisSignIn] = useState(true);
   return (
     <>
+      <FaAngleLeft
+        className=' self-start -mb-4 mt-2 ml-2'
+        size={20}
+        onClick={() => {
+          setauthOption(null);
+        }}
+      />
       <div className='Header flex flex-row w-full justify-center my-4'>
         <AiOutlineMail
           size={22}

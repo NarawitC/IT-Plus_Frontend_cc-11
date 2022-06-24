@@ -5,14 +5,14 @@ import img2 from '../../../../pictures/blue.png';
 function NotiDropDown() {
   return (
     <div className='dropdown dropdown-end dropdown-hover '>
-      <label tabindex='0' className='btn  m-1 gap-2 rounded-3xl text-xl '>
+      <label tabIndex='0' className='btn  m-1 gap-2 rounded-3xl text-xl '>
         {<IoNotificationsOutline />}
         <span className='absolute right-0 top-0 rounded-full bg-secondary w-4 h-4 top right p-0 m-0 text-white text-sm leading-4 text-center'>
           {'2'}
         </span>
       </label>
       <ul
-        tabindex='0'
+        tabIndex='0'
         class='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-[300px]'
       >
         <li>
