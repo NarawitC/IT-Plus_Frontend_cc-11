@@ -5,11 +5,9 @@ import * as yup from 'yup';
 import FormYup from '../../form/FormYup';
 import InputYup from '../../form/InputYup';
 import SubmitButtonYup from '../../form/SubmitButtonYup';
-import TextAreaYup from '../../form/TextAreaYup';
 import SmPillButton from '../../../components/commonUtils/SmPillButton';
 
 import { useAuthContext } from '../../../contexts/Client/AuthCcontexts';
-import { useReducer } from 'react';
 function EmailSignup() {
   const [IsLoading, setIsLoading] = useState(false);
   const { signUp } = useAuthContext();

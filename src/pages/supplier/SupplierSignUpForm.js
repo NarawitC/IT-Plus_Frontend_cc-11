@@ -1,6 +1,12 @@
 import previewPic from '../../pictures/previewPic.png';
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
+import * as yup from 'yup';
+
+import FormYup from '../../components/form/FormYup';
+import InputYup from '../../components/form/InputYup';
+import SubmitButtonYup from '../../components/form/SubmitButtonYup';
+
 function SupplierSignUpForm() {
   const inputEl = useRef();
   const [image, setImage] = useState(null);
@@ -22,9 +28,45 @@ function SupplierSignUpForm() {
       setImage(event.target.files[0]);
     }
   };
+
+  const schema = yup.object().shape({
+    firstName: yup.string().required('First name is required'),
+    lastName: yup.string().required('Last name is required'),
+    phoneNumber: yup
+      .string()
+      .required('Phone number is required')
+      .min(10, 'Phone number must be 10 characters')
+      .max(10, 'Phone number must be 10 characters'),
+    email: yup
+      .string()
+      .required('Email is required')
+      .email('Email is invalid format'),
+    password: yup.string().required('Password is required'),
+    line_id: yup.string().required('line_id is required'),
+    supplierDetail: yup.string().required('supplierDetail is required'),
+    bankAccount: yup.string().required('supplierDetail is required'),
+    confirmPassword: yup.string().required('Confirm password is required'),
+    streetName: yup.string().trim().nullable(),
+    province: yup.string().trim().nullable(),
+    district: yup.string().trim().nullable(),
+    postalCode: yup.string().trim().nullable(),
+    addressDescription: yup.string().trim().nullable(),
+  });
   return (
     <>
-      <form className=''>
+      <FormYup
+        // className=''
+        defaultValues={{
+          firstName: '',
+          lastName: '',
+          line_id: '',
+          phoneNumber: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        }}
+        schema={schema}
+      >
         <br />
         <h1 className='text-3xl text-center'>สมัครเป็นผู้ขาย</h1>
 
@@ -74,7 +116,8 @@ function SupplierSignUpForm() {
             >
               ชื่อผู้ขาย
             </label>
-            <input
+            <InputYup
+              name='firstName'
               type='text'
               id='firstName'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -89,7 +132,8 @@ function SupplierSignUpForm() {
             >
               นามสกุล
             </label>
-            <input
+            <InputYup
+              name='lastName'
               type='text'
               id='lastName'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -104,7 +148,8 @@ function SupplierSignUpForm() {
             >
               Line ID
             </label>
-            <input
+            <InputYup
+              name='line_id'
               type='text'
               id='line_id'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -119,7 +164,9 @@ function SupplierSignUpForm() {
             >
               เบอร์โทรศัพท์
             </label>
-            <input
+            <InputYup
+              name='phoneNumber'
+              text={'Phone number'}
               type='tel'
               id='phone'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -137,7 +184,9 @@ function SupplierSignUpForm() {
             >
               เลขที่บัญชีผู้ขาย
             </label>
-            <input
+            <InputYup
+              name='bankAccount'
+              text={'bankAccount'}
               type='text'
               id='bank_account'
               className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -155,7 +204,9 @@ function SupplierSignUpForm() {
             >
               ที่อยู่
             </label>
-            <input
+            <InputYup
+              name='addressDescription'
+              text={'adress'}
               type='text'
               id='address'
               className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -173,7 +224,9 @@ function SupplierSignUpForm() {
             >
               รายละเอียดผู้ขาย
             </label>
-            <input
+            <InputYup
+              name='supplierDetail'
+              text={'supplierDetail'}
               type='text'
               id='supplier_detail'
               className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -214,8 +267,16 @@ function SupplierSignUpForm() {
           >
             Submit
           </button>
+          <SubmitButtonYup
+            // ref={elSubmit}
+            className={
+              'btn btn-primary bg-[#fffff] hover:bg-transparent border-2 w-full text-gray-900 hover:text-gray-900 font-medium h-9'
+            }
+          >
+            Sign Up
+          </SubmitButtonYup>
         </div>
-      </form>
+      </FormYup>
     </>
   );
 }
