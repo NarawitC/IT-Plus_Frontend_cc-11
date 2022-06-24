@@ -1,14 +1,17 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
+import DevSearchBar from '../components/Admin/DevSearchBar';
 import DevSideBar from '../components/Admin/DevSideBar';
 import DevStat from '../components/Admin/DevStat';
 
 function DevHomePage() {
   return (
     <>
-      <div className="w-screen flex flex-row">
+      <div data-theme="luxury">
+        <DevSearchBar />
         <DevSideBar />
-        <div data-theme="luxury " className="w-full">
-          <DevStat />
+        <div>
+          <Outlet />
         </div>
       </div>
     </>

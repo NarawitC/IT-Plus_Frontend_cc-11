@@ -1,19 +1,21 @@
 import React from 'react';
 import DevSidebarMenu from './DevSidebarMenu';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 function DevSideBar() {
   return (
     <>
-      <div class="drawer absolute z-10 w-1/12 max-w-md">
-        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content">
-          <label for="my-drawer" class="btn btn-primary drawer-button">
-            Open drawer
+      <div className="drawer absolute z-30">
+        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content">
+          <label htmlFor="my-drawer" className="btn btn-primary drawer-button">
+            Admin
+            <GiHamburgerMenu className="ml-3" />
           </label>
         </div>
-        <div class="drawer-side">
-          <label for="my-drawer" class="drawer-overlay"></label>
-          <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+        <div className="drawer-side">
+          <label htmlFor="my-drawer" className="drawer-overlay"></label>
+          <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
             <DevSidebarMenu title="Orders" path="" />
             <DevSidebarMenu title="Cart" path="" />
             <DevSidebarMenu title="Payment" path="" />
