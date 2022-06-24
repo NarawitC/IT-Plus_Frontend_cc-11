@@ -3,8 +3,8 @@ import { FiSearch } from 'react-icons/fi';
 function Searchbar() {
   return (
     <>
-      <div className='form-control block w-full h-2/3 self-center items-start'>
-        <div className='w-2/3 h-13 flex p-1  border-2  rounded-full'>
+      <div className='form-control block w-full h-2/5 py-1 my-2 ml-2 self-center items-start'>
+        <div className='w-2/3 h-12 flex p-1  border-2  rounded-full'>
           <div className='w-full  flex justify-center'>
             <input
               type='text'

@@ -17,6 +17,8 @@ function FlashSaleCountdownbar() {
           console.log(countdown);
         }}
       />
+
+      
     </div>
   );
 }
