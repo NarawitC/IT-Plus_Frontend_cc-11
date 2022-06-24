@@ -1,15 +1,11 @@
-<<<<<<< HEAD
-import { Route, Routes, useNavigate } from 'react-router-dom';
 import AdminLayout from '../pages/AdminLayout';
 import Clientlayout from '../pages/Clientlayout';
-import Landingpage from '../pages/Userpages/Landingpage';
 import SupplierLayout from '../components/supplier/layout/SupplierLayout';
-=======
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+
+import Landingpage from '../pages/Userpages/Landingpage';
 import DevStat from '../components/Admin/DevStat';
-import AdminLayout from '../pages/AdminLayout';
 import AdminOrder from '../pages/AdminOrder';
->>>>>>> Feat-layout_route
 
 import SupplierHomePage from '../pages/supplier/SupplierHomePage';
 import SupplierSignUpPage from '../pages/supplier/SupplierSignUpPage';
@@ -18,6 +14,7 @@ import MyShopPage from '../pages/supplier/MyShopPage';
 import DynamicBalancePage from '../pages/supplier/DynamicBalancePage';
 import DynamicOrderTrackingPage from '../pages/supplier/DynamicOrderTrackingPage';
 import DynamicProductPage from '../pages/supplier/DynamicProductPage';
+
 function Router() {
   return (
     <Routes>
@@ -36,10 +33,10 @@ function Router() {
           element={<DynamicOrderTrackingPage />}
         />
       </Route>
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route path="" element={<AdminOrder />} />
-        <Route path="editProduct" element={<DevStat />} />
-        <Route path="*" element={useNavigate('/admin')} />
+      <Route path='/admin' element={<AdminLayout />}>
+        <Route path='' element={<AdminOrder />} />
+        <Route path='editProduct' element={<DevStat />} />
+        <Route path='*' element={useNavigate('/admin')} />
       </Route>
       <Route path='*' element={useNavigate('/')} />
     </Routes>
