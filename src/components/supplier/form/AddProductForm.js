@@ -33,10 +33,10 @@ function AddProductForm() {
   };
   return (
     <>
-      <form className='p-12'>
+      <form className='pl-64 pt-5'>
         <br />
-        <h1 className='text-3xl'>เพิ่มสินค้า</h1>
 
+        <h1 className='text-3xl'>เพิ่มสินค้า</h1>
         <div>
           <div
             className=' relative  justify-center'
@@ -112,7 +112,7 @@ function AddProductForm() {
               <input
                 type='text'
                 id='name'
-                className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='ชื่อสินค้า'
                 required
                 value={name}
@@ -131,7 +131,7 @@ function AddProductForm() {
               <input
                 type='text'
                 id='category'
-                className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='หมวดหมู่สินค้า'
                 required
                 value={category}
@@ -150,7 +150,7 @@ function AddProductForm() {
               <input
                 type='text'
                 id='subCategory'
-                className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='หมวดหมู่สินค้าย่อย'
                 required
                 value={subCategory}
@@ -169,7 +169,7 @@ function AddProductForm() {
               <input
                 type='text'
                 id='price'
-                className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='ราคาสินค้า'
                 required
                 value={price}
@@ -207,7 +207,7 @@ function AddProductForm() {
               <input
                 type='text'
                 id='amount'
-                className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='จำนวน'
                 required
                 value={amount}
@@ -215,31 +215,30 @@ function AddProductForm() {
               />
             </div>
           </div>
-          <div className=''>
-            <div className='flex flex-col justify-center'>
-              <label
-                for='description'
-                className='block mb-2 text-sm font-medium text-gray-1200 '
-              >
-                รายละเอียดสินค้า
-              </label>
-              <input
-                type='text'
-                id='description'
-                className='w-[760px] h-[150px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                placeholder='รายละเอียดสินค้า'
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
-              />
-            </div>
-          </div>
-          <div className='flex justify-center'>
-            <button type='button' className='btn btn-secondary btn-md '>
-              เพิ่มสินค้า
-            </button>
-          </div>
-          <br />
         </div>
+        <div className=''>
+          <label
+            for='description'
+            className='block mb-2 text-sm font-medium text-gray-1200 '
+          >
+            รายละเอียดสินค้า
+          </label>
+          <input
+            type='text'
+            id='description'
+            className=' w-[768px] h-[150px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+            placeholder='รายละเอียดสินค้า'
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+          />
+        </div>
+        <br />
+        <div className='flex justify-center'>
+          <button type='button' className='btn btn-secondary btn-md '>
+            เพิ่มสินค้า
+          </button>
+        </div>
+        <br />
       </form>
     </>
   );
