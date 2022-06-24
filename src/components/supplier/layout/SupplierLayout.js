@@ -4,14 +4,13 @@ import { Outlet } from 'react-router-dom';
 function SupplierLayout() {
   return (
     <div className='' data-theme='light'>
-      <div className=''>
-        <Header />
-      </div>
-      <div className='flex align-middle gap-24  '>
+      <Header />
+
+      <div className='flex align-middle '>
         <div className=' bg-base-content'>
           <SideBar />
         </div>
-        <div className='flex justify-start  w-[900px] items-center '>
+        <div className='flex justify-start items-center'>
           <Outlet />
         </div>
       </div>

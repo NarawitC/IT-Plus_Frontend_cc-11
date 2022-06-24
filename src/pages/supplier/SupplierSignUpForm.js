@@ -24,9 +24,9 @@ function SupplierSignUpForm() {
   };
   return (
     <>
-      <form>
+      <form className=''>
         <br />
-        <h1 className='text-3xl'>สมัครเป็นผู้ขาย</h1>
+        <h1 className='text-3xl text-center'>สมัครเป็นผู้ขาย</h1>
 
         <div>
           <div
@@ -47,7 +47,7 @@ function SupplierSignUpForm() {
                 {imageURL ? (
                   <>
                     <img
-                      className='w-[200px] h-[200px] rounded-full'
+                      className='w-[160px] h-[160px] rounded-full'
                       src={imageURL}
                       alt='imageURL'
                     />
@@ -55,7 +55,7 @@ function SupplierSignUpForm() {
                 ) : (
                   <>
                     <img
-                      className='w-[200px] h-[200px] rounded-full object-fit'
+                      className='w-[160px] h-[160px] rounded-full object-fit'
                       src={previewPic}
                       alt='previewPic'
                     />
@@ -69,14 +69,14 @@ function SupplierSignUpForm() {
         <div className='grid gap-6 mb-6 lg:grid-cols-2'>
           <div>
             <label
-              for='name'
+              for='firstName'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               ชื่อผู้ขาย
             </label>
             <input
               type='text'
-              id='name'
+              id='firstName'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='ชื่อผู้ขาย'
               required
@@ -84,8 +84,23 @@ function SupplierSignUpForm() {
           </div>
           <div>
             <label
-              for='line_id'
+              for='lastName'
               className='block mb-2 text-sm font-medium text-gray-1200 '
+            >
+              นามสกุล
+            </label>
+            <input
+              type='text'
+              id='lastName'
+              className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              placeholder='นามสกุล'
+              required
+            />
+          </div>
+          <div>
+            <label
+              for='line_id'
+              className='block mb-2 text-sm font-medium text-gray-1200'
             >
               Line ID
             </label>
@@ -94,21 +109,6 @@ function SupplierSignUpForm() {
               id='line_id'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='Line ID'
-              required
-            />
-          </div>
-          <div>
-            <label
-              for='bank_account'
-              className='block mb-2 text-sm font-medium text-gray-1200'
-            >
-              เลขที่บัญชีผู้ขาย
-            </label>
-            <input
-              type='text'
-              id='bank_account'
-              className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-              placeholder='เลขที่บัญชีผู้ขาย'
               required
             />
           </div>
@@ -129,6 +129,24 @@ function SupplierSignUpForm() {
             />
           </div>
         </div>
+        <div className='flex justify-center'>
+          <div>
+            <label
+              for='bank_account'
+              className='block mb-2 text-sm font-medium text-gray-1200 '
+            >
+              เลขที่บัญชีผู้ขาย
+            </label>
+            <input
+              type='text'
+              id='bank_account'
+              className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              placeholder='เลขที่บัญชีผู้ขาย'
+              required
+            />
+          </div>
+        </div>
+        <br />
         <div className='flex justify-center'>
           <div>
             <label

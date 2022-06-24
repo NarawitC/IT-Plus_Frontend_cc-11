@@ -1,7 +1,7 @@
 import SupplierSignUpForm from './SupplierSignUpForm';
 function SupplierSignUpPage() {
   return (
-    <div>
+    <div className='p-3 pl-[400px]'>
       <SupplierSignUpForm />
     </div>
   );

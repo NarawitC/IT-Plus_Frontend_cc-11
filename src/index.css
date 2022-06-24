@@ -32,6 +32,10 @@ body {
   border: 1px solid black;
 }
 
+.box-cal {
+  width: calc(100% - 256px);
+}
+
 .bg-gray-100 {
   background-color: #f3f4f6;
 }
