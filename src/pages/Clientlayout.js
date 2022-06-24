@@ -2,7 +2,10 @@ import React, { useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Client/layout/Header/Header';
 import SideDrawer from '../components/Client/layout/Header/SideDrawer';
+<<<<<<< HEAD
 import AuthContextProvider from '../contexts/Client/AuthCcontexts';
+=======
+>>>>>>> Feat-layout_route
 
 function Clientlayout() {
   const eldrawer = useRef();
