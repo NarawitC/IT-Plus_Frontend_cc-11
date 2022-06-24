@@ -33,7 +33,7 @@ function AddProductForm() {
   };
   return (
     <>
-      <form>
+      <form className='p-12'>
         <br />
         <h1 className='text-3xl'>เพิ่มสินค้า</h1>
 
@@ -100,7 +100,7 @@ function AddProductForm() {
             <br />
           </div>
         </div>
-        <div className='gap-3 flex flex-col'>
+        <div className='gap-2  grid  mb-6 lg:grid-cols-2'>
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
