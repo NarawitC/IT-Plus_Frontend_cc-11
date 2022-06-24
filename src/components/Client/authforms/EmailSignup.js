@@ -63,55 +63,56 @@ function EmailSignup() {
         }}
         schema={schema}
       >
-        <div className='mb-4'>
-          Email
-          <InputYup
-            type='email'
-            className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-            placeholder='Input email'
-            value={email}
-            onChange={(e) => {
-              setemail(e.target.value);
-            }}
-          />
-        </div>
-        <div className='mb-4'>
-          Phone Number
-          <InputYup
-            type='number'
-            className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-            placeholder='Input phone number'
-            value={phoneNumber}
-            onChange={(e) => {
-              setphoneNumber(e.target.value);
-            }}
-          />
-        </div>
-        <div className='mb-4'>
-          Password
-          <InputYup
-            type='password'
-            className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-            placeholder='Password'
-            value={password}
-            onChange={(e) => {
-              setpassword(e.target.value);
-            }}
-          />
-        </div>
-        <div className='mb-4'>
-          <InputYup
-            type='password'
-            className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-            placeholder='Confirm password'
-            value={confirmpassword}
-            onChange={(e) => {
-              setconfirmpassword(e.target.value);
-            }}
-          />
-        </div>
-        <label className='label cursor-pointer -mb-2 text-left'>
-          <InputYup
+        <InputYup
+          name='email'
+          text={'Email address'}
+          placeholder='Email Address'
+          className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+          // type='email'
+          // placeholder='Input email'
+          // value={email}
+          // onChange={(e) => {
+          //   setemail(e.target.value);
+          // }}
+        />
+        <InputYup
+          name='phoneNumber'
+          text={'Phone number'}
+          placeholder='Phone number'
+          // type='number'
+          className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+          // placeholder='Input phone number'
+          // value={phoneNumber}
+          // onChange={(e) => {
+          //   setphoneNumber(e.target.value);
+          // }}
+        />
+        <InputYup
+          name='password'
+          text={'Password'}
+          placeholder='Password'
+          className='form-control block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+          type='password'
+          // placeholder='Password'
+          // value={password}
+          // onChange={(e) => {
+          //   setpassword(e.target.value);
+          // }}
+        />
+        <InputYup
+          name='confirmPassword'
+          text={'Confirm password'}
+          placeholder='Confirm password'
+          type='password'
+          className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+          // placeholder='Confirm password'
+          // value={confirmpassword}
+          // onChange={(e) => {
+          //   setconfirmpassword(e.target.value);
+          // }}
+        />
+        <label className='label cursor-pointer my-2 text-left'>
+          <input
             type='checkbox'
             className='checkbox'
             onClick={(e) => {
@@ -120,7 +121,7 @@ function EmailSignup() {
             }}
           />
           <span className='label-text'>
-            Receive promotion information form IT Plus
+            Receive promotion information form IT Plus{' '}
           </span>
         </label>
         {/* <label className='label cursor-pointer text-left'>
@@ -134,15 +135,17 @@ function EmailSignup() {
           />
           <span className='text-left label-text'>accept terms of service</span>
         </label> */}
+        <SubmitButtonYup>
+          <SmPillButton
+            text={'SIGN UP'}
+            className=' bg-[#fffff] hover:bg-transparent border-2 w-full text-gray-900 hover:text-gray-900 font-medium h-9'
+            // icon={<AiOutlineMail size={25} className='absolute' />}
+            onClick={(e) => {
+              // setauthOption(1);
+            }}
+          />
+        </SubmitButtonYup>
       </FormYup>
-      <SmPillButton
-        text={'SIGN UP'}
-        className=' bg-[#fffff] hover:bg-transparent border-2 w-full text-gray-900 hover:text-gray-900 font-medium h-9'
-        // icon={<AiOutlineMail size={25} className='absolute' />}
-        onClick={(e) => {
-          // setauthOption(1);
-        }}
-      />
     </>
   );
 }

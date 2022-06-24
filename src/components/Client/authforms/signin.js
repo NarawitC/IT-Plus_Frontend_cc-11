@@ -33,7 +33,6 @@ function CSignin() {
           Sign up
         </a>
       </div>
-
       <div className='self-center  flex flex-col basis-5 w-4/6 mb-4 mt-2'>
         {isSignIn ? <EmailSignin /> : <EmailSignup />}
       </div>
