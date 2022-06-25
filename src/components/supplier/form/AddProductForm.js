@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { MdAddAPhoto } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
-import defaultPic from '../../../pictures/defaultPic.png';
+import AddPropertyRow from '../form/AddPropertyRow';
 function AddProductForm() {
   const inputElCover = useRef();
   const inputEl = useRef();
@@ -19,6 +19,8 @@ function AddProductForm() {
   const [subCategory, setSubCategory] = useState('');
   const [description, setDescription] = useState('');
   const [properties, setProperties] = useState([]);
+  console.log(properties);
+  const [index, setIndex] = useState(0);
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
 
   useEffect(() => {
@@ -26,10 +28,10 @@ function AddProductForm() {
       return;
     }
     const newImageURL = URL.createObjectURL(image);
-    console.log(newImageURL);
+    // console.log(newImageURL);
     setImageURL(newImageURL);
   }, [image]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-
+  // console.log({ imageURL: imageURL });
   const onCoverImageChange = (event) => {
     if (event.target.files[0]) {
       setImage(event.target.files[0]);
@@ -43,10 +45,10 @@ function AddProductForm() {
     const newImageURLs = Array.from(images).map((file) => {
       return URL.createObjectURL(file);
     });
-    console.log(newImageURLs);
+    // console.log(newImageURLs);
     setImageURLs(newImageURLs);
   }, [images]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-
+  // console.log({ imageURLs: imageURLs });
   const onImageChange = (event) => {
     //เวลามีการเลือก รูปภาพ, set ข้อมูล found ไปที่ state image
     // console.log(event.target.files);
@@ -55,7 +57,7 @@ function AddProductForm() {
       setImages(event.target.files);
     }
   };
-  console.log({ imageURLs: imageURLs });
+
   return (
     <>
       <form className='pl-64 pt-5'>
@@ -276,28 +278,56 @@ function AddProductForm() {
           </div>
         </div>
         <div>
-          <div className='flex gap-2 items-center'>
+          <div className='flex gap-2 items-center '>
             {<TbListDetails />}
             <h1>กรุณากรอกคุณสมบัติสินค้า</h1>
           </div>
-          <table className=''>
+          <br />
+          <table className='table w-[768px]'>
             <thead>
               <tr className=''>
+                <th className='w-[40px]'>ลำดับ</th>
+                <th className=''></th>
                 <th className=''>คุณสมบัติ</th>
                 <th className=''>รายละเอียด</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th>หน่วยความจำ</th>
-                <th>16GB</th>
-              </tr>
-              <tr>
-                <th>แบรนด์ซีพียู</th>
-                <th>Intel</th>
-              </tr>
-            </tbody>
           </table>
+          <tbody className=''>
+            {properties.map((el, index) => {
+              return (
+                <div className=''>
+                  <AddPropertyRow
+                    property={el}
+                    setProperties={setProperties}
+                    order={el.order}
+                    index={index}
+                  />
+                </div>
+              );
+            })}
+          </tbody>
+
+          <br />
+          <div className='flex justify-center'>
+            <button
+              type='button'
+              className='btn btn-info text-center hover:info-focus '
+              onClick={() => {
+                setIndex((index) => (index = index + 1));
+                setProperties([
+                  ...properties,
+                  {
+                    order: index + 1,
+                    key: '',
+                    value: '',
+                  },
+                ]);
+              }}
+            >
+              เพิ่มรายการ
+            </button>
+          </div>
         </div>
         <br />
         <div className=''>

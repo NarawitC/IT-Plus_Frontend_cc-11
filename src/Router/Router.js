@@ -1,15 +1,15 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import AdminLayout from '../pages/AdminLayout';
-import Clientlayout from '../pages/Clientlayout';
-import Landingpage from '../pages/Userpages/Landingpage';
-import ClientSignUpPage from '../pages/client/ClientSignUpPage';
-import CategoryPage from '../pages/client/CategoryPage';
-import ProductItemPage from '../pages/client/ProductItemPage';
-import CartPage from '../pages/client/CartPage';
-import PaymentPage from '../pages/client/PaymentPage';
-import SaleOrderPage from '../pages/client/SaleOrderPage';
-import MySpecPage from '../pages/client/MySpecPage';
-import BudgetMePage from '../pages/client/BudgetMePage';
+// import Clientlayout from '../pages/Clientlayout';
+// import Landingpage from '../pages/Userpages/Landingpage';
+// import ClientSignUpPage from '../pages/client/ClientSignUpPage';
+// import CategoryPage from '../pages/client/CategoryPage';
+// import ProductItemPage from '../pages/client/ProductItemPage';
+// import CartPage from '../pages/client/CartPage';
+// import PaymentPage from '../pages/client/PaymentPage';
+// import SaleOrderPage from '../pages/client/SaleOrderPage';
+// import MySpecPage from '../pages/client/MySpecPage';
+// import BudgetMePage from '../pages/client/BudgetMePage';
 
 import SupplierLayout from '../components/supplier/layout/SupplierLayout';
 import SupplierHomePage from '../pages/supplier/SupplierHomePage';
@@ -20,6 +20,7 @@ import DynamicBalancePage from '../pages/supplier/DynamicBalancePage';
 import DynamicOrderPage from '../pages/supplier/DynamicOrderPage';
 import DynamicProductPage from '../pages/supplier/DynamicProductPage';
 import TrackingPage from '../pages/supplier/TrackingPage';
+import OrderDetailTrackingPage from '../pages/supplier/OrderDetailTrackingPage';
 function Router() {
   return (
     <Routes>
@@ -43,6 +44,7 @@ function Router() {
         <Route path='my-shop' element={<MyShopPage />} />
         <Route path='balance-wallet' element={<DynamicBalancePage />} />
         <Route path='order' element={<DynamicOrderPage />} />
+        <Route path='order/:orderId' element={<OrderDetailTrackingPage />} />
         <Route path='tracking' element={<TrackingPage />} />
       </Route>
       <Route path='/admin' element={<AdminLayout />}></Route>
