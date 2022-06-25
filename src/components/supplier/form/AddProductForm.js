@@ -2,8 +2,13 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { MdAddAPhoto } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
+import defaultPic from '../../../pictures/defaultPic.png';
 function AddProductForm() {
+  const inputElCover = useRef();
   const inputEl = useRef();
+  const [image, setImage] = useState(null);
+  const [imageURL, setImageURL] = useState('');
+
   const [images, setImages] = useState(null);
   const [imageURLs, setImageURLs] = useState([]);
   const [name, setName] = useState('');
@@ -15,6 +20,21 @@ function AddProductForm() {
   const [description, setDescription] = useState('');
   const [properties, setProperties] = useState([]);
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
+
+  useEffect(() => {
+    if (image === null) {
+      return;
+    }
+    const newImageURL = URL.createObjectURL(image);
+    console.log(newImageURL);
+    setImageURL(newImageURL);
+  }, [image]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+
+  const onCoverImageChange = (event) => {
+    if (event.target.files[0]) {
+      setImage(event.target.files[0]);
+    }
+  };
 
   useEffect(() => {
     if (images === null) {
@@ -40,32 +60,68 @@ function AddProductForm() {
     <>
       <form className='pl-64 pt-5'>
         <br />
-
         <h1 className='text-3xl'>เพิ่มสินค้า</h1>
-        <div>
-          <div
-            className=' relative  justify-center'
-            role='button'
-            onClick={() => inputEl.current.click()}
-          >
+        <div className=''>
+          <br />
+          <div className='flex justify-center flex-col'>
+            <div
+              className=' relative justify-center border-2  p-2 rounded-md 
+                  '
+              role='button'
+              onClick={() => inputElCover.current.click()}
+            >
+              <div className='flex justify-center flex-col items-center'>
+                <div className='flex flex-col justify-center'>
+                  {imageURL ? (
+                    <>
+                      <img
+                        className='w-60 h-60'
+                        src={imageURL}
+                        alt=''
+                        // alt="imageURL"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <div className='flex flex-col'>
+                        <div className='border-2  hover:border-primary-focus w-60 h-60 rounded-md flex justify-center items-center '>
+                          {<MdAddAPhoto />}
+                        </div>
+                        <p className='text-center'>Cover Photo</p>
+                      </div>
+                    </>
+                  )}
+                </div>
+                <br />
+                <p className='btn btn-primary rounded-lg  text-center'>
+                  อัพโหลดรูป
+                </p>
+              </div>
+              <div className='flex justify-center'>
+                <input
+                  type='file'
+                  accept='image/*'
+                  className='hidden w-[350px] '
+                  ref={inputElCover}
+                  onChange={onCoverImageChange}
+                />
+              </div>
+            </div>
             <br />
-            <div className='flex justify-center'>
-              <input
-                type='file'
-                multiple
-                accept='image/*'
-                className='w-[350px] '
-                ref={inputEl}
-                onChange={onImageChange}
-              />
+            <div
+              className=' flex flex-col relative justify-center border-2  p-2 rounded-md 
+                  '
+              role='button'
+              onClick={() => inputEl.current.click()}
+            >
               <div className='flex justify-center items-center gap-2'>
-                {imageURLs.length === 0 ? (
+                {imageURLs.length > 0 ? (
                   imageURLs.map((el, index) => {
                     return (
                       <div className='flex flex-col'>
-                        <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                        <div className='border-2  hover:border-primary-focus w-40 h-40 rounded-md flex justify-center items-center'>
                           <img
-                            className='w-32 h-32 rounded-md object-fit'
+                            className='w-40 h-40 rounded-md object-fit p-2'
                             src={el}
                             alt={index}
                           />
@@ -80,38 +136,28 @@ function AddProductForm() {
                       <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
                         {<MdAddAPhoto />}
                       </div>
-                      <p className='text-center'>Cover Photo</p>
-                    </div>
-                    <div className='flex flex-col'>
-                      <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
-                        {<MdAddAPhoto />}
-                      </div>
-                      <p className='text-center'>Image 1</p>
-                    </div>
-                    <div className='flex flex-col'>
-                      <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
-                        {<MdAddAPhoto />}
-                      </div>
-                      <p className='text-center'>Image 2</p>
-                    </div>
-                    <div className='flex flex-col'>
-                      <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
-                        {<MdAddAPhoto />}
-                      </div>
-                      <p className='text-center'>Image 3</p>
-                    </div>
-                    <div className='flex flex-col'>
-                      <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
-                        {<MdAddAPhoto />}
-                      </div>
-                      <p className='text-center'>Image 4</p>
                     </div>
                   </div>
                 )}
               </div>
+              <br />
+              <div className='flex flex-col justify-center'>
+                <div className='flex justify-center'>
+                  <input
+                    type='file'
+                    multiple
+                    accept='image/*'
+                    className='hidden w-[350px] '
+                    ref={inputEl}
+                    onChange={onImageChange}
+                  />
+                  <p className='btn btn-secondary'>กรุณาอัพโหลดรูปสินค้า</p>
+                </div>
+              </div>
             </div>
             <br />
           </div>
+          <br />
         </div>
         <div className='gap-2  grid  mb-6 lg:grid-cols-2'>
           <div className=''>

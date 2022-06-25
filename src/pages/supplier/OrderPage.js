@@ -5,19 +5,19 @@ function OrderPage() {
     <div className=''>
       <div className='h-[185px]'>
         <div>
-          <h className='text-4xl pl-4 '>การขายของฉัน</h>
+          <h className='text-4xl pl-4 '>คำสั่งซื้อทั้งหมด</h>
         </div>
         <br />
         <div className='w-[740px] flex p-2'>
           <div className='flex '>
-            <div className='w-[270px]  h-[53px] flex items-center justify-center text-lg'>
+            <div className='w-[270px]  h-[53px] flex items-center justify-center text-lg gap-2'>
               <label for='searches' className=''>
                 ค้นหาโดย:
               </label>
               <select
                 name='searches'
                 id='searches'
-                className=' text-bold text-primary-focus border-2 h-[53px] rounded-lg p-2'
+                className=' text-bold text-primary border-2 h-[53px] rounded-lg p-2'
               >
                 <option value='orderId'>หมายเลขคำสั่งซื้อ</option>
                 <option value='userId'>ชื่อลูกค้า</option>
@@ -29,7 +29,7 @@ function OrderPage() {
               <input
                 type='text'
                 placeholder='ค้นหา...'
-                className='input  w-[395px] text-lg '
+                className='input w-[395px] text-lg '
               />
             </div>
           </div>
