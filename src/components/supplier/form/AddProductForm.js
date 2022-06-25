@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { MdAddAPhoto } from 'react-icons/md';
+import { TbListDetails } from 'react-icons/tb';
 function AddProductForm() {
   const inputEl = useRef();
-  const [image, setImage] = useState(null);
-  const [imageURL, setImageURL] = useState('');
+  const [images, setImages] = useState(null);
+  const [imageURLs, setImageURLs] = useState([]);
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [brand, setBrand] = useState('');
@@ -12,25 +13,29 @@ function AddProductForm() {
   const [category, setCategory] = useState('');
   const [subCategory, setSubCategory] = useState('');
   const [description, setDescription] = useState('');
+  const [properties, setProperties] = useState([]);
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
 
   useEffect(() => {
-    if (image === null) {
+    if (images === null) {
       return;
     }
-    const newImageURL = URL.createObjectURL(image);
-    console.log(newImageURL);
-    setImageURL(newImageURL);
-  }, [image]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+    const newImageURLs = Array.from(images).map((file) => {
+      return URL.createObjectURL(file);
+    });
+    console.log(newImageURLs);
+    setImageURLs(newImageURLs);
+  }, [images]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
 
   const onImageChange = (event) => {
     //เวลามีการเลือก รูปภาพ, set ข้อมูล found ไปที่ state image
     // console.log(event.target.files);
     // setImage(event.target.files);
-    if (event.target.files[0]) {
-      setImage(event.target.files[0]);
+    if (event.target.files) {
+      setImages(event.target.files);
     }
   };
+  console.log({ imageURLs: imageURLs });
   return (
     <>
       <form className='pl-64 pt-5'>
@@ -47,20 +52,28 @@ function AddProductForm() {
             <div className='flex justify-center'>
               <input
                 type='file'
+                multiple
                 accept='image/*'
-                className='hidden w-[350px] '
+                className='w-[350px] '
                 ref={inputEl}
                 onChange={onImageChange}
               />
-              <div className='flex flex-col justify-center items-center'>
-                {imageURL ? (
-                  <>
-                    <img
-                      className='w-32 h-32 rounded-md'
-                      src={imageURL}
-                      alt='imageURL'
-                    />
-                  </>
+              <div className='flex justify-center items-center gap-2'>
+                {imageURLs.length === 0 ? (
+                  imageURLs.map((el, index) => {
+                    return (
+                      <div className='flex flex-col'>
+                        <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                          <img
+                            className='w-32 h-32 rounded-md object-fit'
+                            src={el}
+                            alt={index}
+                          />
+                        </div>
+                        <p className='text-center'>{`Image ${index + 1}`}</p>
+                      </div>
+                    );
+                  })
                 ) : (
                   <div className='flex gap-4'>
                     <div className='flex flex-col'>
@@ -154,7 +167,7 @@ function AddProductForm() {
                 placeholder='หมวดหมู่สินค้าย่อย'
                 required
                 value={subCategory}
-                onChange={(event) => setCategory(event.target.value)}
+                onChange={(event) => setSubCategory(event.target.value)}
               />
             </div>
           </div>
@@ -216,6 +229,31 @@ function AddProductForm() {
             </div>
           </div>
         </div>
+        <div>
+          <div className='flex gap-2 items-center'>
+            {<TbListDetails />}
+            <h1>กรุณากรอกคุณสมบัติสินค้า</h1>
+          </div>
+          <table className=''>
+            <thead>
+              <tr className=''>
+                <th className=''>คุณสมบัติ</th>
+                <th className=''>รายละเอียด</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>หน่วยความจำ</th>
+                <th>16GB</th>
+              </tr>
+              <tr>
+                <th>แบรนด์ซีพียู</th>
+                <th>Intel</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br />
         <div className=''>
           <label
             for='description'

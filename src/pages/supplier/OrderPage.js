@@ -1,6 +1,6 @@
 import prodd from '../../pictures/prodd.png';
 import proddd from '../../pictures/proddd.png';
-function OrderTrackingPage() {
+function OrderPage() {
   return (
     <div className=''>
       <div className='h-[185px]'>
@@ -183,4 +183,4 @@ function OrderTrackingPage() {
   );
 }
 
-export default OrderTrackingPage;
+export default OrderPage;

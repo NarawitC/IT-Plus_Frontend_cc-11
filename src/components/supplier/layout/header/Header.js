@@ -14,7 +14,7 @@ function Header() {
   const modalRef = useRef();
   return (
     <>
-      <div className=' h-[80px] bg-primary flex items-center '>
+      <div className=' h-[80px] bg-gradient-to-r from-secondary to-primary flex items-center '>
         <div className='flex justify-between  items-center w-screen'>
           <Link to={`/supplier`}>
             <button className='flex items-center text-white text-3xl w-[150px] justify-center gap-1'>

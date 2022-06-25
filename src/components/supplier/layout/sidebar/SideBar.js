@@ -3,13 +3,19 @@ import { TbTruckDelivery } from 'react-icons/tb';
 import { BsShopWindow } from 'react-icons/bs';
 import { MdOutlineAccountBalanceWallet } from 'react-icons/md';
 import { FiShoppingBag } from 'react-icons/fi';
+import { CgFileDocument } from 'react-icons/cg';
 import { useState } from 'react';
 
 const mockList = [
   {
+    text: 'คำสั่งซื้อ',
+    icon: <CgFileDocument />,
+    sub: [{ name: 'คำสั่งซื้อทั่งหมด', page: 'order' }],
+  },
+  {
     text: 'การจัดส่ง',
     icon: <TbTruckDelivery />,
-    sub: [{ name: 'การจัดส่งของฉัน', page: 'order-tracking-page' }],
+    sub: [{ name: 'การจัดส่งของฉัน', page: 'tracking' }],
   },
   {
     text: 'การเงิน',
