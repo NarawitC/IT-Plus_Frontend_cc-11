@@ -1,7 +1,7 @@
 import IconProperty from '../../../components/Client/products/productInfo/icons/product-spec.svg';
 
 function Property() {
-  const mockProperty = [
+  const mockProperties = [
     { topic: 'ประเภทพาเนล', discription: 'IPS' },
     { topic: 'ขนาดหน้าจอ', discription: '42.5"' },
     { topic: 'รูปแบบหน้าจอ', discription: 'จอแบน' },
