@@ -4,13 +4,29 @@ import { MdAddAPhoto } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
 import AddPropertyRow from '../form/AddPropertyRow';
 function AddProductForm() {
-  const inputElCover = useRef();
-  const inputEl = useRef();
+  // const inputEl = useRef();
+  const inputElMain = useRef();
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState('');
 
-  const [images, setImages] = useState(null);
-  const [imageURLs, setImageURLs] = useState([]);
+  const inputEl1 = useRef();
+  const [subPicture1, setSubPicture1] = useState(null);
+  const [subPictureURL1, setSubPictureURL1] = useState('');
+
+  const inputEl2 = useRef();
+  const [subPicture2, setSubPicture2] = useState(null);
+  const [subPictureURL2, setSubPictureURL2] = useState('');
+
+  const inputEl3 = useRef();
+  const [subPicture3, setSubPicture3] = useState(null);
+  const [subPictureURL3, setSubPictureURL3] = useState('');
+
+  const inputEl4 = useRef();
+  const [subPicture4, setSubPicture4] = useState(null);
+  const [subPictureURL4, setSubPictureURL4] = useState('');
+
+  // const [images, setImages] = useState(null);
+  // const [imageURLs, setImageURLs] = useState([]);
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [brand, setBrand] = useState('');
@@ -56,31 +72,92 @@ function AddProductForm() {
     setImageURL(newImageURL);
   }, [image]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
   // console.log({ imageURL: imageURL });
-  const onCoverImageChange = (event) => {
+  const onMainPictureChange = (event) => {
     if (event.target.files[0]) {
       setImage(event.target.files[0]);
     }
   };
-
+  //-------------------------------------------------------------------------------
   useEffect(() => {
-    if (images === null) {
+    if (subPicture1 === null) {
       return;
     }
-    const newImageURLs = Array.from(images).map((file) => {
-      return URL.createObjectURL(file);
-    });
-    // console.log(newImageURLs);
-    setImageURLs(newImageURLs);
-  }, [images]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-  // console.log({ imageURLs: imageURLs });
-  const onImageChange = (event) => {
-    //เวลามีการเลือก รูปภาพ, set ข้อมูล found ไปที่ state image
-    // console.log(event.target.files);
-    // setImage(event.target.files);
-    if (event.target.files) {
-      setImages(event.target.files);
+    const newSubPicture1URL = URL.createObjectURL(subPicture1);
+    // console.log(newImageURL);
+    setSubPictureURL1(newSubPicture1URL);
+  }, [subPicture1]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+  // console.log({ imageURL: imageURL });
+  const onSubPicture1Change = (event) => {
+    if (event.target.files[0]) {
+      setSubPicture1(event.target.files[0]);
     }
   };
+  //-------------------------------------------------------------------------------
+  useEffect(() => {
+    if (subPicture2 === null) {
+      return;
+    }
+    const newSubPicture2URL = URL.createObjectURL(subPicture2);
+    // console.log(newImageURL);
+    setSubPictureURL2(newSubPicture2URL);
+  }, [subPicture2]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+  // console.log({ imageURL: imageURL });
+  const onSubPicture2Change = (event) => {
+    if (event.target.files[0]) {
+      setSubPicture2(event.target.files[0]);
+    }
+  };
+  //-------------------------------------------------------------------------------
+  useEffect(() => {
+    if (subPicture3 === null) {
+      return;
+    }
+    const newSubPicture3URL = URL.createObjectURL(subPicture3);
+    // console.log(newImageURL);
+    setSubPictureURL3(newSubPicture3URL);
+  }, [subPicture3]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+  // console.log({ imageURL: imageURL });
+  const onSubPicture3Change = (event) => {
+    if (event.target.files[0]) {
+      setSubPicture3(event.target.files[0]);
+    }
+  };
+  //-------------------------------------------------------------------------------
+  useEffect(() => {
+    if (subPicture4 === null) {
+      return;
+    }
+    const newSubPicture4URL = URL.createObjectURL(subPicture4);
+    // console.log(newImageURL);
+    setSubPictureURL4(newSubPicture4URL);
+  }, [subPicture4]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+  // console.log({ imageURL: imageURL });
+  const onSubPicture4Change = (event) => {
+    if (event.target.files[0]) {
+      setSubPicture4(event.target.files[0]);
+    }
+  };
+  //-------------------------------------------------------------------------------
+  // useEffect(() => {
+  //   if (images === null) {
+  //     return;
+  //   }
+  //   const newImageURLs = Array.from(images).map((file) => {
+  //     return URL.createObjectURL(file);
+  //   });
+  //   // console.log(newImageURLs);
+  //   setImageURLs(newImageURLs);
+  // }, [images]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+  // // console.log({ imageURLs: imageURLs });
+  // const onImageChange = (event) => {
+  //   //เวลามีการเลือก รูปภาพ, set ข้อมูล found ไปที่ state image
+  //   // console.log(event.target.files);
+  //   // setImage(event.target.files);
+  //   if (event.target.files) {
+  //     setImages(event.target.files);
+  //   }
+  // };
+  //---------------------------------------------------------------------------
 
   return (
     <>
@@ -94,18 +171,19 @@ function AddProductForm() {
               className=' relative justify-center border-2  p-2 rounded-md 
                   '
               role='button'
-              onClick={() => inputElCover.current.click()}
+              onClick={() => inputElMain.current.click()}
             >
               <div className='flex justify-center flex-col items-center'>
                 <div className='flex flex-col justify-center'>
                   {imageURL ? (
                     <>
-                      <img
-                        className='w-60 h-60'
-                        src={imageURL}
-                        alt=''
-                        // alt="imageURL"
-                      />
+                      <div className='border-2 rounded p-2'>
+                        <img
+                          className='w-60 h-60'
+                          src={imageURL}
+                          alt='imageURL'
+                        />
+                      </div>
                     </>
                   ) : (
                     <>
@@ -113,7 +191,7 @@ function AddProductForm() {
                         <div className='border-2  hover:border-primary-focus w-60 h-60 rounded-md flex justify-center items-center '>
                           {<MdAddAPhoto />}
                         </div>
-                        <p className='text-center'>Cover Photo</p>
+                        <p className='text-center'>รูปหลัก</p>
                       </div>
                     </>
                   )}
@@ -128,13 +206,164 @@ function AddProductForm() {
                   type='file'
                   accept='image/*'
                   className='hidden w-[350px] '
-                  ref={inputElCover}
-                  onChange={onCoverImageChange}
+                  ref={inputElMain}
+                  onChange={onMainPictureChange}
                 />
               </div>
             </div>
             <br />
-            <div
+
+            <div className='flex gap-2 justify-center'>
+              <div
+                className='relative flex flex-col justify-center   p-2 rounded-md 
+                  '
+                role='button'
+                onClick={() => inputEl1.current.click()}
+              >
+                {subPictureURL1 ? (
+                  <>
+                    <div className='border-2 rounded p-2 hover:border-primary-focus w-32 h-32'>
+                      <img
+                        className=''
+                        src={subPictureURL1}
+                        alt='subPictureURL1'
+                      />
+                    </div>
+                    <br />
+                    <p className='text-center'>{`Sub-Image 1`}</p>
+                  </>
+                ) : (
+                  <>
+                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                      {<MdAddAPhoto />}
+                    </div>
+                    <br />
+                    <p className='text-center'>{`Sub-Image 1`}</p>
+                  </>
+                )}
+              </div>
+              <input
+                type='file'
+                accept='image/*'
+                className='hidden '
+                ref={inputEl1}
+                onChange={onSubPicture1Change}
+              />
+              <div
+                className=' flex flex-col relative justify-center   p-2 rounded-md 
+                  '
+                role='button'
+                onClick={() => inputEl2.current.click()}
+              >
+                {subPictureURL2 ? (
+                  <>
+                    <div className=' w-32 h-32 border-2 rounded p-2 hover:border-primary-focus'>
+                      <img
+                        className=''
+                        src={subPictureURL2}
+                        alt='subPictureURL2'
+                      />
+                    </div>
+                    <br />
+                    <p className='text-center'>{`Sub-Image 2`}</p>
+                  </>
+                ) : (
+                  <>
+                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                      {<MdAddAPhoto />}
+                    </div>
+                    <br />
+                    <p className='text-center'>{`Sub-Image 2`}</p>
+                    <input
+                      type='file'
+                      accept='image/*'
+                      className='hidden  '
+                      ref={inputEl2}
+                      onChange={onSubPicture2Change}
+                    />
+                  </>
+                )}
+              </div>
+              <input
+                type='file'
+                accept='image/*'
+                className='hidden  '
+                ref={inputEl2}
+                onChange={onSubPicture2Change}
+              />
+              <div
+                className=' flex flex-col relative justify-center  p-2 rounded-md 
+                  '
+                role='button'
+                onClick={() => inputEl3.current.click()}
+              >
+                {subPictureURL3 ? (
+                  <>
+                    <div className=' w-32 h-32 border-2 rounded p-2 hover:border-primary-focus'>
+                      <img
+                        className=''
+                        src={subPictureURL3}
+                        alt='subPictureURL3'
+                      />
+                    </div>
+                    <br />
+                    <p className='text-center'>{`Sub-Image 3`}</p>
+                  </>
+                ) : (
+                  <>
+                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                      {<MdAddAPhoto />}
+                    </div>
+                    <br />
+                    <p className='text-center'>{`Sub-Image 3`}</p>
+                  </>
+                )}
+              </div>
+              <input
+                type='file'
+                accept='image/*'
+                className='hidden  '
+                ref={inputEl3}
+                onChange={onSubPicture3Change}
+              />
+              <div
+                className=' flex flex-col relative justify-center  p-2 rounded-md hover:border-primary-focus
+                  '
+                role='button'
+                onClick={() => inputEl4.current.click()}
+              >
+                {subPictureURL4 ? (
+                  <div className=''>
+                    <div className='border-2 rounded p-2 w-32 h-32'>
+                      <img
+                        className=''
+                        src={subPictureURL4}
+                        alt='subPictureURL4'
+                      />
+                    </div>
+                    <br />
+                    <p className='text-center'>{`Sub-Image 4`}</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                      {<MdAddAPhoto />}
+                    </div>
+                    <br />
+                    <p className='text-center'>{`Sub-Image 4`}</p>
+                  </>
+                )}
+              </div>
+              <input
+                type='file'
+                accept='image/*'
+                className='hidden'
+                ref={inputEl4}
+                onChange={onSubPicture4Change}
+              />
+            </div>
+
+            {/* <div
               className=' flex flex-col relative justify-center border-2  p-2 rounded-md 
                   '
               role='button'
@@ -180,7 +409,7 @@ function AddProductForm() {
                   <p className='btn btn-secondary'>กรุณาอัพโหลดรูปสินค้า</p>
                 </div>
               </div>
-            </div>
+            </div> */}
             <br />
           </div>
           <br />
