@@ -1,7 +1,7 @@
 function BreadCrumbs() {
   return (
     <div>
-      <div class="text-sm breadcrumbs  border-b-2  opacity-50">
+      <div class='text-sm breadcrumbs  border-b-2  opacity-50'>
         <ul>
           <li>
             <a>หน้าหลัก</a>
