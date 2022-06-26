@@ -20,7 +20,7 @@ const mockList = [
   {
     text: 'การเงิน',
     icon: <MdOutlineAccountBalanceWallet />,
-    sub: [{ name: 'Supplier Balance', page: 'balance-page' }],
+    sub: [{ name: 'Supplier Balance', page: 'balance-wallet' }],
   },
   {
     text: 'สินค้า',
@@ -42,7 +42,7 @@ function SideBar() {
 
   return (
     <aside className='' aria-label='Sidebar'>
-      <div className='overflow-y-auto py-4 px-3 bg-gray-50  dark:bg-gray-800 h-screen '>
+      <div className='overflow-y-auto py-4 px-3 bg-gray-50  dark:bg-gray-800 h-screen w-[256px]'>
         <ul className='space-y-2'>
           {mockList.map((el, idx) => {
             return (

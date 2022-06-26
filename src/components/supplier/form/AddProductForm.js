@@ -19,9 +19,33 @@ function AddProductForm() {
   const [subCategory, setSubCategory] = useState('');
   const [description, setDescription] = useState('');
   const [properties, setProperties] = useState([]);
-  console.log(properties);
+  const [subCatOptions, setSubCatOptions] = useState([]);
   const [index, setIndex] = useState(0);
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
+  //get all sup cat by cat
+  useEffect(() => {
+    if (category === 'computer-notebook') {
+      setSubCatOptions([
+        { value: 'notebook', displayText: 'โน๊ตบุ๊ค' },
+        { value: 'tablet', displayText: 'แท็ปเล็ต' },
+        { value: 'computer-monitor', displayText: 'จอคอม' },
+      ]);
+    }
+    if (category === 'it-accessories') {
+      setSubCatOptions([
+        { value: 'mouse', displayText: 'เมาส์' },
+        { value: 'keyboard', displayText: 'คีย์บอร์ด' },
+        { value: 'power-supply', displayText: 'ตัวจ่ายไฟ' },
+      ]);
+    }
+    if (category === 'music-movie') {
+      setSubCatOptions([
+        { value: 'earphone', displayText: 'หูฟัง' },
+        { value: 'speaker', displayText: 'ลำโพง' },
+      ]);
+    }
+    console.log(subCatOptions);
+  }, [category]);
 
   useEffect(() => {
     if (image === null) {
@@ -60,7 +84,7 @@ function AddProductForm() {
 
   return (
     <>
-      <form className='pl-64 pt-5'>
+      <form className='pt-5'>
         <br />
         <h1 className='text-3xl'>เพิ่มสินค้า</h1>
         <div className=''>
@@ -184,20 +208,25 @@ function AddProductForm() {
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
-                for='category'
+                htmlFor='category'
                 className='block mb-2 text-sm font-medium text-gray-1200 '
               >
                 หมวดหมู่สินค้า
               </label>
-              <input
-                type='text'
+              <select
                 id='category'
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                placeholder='หมวดหมู่สินค้า'
                 required
                 value={category}
                 onChange={(event) => setCategory(event.target.value)}
-              />
+              >
+                <option className=''>กรุณาเลือกหมวดหมู่สินค้า</option>
+                <option value='computer-notebook'>
+                  คอมพิวเตอร์และโน๊ตบุ๊ค
+                </option>
+                <option value='it-accessories'>อุปกรณ์ไอที</option>
+                <option value='music-movie'>ดูหนัง ฟังเพลง</option>
+              </select>
             </div>
           </div>
           <div className=''>
@@ -208,15 +237,29 @@ function AddProductForm() {
               >
                 หมวดหมู่สินค้าย่อย
               </label>
-              <input
-                type='text'
+              <select
                 id='subCategory'
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                placeholder='หมวดหมู่สินค้าย่อย'
                 required
                 value={subCategory}
                 onChange={(event) => setSubCategory(event.target.value)}
-              />
+              >
+                <option className=''>กรุณาเลือกหมวดหมู่สินค้าย่อย</option>
+                {subCatOptions.map((el, index) => {
+                  return (
+                    <>
+                      <option key={index} value={el.value}>
+                        {el.displayText}
+                      </option>
+                    </>
+                  );
+                })}
+                {/* <option value='computer-notebook'>
+                  คอมพิวเตอร์และโน๊ตบุ๊ค
+                </option>
+                <option value='it-accessories'>อุปกรณ์ไอที</option>
+                <option value='music-movie'>ดูหนัง ฟังเพลง</option> */}
+              </select>
             </div>
           </div>
           <div className=''>
@@ -319,8 +362,8 @@ function AddProductForm() {
                   ...properties,
                   {
                     order: index + 1,
-                    key: '',
-                    value: '',
+                    topic: '',
+                    description: '',
                   },
                 ]);
               }}

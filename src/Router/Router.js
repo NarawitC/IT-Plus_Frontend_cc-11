@@ -16,11 +16,11 @@ import SupplierHomePage from '../pages/supplier/SupplierHomePage';
 import SupplierSignUpPage from '../pages/supplier/SupplierSignUpPage';
 import DynamicAddProductPage from '../pages/supplier/DynamicAddProductPage';
 import MyShopPage from '../pages/supplier/MyShopPage';
-import DynamicBalancePage from '../pages/supplier/DynamicBalancePage';
+import BalanceWalletPage from '../pages/supplier/BalanceWalletPage';
 import DynamicOrderPage from '../pages/supplier/DynamicOrderPage';
 import DynamicProductPage from '../pages/supplier/DynamicProductPage';
 import TrackingPage from '../pages/supplier/TrackingPage';
-import OrderDetailTrackingPage from '../pages/supplier/OrderDetailTrackingPage';
+import DynamicSelectedOrderPage from '../pages/supplier/DynamicSelectedOrderPage';
 function Router() {
   return (
     <Routes>
@@ -42,9 +42,9 @@ function Router() {
         <Route path='my-product' element={<DynamicProductPage />} />
         <Route path='add-product' element={<DynamicAddProductPage />} />
         <Route path='my-shop' element={<MyShopPage />} />
-        <Route path='balance-wallet' element={<DynamicBalancePage />} />
+        <Route path='balance-wallet' element={<BalanceWalletPage />} />
         <Route path='order' element={<DynamicOrderPage />} />
-        <Route path='order/:orderId' element={<OrderDetailTrackingPage />} />
+        <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} />
         <Route path='tracking' element={<TrackingPage />} />
       </Route>
       <Route path='/admin' element={<AdminLayout />}></Route>

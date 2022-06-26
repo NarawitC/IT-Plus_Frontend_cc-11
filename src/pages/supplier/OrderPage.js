@@ -9,20 +9,20 @@ function OrderPage() {
         </div>
         <br />
         <div className='w-[740px] flex p-2'>
-          <div className='flex '>
-            <div className='w-[270px]  h-[53px] flex items-center justify-center text-lg gap-2'>
+          <div className='flex'>
+            <div className='w-[360px]  h-[53px] flex items-center justify-center text-lg gap-4 '>
               <label for='searches' className=''>
                 ค้นหาโดย:
               </label>
               <select
                 name='searches'
                 id='searches'
-                className=' text-bold text-primary border-2 h-[53px] rounded-lg p-2'
+                className=' text-bold text-primary border-2 h-[53px] w-[230px] rounded-lg '
               >
                 <option value='orderId'>หมายเลขคำสั่งซื้อ</option>
                 <option value='userId'>ชื่อลูกค้า</option>
                 <option value='product'>ชื่อสินค้า</option>
-                <option value='trackingId'>Tracking Id</option>
+                <option value='deliveryStatus'>สถานะการจัดส่ง</option>
               </select>
             </div>
             <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
@@ -123,8 +123,8 @@ function OrderPage() {
               <th>
                 <label class='swap'>
                   <input type='checkbox' />
-                  <div className='swap-on text-success  '>CONFIRMED</div>
-                  <div className='swap-off text-warning '>PENDING</div>
+                  <div className='swap-off text-success  '>CONFIRMED</div>
+                  <div className='swap-on text-warning '>PENDING</div>
                 </label>
               </th>
               <th>
@@ -165,8 +165,8 @@ function OrderPage() {
               <th>
                 <label class='swap'>
                   <input type='checkbox' />
-                  <div className='swap-on text-success '>CONFIRMED</div>
-                  <div className='swap-off text-warning'>PENDING</div>
+                  <div className='swap-off text-success '>CONFIRMED</div>
+                  <div className='swap-on text-warning'>PENDING</div>
                 </label>
               </th>
               <th>

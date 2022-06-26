@@ -49,7 +49,7 @@ function Header() {
                       for='e-mail'
                       className='block mb-2 text-sm font-medium text-gray-1200 '
                     >
-                      Your email
+                      E-mail
                     </label>
                     <input
                       type='text'
@@ -65,7 +65,7 @@ function Header() {
                       for='password'
                       className='block mb-2 text-sm font-medium text-gray-1200 '
                     >
-                      Your password
+                      รหัสผ่าน
                     </label>
                     <input
                       type='text'
@@ -93,7 +93,7 @@ function Header() {
                     className='btn btn-primary'
                     onClick={() => {}}
                   >
-                    Login
+                    เข้าสู่ระบบ
                   </button>
                 </div>
               </div>

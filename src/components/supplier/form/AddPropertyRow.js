@@ -15,7 +15,7 @@ function AddPropertyRow({ property, setProperties, order, index }) {
     setProperties(property.filter((el) => el.order !== order));
   };
 
-  //   key={el.order}
+  //   topic={el.order}
   // onChange={(e) =>
   //     setProducts((prev) => [
   //       ...prev.slice(0, index),
@@ -49,30 +49,30 @@ function AddPropertyRow({ property, setProperties, order, index }) {
                 ...property.slice(0, index),
                 {
                   ...property[index],
-                  key: event.target.value,
+                  topic: event.target.value,
                 },
                 ...property.slice(index + 1),
               ])
             }
-            value={property.key}
+            value={property.topic}
             type='text'
             placeholder='คุณสมบัติ'
           />
         </td>
         <td className='w-[360px] '>
           <input
-            className='p-2 w-[350px] h-10 '
+            className='p-2 w-[337px] h-10 '
             onChange={(event) =>
               setProperties((property) => [
                 ...property.slice(0, index),
                 {
                   ...property[index],
-                  value: event.target.value.trim(),
+                  description: event.target.value.trim(),
                 },
                 ...property.slice(index + 1),
               ])
             }
-            value={property.value}
+            value={property.description}
             type='text'
             placeholder='รายละเอียด'
           />
