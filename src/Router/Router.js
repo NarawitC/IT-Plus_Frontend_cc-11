@@ -14,12 +14,14 @@ import MyShopPage from '../pages/supplier/MyShopPage';
 import DynamicBalancePage from '../pages/supplier/DynamicBalancePage';
 import DynamicOrderTrackingPage from '../pages/supplier/DynamicOrderTrackingPage';
 import DynamicProductPage from '../pages/supplier/DynamicProductPage';
+import ProductInfoPage from '../pages/product/product-info/ProductInfoPage';
 
 function Router() {
   return (
     <Routes>
       <Route path='/' element={<Clientlayout />}>
         <Route path='' element={<Landingpage />} />
+        <Route path='/product/:productId' element={<ProductInfoPage />} />
       </Route>
       <Route path='/supplier' element={<SupplierLayout />}>
         <Route path='' element={<SupplierHomePage />} />
