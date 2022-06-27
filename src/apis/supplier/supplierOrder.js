@@ -4,6 +4,6 @@ export const getAllOrderItemsBySupplierId = async () => {
   return await axios.get('/supplier/order-item');
 };
 
-export const getOrderItemsById = async (orderItemId) => {
+export const getOrderItemsByOrderItemId = async (orderItemId) => {
   return await axios.get(`/supplier/order-item/${orderItemId}`);
 };

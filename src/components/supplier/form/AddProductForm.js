@@ -170,7 +170,7 @@ function AddProductForm() {
           <br />
           <div className='flex justify-center flex-col'>
             <div
-              className=' relative justify-center border-2  p-2 rounded-md 
+              className=' relative justify-center p-2 rounded-md 
                   '
               role='button'
               onClick={() => inputElMain.current.click()}
