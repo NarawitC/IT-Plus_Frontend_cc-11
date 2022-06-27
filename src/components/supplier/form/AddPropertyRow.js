@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { HiOutlineTrash } from 'react-icons/hi';
 
-function AddPropertyRow({ property, setProperties, order, index }) {
-  console.log(property);
+function AddPropertyRow({ property, properties, setProperties, order, index }) {
+  console.log({ property: property });
+  console.log({ order: order });
 
   //   const [name, setName] = useState("");
   //   const [unitPrice, setUnitPrice] = useState("");
@@ -12,7 +13,7 @@ function AddPropertyRow({ property, setProperties, order, index }) {
   //   const [categoryId, setCategoryId] = useState("");
 
   const handleDeleteNewProduct = (order) => {
-    setProperties(property.filter((el) => el.order !== order));
+    setProperties(properties.filter((el) => el.order !== order));
   };
 
   //   topic={el.order}
@@ -30,8 +31,8 @@ function AddPropertyRow({ property, setProperties, order, index }) {
   return (
     <>
       <tr className=''>
-        <td className='pl-6'>{order}</td>
-        <td className='w-[40px] h-[40px] pl-6'>
+        <td className='pl-6'>{index + 1}</td>
+        <td className='w-[40px] h-[40px] pl-6 '>
           <button
             type='button'
             onClick={() => {
@@ -61,7 +62,7 @@ function AddPropertyRow({ property, setProperties, order, index }) {
         </td>
         <td className='w-[360px] '>
           <input
-            className='p-2 w-[337px] h-10 '
+            className='p-2 w-[335px] h-10 '
             onChange={(event) =>
               setProperties((property) => [
                 ...property.slice(0, index),

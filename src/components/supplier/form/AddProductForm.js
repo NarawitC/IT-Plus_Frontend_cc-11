@@ -37,8 +37,10 @@ function AddProductForm() {
   const [properties, setProperties] = useState([]);
   const [subCatOptions, setSubCatOptions] = useState([]);
   const [index, setIndex] = useState(0);
+  const [indexes, setIndexes] = useState([]);
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
   //get all sup cat by cat
+
   useEffect(() => {
     if (category === 'computer-notebook') {
       setSubCatOptions([
@@ -230,7 +232,7 @@ function AddProductForm() {
                       />
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 1`}</p>
+                    <p className='text-center'>{`รูป 1`}</p>
                   </>
                 ) : (
                   <>
@@ -238,7 +240,7 @@ function AddProductForm() {
                       {<MdAddAPhoto />}
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 1`}</p>
+                    <p className='text-center'>{`รูป 1`}</p>
                   </>
                 )}
               </div>
@@ -265,7 +267,7 @@ function AddProductForm() {
                       />
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 2`}</p>
+                    <p className='text-center'>{`รูป 2`}</p>
                   </>
                 ) : (
                   <>
@@ -273,7 +275,7 @@ function AddProductForm() {
                       {<MdAddAPhoto />}
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 2`}</p>
+                    <p className='text-center'>{`รูป 2`}</p>
                     <input
                       type='file'
                       accept='image/*'
@@ -307,7 +309,7 @@ function AddProductForm() {
                       />
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 3`}</p>
+                    <p className='text-center'>{`รูป 3`}</p>
                   </>
                 ) : (
                   <>
@@ -315,7 +317,7 @@ function AddProductForm() {
                       {<MdAddAPhoto />}
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 3`}</p>
+                    <p className='text-center'>{`รูป 3`}</p>
                   </>
                 )}
               </div>
@@ -342,7 +344,7 @@ function AddProductForm() {
                       />
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 4`}</p>
+                    <p className='text-center'>{`รูป 4`}</p>
                   </div>
                 ) : (
                   <>
@@ -350,7 +352,7 @@ function AddProductForm() {
                       {<MdAddAPhoto />}
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 4`}</p>
+                    <p className='text-center'>{`รูป 4`}</p>
                   </>
                 )}
               </div>
@@ -566,14 +568,15 @@ function AddProductForm() {
             </thead>
           </table>
           <tbody className=''>
-            {properties.map((el, index) => {
+            {properties.map((el, idx) => {
               return (
                 <div className=''>
                   <AddPropertyRow
                     property={el}
                     setProperties={setProperties}
+                    properties={properties}
                     order={el.order}
-                    index={index}
+                    index={idx}
                   />
                 </div>
               );
@@ -586,15 +589,16 @@ function AddProductForm() {
               type='button'
               className='btn btn-info text-center hover:info-focus '
               onClick={() => {
-                setIndex((index) => (index = index + 1));
-                setProperties([
-                  ...properties,
-                  {
-                    order: index + 1,
-                    topic: '',
-                    description: '',
-                  },
-                ]);
+                if (properties.length < 10) {
+                  setProperties([
+                    ...properties,
+                    {
+                      order: properties.length + 1,
+                      topic: '',
+                      description: '',
+                    },
+                  ]);
+                }
               }}
             >
               เพิ่มรายการ

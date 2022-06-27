@@ -112,7 +112,7 @@ function SupplierSignUpForm() {
             <br />
           </div>
         </div>
-        <div className='grid gap-4 gap-y-0  lg:grid-cols-2 '>
+        <div className='grid gap-4 gap-y-2  lg:grid-cols-2 '>
           <div className=''>
             <label
               htmlFor='firstName'
@@ -161,7 +161,7 @@ function SupplierSignUpForm() {
               required
             />
           </div>
-          <div>
+          <div className=''>
             <label
               htmlFor='phone'
               className='block mb-2 text-sm font-medium text-gray-1200'
@@ -179,7 +179,7 @@ function SupplierSignUpForm() {
               required
             />
           </div>
-          <div>
+          <div className=''>
             <label
               for='email'
               className='block mb-2 text-sm font-medium text-gray-1200'
@@ -240,6 +240,7 @@ function SupplierSignUpForm() {
             />
           </div>
         </div>
+        <br />
         <div className='flex justify-center'>
           <div>
             <label
@@ -277,7 +278,7 @@ function SupplierSignUpForm() {
             />
           </div>
         </div>
-        <br />
+
         <div className='flex  justify-center'>
           <div>
             <label
@@ -297,7 +298,6 @@ function SupplierSignUpForm() {
             />
           </div>
         </div>
-        <br />
         <div className='flex justify-center'>
           <div>
             <label

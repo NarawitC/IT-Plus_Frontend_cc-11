@@ -1,6 +1,48 @@
 import prodd from '../../pictures/prodd.png';
 import proddd from '../../pictures/proddd.png';
 function OrderPage() {
+  const mockArr = [
+    {
+      clientFirstName: 'Panit Su',
+      orderId: '200425EAN',
+      netPrice: 11209.0,
+      purchasedOrderStatus: 'PENDING',
+      trackingNumber: '-',
+      shipmentOrderStatus: '-',
+    },
+    {
+      clientFirstName: 'Pal X',
+      orderId: '200325EAN',
+      netPrice: 34209.0,
+      purchasedOrderStatus: 'CONFIRMED',
+      trackingNumber: 'SHP50104',
+      shipmentOrderStatus: 'To Shipping Company',
+    },
+    {
+      clientFirstName: 'Node JS',
+      orderId: '200435EAN',
+      netPrice: 88209.0,
+      purchasedOrderStatus: 'CONFIRMED',
+      trackingNumber: 'KER50933',
+      shipmentOrderStatus: 'To Client',
+    },
+    {
+      clientFirstName: 'Gun Meta',
+      orderId: '200335EAN',
+      netPrice: 92209.0,
+      purchasedOrderStatus: 'CONFIRMED',
+      trackingNumber: 'KER50433',
+      shipmentOrderStatus: 'To Client',
+    },
+    {
+      clientFirstName: 'J Next',
+      orderId: '222435EAN',
+      netPrice: 83229.0,
+      purchasedOrderStatus: 'PENDING',
+      trackingNumber: '-',
+      shipmentOrderStatus: '-',
+    },
+  ];
   return (
     <div className=''>
       <div className='h-[185px]'>
@@ -9,9 +51,9 @@ function OrderPage() {
         </div>
         <br />
         <div className='w-[740px] flex p-2'>
-          <div className='flex '>
-            <div className='w-[270px]  h-[53px] flex items-center justify-center text-lg'>
-              <label htmlFor='searches' className=''>
+          <div className='flex'>
+            <div className='w-[360px]  h-[53px] flex items-center justify-center text-lg gap-4 '>
+              <label for='searches' className=''>
                 ค้นหาโดย:
               </label>
               <select
@@ -35,14 +77,11 @@ function OrderPage() {
           </div>
         </div>
       </div>
-
       <br />
-
       <div className='overflow-x-auto'>
         <table className='table p-2'>
           <thead>
             <tr className=''>
-              <th></th>
               <th className=' '>ชื่อลูกค้า</th>
               <th className='flex justify-center'>หมายเลขคำสั่งซื้อ</th>
               <th>ยอดคำสั่งซื้อ</th>
@@ -52,130 +91,65 @@ function OrderPage() {
             </tr>
           </thead>
           <tbody>
-            <tr className='hover'>
-              <th>
-                <label>
-                  <input type='checkbox' className='checkbox' />
-                </label>
-              </th>
-              <td>
-                <div class='flex items-center space-x-3'>
-                  <div class='avatar'>
-                    <div class='mask mask-squircle w-12 h-12'>
-                      <img src={prodd} alt='Avatar Tailwind CSS Component' />
-                    </div>
-                  </div>
-                  <div>
-                    <div class='font-bold'>Panit Su</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div className='flex space-x-3'>
-                  <button className='btn btn-ghost btn-md'>200425EAN</button>
-                </div>
-              </td>
-              <th>
-                <p className=''>11209.00</p>
-              </th>
-              <th>
-                <label class='swap'>
-                  <input type='checkbox' />
-                  <div className='swap-on text-success '>CONFIRMED</div>
-                  <div className='swap-off text-warning'>PENDING</div>
-                </label>
-              </th>
-              <th className='flex justify-center'>
-                <p className='btn btn-ghost btn-lg'>-</p>
-              </th>
-              <th className=''>
-                <p className='text-ghost text-lg text-center'>-</p>
-              </th>
-            </tr>
-            <tr className='hover'>
-              <th>
-                <label>
-                  <input type='checkbox' className='checkbox' />
-                </label>
-              </th>
-              <td>
-                <div class='flex items-center space-x-3'>
-                  <div class='avatar'>
-                    <div class='mask mask-squircle w-12 h-12'>
-                      <img src={proddd} alt='Avatar Tailwind CSS Component' />
-                    </div>
-                  </div>
-                  <div>
-                    <div class='font-bold'>Pal Su</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div className='flex items-center space-x-3'>
-                  <div className=''>
-                    <button className='btn btn-ghost btn-md'>200425EAN</button>
-                  </div>
-                </div>
-              </td>
-              <th>
-                <p className=''>33249.00</p>
-              </th>
-              <th>
-                <label class='swap'>
-                  <input type='checkbox' />
-                  <div className='swap-off text-success  '>CONFIRMED</div>
-                  <div className='swap-on text-warning '>PENDING</div>
-                </label>
-              </th>
-              <th>
-                <p className='btn btn-ghost btn-md'>SHP50104</p>
-              </th>
-              <th className='flex justify-center'>
-                <p className='btn btn-ghost btn-md'>To Shipping Company</p>
-              </th>
-            </tr>
-            <tr className='hover'>
-              <th>
-                <label>
-                  <input type='checkbox' className='checkbox' />
-                </label>
-              </th>
-              <td>
-                <div class='flex items-center space-x-3'>
-                  <div class='avatar'>
-                    <div class='mask mask-squircle w-12 h-12'>
-                      <img src={proddd} alt='Avatar Tailwind CSS Component' />
-                    </div>
-                  </div>
-                  <div>
-                    <div class='font-bold'>Dom ui</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div className='flex items-center space-x-3'>
-                  <div className=''>
-                    <button className='btn btn-ghost btn-md'>200425EAN</button>
-                  </div>
-                </div>
-              </td>
-              <th>
-                <p className=''>9249.00</p>
-              </th>
-              <th>
-                <label class='swap'>
-                  <input type='checkbox' />
-                  <div className='swap-off text-success '>CONFIRMED</div>
-                  <div className='swap-on text-warning'>PENDING</div>
-                </label>
-              </th>
-              <th>
-                <p className='btn btn-ghost btn-md'>KER50104</p>
-              </th>
-              <th className='flex justify-center'>
-                <p className='btn btn-ghost text-md'>To Client</p>
-              </th>
-            </tr>
+            {mockArr.map((el, idx) => {
+              return (
+                <>
+                  <tr className='hover' key={idx}>
+                    <td>
+                      <div class='flex items-center space-x-3'>
+                        <div>
+                          <div class='font-bold'>{el.clientFirstName}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className='flex space-x-3'>
+                        <button className='btn btn-ghost btn-md'>
+                          {el.orderId}
+                        </button>
+                      </div>
+                    </td>
+                    <th>
+                      <p className=''>{el.netPrice.toFixed(2)}</p>
+                    </th>
+                    <th>
+                      <label class='swap'>
+                        <input type='checkbox' />
+                        {el.purchasedOrderStatus === 'CONFIRMED' ? (
+                          <>
+                            <div className='swap-off text-success  text-center'>
+                              {el.purchasedOrderStatus}
+                            </div>
+                            <div className='swap-on text-warning text-center'>
+                              PENDING
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className='swap-off text-warning text-center'>
+                              {el.purchasedOrderStatus}
+                            </div>
+                            <div className='swap-on text-success text-center'>
+                              CONFIRMED
+                            </div>
+                          </>
+                        )}
+                      </label>
+                    </th>
+                    <th className='flex justify-center'>
+                      <p className='btn btn-ghost btn-lg'>
+                        {el.trackingNumber}
+                      </p>
+                    </th>
+                    <th className=''>
+                      <p className='text-ghost  text-center'>
+                        {el.shipmentOrderStatus}
+                      </p>
+                    </th>
+                  </tr>
+                </>
+              );
+            })}
           </tbody>
         </table>
       </div>
