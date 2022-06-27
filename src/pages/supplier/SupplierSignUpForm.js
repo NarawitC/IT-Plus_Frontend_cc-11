@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import FormYup from '../../components/form/FormYup';
 import InputYup from '../../components/form/InputYup';
 import SubmitButtonYup from '../../components/form/SubmitButtonYup';
+import TextAreaYup from '../../components/form/TextAreaYup';
 
 function SupplierSignUpForm() {
   const inputEl = useRef();
@@ -316,12 +317,12 @@ function SupplierSignUpForm() {
             >
               รายละเอียดผู้ขาย
             </label>
-            <InputYup
+            <TextAreaYup
               name='supplierDetail'
               // text={'supplierDetail'}
-              type='text'
+              type='textarea'
               id='supplierDetail'
-              className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='w-[380px] h-[110px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='รายละเอียดผู้ขาย'
               required
             />
