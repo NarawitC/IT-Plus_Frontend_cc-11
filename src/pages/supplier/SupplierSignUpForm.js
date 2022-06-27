@@ -44,7 +44,11 @@ function SupplierSignUpForm() {
     password: yup.string().required('Password is required'),
     line_id: yup.string().required('line_id is required'),
     supplierDetail: yup.string().required('supplierDetail is required'),
-    bankAccount: yup.string().required('supplierDetail is required'),
+    bankAccount: yup
+      .string()
+      .required('supplierDetail is required')
+      .min(10, 'Phone number must be 10 characters')
+      .max(10, 'Phone number must be 10 characters'),
     confirmPassword: yup.string().required('Confirm password is required'),
     streetName: yup.string().trim().nullable(),
     province: yup.string().trim().nullable(),
@@ -108,10 +112,10 @@ function SupplierSignUpForm() {
             <br />
           </div>
         </div>
-        <div className='grid gap-6 mb-6 lg:grid-cols-2'>
-          <div>
+        <div className='grid gap-4 gap-y-0  lg:grid-cols-2 '>
+          <div className=''>
             <label
-              for='firstName'
+              htmlFor='firstName'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               ชื่อผู้ขาย
@@ -120,14 +124,14 @@ function SupplierSignUpForm() {
               name='firstName'
               type='text'
               id='firstName'
-              className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='bg-gray-50 border  border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='ชื่อผู้ขาย'
               required
             />
           </div>
           <div>
             <label
-              for='lastName'
+              htmlFor='lastName'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               นามสกุล
@@ -143,7 +147,7 @@ function SupplierSignUpForm() {
           </div>
           <div>
             <label
-              for='line_id'
+              htmlFor='line_id'
               className='block mb-2 text-sm font-medium text-gray-1200'
             >
               Line ID
@@ -159,14 +163,14 @@ function SupplierSignUpForm() {
           </div>
           <div>
             <label
-              for='phone'
+              htmlFor='phone'
               className='block mb-2 text-sm font-medium text-gray-1200'
             >
               เบอร์โทรศัพท์
             </label>
             <InputYup
               name='phoneNumber'
-              text={'Phone number'}
+              // text={'Phone number'}
               type='tel'
               id='phone'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -179,14 +183,14 @@ function SupplierSignUpForm() {
         <div className='flex justify-center'>
           <div>
             <label
-              for='bank_account'
+              htmlFor='bank_account'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               เลขที่บัญชีผู้ขาย
             </label>
             <InputYup
               name='bankAccount'
-              text={'bankAccount'}
+              // text={'bankAccount'}
               type='text'
               id='bank_account'
               className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -196,17 +200,17 @@ function SupplierSignUpForm() {
           </div>
         </div>
         <br />
-        <div className='flex justify-center'>
+        <div className='flex  justify-center'>
           <div>
             <label
-              for='address'
+              htmlFor='address'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               ที่อยู่
             </label>
             <InputYup
               name='addressDescription'
-              text={'adress'}
+              // text={'adress'}
               type='text'
               id='address'
               className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -219,14 +223,14 @@ function SupplierSignUpForm() {
         <div className='flex justify-center'>
           <div>
             <label
-              for='supplier_detail'
+              htmlFor='supplier_detail'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               รายละเอียดผู้ขาย
             </label>
             <InputYup
               name='supplierDetail'
-              text={'supplierDetail'}
+              // text={'supplierDetail'}
               type='text'
               id='supplier_detail'
               className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -248,7 +252,7 @@ function SupplierSignUpForm() {
               />
             </div>
             <label
-              for='remember'
+              htmlFor='remember'
               class='ml-2 text-sm font-medium text-gray-900 dark:text-gray-400'
             >
               I agree with the
@@ -261,16 +265,10 @@ function SupplierSignUpForm() {
               .
             </label>
           </div>
-          <button
-            type='submit'
-            class='btn text-white bg-primary hover:bg-primary-focus focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center '
-          >
-            Submit
-          </button>
           <SubmitButtonYup
             // ref={elSubmit}
             className={
-              'btn btn-primary bg-[#fffff] hover:bg-transparent border-2 w-full text-gray-900 hover:text-gray-900 font-medium h-9'
+              'btn text-white bg-primary hover:bg-primary-focus focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-full w-auto px-5 py-2.5 text-center hover:text-gray-900  h-9'
             }
           >
             Sign Up

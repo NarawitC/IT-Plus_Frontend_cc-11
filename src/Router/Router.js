@@ -14,6 +14,7 @@ import MyShopPage from '../pages/supplier/MyShopPage';
 import DynamicBalancePage from '../pages/supplier/DynamicBalancePage';
 import DynamicOrderTrackingPage from '../pages/supplier/DynamicOrderTrackingPage';
 import DynamicProductPage from '../pages/supplier/DynamicProductPage';
+import { useLoading } from '../contexts/LoadingContext';
 
 function Router() {
   return (

@@ -25,7 +25,7 @@ function Header() {
           <div className='flex mr-12 gap-7 items-center justify-around'>
             <ProfileIcon />
 
-            <label for='my-modal-2' className='btn modal-button gap-2'>
+            <label htmlFor='my-modal-2' className='btn modal-button gap-2'>
               <MdLogin />
               <p>Login</p>
             </label>
@@ -40,13 +40,13 @@ function Header() {
                 <label className='flex  flex-col justify-center items-center '>
                   <div>
                     <label
-                      for='my-modal-2'
+                      htmlFor='my-modal-2'
                       className='btn btn-sm btn-circle absolute right-2 top-2 '
                     >
                       ✕
                     </label>
                     <label
-                      for='e-mail'
+                      htmlFor='e-mail'
                       className='block mb-2 text-sm font-medium text-gray-1200 '
                     >
                       Your email
@@ -62,7 +62,7 @@ function Header() {
                   <br />
                   <div>
                     <label
-                      for='password'
+                      htmlFor='password'
                       className='block mb-2 text-sm font-medium text-gray-1200 '
                     >
                       Your password
@@ -79,7 +79,7 @@ function Header() {
                 <div className='modal-action flex justify-center'>
                   <button
                     type='button'
-                    for='my-modal-2'
+                    htmlFor='my-modal-2'
                     className='btn btn-secondary'
                     onClick={() => {
                       modalRef.current.click();
@@ -89,7 +89,7 @@ function Header() {
                     สมัครเป็นผู้ขาย
                   </button>
                   <button
-                    for='my-modal-2'
+                    htmlFor='my-modal-2'
                     className='btn btn-primary'
                     onClick={() => {}}
                   >

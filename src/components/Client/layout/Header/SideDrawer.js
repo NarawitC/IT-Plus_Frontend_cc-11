@@ -19,12 +19,15 @@ function SideDrawer({ eldrawer }) {
       />
       <div className='drawer-content'>
         {/* <!-- Page content here --> */}
-        <label for='my-drawer' className='btn btn-primary drawer-button hidden'>
+        <label
+          htmlFor='my-drawer'
+          className='btn btn-primary drawer-button hidden'
+        >
           Open drawer
         </label>
       </div>
       <div className='drawer-side'>
-        <label for='my-drawer' className='drawer-overlay'></label>
+        <label htmlFor='my-drawer' className='drawer-overlay'></label>
         <ul className='menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content'>
           {/* <!-- Sidebar content here --> */}
           <li>

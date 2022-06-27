@@ -11,7 +11,7 @@ function OrderTrackingPage() {
         <div className='w-[740px] flex p-2'>
           <div className='flex '>
             <div className='w-[270px]  h-[53px] flex items-center justify-center text-lg'>
-              <label for='searches' className=''>
+              <label htmlFor='searches' className=''>
                 ค้นหาโดย:
               </label>
               <select

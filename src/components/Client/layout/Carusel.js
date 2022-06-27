@@ -13,7 +13,11 @@ function Carusel() {
     <div className='carousel w-full'>
       {picarr.map((el, idx) => {
         return (
-          <div id={`slide${idx + 1}`} className='carousel-item relative w-full'>
+          <div
+            key={idx}
+            id={`slide${idx + 1}`}
+            className='carousel-item relative w-full'
+          >
             <img src={el} className='w-full' />
             <div
               className={`absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2`}

@@ -104,7 +104,7 @@ function AddProductForm() {
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
-                for='address'
+                htmlFor='address'
                 className='block mb-2 text-sm font-medium text-gray-1200 '
               >
                 ชื่อสินค้า
@@ -123,7 +123,7 @@ function AddProductForm() {
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
-                for='category'
+                htmlFor='category'
                 className='block mb-2 text-sm font-medium text-gray-1200 '
               >
                 หมวดหมู่สินค้า
@@ -142,7 +142,7 @@ function AddProductForm() {
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
-                for='subCategory'
+                htmlFor='subCategory'
                 className='block mb-2 text-sm font-medium text-gray-1200 '
               >
                 หมวดหมู่สินค้าย่อย
@@ -161,7 +161,7 @@ function AddProductForm() {
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
-                for='price'
+                htmlFor='price'
                 className='block mb-2 text-sm font-medium text-gray-1200 '
               >
                 ราคาสินค้า
@@ -180,7 +180,7 @@ function AddProductForm() {
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
-                for='brand'
+                htmlFor='brand'
                 className='block mb-2 text-sm font-medium text-gray-1200 '
               >
                 แบรนด์สินค้า
@@ -199,7 +199,7 @@ function AddProductForm() {
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
-                for='amount'
+                htmlFor='amount'
                 className='block mb-2 text-sm font-medium text-gray-1200 '
               >
                 จำนวน
@@ -218,7 +218,7 @@ function AddProductForm() {
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
-                for='description'
+                htmlFor='description'
                 className='block mb-2 text-sm font-medium text-gray-1200 '
               >
                 รายละเอียดสินค้า

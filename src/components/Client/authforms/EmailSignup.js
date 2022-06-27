@@ -33,9 +33,6 @@ function EmailSignup() {
       console.log(procheck);
       if (procheck) {
         setIsLoading(true);
-        // const { streetName, province, district, postalCode } = data;
-        // data.address =
-        // streetName + ' ' + province + ' ' + district + ' ' + postalCode;
         console.log(data);
         await signUp(data);
         // navigate('/auth/signUpCompleted');
