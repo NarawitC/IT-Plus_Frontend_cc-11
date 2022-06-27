@@ -1,6 +1,6 @@
 import React from 'react';
 import { TbMovie, TbSmartHome, TbBike } from 'react-icons/tb';
-import { GrGamepad } from 'react-icons/gr';
+import { TiThSmallOutline } from 'react-icons/ti';
 import { GiDesk } from 'react-icons/gi';
 import { GoDeviceDesktop } from 'react-icons/go';
 import { BsCameraReels, BsPlug, BsCamera, BsController } from 'react-icons/bs';
@@ -9,9 +9,16 @@ import { IoGameControllerOutline } from 'react-icons/io';
 import { FaDumbbell } from 'react-icons/fa';
 import { MdOutlineMonitorWeight } from 'react-icons/md';
 import { HiOutlineMusicNote, HiOutlinePuzzle } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 // import { TbSmartHome } from 'react-icons/ts';
 function LgsubHeader() {
+  const navigate = useNavigate();
   let mockList = [
+    {
+      text: 'All',
+      page: '',
+      icon: <TiThSmallOutline size={40} color={'gray'} />,
+    },
     {
       text: 'Entertainment',
       page: 'music-movie',
@@ -78,7 +85,6 @@ function LgsubHeader() {
       icon: <MdOutlineMonitorWeight size={40} color={'gray'} />,
     },
   ];
-  const mockarr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   return (
     <div>
       <div className='carousel rounded-box overflow-y-hidden h-full py-4 gap-6'>
@@ -86,6 +92,7 @@ function LgsubHeader() {
           <div
             key={index}
             className='carousel-item cursor-pointer w-1/8 max-w-md p-1 flex flex-col items-center text-mono '
+            onClick={() => navigate(`/product/${el.page}`)}
           >
             {el.icon}
             <span>{el.text}</span>

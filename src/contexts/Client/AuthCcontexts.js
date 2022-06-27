@@ -22,6 +22,7 @@ function AuthContextProvider({ children }) {
         const token = getAccessToken();
         if (token) {
           const resMe = await getUserInfo();
+          console.log(resMe.data.user);
           setUser(resMe.data.user);
         }
       } catch (err) {
@@ -76,7 +77,7 @@ function AuthContextProvider({ children }) {
   const signOut = () => {
     removeAccessTOken();
     setUser(null);
-    navigate('/auth/signIn');
+    navigate('');
   };
   return (
     <AuthContext.Provider

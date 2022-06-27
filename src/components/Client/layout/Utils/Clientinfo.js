@@ -1,6 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuthContext } from '../../../../contexts/Client/AuthCcontexts';
 
 function Clientinfo() {
+  const { signOut } = useAuthContext();
   return (
     <div className='dropdown dropdown-end'>
       <label tabIndex='0' className='btn btn-ghost btn-circle avatar'>
@@ -13,16 +16,22 @@ function Clientinfo() {
         className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52'
       >
         <li>
-          <a className='justify-between'>
-            Profile
+          <Link to='/my-accout' className='justify-between'>
+            My Profile
             <span className='badge'>New</span>
+          </Link>
+        </li>
+        <li>
+          <a>My Orders</a>
+        </li>
+        <li>
+          <a
+            onClick={() => {
+              signOut();
+            }}
+          >
+            Logout
           </a>
-        </li>
-        <li>
-          <a>Settings</a>
-        </li>
-        <li>
-          <a>Logout</a>
         </li>
       </ul>
     </div>

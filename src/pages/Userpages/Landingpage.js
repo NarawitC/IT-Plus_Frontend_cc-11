@@ -10,12 +10,6 @@ function Landingpage() {
   return (
     <>
       <Carusel />
-      <button
-        className='btn'
-        onClick={() => {
-          SetcountdownStrbydate('2022-06-30T17:49:48.000Z');
-        }}
-      ></button>
       <FlashSaleCountdownbar />
       <CardItems />
     </>

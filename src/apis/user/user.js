@@ -2,7 +2,7 @@ import axios from '../../config/axios';
 
 export const getUserInfo = async () => {
   console.log('Gettinguser');
-  return axios.get('/user/info');
+  return axios.get('/client/client');
 };
 
 export const updateUserInfo = async (data) => {
