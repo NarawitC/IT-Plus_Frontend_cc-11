@@ -1,5 +1,5 @@
 function DynamicProductPage() {
-  return <div>DynamicProductPage</div>;
+  return <></>;
 }
 
 export default DynamicProductPage;

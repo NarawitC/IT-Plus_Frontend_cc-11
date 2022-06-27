@@ -30,13 +30,17 @@ import { useLoading } from '../contexts/LoadingContext';
 
 import TrackingPage from '../pages/supplier/TrackingPage';
 import DynamicSelectedOrderPage from '../pages/supplier/DynamicSelectedOrderPage';
+import ClientProfilePage from '../pages/client/ClientProfilePage';
+import ClientDynamicProductPage from '../pages/client/ClientDynamicProductPage';
 function Router() {
   return (
     <Routes>
       {/* todo wait for modify route */}
       <Route path='/' element={<Clientlayout />}>
         <Route path='' element={<Landingpage />} />
+        <Route path='/product' element={<ClientDynamicProductPage />} />
         <Route path='/product/:productId' element={<ProductInfoPage />} />
+        <Route path='/my-accout' element={<ClientProfilePage />} />
       </Route>
       {/* <Route path='signup' element={<ClientSignUpPage />} />
         <Route path='category' element={<CategoryPage />} />
