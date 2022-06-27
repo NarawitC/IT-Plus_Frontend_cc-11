@@ -41,9 +41,11 @@ function SupplierSignUpForm() {
       .string()
       .required('Email is required')
       .email('Email is invalid format'),
+    shopName: yup.string().required('Shop name is required'),
     password: yup.string().required('Password is required'),
     line_id: yup.string().required('line_id is required'),
     supplierDetail: yup.string().required('supplierDetail is required'),
+    bankAccountName: yup.string().required('Bank account name is required'),
     bankAccount: yup
       .string()
       .required('supplierDetail is required')
@@ -68,6 +70,9 @@ function SupplierSignUpForm() {
           email: '',
           password: '',
           confirmPassword: '',
+          bankAccountName: '',
+          bankAccount: '',
+          supplierDetail: '',
         }}
         schema={schema}
       >
@@ -186,7 +191,8 @@ function SupplierSignUpForm() {
             >
               E-mail
             </label>
-            <input
+            <InputYup
+              name='email'
               type='email'
               id='email'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -196,14 +202,15 @@ function SupplierSignUpForm() {
           </div>
           <div>
             <label
-              for='shop_name'
+              for='shopName'
               className='block mb-2 text-sm font-medium text-gray-1200'
             >
               ชื่อร้าน
             </label>
-            <input
+            <InputYup
               type='text'
-              id='shop_name'
+              name='shopName'
+              id='shopName'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='ชื่อร้าน'
               required
@@ -216,7 +223,8 @@ function SupplierSignUpForm() {
             >
               รหัสผ่าน
             </label>
-            <input
+            <InputYup
+              name='password'
               type='password'
               id='password'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -226,14 +234,15 @@ function SupplierSignUpForm() {
           </div>
           <div>
             <label
-              for='confirm_password'
+              for='confirmPassword'
               className='block mb-2 text-sm font-medium text-gray-1200'
             >
               ยืนยันรหัสผ่าน
             </label>
-            <input
+            <InputYup
+              name='confirmPassword'
               type='password'
-              id='confirm_password'
+              id='confirmPassword'
               className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='ยืนยันรหัสผ่าน'
               required
@@ -244,14 +253,15 @@ function SupplierSignUpForm() {
         <div className='flex justify-center'>
           <div>
             <label
-              for='supplier_bank_account'
+              for='bankAccountName'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               ชื่อบัญชีผู้ขาย
             </label>
-            <input
+            <InputYup
+              name='bankAccountName'
               type='text'
-              id='supplier_bank_account'
+              id='bankAccountName'
               className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='ชื่อบัญชีผู้ขาย'
               required
@@ -262,7 +272,7 @@ function SupplierSignUpForm() {
         <div className='flex justify-center'>
           <div>
             <label
-              for='bank_account'
+              for='bankAccount'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               เลขที่บัญชีผู้ขาย
@@ -271,7 +281,7 @@ function SupplierSignUpForm() {
               name='bankAccount'
               // text={'bankAccount'}
               type='text'
-              id='bank_account'
+              id='bankAccount'
               className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='เลขที่บัญชีผู้ขาย'
               required
@@ -282,7 +292,7 @@ function SupplierSignUpForm() {
         <div className='flex  justify-center'>
           <div>
             <label
-              htmlFor='address'
+              htmlFor='addressDescription'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               ที่อยู่
@@ -291,7 +301,7 @@ function SupplierSignUpForm() {
               name='addressDescription'
               // text={'adress'}
               type='text'
-              id='address'
+              id='addressDescription'
               className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='ที่อยู่'
               required
@@ -301,7 +311,7 @@ function SupplierSignUpForm() {
         <div className='flex justify-center'>
           <div>
             <label
-              htmlFor='supplier_detail'
+              htmlFor='supplierDetail'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               รายละเอียดผู้ขาย
@@ -310,7 +320,7 @@ function SupplierSignUpForm() {
               name='supplierDetail'
               // text={'supplierDetail'}
               type='text'
-              id='supplier_detail'
+              id='supplierDetail'
               className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='รายละเอียดผู้ขาย'
               required
@@ -333,7 +343,7 @@ function SupplierSignUpForm() {
               htmlFor='remember'
               class='ml-2 text-sm font-medium text-gray-900 dark:text-gray-400'
             >
-              I agree with the
+              {`I agree with the `}
               <Link
                 to='/supplier'
                 class='text-blue-600 hover:underline dark:text-blue-500'
