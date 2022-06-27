@@ -55,7 +55,8 @@ function Router() {
         <Route path='my-shop' element={<MyShopPage />} />
         <Route path='balance-wallet' element={<BalanceWalletPage />} />
         <Route path='order' element={<DynamicOrderPage />} />
-        <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} />
+        {/* <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} /> */}
+        <Route path='order/selected' element={<DynamicSelectedOrderPage />} />
         <Route path='tracking' element={<TrackingPage />} />
       </Route>
       <Route path='/admin' element={<AdminLayout />}>
