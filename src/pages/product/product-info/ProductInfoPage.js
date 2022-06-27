@@ -71,7 +71,7 @@ function ProductInfoPage() {
           </div>
           <div>
             <div className='text-[10px] border-b-5'>
-              <a href='#'>BenQ</a>
+              <a href=''>BenQ</a>
             </div>
             <div>จอคอม BenQ EW2880U 28" IPS Monitor 60Hz</div>
             <div className='text-[10px]'>
