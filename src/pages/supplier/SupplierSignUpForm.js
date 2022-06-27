@@ -128,7 +128,85 @@ function SupplierSignUpForm() {
               required
             />
           </div>
+          <div>
+            <label
+              for='email'
+              className='block mb-2 text-sm font-medium text-gray-1200'
+            >
+              E-mail
+            </label>
+            <input
+              type='email'
+              id='email'
+              className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              placeholder='E-mail'
+              required
+            />
+          </div>
+          <div>
+            <label
+              for='shop_name'
+              className='block mb-2 text-sm font-medium text-gray-1200'
+            >
+              ชื่อร้าน
+            </label>
+            <input
+              type='text'
+              id='shop_name'
+              className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              placeholder='ชื่อร้าน'
+              required
+            />
+          </div>
+          <div>
+            <label
+              for='password'
+              className='block mb-2 text-sm font-medium text-gray-1200'
+            >
+              รหัสผ่าน
+            </label>
+            <input
+              type='password'
+              id='password'
+              className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              placeholder='รหัสผ่าน'
+              required
+            />
+          </div>
+          <div>
+            <label
+              for='confirm_password'
+              className='block mb-2 text-sm font-medium text-gray-1200'
+            >
+              ยืนยันรหัสผ่าน
+            </label>
+            <input
+              type='password'
+              id='confirm_password'
+              className='bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              placeholder='ยืนยันรหัสผ่าน'
+              required
+            />
+          </div>
         </div>
+        <div className='flex justify-center'>
+          <div>
+            <label
+              for='supplier_bank_account'
+              className='block mb-2 text-sm font-medium text-gray-1200 '
+            >
+              ชื่อบัญชีผู้ขาย
+            </label>
+            <input
+              type='text'
+              id='supplier_bank_account'
+              className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              placeholder='ชื่อบัญชีผู้ขาย'
+              required
+            />
+          </div>
+        </div>
+        <br />
         <div className='flex justify-center'>
           <div>
             <label
@@ -184,35 +262,11 @@ function SupplierSignUpForm() {
         </div>
         <br />
         <div className=' flex justify-center flex-col items-center '>
-          <div class='flex items-start mb-6'>
-            <div class='flex items-center h-5'>
-              <input
-                id='remember'
-                type='checkbox'
-                value=''
-                class='w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800'
-                required
-              />
-            </div>
-            <label
-              for='remember'
-              class='ml-2 text-sm font-medium text-gray-900 dark:text-gray-400'
-            >
-              I agree with the
-              <Link
-                to='/supplier'
-                class='text-blue-600 hover:underline dark:text-blue-500'
-              >
-                terms and conditions
-              </Link>
-              .
-            </label>
-          </div>
           <button
             type='submit'
             class='btn text-white bg-primary hover:bg-primary-focus focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center '
           >
-            Submit
+            ยืนยัน
           </button>
         </div>
       </form>

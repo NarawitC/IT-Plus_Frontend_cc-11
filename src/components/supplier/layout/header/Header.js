@@ -14,7 +14,7 @@ function Header() {
   const modalRef = useRef();
   return (
     <>
-      <div className=' h-[80px] bg-primary flex items-center '>
+      <div className=' h-[80px] bg-gradient-to-r from-secondary to-primary flex items-center '>
         <div className='flex justify-between  items-center w-screen'>
           <Link to={`/supplier`}>
             <button className='flex items-center text-white text-3xl w-[150px] justify-center gap-1'>
@@ -49,7 +49,7 @@ function Header() {
                       for='e-mail'
                       className='block mb-2 text-sm font-medium text-gray-1200 '
                     >
-                      Your email
+                      E-mail
                     </label>
                     <input
                       type='text'
@@ -65,7 +65,7 @@ function Header() {
                       for='password'
                       className='block mb-2 text-sm font-medium text-gray-1200 '
                     >
-                      Your password
+                      รหัสผ่าน
                     </label>
                     <input
                       type='text'
@@ -93,7 +93,7 @@ function Header() {
                     className='btn btn-primary'
                     onClick={() => {}}
                   >
-                    Login
+                    เข้าสู่ระบบ
                   </button>
                 </div>
               </div>
