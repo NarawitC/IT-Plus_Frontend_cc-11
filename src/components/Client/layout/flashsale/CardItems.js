@@ -2,7 +2,6 @@ import itemImg1 from '../../../../../src/productImg/item1.jpg';
 import itemImg2 from '../../../../../src/productImg/item2.jpg';
 import itemImg3 from '../../../../../src/productImg/item3.jpg';
 import itemImg4 from '../../../../../src/productImg/item4.jpg';
-import Ficon from '../../../../../src/icons/fs-1.svg';
 
 function CardItems() {
   const products = [
@@ -45,35 +44,6 @@ function CardItems() {
   ];
   return (
     <>
-      <div className='max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 bg-yellow-400 flex justify-between mt-8 items-center rounded-xl py-4'>
-        <div>
-          <img src={Ficon} />
-        </div>
-        <div className='flex text-black'>
-          <div>
-            <div className='text-[20px] font-bold '>ราคาพิเศษ</div>
-            <div>เหลือเวลาเพียง</div>
-          </div>
-          <div className='flex gap-4 items-center ml-4 mt-1'>
-            <div className='text-center'>
-              <div className='text-[20px] font-bold'>01</div>
-              <p>วัน</p>
-            </div>
-            <div className='text-center'>
-              <div className='text-[20px] font-bold'>01</div>
-              <p>ชั่วโมง</p>
-            </div>
-            <div className='text-center'>
-              <div className='text-[20px] font-bold'>01</div>
-              <p>นาที</p>
-            </div>
-            <div className='text-center'>
-              <div className='text-[20px] font-bold'>01</div>
-              <p>วินาที</p>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className='bg-white '>
         <div className='max-w-2xl mx-auto py-4 px-4  sm:px-6 lg:max-w-7xl lg:px-8 '>
           <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 '>

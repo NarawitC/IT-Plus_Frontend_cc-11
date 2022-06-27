@@ -5,7 +5,7 @@ function LogInForm() {
       <div class='modal'>
         <div class='modal-box relative'>
           <label
-            for='my-modal-3'
+            htmlFor='my-modal-3'
             class='btn btn-sm btn-circle absolute right-2 top-2'
           >
             ✕
