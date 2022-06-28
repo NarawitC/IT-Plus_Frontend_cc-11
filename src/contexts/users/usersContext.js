@@ -10,11 +10,11 @@ function UsersContextProvider({ children }) {
 
   useEffect(() => {});
 
-  const fetchusersproduct = async () => {
-    const res = await getAllProductInfo();
-    console.log(res);
-    setproductlist(res);
-  };
+  // const fetchusersproduct = async () => {
+  //   const res = await getAllProductInfo();
+  //   console.log(res);
+  //   setproductlist(res);
+  // };
   return (
     <UsersContext.Provider
       value={{

@@ -4,7 +4,17 @@ import { useNavigate } from 'react-router-dom';
 function DynamicClientProductCard({ el }) {
   // console.log(el);
   const navigate = useNavigate();
-  const { price, discout, productName, imageSrc, imageAlt, id, href } = el;
+  const {
+    price,
+    mainPicture,
+    stock,
+    discout,
+    productName,
+    imageSrc,
+    imageAlt,
+    id,
+    href,
+  } = el;
   return (
     <div
       key={id}
@@ -15,8 +25,8 @@ function DynamicClientProductCard({ el }) {
     >
       <div className='w-full bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75  lg:aspect-none'>
         <img
-          src={imageSrc}
-          alt={imageAlt}
+          src={mainPicture}
+          alt={'imageAlt'}
           className='w-full  object-center   lg:w-full  '
         />
       </div>
@@ -40,7 +50,9 @@ function DynamicClientProductCard({ el }) {
                       Discount {discout} THB
                     </p>
                   ) : (
-                    ''
+                    <p className='text-xs flex-1 text-red-600 opacity-50'>
+                      ------
+                    </p>
                   )}
                   <p className='text-slate-800 line-through text-[10px] opacity-[0.5] text-right flex-1'>
                     THB {price.toLocaleString('en-US')}
