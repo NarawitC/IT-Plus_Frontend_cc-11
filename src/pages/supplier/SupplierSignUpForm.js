@@ -70,7 +70,7 @@ function SupplierSignUpForm() {
       console.log('data');
       console.log(data);
       await signUp(data);
-      // navigate('/auth/signUpCompleted');
+      navigate('/supplier');
       // reset();
       setIsLoading(false);
     } catch (err) {

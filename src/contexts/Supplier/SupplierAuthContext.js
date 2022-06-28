@@ -19,19 +19,19 @@ function SupplierAuthContextProvider({ children }) {
   const navigate = useNavigate();
 
   //url get myShop
-  useEffect(() => {
-    const fetchSupplier = async () => {
-      try {
-        const token = getAccessToken();
-        if (token) {
-          const resSupplier = await getSupplierInfo();
-          setUser(resSupplier.data.user);
-        }
-      } catch (err) {
-        removeAccessTOken();
-        navigate('/supplier');
+  const fetchSupplier = async () => {
+    try {
+      const token = getAccessToken();
+      if (token) {
+        const resSupplier = await getSupplierInfo();
+        setUser(resSupplier.data.user);
       }
-    };
+    } catch (err) {
+      removeAccessTOken();
+      navigate('/supplier');
+    }
+  };
+  useEffect(() => {
     fetchSupplier();
   }, []);
 
@@ -52,6 +52,7 @@ function SupplierAuthContextProvider({ children }) {
     const resSupplier = await axios.get('/supplier/supplier');
     console.log('--------------------');
     console.log(resSupplier.data);
+    fetchSupplier();
     setUser(resSupplier.data.user);
     setReRender((reRender) => !reRender);
     navigate('/supplier');

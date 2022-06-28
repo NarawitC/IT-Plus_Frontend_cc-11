@@ -103,7 +103,8 @@ function Header() {
                     className='btn btn-primary'
                     onClick={() => {
                       signIn(email, password);
-                      navigate('/supplier/my-shop');
+                      modalRef.current.click();
+                      navigate('/supplier');
                     }}
                   >
                     เข้าสู่ระบบ
