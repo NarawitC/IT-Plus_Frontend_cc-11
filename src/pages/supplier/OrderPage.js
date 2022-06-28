@@ -165,7 +165,7 @@ function OrderPage() {
                 return (
                   <>
                     <tr className='hover' key={idx}>
-                      <td>{idx + 1}</td>
+                      <td className='text-center'>{idx + 1}</td>
                       <td>
                         <div class='flex items-center space-x-3'>
                           <div>
@@ -225,23 +225,34 @@ function OrderPage() {
                         />
                       </th>
                       <th className=''>
-                        <input
-                          className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
-                          onChange={(event) =>
-                            //
-                            setShippingDetails((prevShippingDetail) => [
-                              ...prevShippingDetail.slice(0, idx),
-                              {
-                                ...prevShippingDetail[idx],
-                                shippingOrderStatus: event.target.value.trim(),
-                              },
-                              ...prevShippingDetail.slice(idx + 1),
-                            ])
-                          }
-                          value={el.shippingOrderStatus}
-                          type='text'
-                          placeholder='สถานะการจัดส่ง'
-                        />
+                        {el.purchasedOrderStatus === 'CONFIRMED' ? (
+                          <select
+                            className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
+                            onChange={(event) =>
+                              //
+                              setShippingDetails((prevShippingDetail) => [
+                                ...prevShippingDetail.slice(0, idx),
+                                {
+                                  ...prevShippingDetail[idx],
+                                  shippingOrderStatus:
+                                    event.target.value.trim(),
+                                },
+                                ...prevShippingDetail.slice(idx + 1),
+                              ])
+                            }
+                            value={el.shippingOrderStatus}
+                            type='text'
+                            placeholder='สถานะการจัดส่ง'
+                          >
+                            <option value='TO_SHIPPING_COMPANY'>
+                              กำลังดำเนินการ
+                            </option>
+                            <option value='TO_CLIENT'>กำลังจัดส่ง</option>
+                            <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
+                          </select>
+                        ) : (
+                          <></>
+                        )}
                       </th>
                     </tr>
                   </>

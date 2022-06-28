@@ -3,10 +3,12 @@ import { useState, useEffect, useRef } from 'react';
 import { MdAddAPhoto } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
 import AddPropertyRow from '../form/AddPropertyRow';
-function AddProductForm() {
+import { useNavigate } from 'react-router-dom';
+function AddProductForm({ addNewProductSupplier }) {
+  const navigate = useNavigate();
   // const inputEl = useRef();
   const inputElMain = useRef();
-  const [image, setImage] = useState(null);
+  const [mainPicture, setMainPicture] = useState(null);
   const [imageURL, setImageURL] = useState('');
 
   const inputEl1 = useRef();
@@ -27,12 +29,12 @@ function AddProductForm() {
 
   // const [images, setImages] = useState(null);
   // const [imageURLs, setImageURLs] = useState([]);
-  const [name, setName] = useState('');
+  const [productName, setProductName] = useState('');
   const [price, setPrice] = useState('');
   const [brand, setBrand] = useState('');
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('');
-  const [subCategory, setSubCategory] = useState('');
+  const [stock, setStock] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [subCategoryId, setSubCategoryId] = useState('');
   const [description, setDescription] = useState('');
   const [properties, setProperties] = useState([]);
   const [subCatOptions, setSubCatOptions] = useState([]);
@@ -41,42 +43,66 @@ function AddProductForm() {
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
   //get all sup cat by cat
 
+  // useEffect(() => {
+  //   if (categoryName === 'computer-notebook') {
+  //     setSubCatOptions([
+  //       { value: 'notebook', displayText: 'โน๊ตบุ๊ค' },
+  //       { value: 'tablet', displayText: 'แท็ปเล็ต' },
+  //       { value: 'computer-monitor', displayText: 'จอคอม' },
+  //     ]);
+  //   }
+  //   if (categoryName === 'it-accessories') {
+  //     setSubCatOptions([
+  //       { value: 'mouse', displayText: 'เมาส์' },
+  //       { value: 'keyboard', displayText: 'คีย์บอร์ด' },
+  //       { value: 'power-supply', displayText: 'ตัวจ่ายไฟ' },
+  //     ]);
+  //   }
+  //   if (categoryName === 'music-movie') {
+  //     setSubCatOptions([
+  //       { value: 'earphone', displayText: 'หูฟัง' },
+  //       { value: 'speaker', displayText: 'ลำโพง' },
+  //     ]);
+  //   }
+  //   console.log(subCatOptions);
+  // }, [categoryName]);
+
   useEffect(() => {
-    if (category === 'computer-notebook') {
+    if (categoryId === 1) {
       setSubCatOptions([
-        { value: 'notebook', displayText: 'โน๊ตบุ๊ค' },
-        { value: 'tablet', displayText: 'แท็ปเล็ต' },
-        { value: 'computer-monitor', displayText: 'จอคอม' },
+        { value: 1, displayText: 'โน๊ตบุ๊ค' },
+        { value: 2, displayText: 'แท็ปเล็ต' },
+        { value: 3, displayText: 'จอคอม' },
       ]);
     }
-    if (category === 'it-accessories') {
+    if (categoryId === 2) {
       setSubCatOptions([
-        { value: 'mouse', displayText: 'เมาส์' },
-        { value: 'keyboard', displayText: 'คีย์บอร์ด' },
-        { value: 'power-supply', displayText: 'ตัวจ่ายไฟ' },
+        { value: 4, displayText: 'เมาส์' },
+        { value: 5, displayText: 'คีย์บอร์ด' },
+        { value: 6, displayText: 'ตัวจ่ายไฟ' },
       ]);
     }
-    if (category === 'music-movie') {
+    if (categoryId === 3) {
       setSubCatOptions([
-        { value: 'earphone', displayText: 'หูฟัง' },
-        { value: 'speaker', displayText: 'ลำโพง' },
+        { value: 7, displayText: 'หูฟัง' },
+        { value: 8, displayText: 'ลำโพง' },
       ]);
     }
     console.log(subCatOptions);
-  }, [category]);
+  }, [categoryId]);
 
   useEffect(() => {
-    if (image === null) {
+    if (mainPicture === null) {
       return;
     }
-    const newImageURL = URL.createObjectURL(image);
+    const newImageURL = URL.createObjectURL(mainPicture);
     // console.log(newImageURL);
     setImageURL(newImageURL);
-  }, [image]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+  }, [mainPicture]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
   // console.log({ imageURL: imageURL });
   const onMainPictureChange = (event) => {
     if (event.target.files[0]) {
-      setImage(event.target.files[0]);
+      setMainPicture(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
@@ -420,19 +446,19 @@ function AddProductForm() {
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
-                htmlFor='address'
+                htmlFor='productName'
                 className='block mb-2 text-sm font-medium text-gray-1200 '
               >
                 ชื่อสินค้า
               </label>
               <input
                 type='text'
-                id='name'
+                id='productName'
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='ชื่อสินค้า'
                 required
-                value={name}
-                onChange={(event) => setName(event.target.value)}
+                value={productName}
+                onChange={(event) => setProductName(event.target.value)}
               />
             </div>
           </div>
@@ -448,15 +474,18 @@ function AddProductForm() {
                 id='category'
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
+                value={categoryId}
+                onChange={(event) => setCategoryId(event.target.value)}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้า</option>
-                <option value='computer-notebook'>
+                {/* <option value='computer-notebook'>
                   คอมพิวเตอร์และโน๊ตบุ๊ค
                 </option>
                 <option value='it-accessories'>อุปกรณ์ไอที</option>
-                <option value='music-movie'>ดูหนัง ฟังเพลง</option>
+                <option value='music-movie'>ดูหนัง ฟังเพลง</option> */}
+                <option value='1'>คอมพิวเตอร์และโน๊ตบุ๊ค</option>
+                <option value='2'>อุปกรณ์ไอที</option>
+                <option value='3'>ดูหนัง ฟังเพลง</option>
               </select>
             </div>
           </div>
@@ -472,8 +501,8 @@ function AddProductForm() {
                 id='subCategory'
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
-                value={subCategory}
-                onChange={(event) => setSubCategory(event.target.value)}
+                value={subCategoryId}
+                onChange={(event) => setSubCategoryId(event.target.value)}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้าย่อย</option>
                 {subCatOptions.map((el, index) => {
@@ -545,8 +574,8 @@ function AddProductForm() {
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='จำนวน'
                 required
-                value={amount}
-                onChange={(event) => setAmount(event.target.value)}
+                value={stock}
+                onChange={(event) => setStock(event.target.value)}
               />
             </div>
           </div>
@@ -623,7 +652,27 @@ function AddProductForm() {
         </div>
         <br />
         <div className='flex justify-center'>
-          <button type='button' className='btn btn-secondary btn-md '>
+          <button
+            type='button'
+            className='btn btn-secondary btn-md'
+            onClick={() => {
+              addNewProductSupplier(
+                productName,
+                description,
+                price,
+                brand,
+                stock,
+                categoryId,
+                subCategoryId,
+                mainPicture,
+                subPicture1,
+                subPicture2,
+                subPicture3,
+                subPicture4
+              );
+              navigate('/supplier/my-product');
+            }}
+          >
             เพิ่มสินค้า
           </button>
         </div>

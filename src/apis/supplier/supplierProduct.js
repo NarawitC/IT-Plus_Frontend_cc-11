@@ -4,8 +4,9 @@ export const getAllProductBySupplierId = async () => {
   return axios.get(`/supplier/product`);
 };
 
-export const createProduct = async () => {
-  return axios.post(`/supplier/product`);
+export const createProduct = async (input) => {
+  console.log(input);
+  return axios.post(`/supplier/product`, input);
 };
 
 export const createProductPropertyByProductId = async (productId) => {
