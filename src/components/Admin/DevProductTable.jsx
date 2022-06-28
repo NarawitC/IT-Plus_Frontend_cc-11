@@ -43,7 +43,12 @@ function DevProductTable() {
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
                     <img
-                      src='/tailwind-css-component-profile-2@56w.png'
+                      className='rounded-3'
+                      style={{
+                        width: 25,
+                        height: 25,
+                      }}
+                      src='{Image}'
                       alt='Avatar Tailwind CSS Component'
                     />
                   </div>
