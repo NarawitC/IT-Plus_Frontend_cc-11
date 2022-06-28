@@ -52,9 +52,6 @@ function Router() {
           />
         </Route>
         {/* <Route path='signup' element={<ClientSignUpPage />} />
-        <Route path='category' element={<CategoryPage />} />
-        <Route path='product-item/:productId' element={<ProductItemPage />} />
-        <Route path='cart' element={<CartPage />} />
         <Route path='payment' element={<PaymentPage />} />
         <Route path='sale-order' element={<SaleOrderPage />} />
         <Route path='budget-me' element={<BudgetMePage />} />
