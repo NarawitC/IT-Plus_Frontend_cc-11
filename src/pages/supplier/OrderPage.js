@@ -209,7 +209,7 @@ function OrderPage() {
                       </th>
                       <th className='flex justify-center'>
                         <input
-                          className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-warning'
+                          className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary'
                           placeholder={'Tracking ID'}
                           onChange={(event) =>
                             setShippingDetails((prevShippingDetail) => [
