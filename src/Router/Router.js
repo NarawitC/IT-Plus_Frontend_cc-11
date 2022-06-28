@@ -16,7 +16,7 @@ import AdminOrder from '../pages/AdminOrder';
 // import PaymentPage from '../pages/client/PaymentPage';
 // import SaleOrderPage from '../pages/client/SaleOrderPage';
 // import MySpecPage from '../pages/client/MySpecPage';
-// import BudgetMePage from '../pages/client/BudgetMePage';
+// import BudgetMePage7 from '../pages/client/BudgetMePage';
 
 import SupplierHomePage from '../pages/supplier/SupplierHomePage';
 import SupplierSignUpPage from '../pages/supplier/SupplierSignUpPage';
@@ -34,15 +34,20 @@ import ClientProfilePage from '../pages/client/ClientProfilePage';
 import ClientDynamicProductPage from '../pages/client/ClientDynamicProductPage';
 function Router() {
   return (
-    <Routes>
-      {/* todo wait for modify route */}
-      <Route path='/' element={<Clientlayout />}>
-        <Route path='' element={<Landingpage />} />
-        <Route path='/product' element={<ClientDynamicProductPage />} />
-        <Route path='/product/:productId' element={<ProductInfoPage />} />
-        <Route path='/my-accout' element={<ClientProfilePage />} />
-      </Route>
-      {/* <Route path='signup' element={<ClientSignUpPage />} />
+    <ProductfilterContextProvider>
+      <Routes>
+        {/* todo wait for modify route */}
+        <Route path='/' element={<Clientlayout />}>
+          <Route path='' element={<Landingpage />} />
+          <Route path='/product' element={<ClientDynamicProductPage />} />
+          <Route path='/product/:productId' element={<ProductInfoPage />} />
+          <Route path='/my-accout' element={<ClientProfilePage />} />
+          <Route
+            path='/product/supplier/:subplierId'
+            element={<ProductBySupplier />}
+          />
+        </Route>
+        {/* <Route path='signup' element={<ClientSignUpPage />} />
         <Route path='category' element={<CategoryPage />} />
         <Route path='product-item/:productId' element={<ProductItemPage />} />
         <Route path='cart' element={<CartPage />} />
@@ -51,24 +56,25 @@ function Router() {
         <Route path='budget-me' element={<BudgetMePage />} />
         <Route path='my-spec' element={<MySpecPage />} />
       </Route> */}
-      <Route path='/supplier' element={<SupplierLayout />}>
-        <Route path='' element={<SupplierHomePage />} />
-        <Route path='signup' element={<SupplierSignUpPage />} />
-        <Route path='my-product' element={<DynamicProductPage />} />
-        <Route path='add-product' element={<DynamicAddProductPage />} />
-        <Route path='my-shop' element={<MyShopPage />} />
-        <Route path='balance-wallet' element={<BalanceWalletPage />} />
-        <Route path='order' element={<DynamicOrderPage />} />
-        <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} />
-        <Route path='tracking' element={<TrackingPage />} />
-      </Route>
-      <Route path='/admin' element={<AdminLayout />}>
-        <Route path='' element={<AdminOrder />} />
-        <Route path='editProduct' element={<DevStat />} />
-        <Route path='*' element={useNavigate('/admin')} />
-      </Route>
-      <Route path='*' element={useNavigate('/')} />
-    </Routes>
+        <Route path='/supplier' element={<SupplierLayout />}>
+          <Route path='' element={<SupplierHomePage />} />
+          <Route path='signup' element={<SupplierSignUpPage />} />
+          <Route path='my-product' element={<DynamicProductPage />} />
+          <Route path='add-product' element={<DynamicAddProductPage />} />
+          <Route path='my-shop' element={<MyShopPage />} />
+          <Route path='balance-wallet' element={<BalanceWalletPage />} />
+          <Route path='order' element={<DynamicOrderPage />} />
+          <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} />
+          <Route path='tracking' element={<TrackingPage />} />
+        </Route>
+        <Route path='/admin' element={<AdminLayout />}>
+          <Route path='' element={<AdminOrder />} />
+          <Route path='editProduct' element={<DevStat />} />
+          <Route path='*' element={useNavigate('/admin')} />
+        </Route>
+        <Route path='*' element={useNavigate('/')} />
+      </Routes>
+    </ProductfilterContextProvider>
   );
 }
 
