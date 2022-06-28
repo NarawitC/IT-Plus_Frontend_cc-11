@@ -4,21 +4,21 @@ import SupplierLayout from '../../components/supplier/layout/SupplierLayout';
 import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
 
 function MyShopPage() {
-  // const mockObj = {
-  //   firstName: 'พณิช',
-  //   lastName: 'สุวิมลเสถียร',
-  //   phoneNumber: '0870802727',
-  //   email: 'lgwamhmmams@gmail.com',
-  //   address: '24/14 หมู่ 3 ตำบลคลองสี่ อำเภอคลองหลวง จังหวัดปทุมธานี 12120',
-  //   displayName: 'บริษัท มาร์เวล จำกัด',
-  //   description:
-  //     'IT Plus เริ่มต้นทำธุรกิจ เกี่ยวกับลำโพง หูฟัง และเครื่องเสียง โดยมีจุดเริ่มต้นจากความรักในเสียงเพลง นำไปสู่ความสนใจในเครื่องเสียง ไม่ว่าจะเป็นลำโพงคอมพิวเตอร์ ลำโพงบ้าน หรือ หูฟังรูปแบบต่างๆ เมื่อได้เข้าไปมีส่วนร่วมกับสังคมคนรักเครื่องเสียง',
-  //   lineId: 'panit.su',
-  //   bankAccountName: 'บริษัท มาร์เวล จำกัด',
-  //   bankAccount: '0011223344',
-  // };
-  const { user } = useContext(SupplierAuthContext);
-  console.log({ user: user });
+  const mockObj = {
+    firstName: 'พณิช',
+    lastName: 'สุวิมลเสถียร',
+    phoneNumber: '0870802727',
+    email: 'lgwamhmmams@gmail.com',
+    address: '24/14 หมู่ 3 ตำบลคลองสี่ อำเภอคลองหลวง จังหวัดปทุมธานี 12120',
+    displayName: 'บริษัท มาร์เวล จำกัด',
+    description:
+      'IT Plus เริ่มต้นทำธุรกิจ เกี่ยวกับลำโพง หูฟัง และเครื่องเสียง โดยมีจุดเริ่มต้นจากความรักในเสียงเพลง นำไปสู่ความสนใจในเครื่องเสียง ไม่ว่าจะเป็นลำโพงคอมพิวเตอร์ ลำโพงบ้าน หรือ หูฟังรูปแบบต่างๆ เมื่อได้เข้าไปมีส่วนร่วมกับสังคมคนรักเครื่องเสียง',
+    lineId: 'panit.su',
+    bankAccountName: 'บริษัท มาร์เวล จำกัด',
+    bankAccount: '0011223344',
+  };
+  // const { user } = useContext(SupplierAuthContext);
+  // console.log({ user: user });
 
   return (
     <div className=' '>
@@ -31,7 +31,7 @@ function MyShopPage() {
           />
           <br />
           <h1 className='text-gray-900 text-center font-bold text-xl leading-8 my-1'>
-            {user.displayName}
+            {mockObj.displayName}
           </h1>
         </div>
       </div>
@@ -61,43 +61,43 @@ function MyShopPage() {
           <div className='grid md:grid-cols-2 text-sm '>
             <div className='grid grid-cols-2 '>
               <div className='px-4 py-2 font-semibold'>ชื่อ:</div>
-              <div className='px-4 py-2'>{user.firstName}</div>
+              <div className='px-4 py-2'>{mockObj.firstName}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>นามสกุล:</div>
-              <div className='px-4 py-2'>{user.lastName}</div>
+              <div className='px-4 py-2'>{mockObj.lastName}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>เบอร์โทรศัพท์:</div>
-              <div className='px-4 py-2'>{user.phoneNumber}</div>
+              <div className='px-4 py-2'>{mockObj.phoneNumber}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>Line ID:</div>
-              <div className='px-4 py-2'>{user.lineId}</div>
+              <div className='px-4 py-2'>{mockObj.lineId}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>ที่อยู่:</div>
-              <div className='px-4 py-2'>{user.address}</div>
+              <div className='px-4 py-2'>{mockObj.address}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>รายละเอียดร้านค้า:</div>
-              <div className='px-4 py-2'>{user.description}</div>
+              <div className='px-4 py-2'>{mockObj.description}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>E-mail:</div>
               <div className='px-4 py-2'>
                 <a className='text-blue-800' href='mailto:jane@example.com'>
-                  {user.email}
+                  {mockObj.email}
                 </a>
               </div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>ชื่อบัญชี:</div>
-              <div className='px-4 py-2'>{user.bankAccountName}</div>
+              <div className='px-4 py-2'>{mockObj.bankAccountName}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>เลขที่บัญชี:</div>
-              <div className='px-4 py-2'>{user.bankAccount}</div>
+              <div className='px-4 py-2'>{mockObj.bankAccount}</div>
             </div>
           </div>
         </div>

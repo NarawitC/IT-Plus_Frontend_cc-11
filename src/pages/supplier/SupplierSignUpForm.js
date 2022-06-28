@@ -121,7 +121,7 @@ function SupplierSignUpForm() {
                 {imageURL ? (
                   <>
                     <img
-                      className='w-[160px] h-[160px] rounded-full'
+                      className='w-[160px] h-[160px] rounded-full object-fit'
                       src={imageURL}
                       alt='imageURL'
                     />
@@ -129,7 +129,7 @@ function SupplierSignUpForm() {
                 ) : (
                   <>
                     <img
-                      className='w-[160px] h-[160px] rounded-full object-fit'
+                      className='w-[160px] h-[160px] rounded-full object-fit '
                       src={previewPic}
                       alt='previewPic'
                     />

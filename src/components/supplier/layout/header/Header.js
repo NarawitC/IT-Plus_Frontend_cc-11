@@ -44,13 +44,14 @@ function Header() {
             <div className='modal'>
               <div className='modal-box'>
                 <label className='flex  flex-col justify-center items-center '>
-                  <div>
+                  <div className=' pt-2'>
                     <label
                       htmlFor='my-modal-2'
                       className='btn btn-sm btn-circle absolute right-2 top-2 '
                     >
                       ✕
                     </label>
+                    <br />
                     <label
                       htmlFor='e-mail'
                       className='block mb-2 text-sm font-medium text-gray-1200 '
@@ -67,6 +68,7 @@ function Header() {
                       value={email}
                     />
                   </div>
+                  <br />
                   <br />
                   <div>
                     <label
@@ -86,6 +88,7 @@ function Header() {
                     />
                   </div>
                 </label>
+                <br />
                 <div className='modal-action flex justify-center'>
                   <button
                     type='button'

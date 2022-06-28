@@ -7,16 +7,28 @@ import { BiLogOut } from 'react-icons/bi';
 import LogInForm from '../../form/LogInForm';
 import { SupplierAuthContext } from '../../../../contexts/Supplier/SupplierAuthContext';
 import { useNavigate } from 'react-router-dom';
+import defaultPic from '../../../../pictures/previewPic.png';
 function ProfileDropDown() {
   const navigate = useNavigate();
-  const { signOut } = useContext(SupplierAuthContext);
+  const { signOut, role, user } = useContext(SupplierAuthContext);
+  console.log(role);
 
   return (
     <>
-      <div class='dropdown dropdown-end dropdown-hover'>
-        <label tabIndex='0' className='btn m-1 gap-2 rounded-3xl  '>
-          {<CgProfile />}
-          <p className=''>Hirun</p>
+      <div className='dropdown dropdown-end dropdown-hover '>
+        <label tabIndex='0' className='btn m-1 gap-2 rounded-3xl w-auto   '>
+          {role === 'SUPPLIER' ? (
+            <div className=' flex items-center gap-4  '>
+              <img
+                src={user.profilePicture || defaultPic}
+                alt='profilePic'
+                className='rounded-full h-8 w-8'
+              />
+              <p>{user.firstName}</p>
+            </div>
+          ) : (
+            <>{<CgProfile />}</>
+          )}
         </label>
         <ul
           tabIndex='0'

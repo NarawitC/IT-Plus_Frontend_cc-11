@@ -55,6 +55,7 @@ function DynamicSelectedOrderPage() {
           <thead>
             <tr className=''>
               <th>ลำดับ</th>
+              <th></th>
               <th className='text-center'>รายการ</th>
               <th className='flex justify-center'>จำนวน</th>
               <th>ราคาต่อหน่วย</th>
@@ -67,20 +68,18 @@ function DynamicSelectedOrderPage() {
                 <>
                   <tr className='hover'>
                     <td className='text-center'>{index + 1}</td>
+                    <td className=''>
+                      <div className='flex items-center space-x-3  justify-center '>
+                        <img
+                          className='object-contain h-16 '
+                          src={el.mainPicture}
+                          alt='mainPic'
+                        />
+                      </div>
+                    </td>
                     <td>
-                      <div className='flex items-center space-x-3'>
-                        <div className='avatar'>
-                          <div className='  w-20 h-20'>
-                            <img
-                              className=''
-                              src={el.mainPicture}
-                              alt='Avatar Tailwind CSS Component'
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <div className='font-bold'>{el.productName}</div>
-                        </div>
+                      <div>
+                        <div className='font-bold'>{el.productName}</div>
                       </div>
                     </td>
                     <td>

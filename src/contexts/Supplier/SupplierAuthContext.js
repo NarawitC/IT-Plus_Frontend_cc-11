@@ -54,6 +54,7 @@ function SupplierAuthContextProvider({ children }) {
     console.log(resSupplier.data);
     fetchSupplier();
     setUser(resSupplier.data.user);
+    setRole(resSupplier.data.user.role);
     setReRender((reRender) => !reRender);
     navigate('/supplier');
     return response.data.token;
