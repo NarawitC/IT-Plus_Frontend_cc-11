@@ -5,7 +5,11 @@ import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 import Landingpage from '../pages/Userpages/Landingpage';
 import DevStat from '../components/Admin/DevStat';
-import AdminOrder from '../pages/AdminOrder';
+import AdminOrderPage from '../pages/AdminOrderPage';
+import AdminProductPage from '../pages/AdminProductPage';
+import AdminClientPage from '../pages/AdminOrderPage';
+import DevLayout from '../components/Admin/DevLayout';
+import { Navigate } from 'react-router-dom';
 
 // import Clientlayout from '../pages/Clientlayout';
 // import Landingpage from '../pages/Userpages/Landingpage';
@@ -68,12 +72,17 @@ function Router() {
           <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} />
           <Route path='tracking' element={<TrackingPage />} />
         </Route>
-        <Route path='/admin' element={<AdminLayout />}>
-          <Route path='' element={<AdminOrder />} />
-          <Route path='editProduct' element={<DevStat />} />
-          <Route path='*' element={useNavigate('/admin')} />
+        <Route path='/admin' element={<DevLayout />}>
+          <Route path='client' element={<AdminClientPage />} />
+          {/* admin page layout */}
+          <Route path='order' element={<AdminOrderPage />} />
+          {/* // Admin Client page */}
+          <Route path='product' element={<AdminProductPage />} />
+          <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
+          <Route path='' element={<Navigate to='/admin/order'></Navigate>} />
         </Route>
-        <Route path='*' element={useNavigate('/')} />
+        <Route path='/' element={<Navigate to='/admin/order'></Navigate>} />
+        <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
       </Routes>
     </ProductfilterContextProvider>
   );

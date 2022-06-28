@@ -3,18 +3,18 @@ import { FaEye } from 'react-icons/fa';
 import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
 
-function DevOrderTable() {
-  const [AllOrder, setAllOrder] = useState();
+function DevClientTable() {
+  const [AllClient, setAllClient] = useState();
   useEffect(() => {
-    const fetchOrder = async () => {
+    const fetchClient = async () => {
       try {
-        const client = await axios.get('/admin/order');
-        setAllOrder(order.data.orders);
+        const client = await axios.get('/admin/client');
+        setAllClient(client.data.clients);
       } catch (err) {}
     };
-    fetchOrder();
+    fetchClient();
   }, []);
-  console.log(AllOrder);
+  console.log(AllClient);
 
   return (
     <>
@@ -33,9 +33,9 @@ function DevOrderTable() {
                 <tr>
                   <th>{el.id}</th>
                   <td>{el.payment}</td>
-                  <td>{el.order}</td>
+                  <td>{el.createAt}</td>
                   <td>
-                    <FaEye />
+                    <FaEye to={`/myblog/edit/${el.id}`} />
                   </td>
                 </tr>
               </tbody>
@@ -54,4 +54,4 @@ function DevOrderTable() {
   );
 }
 
-export default DevOrderTable;
+export default DevClientTable;

@@ -1,6 +1,4 @@
 import React from 'react';
-import { FaEye } from 'react-icons/fa';
-import EyeButton from '../Common/EyeButton';
 
 function DevStat() {
   return (
