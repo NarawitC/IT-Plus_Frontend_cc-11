@@ -34,6 +34,7 @@ import ClientProfilePage from '../pages/client/ClientProfilePage';
 import ClientDynamicProductPage from '../pages/client/ClientDynamicProductPage';
 import ProductfilterContextProvider from '../contexts/ProductContext';
 import ProductByBrand from '../pages/product/productbySubplier/ProductBySupplier';
+import CartPage from '../pages/client/CartPage';
 function Router() {
   return (
     <ProductfilterContextProvider>
@@ -44,6 +45,7 @@ function Router() {
           <Route path='/product' element={<ClientDynamicProductPage />} />
           <Route path='/product/:productId' element={<ProductInfoPage />} />
           <Route path='/my-accout' element={<ClientProfilePage />} />
+          <Route path='cart' element={<CartPage />} />
           <Route
             path='/product/supplier/:subplierId'
             element={<ProductByBrand />}
