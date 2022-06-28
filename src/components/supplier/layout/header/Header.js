@@ -6,12 +6,17 @@ import { MdLogin } from 'react-icons/md';
 import LogInForm from '../../form/LogInForm';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useContext, useState } from 'react';
+import { SupplierAuthContext } from '../../../../contexts/Supplier/SupplierAuthContext';
 function Header() {
   const navigate = useNavigate();
+  const { signIn } = useContext(SupplierAuthContext);
+
   // console.log('first', useNavigate);
   // console.log(navigate);
   const modalRef = useRef();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <>
       <div className=' h-[80px] bg-gradient-to-r from-white via-primary to-warning  flex items-center '>
@@ -57,6 +62,8 @@ function Header() {
                       className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                       placeholder='name@company.com'
                       required
+                      onChange={(event) => setEmail(event.target.value)}
+                      value={email}
                     />
                   </div>
                   <br />
@@ -68,11 +75,13 @@ function Header() {
                       รหัสผ่าน
                     </label>
                     <input
-                      type='text'
+                      type='password'
                       id='password'
                       className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                       placeholder='••••••••'
                       required
+                      onChange={(event) => setPassword(event.target.value)}
+                      value={password}
                     />
                   </div>
                 </label>
@@ -91,7 +100,10 @@ function Header() {
                   <button
                     htmlFor='my-modal-2'
                     className='btn btn-primary'
-                    onClick={() => {}}
+                    onClick={() => {
+                      signIn(email, password);
+                      navigate('/supplier/my-shop');
+                    }}
                   >
                     เข้าสู่ระบบ
                   </button>

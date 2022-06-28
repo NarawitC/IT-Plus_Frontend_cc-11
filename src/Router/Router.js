@@ -48,7 +48,7 @@ function Router() {
         <Route path='my-spec' element={<MySpecPage />} />
       </Route> */}
       <Route path='/supplier' element={<SupplierLayout />}>
-        <Route path='' element={<SupplierHomePage />} />
+        <Route path='' element={<DynamicOrderPage />} />
         <Route path='signup' element={<SupplierSignUpPage />} />
         <Route path='my-product' element={<DynamicProductPage />} />
         <Route path='add-product' element={<DynamicAddProductPage />} />

@@ -9,6 +9,11 @@ export const createProduct = async (input) => {
   return axios.post(`/supplier/product`, input);
 };
 
-export const createProductPropertyByProductId = async (productId) => {
-  return axios.post(`/supplier/property/${productId}`);
+export const createProductPropertyByProductId = async (
+  productId,
+  properties
+) => {
+  return axios.post(`/supplier/property/${productId}`, {
+    properties: properties,
+  });
 };

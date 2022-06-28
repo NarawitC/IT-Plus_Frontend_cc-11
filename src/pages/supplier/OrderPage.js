@@ -49,7 +49,7 @@ const mockArr = [
 function OrderPage() {
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(mockArr);
-  console.log(shippingDetails);
+  // console.log(shippingDetails);
   return (
     <div className=''>
       <br />

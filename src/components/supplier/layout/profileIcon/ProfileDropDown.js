@@ -2,11 +2,15 @@ import { Link } from 'react-router-dom';
 import { BsShopWindow } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
 import { IoNotificationsOutline } from 'react-icons/io';
-
+import { useContext } from 'react';
 import { BiLogOut } from 'react-icons/bi';
 import LogInForm from '../../form/LogInForm';
-
+import { SupplierAuthContext } from '../../../../contexts/Supplier/SupplierAuthContext';
+import { useNavigate } from 'react-router-dom';
 function ProfileDropDown() {
+  const navigate = useNavigate();
+  const { signOut } = useContext(SupplierAuthContext);
+
   return (
     <>
       <div class='dropdown dropdown-end dropdown-hover'>
@@ -25,7 +29,13 @@ function ProfileDropDown() {
             </Link>
           </li>
           <li>
-            <button>
+            <button
+              type='button'
+              onClick={() => {
+                signOut();
+                navigate('/supplier');
+              }}
+            >
               {<BiLogOut />}
               <p>Logout</p>
             </button>

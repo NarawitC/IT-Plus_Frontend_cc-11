@@ -1,3 +1,8 @@
+import { useContext } from 'react';
+
+import SupplierLayout from '../../components/supplier/layout/SupplierLayout';
+import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
+
 function MyShopPage() {
   const mockObj = {
     firstName: 'พณิช',
@@ -12,6 +17,8 @@ function MyShopPage() {
     bankAccountName: 'บริษัท มาร์เวล จำกัด',
     bankAccount: '0011223344',
   };
+  const { user } = useContext(SupplierAuthContext);
+
   return (
     <div className=' '>
       <div className='bg-white flex flex-col items-center  h-[320px] pt-6 '>

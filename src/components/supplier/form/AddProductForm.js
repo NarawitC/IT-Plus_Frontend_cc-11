@@ -40,8 +40,12 @@ function AddProductForm({ addNewProductSupplier }) {
   const [subCatOptions, setSubCatOptions] = useState([]);
   const [index, setIndex] = useState(0);
   const [indexes, setIndexes] = useState([]);
+  console.log({ subCatOptions: subCatOptions });
+  console.log({ categoryId: categoryId });
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
   //get all sup cat by cat
+
+  console.log({ properties: properties });
 
   // useEffect(() => {
   //   if (categoryName === 'computer-notebook') {
@@ -68,21 +72,21 @@ function AddProductForm({ addNewProductSupplier }) {
   // }, [categoryName]);
 
   useEffect(() => {
-    if (categoryId === 1) {
+    if (categoryId === '1') {
       setSubCatOptions([
         { value: 1, displayText: 'โน๊ตบุ๊ค' },
         { value: 2, displayText: 'แท็ปเล็ต' },
         { value: 3, displayText: 'จอคอม' },
       ]);
     }
-    if (categoryId === 2) {
+    if (categoryId === '2') {
       setSubCatOptions([
         { value: 4, displayText: 'เมาส์' },
         { value: 5, displayText: 'คีย์บอร์ด' },
         { value: 6, displayText: 'ตัวจ่ายไฟ' },
       ]);
     }
-    if (categoryId === 3) {
+    if (categoryId === '3') {
       setSubCatOptions([
         { value: 7, displayText: 'หูฟัง' },
         { value: 8, displayText: 'ลำโพง' },
@@ -194,7 +198,7 @@ function AddProductForm({ addNewProductSupplier }) {
         <h1 className='text-3xl'>เพิ่มสินค้า</h1>
         <div className=''>
           <br />
-          <div className='flex justify-center flex-col'>
+          <div className='flex justify-center flex-col '>
             <div
               className=' relative justify-center p-2 rounded-md 
                   '
@@ -483,9 +487,9 @@ function AddProductForm({ addNewProductSupplier }) {
                 </option>
                 <option value='it-accessories'>อุปกรณ์ไอที</option>
                 <option value='music-movie'>ดูหนัง ฟังเพลง</option> */}
-                <option value='1'>คอมพิวเตอร์และโน๊ตบุ๊ค</option>
-                <option value='2'>อุปกรณ์ไอที</option>
-                <option value='3'>ดูหนัง ฟังเพลง</option>
+                <option value={1}>คอมพิวเตอร์และโน๊ตบุ๊ค</option>
+                <option value={2}>อุปกรณ์ไอที</option>
+                <option value={3}>ดูหนัง ฟังเพลง</option>
               </select>
             </div>
           </div>
@@ -655,8 +659,8 @@ function AddProductForm({ addNewProductSupplier }) {
           <button
             type='button'
             className='btn btn-secondary btn-md'
-            onClick={() => {
-              addNewProductSupplier(
+            onClick={async () => {
+              await addNewProductSupplier({
                 productName,
                 description,
                 price,
@@ -668,8 +672,10 @@ function AddProductForm({ addNewProductSupplier }) {
                 subPicture1,
                 subPicture2,
                 subPicture3,
-                subPicture4
-              );
+                subPicture4,
+                properties,
+              });
+
               navigate('/supplier/my-product');
             }}
           >

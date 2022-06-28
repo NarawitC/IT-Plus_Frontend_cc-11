@@ -1,17 +1,20 @@
 import previewPic from '../../pictures/previewPic.png';
 import { Link } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import * as yup from 'yup';
-
+import { useNavigate } from 'react-router-dom';
 import FormYup from '../../components/form/FormYup';
 import InputYup from '../../components/form/InputYup';
 import SubmitButtonYup from '../../components/form/SubmitButtonYup';
 import TextAreaYup from '../../components/form/TextAreaYup';
-
+import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
 function SupplierSignUpForm() {
+  const navigate = useNavigate();
   const inputEl = useRef();
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState('');
+  const { signUp } = useContext(SupplierAuthContext);
+
   useEffect(() => {
     if (image === null) {
       return;
@@ -356,9 +359,13 @@ function SupplierSignUpForm() {
           </div>
           <SubmitButtonYup
             // ref={elSubmit}
+
             className={
               'btn text-white bg-primary hover:bg-primary-focus focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-full w-auto px-5 py-2.5 text-center hover:text-gray-900  h-9'
             }
+            onClick={() => {
+              signUp();
+            }}
           >
             Sign Up
           </SubmitButtonYup>
