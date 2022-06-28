@@ -70,8 +70,9 @@ function DynamicSelectedOrderPage() {
                     <td>
                       <div className='flex items-center space-x-3'>
                         <div className='avatar'>
-                          <div className=' w-12 h-12'>
+                          <div className='  w-20 h-20'>
                             <img
+                              className=''
                               src={el.mainPicture}
                               alt='Avatar Tailwind CSS Component'
                             />

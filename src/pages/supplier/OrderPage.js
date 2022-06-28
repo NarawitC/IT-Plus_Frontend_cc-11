@@ -1,50 +1,55 @@
-import prodd from '../../pictures/prodd.png';
-import proddd from '../../pictures/proddd.png';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { GiEmptyMetalBucket } from 'react-icons/gi';
+import { useState } from 'react';
+import { ShippingOrderStatusContext } from '../../contexts/ShippingOrderStatusContext';
+import { useContext } from 'react';
+const mockArr = [
+  {
+    clientFirstName: 'Panit Su',
+    orderId: '200425EAN',
+    netPrice: 11209.0,
+    purchasedOrderStatus: 'PENDING',
+
+    trackingId: '',
+    shippingOrderStatus: '',
+  },
+  {
+    clientFirstName: 'Pal X',
+    orderId: '200325EAN',
+    netPrice: 34209.0,
+    purchasedOrderStatus: 'CONFIRMED',
+    trackingId: '',
+    shippingOrderStatus: '',
+  },
+  {
+    clientFirstName: 'Node JS',
+    orderId: '200435EAN',
+    netPrice: 88209.0,
+    purchasedOrderStatus: 'CONFIRMED',
+    trackingId: '',
+    shippingOrderStatus: '',
+  },
+  {
+    clientFirstName: 'Gun Meta',
+    orderId: '200335EAN',
+    netPrice: 92209.0,
+    purchasedOrderStatus: 'CONFIRMED',
+    trackingId: '',
+    shippingOrderStatus: '',
+  },
+  {
+    clientFirstName: 'J Next',
+    orderId: '222435EAN',
+    netPrice: 83229.0,
+    purchasedOrderStatus: 'PENDING',
+    trackingId: '',
+    shippingOrderStatus: '',
+  },
+];
 function OrderPage() {
-  const mockArr = [
-    {
-      clientFirstName: 'Panit Su',
-      orderId: '200425EAN',
-      netPrice: 11209.0,
-      purchasedOrderStatus: 'PENDING',
-      trackingNumber: '-',
-      shipmentOrderStatus: '-',
-    },
-    {
-      clientFirstName: 'Pal X',
-      orderId: '200325EAN',
-      netPrice: 34209.0,
-      purchasedOrderStatus: 'CONFIRMED',
-      trackingNumber: 'SHP50104',
-      shipmentOrderStatus: 'To Shipping Company',
-    },
-    {
-      clientFirstName: 'Node JS',
-      orderId: '200435EAN',
-      netPrice: 88209.0,
-      purchasedOrderStatus: 'CONFIRMED',
-      trackingNumber: 'KER50933',
-      shipmentOrderStatus: 'To Client',
-    },
-    {
-      clientFirstName: 'Gun Meta',
-      orderId: '200335EAN',
-      netPrice: 92209.0,
-      purchasedOrderStatus: 'CONFIRMED',
-      trackingNumber: 'KER50433',
-      shipmentOrderStatus: 'To Client',
-    },
-    {
-      clientFirstName: 'J Next',
-      orderId: '222435EAN',
-      netPrice: 83229.0,
-      purchasedOrderStatus: 'PENDING',
-      trackingNumber: '-',
-      shipmentOrderStatus: '-',
-    },
-  ];
+  const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
+  const [shippingDetails, setShippingDetails] = useState(mockArr);
+  console.log(shippingDetails);
   return (
     <div className=''>
       <br />
@@ -146,19 +151,21 @@ function OrderPage() {
           <table className='table p-2'>
             <thead>
               <tr className=''>
+                <th className=' '>ลำดับ</th>
                 <th className=' '>ชื่อลูกค้า</th>
                 <th className='flex justify-center'>หมายเลขคำสั่งซื้อ</th>
                 <th>ยอดคำสั่งซื้อ</th>
                 <th>สถานะการชำระเงิน</th>
-                <th className='flex justify-center'>Tracking Number</th>
-                <th className='text-center'>Delivery Status</th>
+                <th className='flex justify-center'>Tracking Id</th>
+                <th className='text-center'>Shipping Order Status</th>
               </tr>
             </thead>
             <tbody>
-              {mockArr.map((el, idx) => {
+              {shippingDetails.map((el, idx) => {
                 return (
                   <>
                     <tr className='hover' key={idx}>
+                      <td>{idx + 1}</td>
                       <td>
                         <div class='flex items-center space-x-3'>
                           <div>
@@ -201,14 +208,40 @@ function OrderPage() {
                         </label>
                       </th>
                       <th className='flex justify-center'>
-                        <p className='btn btn-ghost btn-lg'>
-                          {el.trackingNumber}
-                        </p>
+                        <input
+                          className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-warning'
+                          placeholder={'Tracking ID'}
+                          onChange={(event) =>
+                            setShippingDetails((prevShippingDetail) => [
+                              ...prevShippingDetail.slice(0, idx),
+                              {
+                                ...prevShippingDetail[idx],
+                                trackingId: event.target.value,
+                              },
+                              ...prevShippingDetail.slice(idx + 1),
+                            ])
+                          }
+                          value={el.trackingId}
+                        />
                       </th>
                       <th className=''>
-                        <p className='text-ghost  text-center'>
-                          {el.shipmentOrderStatus}
-                        </p>
+                        <input
+                          className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
+                          onChange={(event) =>
+                            //
+                            setShippingDetails((prevShippingDetail) => [
+                              ...prevShippingDetail.slice(0, idx),
+                              {
+                                ...prevShippingDetail[idx],
+                                shippingOrderStatus: event.target.value.trim(),
+                              },
+                              ...prevShippingDetail.slice(idx + 1),
+                            ])
+                          }
+                          value={el.shippingOrderStatus}
+                          type='text'
+                          placeholder='สถานะการจัดส่ง'
+                        />
                       </th>
                     </tr>
                   </>

@@ -570,7 +570,7 @@ function AddProductForm() {
           <tbody className=''>
             {properties.map((el, idx) => {
               return (
-                <div className=''>
+                <div className='' key={idx}>
                   <AddPropertyRow
                     property={el}
                     setProperties={setProperties}

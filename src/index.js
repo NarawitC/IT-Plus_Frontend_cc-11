@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import ErrorContextProvider from './contexts/ErrorContext';
 import ReRenderContextProvider from './contexts/ReRenderContext';
 import SupplierAuthContextProvider from './contexts/Supplier/SupplierAuthContext';
-
+import ShippingOrderStatusContextProvider from './contexts/ShippingOrderStatusContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -15,7 +15,9 @@ root.render(
       <BrowserRouter>
         <ReRenderContextProvider>
           <SupplierAuthContextProvider>
-            <App />
+            <ShippingOrderStatusContextProvider>
+              <App />
+            </ShippingOrderStatusContextProvider>
           </SupplierAuthContextProvider>
         </ReRenderContextProvider>
       </BrowserRouter>

@@ -14,10 +14,10 @@ function Header() {
   const modalRef = useRef();
   return (
     <>
-      <div className=' h-[80px] bg-gradient-to-r from-warning via-accent to-secondary  flex items-center '>
+      <div className=' h-[80px] bg-gradient-to-r from-white via-primary to-warning  flex items-center '>
         <div className='flex justify-between  items-center w-screen'>
           <Link to={`/supplier/order`}>
-            <button className='flex items-center text-white text-3xl w-[150px] justify-center gap-1 animate-bounce'>
+            <button className='flex items-center text-secondary text-3xl w-[150px] justify-center gap-1 animate-bounce'>
               {<AiOutlineSmile />}
               <h1 className=''>IT</h1>
             </button>
