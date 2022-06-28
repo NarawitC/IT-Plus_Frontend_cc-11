@@ -1,12 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function DynamicClientProductCard({ el }) {
   // console.log(el);
+  const navigate = useNavigate();
   const { price, discout, productName, imageSrc, imageAlt, id, href } = el;
   return (
     <div
       key={id}
-      className='group relative border-2 border-neutral-600 px-4 py-4 rounded-sm shadow-md'
+      className='group relative border-2 border-neutral-600 px-4 py-4 rounded-sm shadow-md  hover:ring-1 ring-[#00CDF8]'
+      onClick={() => {
+        navigate(`/product/${id}`);
+      }}
     >
       <div className='w-full bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75  lg:aspect-none'>
         <img

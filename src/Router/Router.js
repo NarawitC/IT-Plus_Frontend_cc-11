@@ -32,6 +32,8 @@ import TrackingPage from '../pages/supplier/TrackingPage';
 import DynamicSelectedOrderPage from '../pages/supplier/DynamicSelectedOrderPage';
 import ClientProfilePage from '../pages/client/ClientProfilePage';
 import ClientDynamicProductPage from '../pages/client/ClientDynamicProductPage';
+import ProductfilterContextProvider from '../contexts/ProductContext';
+import ProductByBrand from '../pages/product/productbySubplier/ProductBySupplier';
 function Router() {
   return (
     <ProductfilterContextProvider>
@@ -44,7 +46,7 @@ function Router() {
           <Route path='/my-accout' element={<ClientProfilePage />} />
           <Route
             path='/product/supplier/:subplierId'
-            element={<ProductBySupplier />}
+            element={<ProductByBrand />}
           />
         </Route>
         {/* <Route path='signup' element={<ClientSignUpPage />} />

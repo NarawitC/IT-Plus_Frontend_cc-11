@@ -50,6 +50,7 @@ function ProductInfoPage() {
                 return (
                   <>
                     <div
+                      key={idx}
                       className=' w-[60px] h-[60px] '
                       onMouseEnter={() => setIdx(idx)}
                     >

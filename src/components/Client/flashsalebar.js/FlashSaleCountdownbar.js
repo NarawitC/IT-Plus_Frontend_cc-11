@@ -1,30 +1,19 @@
 import React, { useEffect } from 'react';
 import Ficon from '../../../../src/icons/fs-1.svg';
 import { useCountdown } from '../../../contexts/clountdownContext';
+import { useProductfilter } from '../../../contexts/ProductContext';
+import SmPillButton from '../../commonUtils/SmPillButton';
+import DynamicClientProductCard from '../products/DynamicClientProductCard';
 
 function FlashSaleCountdownbar() {
   const { SetcountdownStrbydate, Days, Hrs, Mins, Secs } = useCountdown();
   useEffect(() => {
     SetcountdownStrbydate(1);
   }, []);
+  const { product } = useProductfilter();
+
   return (
     <div>
-      {/*
-       <span
-        className='countdown w-full bg-blue-50 h-2'
-        onClick={() => {
-          setcountdown((prev) => prev - 1);
-        }}
-      >
-        <span style={{ '--value': countdown }}></span>
-      </span>
-      <SmPillButton
-        text='hi'
-        onClick={() => {
-          console.log(countdown);
-        }}
-      /> */}
-
       <div className='max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 bg-yellow-400 flex justify-between mt-8 items-center rounded-xl py-4'>
         <div>
           <img src={Ficon} />
@@ -75,6 +64,23 @@ function FlashSaleCountdownbar() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 '>
+        {product.map((el) => (
+          <DynamicClientProductCard el={el} />
+        ))}
+      </div>
+      <div
+        className='w-full flex justify-center mt-4
+      '
+      >
+        <SmPillButton
+          text='See All FlashSales'
+          className={
+            'btn btn-primary mx-auto self-center  hover:bg-white hover:text-gray-700/50 duration-200'
+          }
+        />
       </div>
     </div>
   );
