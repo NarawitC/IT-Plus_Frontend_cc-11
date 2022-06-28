@@ -44,6 +44,7 @@ function Router() {
           <Route path='/product' element={<ClientDynamicProductPage />} />
           <Route path='/product/:productId' element={<ProductInfoPage />} />
           <Route path='/my-accout' element={<ClientProfilePage />} />
+          <Route path='cart' element={<CartPage />} />
           <Route
             path='/product/supplier/:subplierId'
             element={<ProductByBrand />}
