@@ -1,16 +1,15 @@
 import React from 'react';
-import DevOrderTable from '../components/Admin/DevOrderTable';
+import DevProductTable from '../components/Admin/DevProductTable';
 import DevStat from '../components/Admin/DevStat';
 import DevStepProcess from '../components/Admin/DevStepProcess';
-
-function AdminOrder() {
+function AdminProductPage() {
   return (
-    <>
+    <div data-theme='luxury'>
       <DevStat />
       <DevStepProcess />
-      <DevOrderTable />
-    </>
+      <DevProductTable />
+    </div>
   );
 }
 
-export default AdminOrder;
+export default AdminProductPage;

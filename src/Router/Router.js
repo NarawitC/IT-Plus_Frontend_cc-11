@@ -1,25 +1,26 @@
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
-import DevStat from '../components/Admin/DevStat';
-import AdminLayout from '../pages/AdminLayout';
-import AdminOrder from '../pages/AdminOrder';
+import { Route, Routes } from 'react-router-dom';
+import AdminOrderPage from '../pages/AdminOrderPage';
+import AdminProductPage from '../pages/AdminProductPage';
+import AdminClientPage from '../pages/AdminOrderPage';
+import DevLayout from '../components/Admin/DevLayout';
+import { Navigate } from 'react-router-dom';
 
 function Router() {
   return (
     <Routes>
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route path="" element={<AdminOrder />} />
-        <Route path="editProduct" element={<DevStat />} />
-        <Route path="*" element={useNavigate('/admin')} />
+      <Route path='/admin' element={<DevLayout></DevLayout>}>
+        <Route path='client' element={<AdminClientPage />} />
+        {/* admin page layout */}
+        <Route path='order' element={<AdminOrderPage />} />
+        {/* // Admin Client page */}
+        <Route path='product' element={<AdminProductPage />} />
+        <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
+        <Route path='' element={<Navigate to='/admin/order'></Navigate>} />
       </Route>
+      <Route path='/' element={<Navigate to='/admin/order'></Navigate>} />
+      <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
     </Routes>
   );
-}
-{
-  /* <Route path="/login" element={<LoginPage />} />
-      <Route path="/" element={<ClientHeader />}>
-        <Route path="" element={<HomePage />} />
-        <Route path="friend" element={<FriendPage />} />
-        <Route path="profile" element={<ProfilePage />} /> */
 }
 
 export default Router;
