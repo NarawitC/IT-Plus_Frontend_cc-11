@@ -676,7 +676,7 @@ function AddProductForm({ addNewProductSupplier }) {
                 properties,
               });
 
-              navigate('/supplier/my-product');
+              // navigate('/supplier/my-product');
             }}
           >
             เพิ่มสินค้า

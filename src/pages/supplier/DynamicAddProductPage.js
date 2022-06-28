@@ -38,9 +38,10 @@ function DynamicAddProductPage() {
     formData.append('subPicture2', subPicture2);
     formData.append('subPicture3', subPicture3);
     formData.append('subPicture4', subPicture4);
+
     const res = await createProduct(formData);
     console.log(res.data.product);
-    await createProductPropertyByProductId(res.data.product.id, properties);
+    // await createProductPropertyByProductId(res.data.product.id, properties);
     setReRender((reRender) => !reRender);
   };
 

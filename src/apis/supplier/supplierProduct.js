@@ -5,7 +5,6 @@ export const getAllProductBySupplierId = async () => {
 };
 
 export const createProduct = async (input) => {
-  console.log(input);
   return axios.post(`/supplier/product`, input);
 };
 

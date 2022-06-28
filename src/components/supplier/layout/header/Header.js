@@ -17,6 +17,7 @@ function Header() {
   const modalRef = useRef();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   return (
     <>
       <div className=' h-[80px] bg-gradient-to-r from-white via-primary to-warning  flex items-center '>

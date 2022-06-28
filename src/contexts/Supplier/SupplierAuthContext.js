@@ -25,8 +25,7 @@ function SupplierAuthContextProvider({ children }) {
         const token = getAccessToken();
         if (token) {
           const resSupplier = await getSupplierInfo();
-          setUser(resSupplier.data.supplier);
-          setRole(resSupplier.data.role);
+          setUser(resSupplier.data.user);
         }
       } catch (err) {
         removeAccessTOken();
@@ -37,7 +36,10 @@ function SupplierAuthContextProvider({ children }) {
   }, []);
 
   const signIn = async (email, password) => {
+    console.log(email);
+    console.log(password);
     const response = await supplierSignIn(email, password);
+    console.log(response.data.token);
     setAccessToken(response.data.token); //
     // console.log(response.data);
     // setRole(response.data.role);
