@@ -1,12 +1,12 @@
 import axios from '../../config/axios';
 
 export const getAllProductInfo = async () => {
-  return axios.get(`/product`);
+  return axios.get(`/client/product`);
 };
 
-// export const getProductById = async (id) => {
-//   return axios.get(`/product/info/${id}`);
-// };
+export const getProductById = async (id) => {
+  return axios.get(`/client/product/${id}`);
+};
 
 // export const getProductByCategoryId = async (categoryId) => {
 //   return axios.get(`/product/category/${categoryId}`);

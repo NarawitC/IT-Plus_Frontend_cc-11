@@ -22,7 +22,7 @@ function AuthContextProvider({ children }) {
         const token = getAccessToken();
         if (token) {
           const resMe = await getUserInfo();
-          console.log(resMe.data.user);
+          // console.log(resMe.data.user);
           setUser(resMe.data.user);
         }
       } catch (err) {
@@ -35,7 +35,7 @@ function AuthContextProvider({ children }) {
 
   const signIn = async (input) => {
     const res = await userSignIn(input);
-    console.log(res);
+    // console.log(res);
     setAccessToken(res.data.token);
     const resMe = await getUserInfo();
     setUser(resMe.data.user);

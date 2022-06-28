@@ -4,6 +4,7 @@ import itemImg1 from '../../src/productImg/item1.jpg';
 import itemImg2 from '../../src/productImg/item2.jpg';
 import itemImg3 from '../../src/productImg/item3.jpg';
 import itemImg4 from '../../src/productImg/item4.jpg';
+import { getAllProductInfo, getProductById } from '../apis/user/product';
 
 const ProductfilterContext = createContext();
 
@@ -46,19 +47,19 @@ function ProductfilterContextProvider({ children }) {
       discout: null,
     },
   ];
-  const [priceRange, setPriceRange] = useState([0, 3000]);
+  const [tempCarts, settempCarts] = useState([]);
 
   //   const [Productfilterstr, setProductfilterstr] = useState(null);
+  const [priceRange, setPriceRange] = useState([0, 3000]);
   const [product, setPoduct] = useState(products);
   useEffect(() => {
-    const filtered = PriceRangeFiler(products, priceRange);
-    // setPoduct(filtered);
-    // console.log(filtered);
+    PriceRangeFiler(products, priceRange);
   }, [priceRange]);
+
   const PriceRangeFiler = async (productArray, productRange) => {
+    const productlist = await getAllproduct();
+    console.log(productlist);
     const xxx = await productArray.filter((product) => {
-      console.log(product.price);
-      console.log(productRange[0].split(',')[0]);
       return (
         product.price >= +productRange[0].split(',')[0] &&
         product.price <= +productRange[0].split(',')[1]
@@ -67,6 +68,18 @@ function ProductfilterContextProvider({ children }) {
     setPoduct(xxx);
     return xxx;
   };
+
+  const getsinglepd = async (id) => {
+    // return await getProductById(id);
+    // console.log(product[id]);
+    return await products[id];
+  };
+  const getAllproduct = async () => {
+    const { data } = await getAllProductInfo();
+    return data;
+    // console.log(product[id]);
+    // return await products[id];
+  };
   return (
     <ProductfilterContext.Provider
       value={{
@@ -74,6 +87,9 @@ function ProductfilterContextProvider({ children }) {
         product,
         setPriceRange,
         priceRange,
+        getsinglepd,
+        settempCarts,
+        tempCarts,
       }}
     >
       {children}

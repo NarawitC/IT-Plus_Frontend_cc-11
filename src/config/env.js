@@ -2,7 +2,8 @@
 import axios from 'axios';
 import { getAccessToken, getModsToken } from '../services/localStorage';
 
-export const API_ENDPOINT_URL = 'http://localhost:8000';
+export const API_ENDPOINT_URL = 'http://103.74.253.88:8000';
+// export const API_ENDPOINT_URL = 'http://localhost:8000';
 
 axios.interceptors.request.use(
   (config) => {

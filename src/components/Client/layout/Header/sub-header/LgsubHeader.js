@@ -16,75 +16,76 @@ function LgsubHeader() {
   let mockList = [
     {
       text: 'All',
-      page: '',
+      page: '?cat=',
       icon: <TiThSmallOutline size={40} color={'gray'} />,
     },
     {
       text: 'Entertainment',
-      page: 'music-movie',
+      page: '?cat=music-movie',
       icon: <TbMovie size={40} color={'gray'} />,
     },
     {
       text: 'Gaming',
-      page: 'gaming',
+      page: '?cat=gaming',
       icon: <BsController size={40} color={'gray'} />,
     },
     {
       text: 'Desk Setup',
-      page: 'hobby-work-station',
+      page: '?cat=hobby-work-station',
       icon: <GiDesk size={40} color={'gray'} />,
     },
     {
       text: 'Computer',
-      page: 'computer-notebook',
+      page: '?cat=computer-notebook',
       icon: <GoDeviceDesktop size={40} color={'gray'} />,
     },
     {
       text: 'Live Streaming',
-      page: 'it_accessories',
+      page: '?cat=it_accessories',
       icon: <BsCameraReels size={39} color={'gray'} />,
     },
     {
       text: 'Extensions',
-      page: 'it_accessories',
+      page: '?cat=it_accessories',
       icon: <BsPlug size={40} color={'gray'} />,
     },
     {
       text: 'Toys collective',
-      page: 'it_accessories',
+      page: '?cat=it_accessories',
       icon: <HiOutlinePuzzle size={40} color={'gray'} />,
     },
     {
       text: 'Health',
-      page: 'it_accessories',
+      page: '?cat=it_accessories',
       icon: <FaDumbbell size={40} color={'gray'} />,
     },
     {
       text: 'Music',
-      page: 'it_accessories',
+      page: '?cat=it_accessories',
       icon: <HiOutlineMusicNote size={40} color={'gray'} />,
     },
     {
       text: 'Smart home',
-      page: 'it_accessories',
+      page: '?cat=it_accessories',
       icon: <TbSmartHome size={40} color={'gray'} />,
     },
     {
       text: 'Camera',
-      page: 'it_accessories',
+      page: '?cat=it_accessories',
       icon: <BsCamera size={40} color={'gray'} />,
     },
     {
       text: 'Outdoor',
-      page: 'it_accessories',
+      page: '?cat=it_accessories',
       icon: <TbBike size={40} color={'gray'} />,
     },
     {
       text: 'Smart gadgets',
-      page: 'it_accessories',
+      page: '?cat=it_accessories',
       icon: <MdOutlineMonitorWeight size={40} color={'gray'} />,
     },
   ];
+
   return (
     <div>
       <div className='carousel rounded-box overflow-y-hidden h-full py-4 gap-6'>

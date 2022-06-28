@@ -1,3 +1,3 @@
-export default localsting = (num) => {
-  return num.toLocaleString('en-US');
-};
+export default async function localsting(num) {
+  return await num.toLocaleString('en-US');
+}
