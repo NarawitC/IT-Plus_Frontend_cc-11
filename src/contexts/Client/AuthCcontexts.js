@@ -26,7 +26,7 @@ function AuthContextProvider({ children }) {
           setUser(resMe.data.user);
         }
       } catch (err) {
-        removeAccessTOken();
+        // removeAccessTOken();
         // navigate('/auth/signIn');
       }
     };
