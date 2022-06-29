@@ -51,10 +51,14 @@ function BalanceWalletPage() {
   return (
     <div>
       <div className='mt-16'>
-        <div>
-          <h1 className='text-3xl text-center'>Seller Balance</h1>
-          <p className='text-info text-center text-3xl'>฿ 24,000</p>
+        <div className=''>
+          <h1 className='text-4xl text-center font-bold'>Seller Balance</h1>
+          <br />
+          <p className='text-info text-center text-4xl font-bold'>
+            ฿ 24,000.00
+          </p>
         </div>
+        <br />
         <br />
         <div className='flex justify-center'>
           <div className='flex gap-10'>
@@ -72,6 +76,7 @@ function BalanceWalletPage() {
         </div>
       </div>
       <br />
+      <br />
       <div className=''>
         <table className={`table p-2`}>
           <thead>
@@ -88,7 +93,7 @@ function BalanceWalletPage() {
             {mockArr.map((el, idx) => {
               return (
                 <>
-                  <tr className='text-center' key={idx}>
+                  <tr className='text-center hover' key={idx}>
                     <td className='text-center'>{idx + 1}</td>
                     <td>{el.date}</td>
                     {el.type === 'รับ' ? (

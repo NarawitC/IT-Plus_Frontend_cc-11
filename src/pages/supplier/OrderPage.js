@@ -3,6 +3,8 @@ import { GiEmptyMetalBucket } from 'react-icons/gi';
 import { useState } from 'react';
 import { ShippingOrderStatusContext } from '../../contexts/ShippingOrderStatusContext';
 import { useContext } from 'react';
+import { CgFileDocument } from 'react-icons/cg';
+import { RiTodoLine } from 'react-icons/ri';
 const mockArr = [
   {
     clientFirstName: 'Panit Su',
@@ -56,26 +58,12 @@ function OrderPage() {
         <div className='stat flex justify-between items-center border-2 rounded-3xl hover:border-primary '>
           <div className=''>
             <div className='stat-title'>ที่ต้องชำระ</div>
-            <div className='stat-value text-primary'>4</div>
+            <div className='stat-value text-secondary'>4</div>
           </div>
-          <div className=' text-primary '>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              className='inline-block w-8 h-8 stroke-current'
-            >
-              <path
-                stroke-linecap='round'
-                stroke-linejoin='round'
-                stroke-width='2'
-                d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
-              ></path>
-            </svg>
-          </div>
+          <div className=' text-secondary '>{<RiTodoLine size={45} />}</div>
         </div>
         <div className='stat  border-2 rounded-3xl hover:border-secondary'>
-          <div className='stat-figure text-secondary'>
+          <div className='stat-figure text-warning'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -91,12 +79,12 @@ function OrderPage() {
             </svg>
           </div>
           <div className='stat-title'>ที่ต้องจัดส่ง</div>
-          <div className='stat-value text-secondary'>12</div>
+          <div className='stat-value text-warning'>12</div>
         </div>
 
         <div className='stat border-2 rounded-3xl hover:border-warning'>
           <div className='stat-figure text-secondary '>
-            <div className='stat-figure text-warning   '>
+            <div className='stat-figure text-accent   '>
               {<TbTruckDelivery size={45} />}
             </div>
           </div>
@@ -114,14 +102,15 @@ function OrderPage() {
       <br />
       <br />
       <>
-        <div className='h-[185px]'>
-          <div>
+        <div className='h-auto'>
+          <div className='flex items-center '>
+            {<CgFileDocument size={45} />}
             <h className='text-4xl pl-4 '>คำสั่งซื้อทั้งหมด</h>
           </div>
           <br />
-          <div className='w-[740px] flex p-2'>
-            <div className='flex'>
-              <div className='w-[360px]  h-[53px] flex items-center justify-center text-lg gap-4 '>
+          <div className='w-auto flex p-2 h-auto '>
+            <div className='flex gap-4 items-center   '>
+              <div className=' flex items-center justify-center text-lg gap-2 '>
                 <label for='searches' className=''>
                   ค้นหาโดย:
                 </label>
@@ -130,28 +119,34 @@ function OrderPage() {
                   id='searches'
                   className=' text-bold text-primary-focus border-2 h-[53px] w-[230px] rounded-lg '
                 >
-                  <option value='orderId'>หมายเลขคำสั่งซื้อ</option>
+                  <option value='id'>หมายเลขคำสั่งซื้อ</option>
                   <option value='userId'>ชื่อลูกค้า</option>
-                  <option value='product'>ชื่อสินค้า</option>
-                  <option value='deliveryStatus'>สถานะการจัดส่ง</option>
+                  <option value='shippingOrderStatus'>สถานะการจัดส่ง</option>
                 </select>
               </div>
               <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
                 <input
                   type='text'
-                  placeholder='ค้นหา...'
-                  className='input w-[395px] text-lg '
+                  placeholder='ค้นหาสั่งซื้อ'
+                  className='input w-[395px] text-lg'
                 />
               </div>
+              <div className='btn btn-secondary w-[110px] h-[53px] text-lg'>
+                ค้นหา
+              </div>
+              <button className='rounded-lg hover:bg-base-300 bg-base-200 w-[110px] h-[53px] text-lg text-black'>
+                รีเซ็ต
+              </button>
             </div>
           </div>
         </div>
-        <div className='overflow-x-auto'>
+        <br />
+        <div className='overflow-x-auto flex justify-center'>
           <table className='table p-2'>
             <thead>
               <tr className=''>
-                <th className=' '>ลำดับ</th>
-                <th className=' '>ชื่อลูกค้า</th>
+                <th className=''>ลำดับ</th>
+                <th className=''>ชื่อลูกค้า</th>
                 <th className='flex justify-center'>หมายเลขคำสั่งซื้อ</th>
                 <th>ยอดคำสั่งซื้อ</th>
                 <th>สถานะการชำระเงิน</th>
@@ -250,7 +245,7 @@ function OrderPage() {
                             <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
                           </select>
                         ) : (
-                          <></>
+                          <p className='text-center'>-</p>
                         )}
                       </th>
                     </tr>
@@ -260,6 +255,7 @@ function OrderPage() {
             </tbody>
           </table>
         </div>
+        <br />
       </>
     </div>
   );

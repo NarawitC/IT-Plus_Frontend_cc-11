@@ -10,7 +10,7 @@ function SupplierLayout() {
         <div className='bg-base-content'>
           <SideBar />
         </div>
-        <div className='flex justify-center items-center box w-full'>
+        <div className='flex justify-center items-center w-full'>
           <Outlet />
         </div>
       </div>

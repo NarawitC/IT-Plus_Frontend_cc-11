@@ -3,7 +3,6 @@ import keyboard from '../../pictures/keyboard.png';
 import speaker from '../../pictures/speaker.png';
 import { AiOutlineBorderlessTable } from 'react-icons/ai';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { warning } from 'daisyui/src/colors';
 function DynamicSelectedOrderPage() {
   const mockArr = [
     {
