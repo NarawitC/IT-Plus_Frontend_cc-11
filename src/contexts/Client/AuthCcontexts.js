@@ -31,7 +31,8 @@ function AuthContextProvider({ children }) {
       }
     };
     fetchMe();
-  }, [navigate]);
+  }, []);
+  // }, [navigate]);
 
   const signIn = async (input) => {
     const res = await userSignIn(input);

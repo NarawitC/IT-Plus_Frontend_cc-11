@@ -1,7 +1,7 @@
 import axios from '../../config/axios';
 
 export const getUserInfo = async () => {
-  console.log('Gettinguser');
+  // console.log('Gettinguser');
   return axios.get('/client/client');
 };
 

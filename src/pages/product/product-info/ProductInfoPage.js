@@ -10,7 +10,7 @@ import LocalstringComma from '../../../services/LocalstringComma';
 function ProductInfoPage() {
   const locate = useLocation();
   const [idx, setIdx] = useState(0);
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   const [singlepd, setsinglepd] = useState(null);
   const { getsinglepd, settempCarts, tempCarts } = useProductfilter();
   const { setIsLoading } = useLoading();
@@ -20,15 +20,50 @@ function ProductInfoPage() {
     //   console.log(param);
     // }
     const fetchPd = async () => {
+      setsinglepd(null);
       setIsLoading(true);
       const pdid = locate.pathname.split('/')[2];
       const singlePD = await getsinglepd(pdid);
       // await console.log(singlePD);
       await setsinglepd(singlePD);
+      await setCount(1);
       await setIsLoading(false);
     };
     fetchPd();
   }, []);
+  // console.log(singlepd);
+  const HandleAddcart = async () => {
+    const findAlredyCart = tempCarts.find((el) => {
+      return el.id === singlepd.id;
+    });
+    // console.log(findAlredyCart);
+    if (findAlredyCart !== undefined) {
+      await settempCarts((prev) => {
+        // console.log(prev);
+        const newarr = prev.map((el) => {
+          if (el.id === singlepd.id) {
+            // console.log(el.id);
+            // console.log(singlepd.id);
+            el.amount += count;
+            return el;
+          } else return el;
+        });
+        // console.log(newarr);
+        return newarr;
+      });
+      setCount(1);
+
+      // await settempCarts((prev) => [...prev, singlepd]);
+    } else {
+      await setsinglepd((prevState) => {
+        let newstage = Object.assign(prevState, prevState.amount); // creating copy of state variable jasper
+        newstage.amount = count; // update the name property, assign a new value
+        return newstage; // return new object jasper object
+      });
+      await settempCarts((prev) => [...prev, singlepd]);
+      setCount(1);
+    }
+  };
 
   const Product = {
     mainPicture:
@@ -151,14 +186,20 @@ function ProductInfoPage() {
               <button
                 className='bg-white flex btn btn-primary'
                 onClick={() => {
-                  settempCarts((prev) => [...prev, singlepd]);
-                  console.log(tempCarts);
+                  HandleAddcart();
                 }}
               >
                 <img src={addCartIcon} className='mr-4 ' />
                 ใส่รถเข็นเลย
               </button>
-              <button className='btn btn-primary'>ซื้อเลย</button>
+              <button
+                className='btn btn-primary'
+                onClick={() => {
+                  HandleAddcart();
+                }}
+              >
+                ซื้อเลย
+              </button>
             </div>
           </div>
         </div>

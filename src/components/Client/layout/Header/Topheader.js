@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import Dragbutton from './Dragbutton';
 import Clientinfo from '../Utils/Clientinfo';
-import ModalAny from '../../../commonUtils/ModalAuth';
+import ModalAny from '../../authforms/ModalAuth';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../../../contexts/Client/AuthCcontexts';
 import DynamicCartDropdown from './DynamicCartDropdown';
