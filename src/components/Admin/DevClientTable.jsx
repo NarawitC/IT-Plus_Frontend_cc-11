@@ -2,6 +2,7 @@ import React from 'react';
 import { FaEye } from 'react-icons/fa';
 import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function DevClientTable() {
   const [AllClient, setAllClient] = useState();
@@ -31,11 +32,23 @@ function DevClientTable() {
               </thead>
               <tbody>
                 <tr>
+                  <th>112321</th>
+                  <td>OD9292</td>
+                  <td>22/33/44</td>
+                  <td>
+                    <Link to={`/admin/client/${el.id}`}>
+                      <FaEye />
+                    </Link>
+                  </td>
+                </tr>
+                <tr>
                   <th>{el.id}</th>
                   <td>{el.payment}</td>
                   <td>{el.createAt}</td>
                   <td>
-                    <FaEye to={`/myblog/edit/${el.id}`} />
+                    <Link to={`/admin/client/${el.id}`}>
+                      <FaEye />
+                    </Link>
                   </td>
                 </tr>
               </tbody>

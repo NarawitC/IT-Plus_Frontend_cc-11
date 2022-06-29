@@ -25,9 +25,9 @@ function DevProductTable() {
                 <input type='checkbox' className='checkbox' />
               </label>
             </th>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
+            <th>Picture</th>
+            <th>Order ID</th>
+            <th>Status</th>
             <th>Details</th>
           </tr>
         </thead>
