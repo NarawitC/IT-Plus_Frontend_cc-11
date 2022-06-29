@@ -23,9 +23,9 @@ function Header() {
       <div className=' h-[80px] bg-gradient-to-r from-white via-primary to-warning  flex items-center '>
         <div className='flex justify-between  items-center w-screen'>
           <Link to={`/supplier/order`}>
-            <button className='flex items-center text-secondary text-3xl w-[150px] justify-center gap-1 animate-bounce'>
+            <button className='flex items-center text-primary text-3xl w-[150px] justify-center gap-1 animate-bounce'>
               {<AiOutlineSmile />}
-              <h1 className=''>IT</h1>
+              <h1 className=''>iT+</h1>
             </button>
           </Link>
           <div className='flex mr-12 gap-7 items-center justify-around'>

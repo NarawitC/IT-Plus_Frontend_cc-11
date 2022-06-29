@@ -209,9 +209,9 @@ function AddProductForm({ addNewProductSupplier }) {
                 <div className='flex flex-col justify-center'>
                   {imageURL ? (
                     <>
-                      <div className='border-2 rounded p-2'>
+                      <div className='border-2 rounded p-4 hover:border-secondary'>
                         <img
-                          className='w-60 h-60'
+                          className='object-contain w-auto h-60'
                           src={imageURL}
                           alt='imageURL'
                         />
@@ -220,7 +220,7 @@ function AddProductForm({ addNewProductSupplier }) {
                   ) : (
                     <>
                       <div className='flex flex-col'>
-                        <div className='border-2  hover:border-primary-focus w-60 h-60 rounded-md flex justify-center items-center '>
+                        <div className='border-2  hover:border-secondary w-60 h-60 rounded-md flex justify-center items-center '>
                           {<MdAddAPhoto />}
                         </div>
                         <p className='text-center'>รูปหลัก</p>
@@ -254,19 +254,18 @@ function AddProductForm({ addNewProductSupplier }) {
               >
                 {subPictureURL1 ? (
                   <>
-                    <div className='border-2 rounded p-2 hover:border-primary-focus w-32 h-32'>
-                      <img
-                        className=''
-                        src={subPictureURL1}
-                        alt='subPictureURL1'
-                      />
-                    </div>
+                    <img
+                      className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
+                      src={subPictureURL1}
+                      alt='subPictureURL1'
+                    />
+
                     <br />
                     <p className='text-center'>{`รูป 1`}</p>
                   </>
                 ) : (
                   <>
-                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                    <div className='border-2  hover:border-primary w-32 h-32 rounded-md flex justify-center items-center '>
                       {<MdAddAPhoto />}
                     </div>
                     <br />
@@ -289,30 +288,21 @@ function AddProductForm({ addNewProductSupplier }) {
               >
                 {subPictureURL2 ? (
                   <>
-                    <div className=' w-32 h-32 border-2 rounded p-2 hover:border-primary-focus'>
-                      <img
-                        className=''
-                        src={subPictureURL2}
-                        alt='subPictureURL2'
-                      />
-                    </div>
+                    <img
+                      className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
+                      src={subPictureURL2}
+                      alt='subPictureURL2'
+                    />
                     <br />
                     <p className='text-center'>{`รูป 2`}</p>
                   </>
                 ) : (
                   <>
-                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                    <div className='border-2  hover:border-primary w-32 h-32 rounded-md flex justify-center items-center '>
                       {<MdAddAPhoto />}
                     </div>
                     <br />
                     <p className='text-center'>{`รูป 2`}</p>
-                    <input
-                      type='file'
-                      accept='image/*'
-                      className='hidden  '
-                      ref={inputEl2}
-                      onChange={onSubPicture2Change}
-                    />
                   </>
                 )}
               </div>
@@ -331,19 +321,17 @@ function AddProductForm({ addNewProductSupplier }) {
               >
                 {subPictureURL3 ? (
                   <>
-                    <div className=' w-32 h-32 border-2 rounded p-2 hover:border-primary-focus'>
-                      <img
-                        className=''
-                        src={subPictureURL3}
-                        alt='subPictureURL3'
-                      />
-                    </div>
+                    <img
+                      className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
+                      src={subPictureURL3}
+                      alt='subPictureURL3'
+                    />
                     <br />
                     <p className='text-center'>{`รูป 3`}</p>
                   </>
                 ) : (
                   <>
-                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                    <div className='border-2  hover:border-primary w-32 h-32 rounded-md flex justify-center items-center '>
                       {<MdAddAPhoto />}
                     </div>
                     <br />
@@ -359,26 +347,25 @@ function AddProductForm({ addNewProductSupplier }) {
                 onChange={onSubPicture3Change}
               />
               <div
-                className=' flex flex-col relative justify-center  p-2 rounded-md hover:border-primary-focus
+                className=' flex flex-col relative justify-center  p-2 rounded-md hover:border-primary
                   '
                 role='button'
                 onClick={() => inputEl4.current.click()}
               >
                 {subPictureURL4 ? (
-                  <div className=''>
-                    <div className='border-2 rounded p-2 w-32 h-32'>
-                      <img
-                        className=''
-                        src={subPictureURL4}
-                        alt='subPictureURL4'
-                      />
-                    </div>
+                  <>
+                    <img
+                      className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
+                      src={subPictureURL4}
+                      alt='subPictureURL4'
+                    />
+
                     <br />
                     <p className='text-center'>{`รูป 4`}</p>
-                  </div>
+                  </>
                 ) : (
                   <>
-                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                    <div className='border-2  hover:border-primary w-32 h-32 rounded-md flex justify-center items-center '>
                       {<MdAddAPhoto />}
                     </div>
                     <br />
@@ -556,7 +543,7 @@ function AddProductForm({ addNewProductSupplier }) {
               <input
                 type='text'
                 id='brand'
-                className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='แบรนด์สินค้า'
                 required
                 value={brand}
@@ -590,32 +577,33 @@ function AddProductForm({ addNewProductSupplier }) {
             <h1>กรุณากรอกคุณสมบัติสินค้า</h1>
           </div>
           <br />
-          <table className='table w-[768px]'>
-            <thead>
-              <tr className=''>
-                <th className='w-[40px]'>ลำดับ</th>
-                <th className=''></th>
-                <th className=''>คุณสมบัติ</th>
-                <th className=''>รายละเอียด</th>
-              </tr>
-            </thead>
-          </table>
-          <tbody className=''>
-            {properties.map((el, idx) => {
-              return (
-                <div className='' key={idx}>
-                  <AddPropertyRow
-                    property={el}
-                    setProperties={setProperties}
-                    properties={properties}
-                    order={el.order}
-                    index={idx}
-                  />
-                </div>
-              );
-            })}
-          </tbody>
-
+          <div className='flex flex-col'>
+            <table className='table'>
+              <thead>
+                <tr className=''>
+                  <th className='w-[10px] '>ลำดับ</th>
+                  <th className='w-[360px]'>คุณสมบัติ</th>
+                  <th className='w-[450px]'>รายละเอียด</th>
+                  <th className='w-[1px]'></th>
+                </tr>
+              </thead>
+            </table>
+            <tbody>
+              {properties.map((el, idx) => {
+                return (
+                  <div className='p-2 box' key={idx}>
+                    <AddPropertyRow
+                      property={el}
+                      setProperties={setProperties}
+                      properties={properties}
+                      order={el.order}
+                      index={idx}
+                    />
+                  </div>
+                );
+              })}
+            </tbody>
+          </div>
           <br />
           <div className='flex justify-center'>
             <button
@@ -642,13 +630,13 @@ function AddProductForm({ addNewProductSupplier }) {
         <div className=''>
           <label
             for='description'
-            className='block mb-2 text-sm font-medium text-gray-1200 '
+            className='block mb-2 text-md font-medium text-gray-1200 '
           >
             รายละเอียดสินค้า
           </label>
           <textarea
             id='description'
-            className=' w-[768px] h-[150px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+            className=' w-[888px] h-[150px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             placeholder='รายละเอียดสินค้า'
             value={description}
             onChange={(event) => setDescription(event.target.value)}
