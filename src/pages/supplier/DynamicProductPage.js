@@ -136,17 +136,19 @@ function DynamicProductPage() {
                     </td>
                     <td>
                       <div className='flex justify-center'>
-                        <p className='text-ghost '>{el.stock}</p>
+                        <p className='text-ghost font-bold'>{el.stock}</p>
                       </div>
                     </td>
                     <td>
-                      <div className='flex justify-end'>
+                      <div className='flex justify-end font-bold'>
                         <p className=''>{el.price.toFixed(2)}</p>
                       </div>
                     </td>
                     <td>
                       <div className='flex justify-center'>
-                        <p className={`text-center justify-end text-${color}`}>
+                        <p
+                          className={`text-center font-bold justify-end text-${color}`}
+                        >
                           {el.status}
                         </p>
                       </div>

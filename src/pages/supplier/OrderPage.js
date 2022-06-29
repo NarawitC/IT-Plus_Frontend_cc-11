@@ -8,6 +8,7 @@ import { RiTodoLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
+import { MdOutlineCancel } from 'react-icons/md';
 const mockArr = [
   {
     firstName: 'Panit Su',
@@ -15,7 +16,7 @@ const mockArr = [
     netPrice: 11209.0,
     purchasedOrderStatus: 'PENDING',
     trackingId: '',
-    shippingOrderStatus: '',
+    status: '',
   },
   {
     firstName: 'Pal X',
@@ -23,7 +24,7 @@ const mockArr = [
     netPrice: 34209.0,
     purchasedOrderStatus: 'CONFIRMED',
     trackingId: '',
-    shippingOrderStatus: '',
+    status: '',
   },
   {
     firstName: 'Node JS',
@@ -31,7 +32,7 @@ const mockArr = [
     netPrice: 88209.0,
     purchasedOrderStatus: 'CONFIRMED',
     trackingId: '',
-    shippingOrderStatus: '',
+    status: '',
   },
   {
     firstName: 'Gun Meta',
@@ -39,7 +40,7 @@ const mockArr = [
     netPrice: 92209.0,
     purchasedOrderStatus: 'CONFIRMED',
     trackingId: '',
-    shippingOrderStatus: '',
+    status: '',
   },
   {
     firstName: 'J Next',
@@ -47,28 +48,77 @@ const mockArr = [
     netPrice: 83229.0,
     purchasedOrderStatus: 'PENDING',
     trackingId: '',
-    shippingOrderStatus: '',
+    status: '',
   },
 ];
 function OrderPage() {
   const [orders, setOrders] = useState([]);
+  const [orderSearchTerm, setOrderSearchTerm] = useState('');
+  const [searchBy, setSearchBy] = useState('');
+
   const navigate = useNavigate();
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(mockArr);
-  // console.log(shippingDetails);
+
+  // option value='id'>หมายเลขคำสั่งซื้อ</option>
+  //                 <option value='userId'>ชื่อลูกค้า</option>
+  //                 <option value='status'>สถานะการจัดส่ง</option>
 
   useEffect(() => {
-    const handleGetAllOrdersBySupplierId = async () => {
-      try {
-        const res = await getAllOrdersBySupplierId();
-        console.log(res.data);
-        setOrders(res.data.orders);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    handleGetAllOrdersBySupplierId();
-  }, []);
+    if (searchBy === 'id') {
+      const filterByOrderId = (searchTerm) => {
+        const resultArrByOrderId = mockArr.filter((el) =>
+          String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
+        );
+        setShippingDetails(resultArrByOrderId);
+      };
+      filterByOrderId(orderSearchTerm);
+    }
+    if (searchBy === 'firstName') {
+      const filterByName = (searchTerm) => {
+        let x = [...searchTerm.trim().replace(/\s/g, '')];
+        console.log(x);
+
+        const resultArrByName = mockArr.filter((el) =>
+          el.firstName
+            .toLowerCase()
+            .includes(searchTerm.trim().replace(/\s/g, ''))
+        );
+        setShippingDetails(resultArrByName);
+      };
+      filterByName(orderSearchTerm);
+    }
+    if (searchBy === 'status') {
+      const filterByStatus = (searchTerm) => {
+        console.log(searchTerm.trim().replace(/\s/g, ''));
+        const resultArrByStatus = mockArr.filter((el) =>
+          el.status.toLowerCase().includes(searchTerm.trim().replace(/\s/g, ''))
+        );
+        setShippingDetails(resultArrByStatus);
+      };
+      filterByStatus(orderSearchTerm);
+    }
+  }, [orderSearchTerm]);
+
+  // useEffect(() => {
+  //   const handleGetAllOrdersBySupplierId = async () => {
+  //     try {
+  //       const res = await getAllOrdersBySupplierId();
+  //       console.log(res.data);
+  //       setOrders(res.data.orders);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   handleGetAllOrdersBySupplierId();
+  // }, []);
+
+  // const filterByUserId = (userId) => {};
+  // const filterByStatus = (status) => {};
+
+  // <option value='id'>หมายเลขคำสั่งซื้อ</option>
+  // <option value='userId'>ชื่อลูกค้า</option>
+  // <option value='status'>สถานะการจัดส่ง</option>
 
   return (
     <div className=''>
@@ -137,24 +187,33 @@ function OrderPage() {
                   name='searches'
                   id='searches'
                   className=' text-bold text-primary-focus border-2 h-[53px] w-[230px] rounded-lg '
+                  onChange={(e) => {
+                    setSearchBy(e.target.value);
+                  }}
+                  value={searchBy}
                 >
                   <option value='id'>หมายเลขคำสั่งซื้อ</option>
-                  <option value='userId'>ชื่อลูกค้า</option>
-                  <option value='shippingOrderStatus'>สถานะการจัดส่ง</option>
+                  <option value='firstName'>ชื่อลูกค้า</option>
+                  <option value='status'>สถานะการจัดส่ง</option>
                 </select>
               </div>
               <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
                 <input
                   type='text'
-                  placeholder='ค้นหาสั่งซื้อ'
+                  placeholder='ค้นหาคำสั่งซื้อ'
                   className='input w-[395px] text-lg'
+                  onChange={(event) => {
+                    setOrderSearchTerm(event.target.value);
+                  }}
+                  value={orderSearchTerm}
                 />
               </div>
-              <div className='btn btn-secondary w-[110px] h-[53px] text-lg'>
-                ค้นหา
-              </div>
-              <button className='rounded-lg hover:bg-base-300 bg-base-200 w-[110px] h-[53px] text-lg text-black'>
-                รีเซ็ต
+
+              <button
+                onClick={() => setOrderSearchTerm('')}
+                className='hover:scale-125'
+              >
+                {<MdOutlineCancel size={25} />}
               </button>
             </div>
           </div>
@@ -177,6 +236,7 @@ function OrderPage() {
               {shippingDetails.map((el, idx) => {
                 return (
                   <>
+                    {}
                     <tr className='hover' key={idx}>
                       <td className='text-center'>{idx + 1}</td>
                       <td>
@@ -252,13 +312,12 @@ function OrderPage() {
                                 ...prevShippingDetail.slice(0, idx),
                                 {
                                   ...prevShippingDetail[idx],
-                                  shippingOrderStatus:
-                                    event.target.value.trim(),
+                                  status: event.target.value.trim(),
                                 },
                                 ...prevShippingDetail.slice(idx + 1),
                               ])
                             }
-                            value={el.shippingOrderStatus}
+                            value={el.status}
                             type='text'
                             placeholder='สถานะการจัดส่ง'
                           >

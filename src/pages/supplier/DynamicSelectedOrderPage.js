@@ -32,7 +32,7 @@ function DynamicSelectedOrderPage() {
           {<AiOutlineBorderlessTable size={35} />}
           <div>
             <h className='text-3xl pl-4 text-black '>หมายเลขคำสั่งซื้อ</h>
-            <p className='text-2xl pl-4 text-gray-600'>200425EAN</p>
+            <p className='text-2xl pl-4 text-gray-600'>111</p>
           </div>
         </div>
         <br />

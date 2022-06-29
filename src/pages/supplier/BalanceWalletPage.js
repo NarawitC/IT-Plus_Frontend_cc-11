@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 function BalanceWalletPage() {
   const [openTransactions, setOpenTransactions] = useState(false);
+
   const mockArr = [
     {
       date: '2022-06-19',
@@ -68,7 +69,12 @@ function BalanceWalletPage() {
               </div>
               <h2 className='text-ghost text-bold text-xl'>Withdrawals</h2>
             </div>
-            <div className='hover:scale-105 flex-col border-2 h-56 w-56 rounded flex items-center justify-center hover:border-info'>
+            <div
+              onClick={() =>
+                setOpenTransactions((openTransactions) => !openTransactions)
+              }
+              className='hover:scale-105 flex-col border-2 h-56 w-56 rounded flex items-center justify-center hover:border-info'
+            >
               <div className='text-info'>{<TiDocumentText size={100} />}</div>
               <h2 className='text-ghost text-bold text-xl'>Transactions</h2>
             </div>
@@ -78,7 +84,9 @@ function BalanceWalletPage() {
       <br />
       <br />
       <div className=''>
-        <table className={`table p-2`}>
+        <table
+          className={`${openTransactions === false ? 'hidden' : ''} table p-2`}
+        >
           <thead>
             <tr className='text-center'>
               <th className=''>ลำดับ</th>
