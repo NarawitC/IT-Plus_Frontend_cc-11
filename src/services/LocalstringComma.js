@@ -1,3 +1,4 @@
-export default async function localsting(num) {
-  return await num.toLocaleString('en-US');
-}
+export const localsting = (num) => {
+  // console.log(num.toLocaleString('en-US'));
+  return '' + num.toLocaleString('en-US');
+};

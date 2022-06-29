@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 // import parse from 'html-react-parser';
 import { useNavigate } from 'react-router-dom';
-import SmPillButton from './SmPillButton';
+import SmPillButton from '../../commonUtils/SmPillButton';
 import { FaSignInAlt } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { AiOutlineMail } from 'react-icons/ai';
 import { BsFacebook } from 'react-icons/bs';
-import CSignin from '../Client/authforms/signin';
+import CSignin from './signin';
 function ModalAny({ inputEmodal }) {
   const [UserAuthmodal, setUserAuthmodal] = useState(false);
   const [authOption, setauthOption] = useState(null);
