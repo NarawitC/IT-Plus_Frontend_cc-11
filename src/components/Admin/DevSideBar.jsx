@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 function DevSideBar() {
   return (
     <>
-      <div className='drawer absolute z-30'>
+      <div className='drawer absolute '>
         <input id='my-drawer' type='checkbox' className='drawer-toggle' />
         <div className='drawer-content'>
           <label htmlFor='my-drawer' className='btn btn-primary drawer-button'>
