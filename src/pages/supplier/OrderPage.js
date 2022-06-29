@@ -9,7 +9,6 @@ const mockArr = [
     orderId: '200425EAN',
     netPrice: 11209.0,
     purchasedOrderStatus: 'PENDING',
-
     trackingId: '',
     shippingOrderStatus: '',
   },

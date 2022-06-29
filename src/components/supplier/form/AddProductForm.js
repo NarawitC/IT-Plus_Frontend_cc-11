@@ -591,7 +591,7 @@ function AddProductForm({ addNewProductSupplier }) {
             <tbody>
               {properties.map((el, idx) => {
                 return (
-                  <div className='p-2 box' key={idx}>
+                  <div className='p-2' key={idx}>
                     <AddPropertyRow
                       property={el}
                       setProperties={setProperties}
