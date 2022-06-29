@@ -17,13 +17,13 @@ function ProductfilterContextProvider({ children }) {
   const [product, setPoduct] = useState(null);
   useEffect(() => {
     PriceRangeFiler(priceRange);
-    console.log(product);
+    // console.log(product);
   }, [priceRange]);
 
   const PriceRangeFiler = async (productRange) => {
     const res = await getAllproduct();
-    console.log(res);
-    console.log(productRange);
+    // console.log(res);
+    // console.log(productRange);
     const { products } = res;
     const xxx = await products?.filter((product) => {
       return (
@@ -31,7 +31,7 @@ function ProductfilterContextProvider({ children }) {
         product.price <= +productRange[0]?.split(',')[1]
       );
     });
-    console.log(xxx);
+    // console.log(xxx);
     setPoduct(xxx);
     return xxx;
   };
