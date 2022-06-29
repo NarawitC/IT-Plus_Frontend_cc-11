@@ -1,46 +1,49 @@
 import { TbTruckDelivery } from 'react-icons/tb';
 import { GiEmptyMetalBucket } from 'react-icons/gi';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShippingOrderStatusContext } from '../../contexts/ShippingOrderStatusContext';
 import { useContext } from 'react';
 import { CgFileDocument } from 'react-icons/cg';
 import { RiTodoLine } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
 const mockArr = [
   {
-    clientFirstName: 'Panit Su',
-    orderId: '200425EAN',
+    firstName: 'Panit Su',
+    id: 111,
     netPrice: 11209.0,
     purchasedOrderStatus: 'PENDING',
     trackingId: '',
     shippingOrderStatus: '',
   },
   {
-    clientFirstName: 'Pal X',
-    orderId: '200325EAN',
+    firstName: 'Pal X',
+    id: 222,
     netPrice: 34209.0,
     purchasedOrderStatus: 'CONFIRMED',
     trackingId: '',
     shippingOrderStatus: '',
   },
   {
-    clientFirstName: 'Node JS',
-    orderId: '200435EAN',
+    firstName: 'Node JS',
+    id: 333,
     netPrice: 88209.0,
     purchasedOrderStatus: 'CONFIRMED',
     trackingId: '',
     shippingOrderStatus: '',
   },
   {
-    clientFirstName: 'Gun Meta',
-    orderId: '200335EAN',
+    firstName: 'Gun Meta',
+    id: 444,
     netPrice: 92209.0,
     purchasedOrderStatus: 'CONFIRMED',
     trackingId: '',
     shippingOrderStatus: '',
   },
   {
-    clientFirstName: 'J Next',
-    orderId: '222435EAN',
+    firstName: 'J Next',
+    id: 555,
     netPrice: 83229.0,
     purchasedOrderStatus: 'PENDING',
     trackingId: '',
@@ -48,21 +51,37 @@ const mockArr = [
   },
 ];
 function OrderPage() {
+  const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(mockArr);
   // console.log(shippingDetails);
+
+  useEffect(() => {
+    const handleGetAllOrdersBySupplierId = async () => {
+      try {
+        const res = await getAllOrdersBySupplierId();
+        console.log(res.data);
+        setOrders(res.data.orders);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleGetAllOrdersBySupplierId();
+  }, []);
+
   return (
     <div className=''>
       <br />
       <div className=' grid grid-cols-2 gap-10'>
-        <div className='stat flex justify-between items-center border-2 rounded-3xl hover:border-primary '>
+        <div className='stat flex justify-between items-center border-2 rounded-3xl hover:border-secondary '>
           <div className=''>
             <div className='stat-title'>ที่ต้องชำระ</div>
             <div className='stat-value text-secondary'>4</div>
           </div>
           <div className=' text-secondary '>{<RiTodoLine size={45} />}</div>
         </div>
-        <div className='stat  border-2 rounded-3xl hover:border-secondary'>
+        <div className='stat  border-2 rounded-3xl hover:border-warning'>
           <div className='stat-figure text-warning'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -82,7 +101,7 @@ function OrderPage() {
           <div className='stat-value text-warning'>12</div>
         </div>
 
-        <div className='stat border-2 rounded-3xl hover:border-warning'>
+        <div className='stat border-2 rounded-3xl hover:border-accent'>
           <div className='stat-figure text-secondary '>
             <div className='stat-figure text-accent   '>
               {<TbTruckDelivery size={45} />}
@@ -163,14 +182,19 @@ function OrderPage() {
                       <td>
                         <div class='flex items-center space-x-3'>
                           <div>
-                            <div class='font-bold'>{el.clientFirstName}</div>
+                            <div class='font-bold'>{el.firstName}</div>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <div className='flex space-x-3'>
-                          <button className='btn btn-ghost btn-md'>
-                            {el.orderId}
+                        <div className='flex space-x-3 justify-center'>
+                          <button
+                            className='btn btn-ghost btn-md'
+                            onClick={() => {
+                              navigate('/supplier/order/selected');
+                            }}
+                          >
+                            {el.id}
                           </button>
                         </div>
                       </td>

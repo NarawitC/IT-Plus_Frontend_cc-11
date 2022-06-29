@@ -83,7 +83,7 @@ function DynamicSelectedOrderPage() {
                     </td>
                     <td>
                       <div className='flex justify-center'>
-                        <p className='text-ghost '>{el.quantity}</p>
+                        <p className='text-ghost font-bold '>{el.quantity}</p>
                       </div>
                     </td>
                     <th>

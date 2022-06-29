@@ -4,6 +4,7 @@ import { MdAddAPhoto } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
 import AddPropertyRow from '../form/AddPropertyRow';
 import { useNavigate } from 'react-router-dom';
+import { IoAddCircleOutline } from 'react-icons/io5';
 function AddProductForm({ addNewProductSupplier }) {
   const navigate = useNavigate();
   // const inputEl = useRef();
@@ -195,7 +196,10 @@ function AddProductForm({ addNewProductSupplier }) {
     <>
       <form className='pt-5'>
         <br />
-        <h1 className='text-3xl'>เพิ่มสินค้า</h1>
+        <div className='flex gap-2 font-bold'>
+          {<IoAddCircleOutline size={25} />}
+          <h1 className='text-3xl '>เพิ่มสินค้า</h1>
+        </div>
         <div className=''>
           <br />
           <div className='flex justify-center flex-col '>
