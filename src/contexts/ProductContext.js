@@ -37,7 +37,8 @@ function ProductfilterContextProvider({ children }) {
   };
 
   const getsinglepd = async (id) => {
-    return await getProductById(id);
+    const { data } = await getProductById(id);
+    return data.product;
     // console.log(product[id]);
     // return await products[id];
   };

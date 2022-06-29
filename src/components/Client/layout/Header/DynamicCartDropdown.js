@@ -21,25 +21,47 @@ function DynamicCartDropdown({ tempCarts }) {
                   d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z'
                 />
               </svg>
-              {tempCarts?.length < 0 ? (
-                <span className='badge badge-sm indicator-item'>8</span>
+              {tempCarts?.length > 0 ? (
+                <span className='badge badge-sm indicator-item'>
+                  {tempCarts?.length}
+                </span>
               ) : null}
             </div>
           </label>
 
           <div
             tabIndex='0'
-            className='mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow'
+            className='mt-3 card card-compact dropdown-content w-72 bg-base-100 shadow'
           >
             <div className='card-body'>
-              <span className='font-bold text-lg'>รายการของฉัน</span>
-              <div>
-                {/*  */}
+              <span className='font-bold text-lg border-b-2'>รายการของฉัน</span>
+              {/*  */}
 
-                <div className='col-span-1 flex my-auto border-2'></div>
+              <div className=' flex flex-col my-auto '>
+                <div className='flex flex-row  border-b-2 w-full h-24 py-1'>
+                  <img src='' className='w-1/3' />
+                  <div className='flex-col flex-1 mx-2 gap-1'>
+                    <span className='text-sm p-[2px] font-bold m-2 rounded-sm bg-red-600 text-white'>
+                      10%
+                    </span>
+                    <span>30000</span>
+                    <p className=' mx-2 text-[10px] mt-[2px] text-gray-600/50'>
+                      ifDshowoldprice
+                    </p>
+                    <p className=' mx-2 text-sm'>Hoalalalal</p>
+                    <p className='mx-2 text-[10px] '>amount: 1</p>
+                  </div>
+                </div>
+                <div className='flex flex-row border-b-2 w-full h-20'></div>
+              </div>
 
-                {/*  */}
-                <span className='text-info'>Subtotal: $999</span>
+              {/*  */}
+              <div className='bg-stone-500/10 w-full h-12 border-y-2 mb-2 px-2 flex justify-between items-center '>
+                <span className=' text-sm '>ยอดรวม </span>
+                <span className=' text-base text-primary font-bold '>
+                  {' '}
+                  $999{' '}
+                </span>
               </div>
               <div className='card-actions'>
                 <button className='btn btn-primary btn-block'>
