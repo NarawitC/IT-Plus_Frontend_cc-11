@@ -7,7 +7,7 @@ import {
   removeAccessTOken,
   setAccessToken,
 } from '../../services/localStorage';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../../config/axios';
 import { ReRenderContext } from '../ReRenderContext';
 
@@ -15,11 +15,12 @@ const SupplierAuthContext = createContext();
 
 function SupplierAuthContextProvider({ children }) {
   const { reRender, setReRender } = useContext(ReRenderContext);
-  const [Supplier, setSupplier] = useState(null);
+  const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
   const navigate = useNavigate();
 
   //url get myShop
+  const location = useLocation();
   useEffect(() => {
     const fetchSupplier = async () => {
       try {
@@ -27,12 +28,15 @@ function SupplierAuthContextProvider({ children }) {
         const resSupplier = await getSupplierInfo();
         // console.log(resSupplier);
         if (resSupplier.data.supplier.role === 'SUPPLIER') {
-          setSupplier(resSupplier.data.supplier);
+          setUser(resSupplier.data.supplier);
           setRole(resSupplier.data.role);
         }
       } catch (err) {
-        removeAccessTOken();
-        navigate('/supplier');
+        // console.log(location.pathname);
+        if (location.pathname.startsWith('/supplier')) {
+          removeAccessTOken();
+          navigate('/supplier');
+        }
       }
     };
     fetchSupplier();

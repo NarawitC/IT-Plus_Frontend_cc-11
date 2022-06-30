@@ -6,7 +6,7 @@ import {
 } from '../../services/localStorage';
 import { userSignIn, userSignUp } from '../../apis/user/auth';
 import { getUserInfo } from '../../apis/user/user';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useErrorContext } from '../ErrorContext';
 // import jwt_decode from "j"
 
@@ -16,7 +16,7 @@ function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const { setError } = useErrorContext();
-
+  const location = useLocation();
   useEffect(() => {
     const fetchMe = async () => {
       try {
@@ -31,8 +31,13 @@ function AuthContextProvider({ children }) {
           }
         }
       } catch (err) {
-        removeAccessTOken();
-        // navigate('/auth/signIn');
+        if (
+          !location.pathname.startsWith('/supplier') ||
+          !location.pathname.startsWith('/admin')
+        ) {
+          removeAccessTOken();
+          navigate('/');
+        }
       }
     };
     fetchMe();
