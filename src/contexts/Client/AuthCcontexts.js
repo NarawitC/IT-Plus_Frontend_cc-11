@@ -32,7 +32,7 @@ function AuthContextProvider({ children }) {
         }
       } catch (err) {
         if (
-          !location.pathname.startsWith('/supplier') ||
+          !location.pathname.startsWith('/supplier') &&
           !location.pathname.startsWith('/admin')
         ) {
           removeAccessTOken();

@@ -1,6 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAdminContext } from '../../contexts/Admin/AdminContext';
 
-function DevSignUp() {
+function DevSignIn() {
+  const { adminLogin } = useAdminContext();
+  const [employeeId, setEmployeeId] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  function HidePassword() {
+    let x = document.getElementById('myInput');
+    if (x.type === 'password') {
+      x.type = 'text';
+    } else {
+      x.type = 'password';
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const result = await adminLogin({ employeeId, password });
+      console.log(result);
+      if (result) {
+        navigate('/admin');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div className='hero min-h-screen bg-base-200'>
@@ -15,12 +44,14 @@ function DevSignUp() {
             <div className='card-body'>
               <div className='form-control'>
                 <label className='label'>
-                  <span className='label-text'>Email</span>
+                  <span className='label-text'>Admin</span>
                 </label>
                 <input
                   type='text'
-                  placeholder='email'
+                  placeholder='Enter User'
                   className='input input-bordered'
+                  value={employeeId}
+                  onChange={(e) => setEmployeeId(e.target.value)}
                 />
               </div>
               <div className='form-control'>
@@ -28,9 +59,11 @@ function DevSignUp() {
                   <span className='label-text'>Password</span>
                 </label>
                 <input
-                  type='text'
-                  placeholder='password'
+                  type='password'
+                  placeholder='Enter Password'
                   className='input input-bordered'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <label className='label'>
                   <a href='#' className='label-text-alt link link-hover'>
@@ -39,7 +72,9 @@ function DevSignUp() {
                 </label>
               </div>
               <div className='form-control mt-6'>
-                <button className='btn btn-primary'>Login</button>
+                <button onClick={handleSubmit} className='btn btn-primary'>
+                  Login
+                </button>
               </div>
             </div>
           </div>
@@ -49,4 +84,4 @@ function DevSignUp() {
   );
 }
 
-export default DevSignUp;
+export default DevSignIn;

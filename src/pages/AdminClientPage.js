@@ -11,7 +11,6 @@ function DevClientPage() {
         <DevStat />
         <div>
           <DevClientTable />
-          <DevProductTable />
         </div>
       </div>
     </>

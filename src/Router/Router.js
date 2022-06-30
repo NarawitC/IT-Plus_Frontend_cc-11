@@ -41,6 +41,7 @@ import ProductfilterContextProvider from '../contexts/ProductContext';
 import ProductByBrand from '../pages/product/productbySubplier/ProductBySupplier';
 import CartPage from '../pages/client/CartPage';
 import DynamicSelectedProductPage from '../pages/supplier/DynamicSelectedProductPage';
+import AdminSignInPage from '../pages/AdminSignInPage';
 function Router() {
   return (
     <Routes>
@@ -87,10 +88,11 @@ function Router() {
         {/* // Admin Client page */}
         <Route path='product' element={<AdminProductPage />} />
         <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
+        <Route path='SignIn' element={<AdminSignInPage />} />
         <Route path='' element={<Navigate to='/admin/order'></Navigate>} />
       </Route>
+
       <Route path='/' element={<Navigate to='/admin/order'></Navigate>} />
-      <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
     </Routes>
   );
 }
