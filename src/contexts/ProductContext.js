@@ -47,6 +47,7 @@ function ProductfilterContextProvider({ children }) {
       discout: null,
     },
   ];
+
   const [tempCarts, settempCarts] = useState([]);
 
   //   const [Productfilterstr, setProductfilterstr] = useState(null);

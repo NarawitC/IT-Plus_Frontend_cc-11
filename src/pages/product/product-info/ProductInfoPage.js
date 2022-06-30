@@ -75,6 +75,7 @@ function ProductInfoPage() {
                     <div
                       key={idx}
                       className=' w-[60px] h-[60px] '
+                      role='button'
                       onMouseEnter={() => setIdx(idx)}
                     >
                       <img
@@ -121,7 +122,7 @@ function ProductInfoPage() {
                 {/* ---------------------------------------ปุ่ม - ---------------------------------- */}
                 <div className='flex w-full justify-center items-center gap-2 border-2 rounded-lg '>
                   <button
-                    className='  w-[30px] h-[30px]  bg-white btn btn-primary border-none'
+                    className='  w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black'
                     onClick={() => {
                       if (count === 0) {
                         setCount(+count);
@@ -137,7 +138,7 @@ function ProductInfoPage() {
                   {/* ---------------------------------------ปุ่ม + ---------------------------------- */}
 
                   <button
-                    className='  w-[30px] h-[30px]  bg-white btn btn-primary border-none'
+                    className='  w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black'
                     onClick={() => {
                       setCount(+count + 1);
                     }}

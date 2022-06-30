@@ -1,8 +1,9 @@
 import BreadCrumbsCart from '../../components/Client/products/productInfo/BreadCrumbsCart';
-
+import { useProductfilter } from '../../contexts/ProductContext';
 import CartItem from '../../components/Client/CartItem';
 
 function CartPage() {
+  const { tempCarts } = useProductfilter();
   return (
     <div>
       <BreadCrumbsCart />
