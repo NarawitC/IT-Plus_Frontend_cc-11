@@ -29,7 +29,7 @@ import DynamicAddProductPage from '../pages/supplier/DynamicAddProductPage';
 import MyShopPage from '../pages/supplier/MyShopPage';
 import BalanceWalletPage from '../pages/supplier/BalanceWalletPage';
 import DynamicOrderPage from '../pages/supplier/DynamicOrderPage';
-import DynamicProductPage from '../pages/supplier/DynamicProductPage';
+import ProductPage from '../pages/supplier/ProductPage';
 import ProductInfoPage from '../pages/product/product-info/ProductInfoPage';
 import { useLoading } from '../contexts/LoadingContext';
 
@@ -40,6 +40,7 @@ import ClientDynamicProductPage from '../pages/client/ClientDynamicProductPage';
 import ProductfilterContextProvider from '../contexts/ProductContext';
 import ProductByBrand from '../pages/product/productbySubplier/ProductBySupplier';
 import CartPage from '../pages/client/CartPage';
+import DynamicSelectedProductPage from '../pages/supplier/DynamicSelectedProductPage';
 function Router() {
   return (
     <Routes>
@@ -63,14 +64,20 @@ function Router() {
         <Route path='my-spec' element={<MySpecPage />} />
       </Route> */}
       <Route path='/supplier' element={<SupplierLayout />}>
-        <Route path='' element={<SupplierHomePage />} />
+        <Route path='' element={<DynamicOrderPage />} />
         <Route path='signup' element={<SupplierSignUpPage />} />
-        <Route path='my-product' element={<DynamicProductPage />} />
+        <Route path='my-product' element={<ProductPage />} />
         <Route path='add-product' element={<DynamicAddProductPage />} />
         <Route path='my-shop' element={<MyShopPage />} />
         <Route path='balance-wallet' element={<BalanceWalletPage />} />
         <Route path='order' element={<DynamicOrderPage />} />
-        <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} />
+        {/* <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} /> */}
+        <Route path='order/selected' element={<DynamicSelectedOrderPage />} />
+        {/* <Route path='product/:productId' element={<DynamicSelectedProductPage />} /> */}
+        <Route
+          path='product/selected'
+          element={<DynamicSelectedProductPage />}
+        />
         <Route path='tracking' element={<TrackingPage />} />
       </Route>
       <Route path='/admin' element={<DevLayout />}>

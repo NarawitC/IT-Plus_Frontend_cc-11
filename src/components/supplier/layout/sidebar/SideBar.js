@@ -20,7 +20,7 @@ const mockList = [
   {
     text: 'การเงิน',
     icon: <MdOutlineAccountBalanceWallet />,
-    sub: [{ name: 'Supplier Balance', page: 'balance-wallet' }],
+    sub: [{ name: 'Seller Balance', page: 'balance-wallet' }],
   },
   {
     text: 'สินค้า',

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { HiOutlineTrash } from 'react-icons/hi';
 
-function AddPropertyRow({ property, setProperties, order, index }) {
-  console.log(property);
+function AddPropertyRow({ property, properties, setProperties, order, index }) {
+  console.log({ property: property });
+  console.log({ order: order });
 
   //   const [name, setName] = useState("");
   //   const [unitPrice, setUnitPrice] = useState("");
@@ -12,7 +13,7 @@ function AddPropertyRow({ property, setProperties, order, index }) {
   //   const [categoryId, setCategoryId] = useState("");
 
   const handleDeleteNewProduct = (order) => {
-    setProperties(property.filter((el) => el.order !== order));
+    setProperties(properties.filter((el) => el.order !== order));
   };
 
   //   topic={el.order}
@@ -29,21 +30,11 @@ function AddPropertyRow({ property, setProperties, order, index }) {
 
   return (
     <>
-      <tr className=''>
-        <td className='pl-6'>{order}</td>
-        <td className='w-[40px] h-[40px] pl-6'>
-          <button
-            type='button'
-            onClick={() => {
-              handleDeleteNewProduct(order);
-            }}
-          >
-            <HiOutlineTrash />
-          </button>
-        </td>
+      <tr className='flex items-center gap-2'>
+        <td className='pl-4 '>{index + 1}</td>
         <td className='w-[360px] '>
           <input
-            className='p-4 w-[350px] h-10'
+            className='p-4 w-[350px] h-10 border-2 hover:border-info rounded-lg '
             onChange={(event) =>
               setProperties((property) => [
                 ...property.slice(0, index),
@@ -59,9 +50,9 @@ function AddPropertyRow({ property, setProperties, order, index }) {
             placeholder='คุณสมบัติ'
           />
         </td>
-        <td className='w-[360px] '>
+        <td className='w-[450px]'>
           <input
-            className='p-2 w-[337px] h-10 '
+            className='p-2 w-[450px] h-10 border-2 hover:border-warning rounded-lg '
             onChange={(event) =>
               setProperties((property) => [
                 ...property.slice(0, index),
@@ -76,6 +67,18 @@ function AddPropertyRow({ property, setProperties, order, index }) {
             type='text'
             placeholder='รายละเอียด'
           />
+        </td>
+        <td className='w-[40px] h-[40px] text-center flex items-center justify-center'>
+          <button
+            type='button'
+            onClick={() => {
+              handleDeleteNewProduct(order);
+            }}
+          >
+            <div className='hover:text-error'>
+              <HiOutlineTrash />
+            </div>
+          </button>
         </td>
       </tr>
     </>

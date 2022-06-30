@@ -6,20 +6,26 @@ import { MdLogin } from 'react-icons/md';
 import LogInForm from '../../form/LogInForm';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useContext, useState } from 'react';
+import { SupplierAuthContext } from '../../../../contexts/Supplier/SupplierAuthContext';
 function Header() {
   const navigate = useNavigate();
+  const { signIn } = useContext(SupplierAuthContext);
+
   // console.log('first', useNavigate);
   // console.log(navigate);
   const modalRef = useRef();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <>
-      <div className=' h-[80px] bg-gradient-to-r from-secondary to-primary flex items-center '>
+      <div className=' h-[80px] bg-gradient-to-r from-primary via-white to-warning  flex items-center '>
         <div className='flex justify-between  items-center w-screen'>
-          <Link to={`/supplier`}>
-            <button className='flex items-center text-white text-3xl w-[150px] justify-center gap-1'>
+          <Link to={`/supplier/order`}>
+            <button className='flex items-center text-warning text-3xl w-[150px] justify-center gap-1 animate-bounce'>
               {<AiOutlineSmile />}
-              <h1>IT</h1>
+              <h1 className=''>iT+</h1>
             </button>
           </Link>
           <div className='flex mr-12 gap-7 items-center justify-around'>
@@ -38,13 +44,14 @@ function Header() {
             <div className='modal'>
               <div className='modal-box'>
                 <label className='flex  flex-col justify-center items-center '>
-                  <div>
+                  <div className=' pt-2'>
                     <label
                       htmlFor='my-modal-2'
                       className='btn btn-sm btn-circle absolute right-2 top-2 '
                     >
                       ✕
                     </label>
+                    <br />
                     <label
                       htmlFor='e-mail'
                       className='block mb-2 text-sm font-medium text-gray-1200 '
@@ -57,8 +64,11 @@ function Header() {
                       className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                       placeholder='name@company.com'
                       required
+                      onChange={(event) => setEmail(event.target.value)}
+                      value={email}
                     />
                   </div>
+                  <br />
                   <br />
                   <div>
                     <label
@@ -68,14 +78,17 @@ function Header() {
                       รหัสผ่าน
                     </label>
                     <input
-                      type='text'
+                      type='password'
                       id='password'
                       className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                       placeholder='••••••••'
                       required
+                      onChange={(event) => setPassword(event.target.value)}
+                      value={password}
                     />
                   </div>
                 </label>
+                <br />
                 <div className='modal-action flex justify-center'>
                   <button
                     type='button'
@@ -91,7 +104,11 @@ function Header() {
                   <button
                     htmlFor='my-modal-2'
                     className='btn btn-primary'
-                    onClick={() => {}}
+                    onClick={() => {
+                      signIn(email, password);
+                      modalRef.current.click();
+                      navigate('/supplier');
+                    }}
                   >
                     เข้าสู่ระบบ
                   </button>

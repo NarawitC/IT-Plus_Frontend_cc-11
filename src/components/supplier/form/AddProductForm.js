@@ -3,10 +3,13 @@ import { useState, useEffect, useRef } from 'react';
 import { MdAddAPhoto } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
 import AddPropertyRow from '../form/AddPropertyRow';
-function AddProductForm() {
+import { useNavigate } from 'react-router-dom';
+import { IoAddCircleOutline } from 'react-icons/io5';
+function AddProductForm({ addNewProductSupplier }) {
+  const navigate = useNavigate();
   // const inputEl = useRef();
   const inputElMain = useRef();
-  const [image, setImage] = useState(null);
+  const [mainPicture, setMainPicture] = useState(null);
   const [imageURL, setImageURL] = useState('');
 
   const inputEl1 = useRef();
@@ -27,54 +30,84 @@ function AddProductForm() {
 
   // const [images, setImages] = useState(null);
   // const [imageURLs, setImageURLs] = useState([]);
-  const [name, setName] = useState('');
+  const [productName, setProductName] = useState('');
   const [price, setPrice] = useState('');
   const [brand, setBrand] = useState('');
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('');
-  const [subCategory, setSubCategory] = useState('');
+  const [stock, setStock] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [subCategoryId, setSubCategoryId] = useState('');
   const [description, setDescription] = useState('');
   const [properties, setProperties] = useState([]);
   const [subCatOptions, setSubCatOptions] = useState([]);
   const [index, setIndex] = useState(0);
+  const [indexes, setIndexes] = useState([]);
+  console.log({ subCatOptions: subCatOptions });
+  console.log({ categoryId: categoryId });
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
   //get all sup cat by cat
+
+  console.log({ properties: properties });
+
+  // useEffect(() => {
+  //   if (categoryName === 'computer-notebook') {
+  //     setSubCatOptions([
+  //       { value: 'notebook', displayText: 'โน๊ตบุ๊ค' },
+  //       { value: 'tablet', displayText: 'แท็ปเล็ต' },
+  //       { value: 'computer-monitor', displayText: 'จอคอม' },
+  //     ]);
+  //   }
+  //   if (categoryName === 'it-accessories') {
+  //     setSubCatOptions([
+  //       { value: 'mouse', displayText: 'เมาส์' },
+  //       { value: 'keyboard', displayText: 'คีย์บอร์ด' },
+  //       { value: 'power-supply', displayText: 'ตัวจ่ายไฟ' },
+  //     ]);
+  //   }
+  //   if (categoryName === 'music-movie') {
+  //     setSubCatOptions([
+  //       { value: 'earphone', displayText: 'หูฟัง' },
+  //       { value: 'speaker', displayText: 'ลำโพง' },
+  //     ]);
+  //   }
+  //   console.log(subCatOptions);
+  // }, [categoryName]);
+
   useEffect(() => {
-    if (category === 'computer-notebook') {
+    if (categoryId === '1') {
       setSubCatOptions([
-        { value: 'notebook', displayText: 'โน๊ตบุ๊ค' },
-        { value: 'tablet', displayText: 'แท็ปเล็ต' },
-        { value: 'computer-monitor', displayText: 'จอคอม' },
+        { value: 1, displayText: 'โน๊ตบุ๊ค' },
+        { value: 2, displayText: 'แท็ปเล็ต' },
+        { value: 3, displayText: 'จอคอม' },
       ]);
     }
-    if (category === 'it-accessories') {
+    if (categoryId === '2') {
       setSubCatOptions([
-        { value: 'mouse', displayText: 'เมาส์' },
-        { value: 'keyboard', displayText: 'คีย์บอร์ด' },
-        { value: 'power-supply', displayText: 'ตัวจ่ายไฟ' },
+        { value: 4, displayText: 'เมาส์' },
+        { value: 5, displayText: 'คีย์บอร์ด' },
+        { value: 6, displayText: 'ตัวจ่ายไฟ' },
       ]);
     }
-    if (category === 'music-movie') {
+    if (categoryId === '3') {
       setSubCatOptions([
-        { value: 'earphone', displayText: 'หูฟัง' },
-        { value: 'speaker', displayText: 'ลำโพง' },
+        { value: 7, displayText: 'หูฟัง' },
+        { value: 8, displayText: 'ลำโพง' },
       ]);
     }
     console.log(subCatOptions);
-  }, [category]);
+  }, [categoryId]);
 
   useEffect(() => {
-    if (image === null) {
+    if (mainPicture === null) {
       return;
     }
-    const newImageURL = URL.createObjectURL(image);
+    const newImageURL = URL.createObjectURL(mainPicture);
     // console.log(newImageURL);
     setImageURL(newImageURL);
-  }, [image]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+  }, [mainPicture]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
   // console.log({ imageURL: imageURL });
   const onMainPictureChange = (event) => {
     if (event.target.files[0]) {
-      setImage(event.target.files[0]);
+      setMainPicture(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
@@ -163,12 +196,15 @@ function AddProductForm() {
     <>
       <form className='pt-5'>
         <br />
-        <h1 className='text-3xl'>เพิ่มสินค้า</h1>
+        <div className='flex gap-2 font-bold'>
+          {<IoAddCircleOutline size={25} />}
+          <h1 className='text-3xl '>เพิ่มสินค้า</h1>
+        </div>
         <div className=''>
           <br />
-          <div className='flex justify-center flex-col'>
+          <div className='flex justify-center flex-col '>
             <div
-              className=' relative justify-center border-2  p-2 rounded-md 
+              className=' relative justify-center p-2 rounded-md 
                   '
               role='button'
               onClick={() => inputElMain.current.click()}
@@ -177,9 +213,9 @@ function AddProductForm() {
                 <div className='flex flex-col justify-center'>
                   {imageURL ? (
                     <>
-                      <div className='border-2 rounded p-2'>
+                      <div className='border-2 rounded p-4 hover:border-secondary'>
                         <img
-                          className='w-60 h-60'
+                          className='object-contain w-auto h-60'
                           src={imageURL}
                           alt='imageURL'
                         />
@@ -188,7 +224,7 @@ function AddProductForm() {
                   ) : (
                     <>
                       <div className='flex flex-col'>
-                        <div className='border-2  hover:border-primary-focus w-60 h-60 rounded-md flex justify-center items-center '>
+                        <div className='border-2  hover:border-secondary w-60 h-60 rounded-md flex justify-center items-center '>
                           {<MdAddAPhoto />}
                         </div>
                         <p className='text-center'>รูปหลัก</p>
@@ -222,23 +258,22 @@ function AddProductForm() {
               >
                 {subPictureURL1 ? (
                   <>
-                    <div className='border-2 rounded p-2 hover:border-primary-focus w-32 h-32'>
-                      <img
-                        className=''
-                        src={subPictureURL1}
-                        alt='subPictureURL1'
-                      />
-                    </div>
+                    <img
+                      className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
+                      src={subPictureURL1}
+                      alt='subPictureURL1'
+                    />
+
                     <br />
-                    <p className='text-center'>{`Sub-Image 1`}</p>
+                    <p className='text-center'>{`รูป 1`}</p>
                   </>
                 ) : (
                   <>
-                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                    <div className='border-2  hover:border-primary w-32 h-32 rounded-md flex justify-center items-center '>
                       {<MdAddAPhoto />}
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 1`}</p>
+                    <p className='text-center'>{`รูป 1`}</p>
                   </>
                 )}
               </div>
@@ -257,30 +292,21 @@ function AddProductForm() {
               >
                 {subPictureURL2 ? (
                   <>
-                    <div className=' w-32 h-32 border-2 rounded p-2 hover:border-primary-focus'>
-                      <img
-                        className=''
-                        src={subPictureURL2}
-                        alt='subPictureURL2'
-                      />
-                    </div>
+                    <img
+                      className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
+                      src={subPictureURL2}
+                      alt='subPictureURL2'
+                    />
                     <br />
-                    <p className='text-center'>{`Sub-Image 2`}</p>
+                    <p className='text-center'>{`รูป 2`}</p>
                   </>
                 ) : (
                   <>
-                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                    <div className='border-2  hover:border-primary w-32 h-32 rounded-md flex justify-center items-center '>
                       {<MdAddAPhoto />}
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 2`}</p>
-                    <input
-                      type='file'
-                      accept='image/*'
-                      className='hidden  '
-                      ref={inputEl2}
-                      onChange={onSubPicture2Change}
-                    />
+                    <p className='text-center'>{`รูป 2`}</p>
                   </>
                 )}
               </div>
@@ -299,23 +325,21 @@ function AddProductForm() {
               >
                 {subPictureURL3 ? (
                   <>
-                    <div className=' w-32 h-32 border-2 rounded p-2 hover:border-primary-focus'>
-                      <img
-                        className=''
-                        src={subPictureURL3}
-                        alt='subPictureURL3'
-                      />
-                    </div>
+                    <img
+                      className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
+                      src={subPictureURL3}
+                      alt='subPictureURL3'
+                    />
                     <br />
-                    <p className='text-center'>{`Sub-Image 3`}</p>
+                    <p className='text-center'>{`รูป 3`}</p>
                   </>
                 ) : (
                   <>
-                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                    <div className='border-2  hover:border-primary w-32 h-32 rounded-md flex justify-center items-center '>
                       {<MdAddAPhoto />}
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 3`}</p>
+                    <p className='text-center'>{`รูป 3`}</p>
                   </>
                 )}
               </div>
@@ -327,30 +351,29 @@ function AddProductForm() {
                 onChange={onSubPicture3Change}
               />
               <div
-                className=' flex flex-col relative justify-center  p-2 rounded-md hover:border-primary-focus
+                className=' flex flex-col relative justify-center  p-2 rounded-md hover:border-primary
                   '
                 role='button'
                 onClick={() => inputEl4.current.click()}
               >
                 {subPictureURL4 ? (
-                  <div className=''>
-                    <div className='border-2 rounded p-2 w-32 h-32'>
-                      <img
-                        className=''
-                        src={subPictureURL4}
-                        alt='subPictureURL4'
-                      />
-                    </div>
+                  <>
+                    <img
+                      className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
+                      src={subPictureURL4}
+                      alt='subPictureURL4'
+                    />
+
                     <br />
-                    <p className='text-center'>{`Sub-Image 4`}</p>
-                  </div>
+                    <p className='text-center'>{`รูป 4`}</p>
+                  </>
                 ) : (
                   <>
-                    <div className='border-2  hover:border-primary-focus w-32 h-32 rounded-md flex justify-center items-center '>
+                    <div className='border-2  hover:border-primary w-32 h-32 rounded-md flex justify-center items-center '>
                       {<MdAddAPhoto />}
                     </div>
                     <br />
-                    <p className='text-center'>{`Sub-Image 4`}</p>
+                    <p className='text-center'>{`รูป 4`}</p>
                   </>
                 )}
               </div>
@@ -418,19 +441,19 @@ function AddProductForm() {
           <div className=''>
             <div className='flex flex-col justify-center'>
               <label
-                htmlFor='address'
+                htmlFor='productName'
                 className='block mb-2 text-sm font-medium text-gray-1200 '
               >
                 ชื่อสินค้า
               </label>
               <input
                 type='text'
-                id='name'
+                id='productName'
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='ชื่อสินค้า'
                 required
-                value={name}
-                onChange={(event) => setName(event.target.value)}
+                value={productName}
+                onChange={(event) => setProductName(event.target.value)}
               />
             </div>
           </div>
@@ -446,15 +469,18 @@ function AddProductForm() {
                 id='category'
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
+                value={categoryId}
+                onChange={(event) => setCategoryId(event.target.value)}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้า</option>
-                <option value='computer-notebook'>
+                {/* <option value='computer-notebook'>
                   คอมพิวเตอร์และโน๊ตบุ๊ค
                 </option>
                 <option value='it-accessories'>อุปกรณ์ไอที</option>
-                <option value='music-movie'>ดูหนัง ฟังเพลง</option>
+                <option value='music-movie'>ดูหนัง ฟังเพลง</option> */}
+                <option value={1}>คอมพิวเตอร์และโน๊ตบุ๊ค</option>
+                <option value={2}>อุปกรณ์ไอที</option>
+                <option value={3}>ดูหนัง ฟังเพลง</option>
               </select>
             </div>
           </div>
@@ -470,8 +496,8 @@ function AddProductForm() {
                 id='subCategory'
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
-                value={subCategory}
-                onChange={(event) => setSubCategory(event.target.value)}
+                value={subCategoryId}
+                onChange={(event) => setSubCategoryId(event.target.value)}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้าย่อย</option>
                 {subCatOptions.map((el, index) => {
@@ -521,7 +547,7 @@ function AddProductForm() {
               <input
                 type='text'
                 id='brand'
-                className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='แบรนด์สินค้า'
                 required
                 value={brand}
@@ -543,8 +569,8 @@ function AddProductForm() {
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 placeholder='จำนวน'
                 required
-                value={amount}
-                onChange={(event) => setAmount(event.target.value)}
+                value={stock}
+                onChange={(event) => setStock(event.target.value)}
               />
             </div>
           </div>
@@ -555,46 +581,49 @@ function AddProductForm() {
             <h1>กรุณากรอกคุณสมบัติสินค้า</h1>
           </div>
           <br />
-          <table className='table w-[768px]'>
-            <thead>
-              <tr className=''>
-                <th className='w-[40px]'>ลำดับ</th>
-                <th className=''></th>
-                <th className=''>คุณสมบัติ</th>
-                <th className=''>รายละเอียด</th>
-              </tr>
-            </thead>
-          </table>
-          <tbody className=''>
-            {properties.map((el, index) => {
-              return (
-                <div className=''>
-                  <AddPropertyRow
-                    property={el}
-                    setProperties={setProperties}
-                    order={el.order}
-                    index={index}
-                  />
-                </div>
-              );
-            })}
-          </tbody>
-
+          <div className='flex flex-col'>
+            <table className='table'>
+              <thead>
+                <tr className=''>
+                  <th className='w-[10px] '>ลำดับ</th>
+                  <th className='w-[360px]'>คุณสมบัติ</th>
+                  <th className='w-[450px]'>รายละเอียด</th>
+                  <th className='w-[1px]'></th>
+                </tr>
+              </thead>
+            </table>
+            <tbody>
+              {properties.map((el, idx) => {
+                return (
+                  <div className='p-2' key={idx}>
+                    <AddPropertyRow
+                      property={el}
+                      setProperties={setProperties}
+                      properties={properties}
+                      order={el.order}
+                      index={idx}
+                    />
+                  </div>
+                );
+              })}
+            </tbody>
+          </div>
           <br />
           <div className='flex justify-center'>
             <button
               type='button'
               className='btn btn-info text-center hover:info-focus '
               onClick={() => {
-                setIndex((index) => (index = index + 1));
-                setProperties([
-                  ...properties,
-                  {
-                    order: index + 1,
-                    topic: '',
-                    description: '',
-                  },
-                ]);
+                if (properties.length < 10) {
+                  setProperties([
+                    ...properties,
+                    {
+                      order: properties.length + 1,
+                      topic: '',
+                      description: '',
+                    },
+                  ]);
+                }
               }}
             >
               เพิ่มรายการ
@@ -605,13 +634,13 @@ function AddProductForm() {
         <div className=''>
           <label
             for='description'
-            className='block mb-2 text-sm font-medium text-gray-1200 '
+            className='block mb-2 text-md font-medium text-gray-1200 '
           >
             รายละเอียดสินค้า
           </label>
           <textarea
             id='description'
-            className=' w-[768px] h-[150px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+            className=' w-[888px] h-[150px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             placeholder='รายละเอียดสินค้า'
             value={description}
             onChange={(event) => setDescription(event.target.value)}
@@ -619,7 +648,29 @@ function AddProductForm() {
         </div>
         <br />
         <div className='flex justify-center'>
-          <button type='button' className='btn btn-secondary btn-md '>
+          <button
+            type='button'
+            className='btn btn-secondary btn-md'
+            onClick={async () => {
+              await addNewProductSupplier({
+                productName,
+                description,
+                price,
+                brand,
+                stock,
+                categoryId,
+                subCategoryId,
+                mainPicture,
+                subPicture1,
+                subPicture2,
+                subPicture3,
+                subPicture4,
+                properties,
+              });
+
+              // navigate('/supplier/my-product');
+            }}
+          >
             เพิ่มสินค้า
           </button>
         </div>
