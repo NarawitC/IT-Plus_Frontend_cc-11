@@ -4,6 +4,7 @@ import itemImg1 from '../../src/productImg/item1.jpg';
 import itemImg2 from '../../src/productImg/item2.jpg';
 import itemImg3 from '../../src/productImg/item3.jpg';
 import itemImg4 from '../../src/productImg/item4.jpg';
+import { CareateSubcat } from '../apis/admin/adminUserAPI';
 import {
   createCartbyClientId,
   createCartitems,
@@ -69,7 +70,12 @@ function ProductfilterContextProvider({ children }) {
     PriceRangeFiler(priceRange);
     const sumPrice = () => {
       if (tempCarts?.length > 0) {
-        const subtotal = tempCarts?.map((el) => el.price * el.amount);
+        const subtotal = tempCarts?.map((el) => {
+          // console.log(el);
+          if (el.Promotions?.length > 0) {
+            return (+el.price - +el.Promotions[0].discount) * el.amount;
+          } else return el.price * el.amount;
+        });
         const total = subtotal.reduce((a, b) => a + b, 0);
         const totoalAmount = tempCarts
           .map((el) => el.amount)
@@ -79,7 +85,6 @@ function ProductfilterContextProvider({ children }) {
       }
     };
     sumPrice();
-    // console.log(product);
   }, [priceRange, tempCarts]);
 
   const PriceRangeFiler = async (productRange) => {

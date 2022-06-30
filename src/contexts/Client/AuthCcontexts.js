@@ -8,11 +8,13 @@ import { userSignIn, userSignUp } from '../../apis/user/auth';
 import { getUserInfo } from '../../apis/user/user';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useErrorContext } from '../ErrorContext';
+import { SupplierAuthContext } from '../Supplier/SupplierAuthContext';
 // import jwt_decode from "j"
 
 const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
+  // const { user, setUser } = useContext(SupplierAuthContext);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const { setError } = useErrorContext();
@@ -26,7 +28,8 @@ function AuthContextProvider({ children }) {
           const resMe = await getUserInfo();
           // console.log(resMe.data.user);
           // console.log('resMe.data.user need to fix');
-          if (resMe.data.user.role === 'CLIENT') {
+          // if (resMe.data.user.role === 'CLIENT') {
+          if (1) {
             setUser(resMe.data.user);
           }
         }
@@ -35,12 +38,13 @@ function AuthContextProvider({ children }) {
           !location.pathname.startsWith('/supplier') &&
           !location.pathname.startsWith('/admin')
         ) {
-          removeAccessTOken();
-          navigate('/');
+          // removeAccessTOken();
+          // navigate('/');
         }
       }
     };
     fetchMe();
+    console.log(user);
   }, []);
   // }, [navigate]);
 

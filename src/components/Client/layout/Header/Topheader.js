@@ -7,9 +7,11 @@ import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../../../contexts/Client/AuthCcontexts';
 import DynamicCartDropdown from './DynamicCartDropdown';
 import { useProductfilter } from '../../../../contexts/ProductContext';
+import { useErrorContext } from '../../../../contexts/ErrorContext';
 
 function Topheader({ clicksidebar }) {
   const { user } = useAuthContext();
+  const { setError } = useErrorContext();
   const { tempCarts } = useProductfilter();
   const inputEmodal = useRef();
   return (
