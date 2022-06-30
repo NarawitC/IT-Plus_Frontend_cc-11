@@ -6,7 +6,9 @@ import { localsting } from '../../../../services/LocalstringComma';
 function DynamicCartDropdown({ tempCarts }) {
   const navigate = useNavigate();
   const { totalCart } = useProductfilter();
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   // console.log(tempCarts);
+  // }, []);
 
   const handleCreateCart = () => {
     navigate('/cart');
@@ -51,35 +53,39 @@ function DynamicCartDropdown({ tempCarts }) {
                 return (
                   <div key={index} className=' flex flex-col my-auto '>
                     <div className='flex flex-row  border-b-2 w-full h-24 py-1'>
-                      <img src={el.mainPicture} className='w-1/3' />
+                      <img src={el?.mainPicture} className='w-1/3' />
                       <div className='flex-col flex-1 mx-2 gap-1'>
-                        {el.Promotions?.length < 0 ? (
+                        {el?.Promotions?.length > 0 ? (
                           <>
                             <span className='text-sm p-[2px] font-bold m-2 rounded-sm bg-red-600 text-white'>
-                              10%
+                              {el?.Promotions[0].discount}
                             </span>
-                            <span className='font-bold'>30000</span>
+                            <span className='font-bold'>
+                              {localsting(
+                                el?.price - el?.Promotions[0].discount
+                              )}
+                            </span>
 
-                            <p className=' mx-2 text-[10px] mt-[2px] text-gray-600/50'>
-                              {localsting(el.price)} THB
+                            <p className=' mx-2 text-[10px] mt-[2px] text-gray-600/50 line-through'>
+                              {localsting(el?.price)}
                             </p>
                           </>
                         ) : (
                           <span className='ml-2 font-bold'>
-                            {`${localsting(el.price)}`} THB
+                            {`${localsting(el?.price)}`} THB
                           </span>
                         )}
 
-                        <p className=' mx-2 text-sm'>{el.productName}</p>
+                        <p className=' mx-2 text-sm'>{el?.productName}</p>
                         <p className='mx-2 text-[10px] text-gray-800/60 '>
-                          จำนวน: {el.amount + ''}
+                          จำนวน: {el?.amount + ''}
                         </p>
                       </div>
                     </div>
                   </div>
                 );
               })}
-              <div className=' flex flex-col my-auto '>
+              {/* <div className=' flex flex-col my-auto '>
                 <div className='flex flex-row  border-b-2 w-full h-24 py-1'>
                   <img src='' className='w-1/3' />
                   <div className='flex-col flex-1 mx-2 gap-1'>
@@ -94,15 +100,11 @@ function DynamicCartDropdown({ tempCarts }) {
                     <p className='mx-2 text-[10px] '>amount: 1</p>
                   </div>
                 </div>
-                {/* <div className='flex flex-row border-b-2 w-full h-20'></div> */}
               </div>
               <div className=' flex flex-col my-auto '>
                 <div className='flex flex-row  border-b-2 w-full h-24 py-1'>
                   <img src='' className='w-1/3' />
                   <div className='flex-col flex-1 mx-2 gap-1'>
-                    {/* <span className='text-sm p-[2px] font-bold m-2 rounded-sm bg-red-600 text-white'>
-                      10%
-                    </span> */}
                     <span>30000</span>
                     <p className=' mx-2 text-[10px] mt-[2px] text-gray-600/50'>
                       ifDshowoldprice
@@ -111,15 +113,14 @@ function DynamicCartDropdown({ tempCarts }) {
                     <p className='mx-2 text-[10px] '>amount: 1</p>
                   </div>
                 </div>
-                {/* <div className='flex flex-row border-b-2 w-full h-20'></div> */}
-              </div>
+              </div> */}
 
               {/*  */}
               <div className='bg-stone-500/10 w-full h-12 border-y-2 mb-2 px-2 flex justify-between items-center '>
                 <span className=' text-sm '>ยอดรวม </span>
                 <span className=' text-base text-primary font-bold '>
                   {' '}
-                  ${totalCart}{' '}
+                  {totalCart}บาท{' '}
                 </span>
               </div>
               <div className='card-actions'>

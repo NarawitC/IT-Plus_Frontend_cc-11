@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import CartImg from '../../../../src/pictures/cart-test-1.jpg';
 import trash from '../../../../src/pictures/trash.svg';
 import { useProductfilter } from '../../../contexts/ProductContext';
+import { localsting } from '../../../services/LocalstringComma';
 // import sumCheck from '../../../src/pictures/check_sum.svg';
 
-function LGCartlist({ el }) {
+function LGCartlist({ el, handleDelcartlist }) {
   const [count, setCount] = useState(el.amount || 0);
   const { settempCarts } = useProductfilter();
   const handleChangeamount = async () => {
@@ -22,6 +23,7 @@ function LGCartlist({ el }) {
       return newarr;
     });
   };
+
   useEffect(() => {
     handleChangeamount();
   }, [count]);
@@ -37,16 +39,18 @@ function LGCartlist({ el }) {
           </div>
           <div className='col-span-3 m-auto '>
             {/* {1 ? ( */}
-            {el.Promotions?.length < 0 ? (
+            {el.Promotions?.length > 0 ? (
               <>
                 <div className='flex pt-6 gap-4'>
                   <div className='bg-red-500 text-white px-4 rounded-lg  h-10'>
                     <div className='my-2'>- THB 500</div>
                   </div>
-                  <div className='font-bold text-[24px]'>THB {el.price}</div>
+                  <div className='font-bold text-[24px]'>
+                    THB {localsting(el.price - el.Promotions[0].discount)}
+                  </div>
                 </div>
                 <div className='line-through text-gray-500 opacity-50'>
-                  THB 19,900
+                  THB {localsting(el.price)}
                 </div>
               </>
             ) : (
@@ -81,7 +85,12 @@ function LGCartlist({ el }) {
               </button>
             </div>
             <div className='col-span-1 my-auto'>
-              <img src={trash} />
+              <img
+                src={trash}
+                onClick={() => {
+                  handleDelcartlist(el.id);
+                }}
+              />
             </div>
           </div>
         </div>

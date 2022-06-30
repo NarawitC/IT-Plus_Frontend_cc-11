@@ -27,7 +27,11 @@ function CartItem() {
   const [count, setCount] = useState(0);
 
   const handleSubmitorder = async (tempCarts, userid) => {
+<<<<<<< HEAD
     // console.log(userid);
+=======
+    console.log(userid);
+>>>>>>> feat-catcheckout
     const cartId = await createCarts(tempCarts, userid);
     setdbcart(cartId);
     navigate('/cart/checkout');

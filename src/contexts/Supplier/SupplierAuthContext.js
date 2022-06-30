@@ -15,10 +15,12 @@ const SupplierAuthContext = createContext();
 
 function SupplierAuthContextProvider({ children }) {
   const { reRender, setReRender } = useContext(ReRenderContext);
-  const [user, setUser] = useState(null);
+  const [supplier, setSupplier] = useState(null);
   const [role, setRole] = useState(null);
   const navigate = useNavigate();
-
+  useEffect(() => {
+    fetchSupplier();
+  }, []);
   //url get myShop
   const location = useLocation();
 
@@ -26,22 +28,19 @@ function SupplierAuthContextProvider({ children }) {
     try {
       const token = getAccessToken();
       const resSupplier = await getSupplierInfo();
-      // console.log(resSupplier);
-      if (resSupplier.data.supplier.role === 'SUPPLIER') {
-        setUser(resSupplier.data.supplier);
-        setRole(resSupplier.data.role);
+      console.log(resSupplier.data.user.role);
+      if (resSupplier.data.user.role === 'SUPPLIER') {
+        setSupplier(resSupplier.data.user);
+        setRole(resSupplier.data.user.role);
       }
     } catch (err) {
-      // console.log(location.pathname);
+      console.log(err);
       if (location.pathname.startsWith('/supplier')) {
-        removeAccessTOken();
-        navigate('/supplier');
+        // removeAccessTOken();
+        // navigate('/supplier');
       }
     }
   };
-  useEffect(() => {
-    fetchSupplier();
-  }, []);
 
   const signIn = async (email, password) => {
     console.log(email);
@@ -54,14 +53,14 @@ function SupplierAuthContextProvider({ children }) {
     // console.log({ role: role });
     // if (response.data.role === 'supplier') {
     //   const resSupplier = await axios.get('/suppliers/me');
-    //   setUser(resSupplier.data.supplier);
+    //   setSupplier(resSupplier.data.supplier);
     // }
     console.log('--------------------');
     const resSupplier = await axios.get('/supplier/supplier');
     console.log('--------------------');
     console.log(resSupplier.data);
-    fetchSupplier();
-    setUser(resSupplier.data.user);
+    // fetchSupplier();
+    setSupplier(resSupplier.data.user);
     setRole(resSupplier.data.user.role);
     setReRender((reRender) => !reRender);
     navigate('/supplier');
@@ -71,7 +70,7 @@ function SupplierAuthContextProvider({ children }) {
   const signOut = () => {
     removeAccessTOken(); //
     setReRender((reRender) => !reRender);
-    setUser(null);
+    setSupplier(null);
     setRole('');
     navigate('/');
   };
@@ -81,13 +80,13 @@ function SupplierAuthContextProvider({ children }) {
     console.log(response.data.message);
     // setAccessToken(response.data.token); //สมัครเสร็จ ลอคอินได้เลย
     // const resMe = await getSupplierInfo();
-    // setUser(resMe.data.user);
+    // setSupplier(resMe.data.user);
     // navigate('/supplier/my-shop');
   };
 
   return (
     <SupplierAuthContext.Provider
-      value={{ signUp, user, signIn, signOut, role, setRole }}
+      value={{ signUp, supplier, setSupplier, signIn, signOut, role, setRole }}
     >
       {children}
     </SupplierAuthContext.Provider>
