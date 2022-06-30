@@ -9,6 +9,8 @@ import {
   createCartitems,
   createOrederswithItems,
   getCart,
+  getCartbyId,
+  getCartbyIdapi,
 } from '../apis/user/order';
 import { getAllProductInfo, getProductById } from '../apis/user/product';
 
@@ -130,8 +132,14 @@ function ProductfilterContextProvider({ children }) {
 
     // setdbcart(cartId);
     // console.log(resitem.data);
-    createOrderandOrderItems(cartId, 'palhome');
     return cartId;
+  };
+  const GetCartsbyId = async (cartId) => {
+    const rescart = await getCart(cartId);
+    const allcart = rescart.data.carts;
+    const mycart = await allcart.find((el) => el.id === cartId);
+    // const res = await getCartbyIdapi(cartId);
+    return mycart;
   };
   const createOrderandOrderItems = async (cartId, adress) => {
     const rescart = await getCart(cartId);
@@ -281,6 +289,8 @@ function ProductfilterContextProvider({ children }) {
         createCarts,
         createOrderandOrderItems,
         dbcart,
+        setdbcart,
+        GetCartsbyId,
       }}
     >
       {children}

@@ -15,7 +15,7 @@ const SupplierAuthContext = createContext();
 
 function SupplierAuthContextProvider({ children }) {
   const { reRender, setReRender } = useContext(ReRenderContext);
-  const [user, setUser] = useState(null);
+  const [Supplier, setSupplier] = useState(null);
   const [role, setRole] = useState(null);
   const navigate = useNavigate();
 
@@ -24,13 +24,11 @@ function SupplierAuthContextProvider({ children }) {
     const fetchSupplier = async () => {
       try {
         const token = getAccessToken();
-        if (0) {
-          const resSupplier = await getSupplierInfo();
-          console.log(resSupplier);
-          if (resSupplier.data.supplier.role === 'SUPPLIER') {
-            setUser(resSupplier.data.supplier);
-            setRole(resSupplier.data.role);
-          }
+        const resSupplier = await getSupplierInfo();
+        // console.log(resSupplier);
+        if (resSupplier.data.supplier.role === 'SUPPLIER') {
+          setSupplier(resSupplier.data.supplier);
+          setRole(resSupplier.data.role);
         }
       } catch (err) {
         removeAccessTOken();

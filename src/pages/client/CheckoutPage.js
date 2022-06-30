@@ -2,9 +2,22 @@ import BreadCrumbsCart from '../../components/Client/products/productInfo/BreadC
 import { useProductfilter } from '../../contexts/ProductContext';
 import sumCheck from '../../../src/pictures/check_sum.svg';
 import homeIcon from '../../../src/pictures/home-icon.svg';
+import { useEffect, useState } from 'react';
+import { getCart } from '../../apis/user/order';
 
 function CheckoutPage() {
-  const { tempCarts } = useProductfilter();
+  const [cartOrder, setcartOrder] = useState(null);
+  useEffect(() => {
+    const fetchCartDb = async () => {
+      if (dbcart) {
+        const rescart = await GetCartsbyId(dbcart);
+        // console.log(rescart);
+        setcartOrder(rescart);
+      }
+    };
+    fetchCartDb();
+  }, []);
+  const { tempCarts, dbcart, GetCartsbyId } = useProductfilter();
   return (
     <div>
       <BreadCrumbsCart />
