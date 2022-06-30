@@ -19,6 +19,11 @@ function DynamicSelectedProductPage() {
     description:
       'นอกจากไมค์คุณภาพสูงแล้วหูฟังเล่นเกม Logitech Pro X ยังมาพร้อมกับการปรับแต่งเสียงผ่าน Software ได้ในตัว ทำให้นอกจากใช้เล่นเกมแล้วยังสามารถเอาไปใช้ ดูหนังฟังเพลงได้อีกด้วย โดยการเซฟ Presets เอาไว้ อีกทั้งยังมี Sound Card มาช่วยดันคุณภาพเสียงให้สูงขึ้นได้อีกด้วย แถมบอดี้ของมันยังแข็งแรงด้วยวัสดุโลหะ และอลูมิเนียม ด้วยการผสมกันของวัสดุทั้งสองอย่างทำให้ได้หูฟังที่แข็งแรงและน้ำหนักเบาสุด ๆ ',
   };
+  const mockProperties = [
+    { topic: 'ขนาดจอ', description: '24 นิ้ว' },
+    { topic: 'ความละเอียด', description: '10M pixels' },
+    { topic: 'สี', description: 'ดำ' },
+  ];
   return (
     <div className=''>
       <br />
@@ -132,6 +137,42 @@ function DynamicSelectedProductPage() {
           <p>{mockObj.stock}</p>
         </div>
       </div>
+      <div className='flex justify-center'>
+        <table className='table'>
+          <thead>
+            <tr className=''>
+              <th className='w-[10px] '>ลำดับ</th>
+              <th className='w-[360px]'>คุณสมบัติ</th>
+              <th className='w-[450px]'>รายละเอียด</th>
+              <th className='w-[1px]'></th>
+            </tr>
+          </thead>
+          <tbody>
+            {mockProperties.map((el, index) => {
+              return (
+                <>
+                  <tr className=''>
+                    <td className='text-center'>{index + 1}</td>
+                    <td className=''>
+                      <div className='border-2 hover:border-info rounded-lg h-10 p-2 flex items-center'>
+                        {el.topic}
+                      </div>
+                    </td>
+                    <td>
+                      <div className='border-2 hover:border-info rounded-lg h-10 p-2 flex items-center'>
+                        {el.description}
+                      </div>
+                    </td>
+                    <td></td>
+                  </tr>
+                  <br />
+                </>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <br />
       <div className='flex flex-col justify-center border-2 hover:border-info rounded-lg m-4 p-2'>
         <label
           for='description'
