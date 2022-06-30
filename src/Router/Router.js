@@ -58,6 +58,7 @@ function Router() {
         <Route path='order' element={<DynamicOrderPage />} />
         {/* <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} /> */}
         <Route path='order/selected' element={<DynamicSelectedOrderPage />} />
+        {/* <Route path='product/:productId' element={<DynamicSelectedProductPage />} /> */}
         <Route
           path='product/selected'
           element={<DynamicSelectedProductPage />}
