@@ -3,7 +3,7 @@ import { AiOutlineMail } from 'react-icons/ai';
 import { FaAngleLeft } from 'react-icons/fa';
 import EmailSignin from './EmailSignin';
 import EmailSignup from './EmailSignup';
-function CSignin({ setauthOption }) {
+function CSignin({ setauthOption, setUserAuthmodal }) {
   const [isSignIn, setisSignIn] = useState(true);
   return (
     <>
@@ -42,7 +42,11 @@ function CSignin({ setauthOption }) {
         </a>
       </div>
       <div className='self-center  flex flex-col basis-5 w-4/6 mb-4 mt-2'>
-        {isSignIn ? <EmailSignin /> : <EmailSignup />}
+        {isSignIn ? (
+          <EmailSignin setUserAuthmodal={setUserAuthmodal} />
+        ) : (
+          <EmailSignup />
+        )}
       </div>
     </>
   );

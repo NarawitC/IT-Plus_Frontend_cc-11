@@ -8,7 +8,7 @@ import FormYup from '../../form/FormYup';
 import SubmitButtonYup from '../../form/SubmitButtonYup';
 import { useAuthContext } from '../../../contexts/Client/AuthCcontexts';
 
-function EmailSignin() {
+function EmailSignin({ setUserAuthmodal }) {
   const [IsLoading, setIsLoading] = useState(false);
   const { signIn } = useAuthContext();
 
@@ -32,6 +32,7 @@ function EmailSignin() {
       await signIn(data);
       // navigate('/auth/signUpCompleted');
       setIsLoading(false);
+      setUserAuthmodal(false);
     } catch (err) {
       console.log(err);
       // setError(err.response.data.message);

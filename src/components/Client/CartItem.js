@@ -84,6 +84,7 @@ function CartItem() {
       </div>
 
       {/* <LGCartlist /> */}
+      {/* ------------------------------------------------------ */}
       <div className=' px-4 border-2 rounded-lg py-4'>
         <div className='flex gap-4'>
           <div>
@@ -91,7 +92,6 @@ function CartItem() {
           </div>
           <div className='font-bold'>ตรวจสอบยอด</div>
         </div>
-        {/* ------------------------------------------------------ */}
         <div className=' grid grid-row-2 space-y-5'>
           <div className='grid grid-row-2'>
             <div className='flex justify-between mt-4'>

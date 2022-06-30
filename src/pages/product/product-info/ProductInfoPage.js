@@ -11,6 +11,7 @@ function ProductInfoPage() {
   const locate = useLocation();
   const [idx, setIdx] = useState(0);
   const [count, setCount] = useState(0);
+  const [Objecturl, setObjectJa] = useState([]);
   const [singlepd, setsinglepd] = useState(null);
   const { getsinglepd, settempCarts, tempCarts } = useProductfilter();
   const { setIsLoading } = useLoading();
@@ -24,12 +25,28 @@ function ProductInfoPage() {
       setIsLoading(true);
       const pdid = locate.pathname.split('/')[2];
       const singlePD = await getsinglepd(pdid);
-      // await console.log(singlePD);
+      await console.log(singlePD);
       await setsinglepd(singlePD);
       await setCount(1);
+      const ObjectJa = [
+        {
+          url: await singlePD.mainPicture,
+        },
+        {
+          url: await singlePD.subPicture2,
+        },
+        {
+          url: await singlePD.subPicture3,
+        },
+        {
+          url: await singlePD.subPicture4,
+        },
+      ];
+      await setObjectJa(ObjectJa);
       await setIsLoading(false);
     };
     fetchPd();
+    console.log(Objecturl);
   }, []);
   // console.log(singlepd);
   const HandleAddcart = async () => {
@@ -65,37 +82,21 @@ function ProductInfoPage() {
     }
   };
 
-  const Product = {
-    mainPicture:
-      'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/06/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-icon.jpg',
+  // const Product = {
+  //   mainPicture: singlepd.mainPicture,
 
-    sucPicture1:
-      'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/06/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-icon.jpg',
+  //   sucPicture1:
+  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/06/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-icon.jpg',
 
-    subPicture2:
-      'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/03/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-front-side-view.jpg',
+  //   subPicture2:
+  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/03/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-front-side-view.jpg',
 
-    subPicture3:
-      'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/02/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-side-view.jpg',
+  //   subPicture3:
+  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/02/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-side-view.jpg',
 
-    subPicture4:
-      'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/02/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-back-view.jpg',
-  };
-
-  const ObjectJa = [
-    {
-      url: Product.sucPicture1,
-    },
-    {
-      url: Product.subPicture2,
-    },
-    {
-      url: Product.subPicture3,
-    },
-    {
-      url: Product.subPicture4,
-    },
-  ];
+  //   subPicture4:
+  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/02/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-back-view.jpg',
+  // };
 
   return (
     <div>
@@ -104,26 +105,29 @@ function ProductInfoPage() {
         <div className=' flex mt-8 justify-center gap-8 '>
           <div className='flex'>
             <div className=''>
-              {ObjectJa.map((el, idx) => {
-                return (
-                  <>
-                    <div
-                      key={idx}
-                      className=' w-[60px] h-[60px] '
-                      onMouseEnter={() => setIdx(idx)}
-                    >
-                      <img
-                        src={el.url}
-                        className='w-full h-full object-cover'
-                      />
-                    </div>
-                  </>
-                );
-              })}
+              {Objecturl
+                ? Objecturl?.map((el, idx) => {
+                    return (
+                      <>
+                        <div
+                          key={idx}
+                          className=' w-[60px] h-[60px] '
+                          role='button'
+                          onMouseEnter={() => setIdx(idx)}
+                        >
+                          <img
+                            src={el.url}
+                            className='w-full h-full object-cover'
+                          />
+                        </div>
+                      </>
+                    );
+                  })
+                : null}
             </div>
             <div className=' w-96 h-96'>
               <img
-                src={ObjectJa[idx].url}
+                src={Objecturl[idx]?.url}
                 className='w-full h-full object-cover'
               />
             </div>
@@ -156,7 +160,7 @@ function ProductInfoPage() {
                 {/* ---------------------------------------ปุ่ม - ---------------------------------- */}
                 <div className='flex w-full justify-center items-center gap-2 border-2 rounded-lg '>
                   <button
-                    className='  w-[30px] h-[30px]  bg-white btn btn-primary border-none'
+                    className='  w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black'
                     onClick={() => {
                       if (count === 0) {
                         setCount(+count);
@@ -172,7 +176,7 @@ function ProductInfoPage() {
                   {/* ---------------------------------------ปุ่ม + ---------------------------------- */}
 
                   <button
-                    className='  w-[30px] h-[30px]  bg-white btn btn-primary border-none'
+                    className='  w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black'
                     onClick={() => {
                       setCount(+count + 1);
                     }}

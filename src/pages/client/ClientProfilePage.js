@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import FormYup from '../../components/form/FormYup';
 import InputYup from '../../components/form/InputYup';
@@ -6,6 +6,7 @@ import SubmitButtonYup from '../../components/form/SubmitButtonYup';
 import { useAuthContext } from '../../contexts/Client/AuthCcontexts';
 import { FcNext } from 'react-icons/fc';
 function ClientProfilePage() {
+  const [PersonalInformation, setPersonalInformation] = useState(null);
   const { user } = useAuthContext();
   const schema = yup.object().shape({
     phoneNumber: yup
@@ -20,16 +21,19 @@ function ClientProfilePage() {
     password: yup.string().required('Password is required'),
     confirmPassword: yup.string().required('Confirm password is required'),
   });
-  const PersonalInformation = [
-    { Firstname: user.firstName },
-    { Lastname: user.lastName },
-    { Email: user.email },
-    { Phone: user.phoneNumber },
-    { Adress: user.address },
-  ];
   useEffect(() => {
-    console.log(user);
-  });
+    if (user) {
+      const PersonalInformation = [
+        { Firstname: user.firstName },
+        { Lastname: user.lastName },
+        { Email: user.email },
+        { Phone: user.phoneNumber },
+        { Adress: user.address },
+      ];
+      // console.log(user);
+      setPersonalInformation(PersonalInformation);
+    }
+  }, []);
   return (
     <>
       <div className='flex flex-col justify-start w-full '>
@@ -43,7 +47,10 @@ function ClientProfilePage() {
           {PersonalInformation?.map((el, idx) => {
             // console.log(Object.values(el)[0]);
             return (
-              <div className='w-full bg-white border-collapse border-2 flex flex-row'>
+              <div
+                key={idx}
+                className='w-full bg-white border-collapse border-2 flex flex-row'
+              >
                 <p className='mt-1 text-gray-600 py-4 px-8 text-base font-bold md:w-40'>
                   {Object.keys(el)}
                 </p>

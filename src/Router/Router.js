@@ -8,6 +8,7 @@ import DevStat from '../components/Admin/DevStat';
 import AdminOrderPage from '../pages/AdminOrderPage';
 import AdminProductPage from '../pages/AdminProductPage';
 import AdminClientPage from '../pages/AdminOrderPage';
+import CheckoutPage from '../../src/pages/client/CheckoutPage';
 import DevLayout from '../components/Admin/DevLayout';
 import { Navigate } from 'react-router-dom';
 
@@ -48,7 +49,8 @@ function Router() {
         <Route path='/product' element={<ClientDynamicProductPage />} />
         <Route path='/product/:productId' element={<ProductInfoPage />} />
         <Route path='/my-accout' element={<ClientProfilePage />} />
-        <Route path='cart' element={<CartPage />} />
+        <Route path='/cart' element={<CartPage />} />
+        <Route path='/cart/checkout' element={<CheckoutPage />} />
         <Route
           path='/product/supplier/:subplierId'
           element={<ProductByBrand />}

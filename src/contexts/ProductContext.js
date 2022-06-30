@@ -17,12 +17,51 @@ const ProductfilterContext = createContext();
 function ProductfilterContextProvider({ children }) {
   //
   const [dbcart, setdbcart] = useState(null);
+  const productsMock = [
+    {
+      id: 1,
+      productName: 'จอคอม Acer Nitro VG240YAbmiix 23.8" VA Gaming',
+      href: '#',
+      price: 3990,
+      discout: '400',
+      imageSrc: itemImg1,
+      imageAlt: "Front of men's Basic Tee in black.",
+    },
+    {
+      id: 2,
+      productName: 'จอคอม Acer Nitro VG271Sbmiipx 27" IPS Gaming',
+      href: '#',
+      imageSrc: itemImg2,
+      imageAlt: "Front of men's Basic Tee in black.",
+      price: 6790,
+      discout: '400',
+    },
+    {
+      id: 3,
+      productName: 'หูฟังไร้สาย Marshall Major IV Wireless Headphone',
+      href: '#',
+      imageSrc: itemImg3,
+      imageAlt: "Front of men's Basic Tee in black.",
+      price: 4940,
+      discout: '400',
+    },
+    {
+      id: 4,
+      productName: 'โน๊ตบุ๊ค Acer Nitro AN515-45-R4U8 Gaming',
+      href: '#',
+      imageSrc: itemImg4,
+      imageAlt: "Front of men's Basic Tee in black.",
+      price: 39900,
+      discout: null,
+    },
+  ];
+
   const [tempCarts, settempCarts] = useState([]);
   const [totalCart, setTotalcart] = useState(0);
   const [totalCartAmount, settotalCartAmount] = useState(0);
 
   //   const [Productfilterstr, setProductfilterstr] = useState(null);
-  const [priceRange, setPriceRange] = useState(['0, 3000']);
+  const [priceRange, setPriceRange] = useState([]);
   const [product, setPoduct] = useState(null);
   useEffect(() => {
     PriceRangeFiler(priceRange);
@@ -46,15 +85,23 @@ function ProductfilterContextProvider({ children }) {
     // console.log(res);
     // console.log(productRange);
     const { products } = res;
-    const xxx = await products?.filter((product) => {
-      return (
-        product.price >= +productRange[0]?.split(',')[0] &&
-        product.price <= +productRange[0]?.split(',')[1]
-      );
-    });
-    // console.log(xxx);
-    setPoduct(xxx);
-    return xxx;
+    console.log(products);
+    if (productRange.length > 0) {
+      const xxx = await products?.filter((product) => {
+        return (
+          product.price >= +productRange[0]?.split(',')[0] &&
+          product.price <= +productRange[0]?.split(',')[1]
+        );
+      });
+      // console.log(xxx);
+      setPoduct(xxx);
+      return xxx;
+    } else {
+      // console.log(products);
+      setPoduct(products);
+
+      return products;
+    }
   };
 
   const getsinglepd = async (id) => {
@@ -92,7 +139,7 @@ function ProductfilterContextProvider({ children }) {
     const mycart = await allcart.find((el) => el.id === cartId);
     // const orders = [];
     // console.log(cartId);
-    console.log(mycart);
+    // console.log(mycart);
     const sipplierArr = await mycart.CartItems.map((el) => {
       // console.log(el.Product);
       return {
@@ -107,7 +154,7 @@ function ProductfilterContextProvider({ children }) {
     await sipplierArr?.map((el) => {
       if (uniqueSupplier?.length > 0) {
         uniqueSupplier?.map((elnr) => {
-          console.log(elnr);
+          // console.log(elnr);
           if (el.supplierId !== elnr.supplierId) {
             uniqueSupplier.push(el);
           }
@@ -116,7 +163,7 @@ function ProductfilterContextProvider({ children }) {
         uniqueSupplier.push(el);
       }
     });
-    console.log(uniqueSupplier);
+    // console.log(uniqueSupplier);
     const orders = [...uniqueSupplier];
     //putin orderIrems
     mycart.CartItems.forEach((element) => {
@@ -126,7 +173,7 @@ function ProductfilterContextProvider({ children }) {
             (tarel) => tarel.supplierId === el.supplierId
           );
           orders[supIndex].orderItems.push({
-            id: element.Product.id,
+            productId: element.Product.id,
             discount:
               element.Product.Promotions.length > 0
                 ? element.Product.Promotions.discount
@@ -144,8 +191,8 @@ function ProductfilterContextProvider({ children }) {
       });
     });
 
-    console.log(cartId);
-    console.log(orders);
+    // console.log(cartId);
+    // console.log(orders);
     const { data } = await createOrederswithItems(cartId, orders);
     // const uniqueSupplier = await sipplierArr.reduce((prev, next) => {
     //   if (prev.supplierId === next.supplierId) {
@@ -215,7 +262,7 @@ function ProductfilterContextProvider({ children }) {
     //   ]
     // }
     // const { data } = await createOrederswithItems();
-    // console.log(data);
+    console.log(data);
     return data;
   };
   return (

@@ -5,10 +5,10 @@ export const getUserInfo = async () => {
   return axios.get('/client/client');
 };
 
-export const updateUserInfo = async (data) => {
-  return axios.patch('/user/update', data);
-};
+// export const updateUserInfo = async (data) => {
+//   return axios.patch('/user/update', data);
+// };
 
-export const getUserPurchasedOrders = async () => {
-  return axios.get('/user/purchased/orders');
-};
+// export const getUserPurchasedOrders = async () => {
+//   return axios.get('/user/purchased/orders');
+// };

@@ -8,6 +8,7 @@ import { userSignIn, userSignUp } from '../../apis/user/auth';
 import { getUserInfo } from '../../apis/user/user';
 import { useNavigate } from 'react-router-dom';
 import { useErrorContext } from '../ErrorContext';
+// import jwt_decode from "j"
 
 const AuthContext = createContext();
 
@@ -20,13 +21,17 @@ function AuthContextProvider({ children }) {
     const fetchMe = async () => {
       try {
         const token = getAccessToken();
+        // console.log(token);
         if (token) {
           const resMe = await getUserInfo();
           // console.log(resMe.data.user);
-          setUser(resMe.data.user);
+          // console.log('resMe.data.user need to fix');
+          if (resMe.data.user.role === 'CLIENT') {
+            setUser(resMe.data.user);
+          }
         }
       } catch (err) {
-        // removeAccessTOken();
+        removeAccessTOken();
         // navigate('/auth/signIn');
       }
     };

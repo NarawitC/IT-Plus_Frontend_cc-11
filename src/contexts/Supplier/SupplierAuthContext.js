@@ -10,6 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from '../../config/axios';
 import { ReRenderContext } from '../ReRenderContext';
+
 const SupplierAuthContext = createContext();
 
 function SupplierAuthContextProvider({ children }) {
@@ -23,10 +24,13 @@ function SupplierAuthContextProvider({ children }) {
     const fetchSupplier = async () => {
       try {
         const token = getAccessToken();
-        if (token) {
+        if (0) {
           const resSupplier = await getSupplierInfo();
-          setUser(resSupplier.data.supplier);
-          setRole(resSupplier.data.role);
+          console.log(resSupplier);
+          if (resSupplier.data.supplier.role === 'SUPPLIER') {
+            setUser(resSupplier.data.supplier);
+            setRole(resSupplier.data.role);
+          }
         }
       } catch (err) {
         removeAccessTOken();

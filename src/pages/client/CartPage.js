@@ -1,13 +1,13 @@
 import BreadCrumbsCart from '../../components/Client/products/productInfo/BreadCrumbsCart';
-
+import { useProductfilter } from '../../contexts/ProductContext';
 import CartItem from '../../components/Client/CartItem';
 import { useEffect } from 'react';
-import { useProductfilter } from '../../contexts/ProductContext';
+import DynamicClientCheckoutmode from '../../components/Client/clentCart/DynamicClientCheckoutmode';
 
 // useEffect(() => {}, []);
 
 function CartPage() {
-  const { totalCartAmount } = useProductfilter();
+  const { tempCarts, totalCartAmount } = useProductfilter();
   return (
     <div>
       <BreadCrumbsCart />
@@ -22,6 +22,7 @@ function CartPage() {
         </div>
       </div>
       <CartItem />
+      <DynamicClientCheckoutmode />
     </div>
   );
 }
