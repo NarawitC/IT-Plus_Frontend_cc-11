@@ -46,7 +46,7 @@ function DynamicProductPage() {
   //   { PRODUCT_STATUS: 'HIDDEN', color: 'base-content' },
   // ];
   const [productSearchTerm, setProductSearchTerm] = useState('');
-  const [searchBy, setSearchBy] = useState('');
+  const [searchBy, setSearchBy] = useState('productName');
 
   const [products, setProducts] = useState(mockArr);
 
@@ -71,17 +71,21 @@ function DynamicProductPage() {
   // <option value='brand'>ยี่ห้อ</option>
   // <option value='deliveryStatus'>สถานะการจัดส่ง</option>
   useEffect(() => {
-    const filterByProductName = (searchTerm) => {
-      const resultArrByProductName = mockArr.filter((elIn, idx) => {
-        return elIn.productName
-          .trim()
-          .replace(/\s/g, '')
-          .toLowerCase()
-          .includes(searchTerm.trim().replace(/\s/g, '').toLowerCase());
-      });
-      setProducts(resultArrByProductName);
-    };
-    filterByProductName(productSearchTerm);
+    // console.log(searchBy);
+
+    if (searchBy === 'productName') {
+      const filterByProductName = (searchTerm) => {
+        const resultArrByProductName = mockArr.filter((elIn, idx) => {
+          return elIn.productName
+            .trim()
+            .replace(/\s/g, '')
+            .toLowerCase()
+            .includes(searchTerm.trim().replace(/\s/g, '').toLowerCase());
+        });
+        setProducts(resultArrByProductName);
+      };
+      filterByProductName(productSearchTerm);
+    }
 
     if (searchBy === 'status') {
       const filterByStatus = (searchTerm) => {
@@ -97,14 +101,29 @@ function DynamicProductPage() {
       };
       filterByStatus(productSearchTerm);
     }
-    if (searchBy === 'productId') {
+    if (searchBy === 'id') {
       const filterByProductId = (searchTerm) => {
+        console.log(searchTerm.trim().replace(/\s/g, ''));
         const resultArrByProductId = mockArr.filter((el) =>
           String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
         );
         setProducts(resultArrByProductId);
       };
       filterByProductId(productSearchTerm);
+    }
+    if (searchBy === 'brand') {
+      const filterByBrand = (searchTerm) => {
+        console.log(searchTerm.trim().replace(/\s/g, ''));
+        const resultArrByBrand = mockArr.filter((el) =>
+          el.brand
+            .trim()
+            .replace(/\s/g, '')
+            .toLowerCase()
+            .includes(searchTerm.trim().replace(/\s/g, '').toLowerCase())
+        );
+        setProducts(resultArrByBrand);
+      };
+      filterByBrand(productSearchTerm);
     }
   }, [productSearchTerm]);
 

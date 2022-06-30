@@ -55,21 +55,20 @@ const mockArr = [
 function OrderPage() {
   const [orders, setOrders] = useState([]);
   const [orderSearchTerm, setOrderSearchTerm] = useState('');
-  const [searchBy, setSearchBy] = useState('');
-
+  const [searchBy, setSearchBy] = useState('id');
   const navigate = useNavigate();
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(mockArr);
-
   useEffect(() => {
-    const filterByOrderId = (searchTerm) => {
-      const resultArrByOrderId = mockArr.filter((el) =>
-        String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
-      );
-      setShippingDetails(resultArrByOrderId);
-    };
-    filterByOrderId(orderSearchTerm);
-
+    if (searchBy === 'id') {
+      const filterByOrderId = (searchTerm) => {
+        const resultArrByOrderId = mockArr.filter((el) =>
+          String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
+        );
+        setShippingDetails(resultArrByOrderId);
+      };
+      filterByOrderId(orderSearchTerm);
+    }
     if (searchBy === 'firstName') {
       // let resultArrByName = [];
       const filterByName = (searchTerm) => {
