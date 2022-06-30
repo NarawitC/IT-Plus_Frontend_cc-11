@@ -87,7 +87,7 @@ function ProductfilterContextProvider({ children }) {
     // console.log(res);
     // console.log(productRange);
     const { products } = res;
-    console.log(products);
+    // console.log(products);
     if (productRange.length > 0) {
       const xxx = await products?.filter((product) => {
         return (
@@ -270,7 +270,7 @@ function ProductfilterContextProvider({ children }) {
     //   ]
     // }
     // const { data } = await createOrederswithItems();
-    console.log(data);
+    // console.log(data);
     return data;
   };
   return (

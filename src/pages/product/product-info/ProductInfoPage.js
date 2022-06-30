@@ -25,7 +25,7 @@ function ProductInfoPage() {
       setIsLoading(true);
       const pdid = locate.pathname.split('/')[2];
       const singlePD = await getsinglepd(pdid);
-      await console.log(singlePD);
+      // await console.log(singlePD);
       await setsinglepd(singlePD);
       await setCount(1);
       const ObjectJa = [
@@ -46,7 +46,7 @@ function ProductInfoPage() {
       await setIsLoading(false);
     };
     fetchPd();
-    console.log(Objecturl);
+    // console.log(Objecturl);
   }, []);
   // console.log(singlepd);
   const HandleAddcart = async () => {
