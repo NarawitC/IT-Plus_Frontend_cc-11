@@ -9,6 +9,9 @@ export const createCartitems = (cartId, cartItems) => {
 export const getCart = (cartId) => {
   return axios.get('/client/cart/');
 };
+export const getCartbyIdapi = (cartId) => {
+  return axios.get('/client/cart/' + cartId);
+};
 export const createOrederswithItems = (cartId, cartItems) => {
   return axios.post(`/client/order/${cartId}`, { orders: cartItems });
 };

@@ -6,9 +6,11 @@ import LGCartlist from './clentCart/LGCartlist';
 import { useProductfilter } from '../../contexts/ProductContext';
 import { localsting } from '../../services/LocalstringComma';
 import { useAuthContext } from '../../contexts/Client/AuthCcontexts';
+import { useNavigate } from 'react-router-dom';
 
 function CartItem() {
   const { user } = useAuthContext();
+
   const {
     tempCarts,
     totalCart,
@@ -16,12 +18,15 @@ function CartItem() {
     createCarts,
     createOrderandOrderItems,
     dbcart,
+    setdbcart,
   } = useProductfilter();
+  const navigate = useNavigate();
   const [count, setCount] = useState(0);
 
   const handleSubmitorder = async (tempCarts, userid) => {
     const cartId = await createCarts(tempCarts, userid);
-
+    setdbcart(cartId);
+    navigate('/cart/checkout');
     // console.log(reponse);
   };
   return (
