@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
 import { MdOutlineCancel } from 'react-icons/md';
+
 const mockArr = [
   {
     firstName: 'Panit Su',
@@ -24,31 +25,31 @@ const mockArr = [
     netPrice: 34209.0,
     purchasedOrderStatus: 'CONFIRMED',
     trackingId: '',
-    status: '',
+    status: 'TO_SHIPPING_COMPANY',
   },
   {
     firstName: 'Node JS',
     id: 333,
     netPrice: 88209.0,
     purchasedOrderStatus: 'CONFIRMED',
-    trackingId: '',
-    status: '',
+    trackingId: 'aaa',
+    status: 'TO_SHIPPING_COMPANY',
   },
   {
     firstName: 'Gun Meta',
     id: 444,
     netPrice: 92209.0,
     purchasedOrderStatus: 'CONFIRMED',
-    trackingId: '',
-    status: '',
+    trackingId: 'bbb',
+    status: 'TO_CLIENT',
   },
   {
     firstName: 'J Next',
     id: 555,
     netPrice: 83229.0,
     purchasedOrderStatus: 'PENDING',
-    trackingId: '',
-    status: '',
+    trackingId: 'ccc',
+    status: 'DELIVERED',
   },
 ];
 function OrderPage() {
@@ -65,25 +66,36 @@ function OrderPage() {
   //                 <option value='status'>สถานะการจัดส่ง</option>
 
   useEffect(() => {
-    if (searchBy === 'id') {
-      const filterByOrderId = (searchTerm) => {
-        const resultArrByOrderId = mockArr.filter((el) =>
-          String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
-        );
-        setShippingDetails(resultArrByOrderId);
-      };
-      filterByOrderId(orderSearchTerm);
-    }
-    if (searchBy === 'firstName') {
-      const filterByName = (searchTerm) => {
-        let x = [...searchTerm.trim().replace(/\s/g, '')];
-        console.log(x);
+    const filterByOrderId = (searchTerm) => {
+      const resultArrByOrderId = mockArr.filter((el) =>
+        String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
+      );
+      setShippingDetails(resultArrByOrderId);
+    };
+    filterByOrderId(orderSearchTerm);
 
-        const resultArrByName = mockArr.filter((el) =>
-          el.firstName
+    if (searchBy === 'firstName') {
+      let resultArrByName = [];
+      const filterByName = (searchTerm) => {
+        // let indiArr = [...searchTerm.trim().replace(/\s/g, '').toLowerCase()];
+        // indiArr.forEach((el) => {
+        //   const resultArrByName = mockArr.filter((elIn, idx) => {
+        //     console.log(elIn.firstName.replace(/\s/g, '').toLowerCase());
+        //     return elIn.firstName.replace(/\s/g, '').toLowerCase().includes(el);
+        //   });
+        const resultArrByName = mockArr.filter((elIn, idx) => {
+          return elIn.firstName
+            .trim()
+            .replace(/\s/g, '')
             .toLowerCase()
-            .includes(searchTerm.trim().replace(/\s/g, ''))
-        );
+            .includes(searchTerm.trim().replace(/\s/g, '').toLowerCase());
+          // mockArr.forEach((elIn, idx) => {
+          //   if (elIn.firstName.replace(/\s/g, '').toLowerCase().includes(el)) {
+          //     resultArrByName = [...resultArrByName, elIn];
+          //   }
+          // });
+        });
+        console.log(resultArrByName);
         setShippingDetails(resultArrByName);
       };
       filterByName(orderSearchTerm);
@@ -288,7 +300,7 @@ function OrderPage() {
                       <th className='flex justify-center'>
                         <input
                           className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary'
-                          placeholder={'Tracking ID'}
+                          placeholder='Tracking Id'
                           onChange={(event) =>
                             setShippingDetails((prevShippingDetail) => [
                               ...prevShippingDetail.slice(0, idx),
@@ -319,7 +331,7 @@ function OrderPage() {
                             }
                             value={el.status}
                             type='text'
-                            placeholder='สถานะการจัดส่ง'
+                            placeholder={el.status}
                           >
                             <option value='TO_SHIPPING_COMPANY'>
                               กำลังดำเนินการ
