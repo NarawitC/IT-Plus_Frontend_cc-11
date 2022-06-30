@@ -61,10 +61,6 @@ function OrderPage() {
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(mockArr);
 
-  // option value='id'>หมายเลขคำสั่งซื้อ</option>
-  //                 <option value='userId'>ชื่อลูกค้า</option>
-  //                 <option value='status'>สถานะการจัดส่ง</option>
-
   useEffect(() => {
     const filterByOrderId = (searchTerm) => {
       const resultArrByOrderId = mockArr.filter((el) =>
@@ -75,7 +71,7 @@ function OrderPage() {
     filterByOrderId(orderSearchTerm);
 
     if (searchBy === 'firstName') {
-      let resultArrByName = [];
+      // let resultArrByName = [];
       const filterByName = (searchTerm) => {
         // let indiArr = [...searchTerm.trim().replace(/\s/g, '').toLowerCase()];
         // indiArr.forEach((el) => {
@@ -111,7 +107,6 @@ function OrderPage() {
       filterByStatus(orderSearchTerm);
     }
   }, [orderSearchTerm]);
-
   // useEffect(() => {
   //   const handleGetAllOrdersBySupplierId = async () => {
   //     try {
@@ -139,7 +134,7 @@ function OrderPage() {
         <div className='stat flex justify-between items-center border-2 rounded-3xl hover:border-secondary '>
           <div className=''>
             <div className='stat-title'>ที่ต้องชำระ</div>
-            <div className='stat-value text-secondary'>4</div>
+            <div className='stat-value text-secondary'>2</div>
           </div>
           <div className=' text-secondary '>{<RiTodoLine size={45} />}</div>
         </div>
@@ -162,7 +157,6 @@ function OrderPage() {
           <div className='stat-title'>ที่ต้องจัดส่ง</div>
           <div className='stat-value text-warning'>12</div>
         </div>
-
         <div className='stat border-2 rounded-3xl hover:border-accent'>
           <div className='stat-figure text-secondary '>
             <div className='stat-figure text-accent   '>
@@ -220,7 +214,6 @@ function OrderPage() {
                   value={orderSearchTerm}
                 />
               </div>
-
               <button
                 onClick={() => setOrderSearchTerm('')}
                 className='hover:scale-125'

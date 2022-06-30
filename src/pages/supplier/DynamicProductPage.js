@@ -3,6 +3,41 @@ import keyboard from '../../pictures/keyboard.png';
 import speaker from '../../pictures/speaker.png';
 import { MdOutlineEditNote } from 'react-icons/md';
 import { FiShoppingBag } from 'react-icons/fi';
+import { MdOutlineCancel } from 'react-icons/md';
+import { useState, useEffect } from 'react';
+const mockArr = [
+  {
+    mainPicture: speaker,
+    stock: 2,
+    price: 1149.0,
+    productName: 'ลำโพง Edifier R1855DB Computer Speaker',
+    status: 'PENDING',
+    rejectReason: null,
+    id: 101,
+    brand: 'Edifier',
+  },
+  {
+    mainPicture: chair,
+    stock: 12,
+    price: 3420.0,
+    productName: 'เก้าอี้เพื่อสุขภาพ Bewell Embrace Ergonomic Chair',
+    status: 'APPROVED',
+    rejectReason: null,
+    id: 202,
+    brand: 'Bewell',
+  },
+  {
+    mainPicture: keyboard,
+    stock: 22,
+    price: 8309.0,
+    productName:
+      'คีย์บอร์ด Keychron Q2 Knob Hot Swappable Mechanical Keyboard (EN/TH)',
+    status: 'REJECTED',
+    rejectReason: 'สินค้าผิดกฎหมาย',
+    id: 303,
+    brand: 'Keychron',
+  },
+];
 function DynamicProductPage() {
   // const colorArr = [
   //   { PRODUCT_STATUS: 'PENDING', color: 'waring' },
@@ -10,6 +45,10 @@ function DynamicProductPage() {
   //   { PRODUCT_STATUS: 'REJECTED', color: 'error' },
   //   { PRODUCT_STATUS: 'HIDDEN', color: 'base-content' },
   // ];
+  const [productSearchTerm, setProductSearchTerm] = useState('');
+  const [searchBy, setSearchBy] = useState('');
+
+  const [products, setProducts] = useState(mockArr);
 
   const findColor = (text) => {
     if (text === 'PENDING') {
@@ -25,36 +64,50 @@ function DynamicProductPage() {
       return 'base-content';
     }
   };
-  const mockArr = [
-    {
-      mainPicture: speaker,
-      stock: 2,
-      price: 1149.0,
-      productName: 'ลำโพง Edifier R1855DB Computer Speaker',
-      status: 'PENDING',
-      rejectReason: null,
-      id: 101,
-    },
-    {
-      mainPicture: chair,
-      stock: 12,
-      price: 3420.0,
-      productName: 'เก้าอี้เพื่อสุขภาพ Bewell Embrace Ergonomic Chair',
-      status: 'APPROVED',
-      rejectReason: null,
-      id: 202,
-    },
-    {
-      mainPicture: keyboard,
-      stock: 22,
-      price: 8309.0,
-      productName:
-        'คีย์บอร์ด Keychron Q2 Knob Hot Swappable Mechanical Keyboard (EN/TH)',
-      status: 'REJECTED',
-      rejectReason: 'สินค้าผิดกฎหมาย',
-      id: 303,
-    },
-  ];
+
+  // <option value='productName'>ชื่อสินค้า</option>
+  // <option value='status'>สถานะสินค้า</option>
+  // <option value='id'>รหัสสินค้า</option>
+  // <option value='brand'>ยี่ห้อ</option>
+  // <option value='deliveryStatus'>สถานะการจัดส่ง</option>
+  useEffect(() => {
+    const filterByProductName = (searchTerm) => {
+      const resultArrByProductName = mockArr.filter((elIn, idx) => {
+        return elIn.productName
+          .trim()
+          .replace(/\s/g, '')
+          .toLowerCase()
+          .includes(searchTerm.trim().replace(/\s/g, '').toLowerCase());
+      });
+      setProducts(resultArrByProductName);
+    };
+    filterByProductName(productSearchTerm);
+
+    if (searchBy === 'status') {
+      const filterByStatus = (searchTerm) => {
+        console.log(searchTerm.trim().replace(/\s/g, ''));
+        const resultArrByStatus = mockArr.filter((el) =>
+          el.status
+            .trim()
+            .replace(/\s/g, '')
+            .toLowerCase()
+            .includes(searchTerm.trim().replace(/\s/g, '').toLowerCase())
+        );
+        setProducts(resultArrByStatus);
+      };
+      filterByStatus(productSearchTerm);
+    }
+    if (searchBy === 'productId') {
+      const filterByProductId = (searchTerm) => {
+        const resultArrByProductId = mockArr.filter((el) =>
+          String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
+        );
+        setProducts(resultArrByProductId);
+      };
+      filterByProductId(productSearchTerm);
+    }
+  }, [productSearchTerm]);
+
   return (
     <div className='flex flex-col mb-[160px] h-auto'>
       <div className='h-[185px]'>
@@ -70,6 +123,10 @@ function DynamicProductPage() {
                 ค้นหาโดย:
               </label>
               <select
+                onChange={(e) => {
+                  setSearchBy(e.target.value);
+                }}
+                value={searchBy}
                 name='searches'
                 id='searches'
                 className=' text-bold text-primary-focus border-2 h-[53px] w-[230px] rounded-lg '
@@ -78,7 +135,6 @@ function DynamicProductPage() {
                 <option value='status'>สถานะสินค้า</option>
                 <option value='id'>รหัสสินค้า</option>
                 <option value='brand'>ยี่ห้อ</option>
-                <option value='deliveryStatus'>สถานะการจัดส่ง</option>
               </select>
             </div>
             <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
@@ -86,13 +142,17 @@ function DynamicProductPage() {
                 type='text'
                 placeholder='ค้นหาสินค้า'
                 className='input w-[395px] text-lg '
+                onChange={(event) => {
+                  setProductSearchTerm(event.target.value);
+                }}
+                value={productSearchTerm}
               />
             </div>
-            <div className='btn btn-secondary w-[110px] h-[53px] text-lg'>
-              ค้นหา
-            </div>
-            <button className='rounded-lg hover:bg-base-300 bg-base-200 w-[110px] h-[53px] text-lg text-black'>
-              รีเซ็ต
+            <button
+              onClick={() => setProductSearchTerm('')}
+              className='hover:scale-125 text-secondary'
+            >
+              {<MdOutlineCancel size={25} />}
             </button>
           </div>
         </div>
@@ -113,7 +173,7 @@ function DynamicProductPage() {
             </tr>
           </thead>
           <tbody className=''>
-            {mockArr.map((el, index) => {
+            {products.map((el, index) => {
               let color = findColor(el.status);
               return (
                 <>
@@ -130,8 +190,11 @@ function DynamicProductPage() {
                       </div>
                     </td>
                     <td>
-                      <div className='font-bold w-[380px] flex overflow-x-auto h-12 items-center'>
-                        {el.productName}
+                      <div>
+                        <div className='font-bold '>{el.brand}</div>
+                        <div className=' w-[380px] flex overflow-x-auto h-12 items-center'>
+                          {el.productName}
+                        </div>
                       </div>
                     </td>
                     <td>
