@@ -17,8 +17,8 @@ function MyShopPage() {
     bankAccountName: 'บริษัท มาร์เวล จำกัด',
     bankAccount: '0011223344',
   };
-  // const { user } = useContext(SupplierAuthContext);
-  // console.log({ user: user });
+  // const { supplier } = useContext(SupplierAuthContext);
+  // console.log({ supplier: supplier });
 
   return (
     <div className=' '>

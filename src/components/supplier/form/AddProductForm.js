@@ -198,7 +198,7 @@ function AddProductForm({ addNewProductSupplier }) {
         <br />
         <div className='flex gap-2 font-bold'>
           {<IoAddCircleOutline size={25} />}
-          <h1 className='text-3xl '>เพิ่มสินค้า</h1>
+          <h1 className='text-3xl font-bold '>เพิ่มสินค้า</h1>
         </div>
         <div className=''>
           <br />

@@ -198,7 +198,12 @@ function ProductPage() {
               let color = findColor(el.status);
               return (
                 <>
-                  <tr className='hover'>
+                  <tr
+                    className='hover cursor-pointer'
+                    onClick={() => {
+                      navigate('/supplier/product/selected');
+                    }}
+                  >
                     <td className='text-center'>{index + 1}</td>
                     <td className='text-center '>{el.id}</td>
                     <td>

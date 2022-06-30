@@ -12,11 +12,11 @@ const mockList = [
     icon: <CgFileDocument />,
     sub: [{ name: 'คำสั่งซื้อทั่งหมด', page: 'order' }],
   },
-  {
-    text: 'การจัดส่ง',
-    icon: <TbTruckDelivery />,
-    sub: [{ name: 'การจัดส่งของฉัน', page: 'tracking' }],
-  },
+  // {
+  //   text: 'การจัดส่ง',
+  //   icon: <TbTruckDelivery />,
+  //   sub: [{ name: 'การจัดส่งของฉัน', page: 'tracking' }],
+  // },
   {
     text: 'การเงิน',
     icon: <MdOutlineAccountBalanceWallet />,

@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 function BalanceWalletPage() {
   const [openTransactions, setOpenTransactions] = useState(false);
+  const [openWithdrawalForm, setOpenWithdrawalForm] = useState(false);
 
   const mockArr = [
     {
@@ -62,17 +63,24 @@ function BalanceWalletPage() {
         <br />
         <br />
         <div className='flex justify-center'>
-          <div className='flex gap-10'>
-            <div className='hover:scale-105 border-2 h-56 w-56 rounded flex flex-col items-center justify-center hover:border-warning'>
+          <div className='flex gap-10 '>
+            <div
+              onClick={() => {
+                setOpenWithdrawalForm(
+                  (openWithdrawalForm) => !openWithdrawalForm
+                );
+              }}
+              className='hover:scale-105 border-2 h-56 w-56 rounded flex flex-col items-center justify-center hover:border-warning'
+            >
               <div className=' text-warning '>
                 {<RiMoneyDollarBoxLine size={100} />}
               </div>
               <h2 className='text-ghost text-bold text-xl'>Withdrawals</h2>
             </div>
             <div
-              onClick={() =>
-                setOpenTransactions((openTransactions) => !openTransactions)
-              }
+              onClick={() => {
+                setOpenTransactions((openTransactions) => !openTransactions);
+              }}
               className='hover:scale-105 flex-col border-2 h-56 w-56 rounded flex items-center justify-center hover:border-info'
             >
               <div className='text-info'>{<TiDocumentText size={100} />}</div>
@@ -83,6 +91,37 @@ function BalanceWalletPage() {
       </div>
       <br />
       <br />
+      <div
+        className={`${
+          openWithdrawalForm === false ? 'hidden' : ''
+        } border-2 p-4 rounded-lg`}
+      >
+        <div className='border-2 p-2 rounded-lg'>
+          <h1 className='text-2xl'>{`ทำการโอนเงินจากบัญชี IT-Plus ไปยังหมายเลขบัญชี 1234099997`}</h1>
+        </div>
+        <div>
+          <br />
+          <div className='flex justify-between text-2xl'>
+            <p>จำนวนเงินถอน</p>
+            <p>10000.00</p>
+          </div>
+          <br />
+          <div className='flex justify-between text-2xl'>
+            <p>ค่าธรรมเนียม</p>
+            <p>0.00</p>
+          </div>
+          <div className='flex justify-between text-2xl'>
+            <p>รวม</p>
+            <p className='font-bold'>10000.00</p>
+          </div>
+        </div>
+        <br />
+        <div className='flex justify-center'>
+          <button className='btn btn-secondary w-[140px] hover:scale-105 font-bold text-2xl'>
+            ยืนยัน
+          </button>
+        </div>
+      </div>
       <div className=''>
         <table
           className={`${openTransactions === false ? 'hidden' : ''} table p-2`}

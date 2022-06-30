@@ -27,6 +27,10 @@ function DynamicSelectedProductPage() {
   return (
     <div className=''>
       <br />
+      <div className='flex flex-col p-7'>
+        <h1 className='text-3xl font-bold'>{mockObj.productName}</h1>
+        <p className='text-2xl text-gray-600'>{`รหัสสินค้า: ${mockObj.id}`}</p>
+      </div>
       <br />
       <div className='flex justify-center'>
         <div className='flex flex-col'>

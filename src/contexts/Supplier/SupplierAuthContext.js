@@ -14,7 +14,7 @@ const SupplierAuthContext = createContext();
 
 function SupplierAuthContextProvider({ children }) {
   const { reRender, setReRender } = useContext(ReRenderContext);
-  const [user, setUser] = useState(null);
+  const [supplier, setSupplier] = useState(null);
   const [role, setRole] = useState(null);
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ function SupplierAuthContextProvider({ children }) {
       const token = getAccessToken();
       if (token) {
         const resSupplier = await getSupplierInfo();
-        setUser(resSupplier.data.user);
+        setSupplier(resSupplier.data.user);
       }
     } catch (err) {
       removeAccessTOken();
@@ -46,14 +46,14 @@ function SupplierAuthContextProvider({ children }) {
     // console.log({ role: role });
     // if (response.data.role === 'supplier') {
     //   const resSupplier = await axios.get('/suppliers/me');
-    //   setUser(resSupplier.data.supplier);
+    //   setSupplier(resSupplier.data.supplier);
     // }
     console.log('--------------------');
     const resSupplier = await axios.get('/supplier/supplier');
     console.log('--------------------');
     console.log(resSupplier.data);
     fetchSupplier();
-    setUser(resSupplier.data.user);
+    setSupplier(resSupplier.data.user);
     setRole(resSupplier.data.user.role);
     setReRender((reRender) => !reRender);
     navigate('/supplier');
@@ -63,7 +63,7 @@ function SupplierAuthContextProvider({ children }) {
   const signOut = () => {
     removeAccessTOken(); //
     setReRender((reRender) => !reRender);
-    setUser(null);
+    setSupplier(null);
     setRole('');
     navigate('/');
   };
@@ -73,13 +73,13 @@ function SupplierAuthContextProvider({ children }) {
     console.log(response.data.message);
     // setAccessToken(response.data.token); //สมัครเสร็จ ลอคอินได้เลย
     // const resMe = await getSupplierInfo();
-    // setUser(resMe.data.user);
+    // setSupplier(resMe.data.user);
     // navigate('/supplier/my-shop');
   };
 
   return (
     <SupplierAuthContext.Provider
-      value={{ signUp, user, signIn, signOut, role, setRole }}
+      value={{ signUp, supplier, signIn, signOut, role, setRole }}
     >
       {children}
     </SupplierAuthContext.Provider>

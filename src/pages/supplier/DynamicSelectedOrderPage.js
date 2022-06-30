@@ -6,6 +6,8 @@ import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { HiOutlineStatusOnline } from 'react-icons/hi';
 import { TiFlashOutline } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
+import line from '../../pictures/line.png';
+import StatusButton from '../../components/supplier/statusbutton/StatusButton';
 function DynamicSelectedOrderPage() {
   const navigate = useNavigate();
   const mockArr = [
@@ -34,6 +36,8 @@ function DynamicSelectedOrderPage() {
   ];
   return (
     <div className=''>
+      <br />
+      <br />
       <div className='flex h-auto'>
         <div className=''>
           <div className='flex text-primary'>
@@ -85,6 +89,34 @@ function DynamicSelectedOrderPage() {
           </div>
         </div>
       </div>
+      <br />
+      <div>
+        <div className='text-[23px] flex flex-col items-center'>
+          <div className='flex gap-3'>
+            <h1 className='text-gray-600'>สถานะการจัดส่งสินค้า : </h1>
+            <h1 className='text-yellow-500'>{'กำลังดำเนินการ'}</h1>
+          </div>
+        </div>
+        <br />
+        <div className='flex justify-center h-auto  items-center '>
+          <button className='' type='button'>
+            <StatusButton status={'กำลังดำเนินการ'} option={'กำลังดำเนินการ'} />
+          </button>
+          <div className='pb-10'>
+            <img src={line} alt='line' className='w-[180px] h-[70px] ' />
+          </div>
+          <button className='' type='button'>
+            <StatusButton status={'กำลังดำเนินการ'} option={'ส่งแล้ว'} />
+          </button>
+          <div className='pb-10'>
+            <img src={line} alt='line' className='w-[180px] h-[70px]  ' />
+          </div>
+          <button className='' type='button'>
+            <StatusButton status={'กำลังดำเนินการ'} option={'ส่งเสร็จสิ้น'} />
+          </button>
+        </div>
+      </div>
+      <br />
       <br />
       <div className='overflow-x-auto'>
         <table className='table p-2'>
@@ -158,7 +190,7 @@ function DynamicSelectedOrderPage() {
             </div>
             <div className='flex justify-between '>
               <p>รวม</p>
-              <div className='flex font-bold pr-4 text-secondary'>{`12100.00`}</div>
+              <div className='flex font-bold pr-4 text-secondary '>{`12100.00`}</div>
             </div>
           </div>
         </div>
