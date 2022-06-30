@@ -1,17 +1,21 @@
 import React from 'react';
+
 import DevSearchBar from './DevSearchBar';
 import DevSideBar from './DevSideBar';
 import { Outlet } from 'react-router-dom';
+import AdminContextProvider from '../../contexts/Admin/AdminContext';
 
 function DevLayout() {
   return (
-    <div data-theme='luxury' className='w-full h-screen '>
-      <DevSearchBar />
-      <DevSideBar />
-      <div>
-        <Outlet />
+    <AdminContextProvider>
+      <div data-theme='luxury' className='w-full h-screen '>
+        <DevSearchBar />
+        <DevSideBar />
+        <div>
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </AdminContextProvider>
   );
 }
 

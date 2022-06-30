@@ -5,39 +5,17 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function DevClientTable() {
-  const clientmockup = [
-    {
-      id: 'c1n/a',
-      first_name: 'c1n/a',
-      last_name: 'c1n/a',
-      email: 'c1n/a',
-      phone_number: 'c1n/a',
-      address: 'c1n/a',
-    },
-    {
-      id: 'c2n/a',
-      first_name: 'c2n/a',
-      last_name: 'c2n/a',
-      email: 'c2n/a',
-      phone_number: 'c2n/a',
-      address: 'c2n/a',
-    },
-    {
-      id: 'c2n/a',
-      first_name: 'c2n/a',
-      last_name: 'c2n/a',
-      email: 'c2n/a',
-      phone_number: 'c2n/a',
-      address: 'c2n/a',
-    },
-  ];
   const [AllClient, setAllClient] = useState();
   useEffect(() => {
     const fetchClient = async () => {
       try {
-        const client = await axios.get('/admin/client');
-        setAllClient(client.data.clients);
-      } catch (err) {}
+        const res = await axios.get('/admin/client');
+        const clientList = res.data.users;
+        console.log(clientList);
+        setAllClient(clientList);
+      } catch (e) {
+        console.log(e.response.data);
+      }
     };
     fetchClient();
   }, []);
@@ -51,22 +29,24 @@ function DevClientTable() {
             <thead>
               <tr>
                 <th>Client ID</th>
-                <th>Payment At</th>
-                <th>Details</th>
+                <th>Client Name</th>
+                <th>Contact</th>
               </tr>
             </thead>
             <tbody>
-              {clientmockup?.map((el) => {
+              {AllClient?.map((el) => {
                 return (
                   <tr>
                     <th>{el.id}</th>
-                    <td>{el.first_name}</td>
-                    <td>{el.address}</td>
                     <td>
-                      <Link to={`/admin/client/${'el'.id}`}>
-                        <FaEye />
-                      </Link>
+                      {el.firstName} {el.lastName}
                     </td>
+                    <td>{el.phoneNumber}</td>
+                    <td>{el.createAt}</td>
+
+                    <Link to={`/admin/client/${el.id}`}>
+                      <FaEye />
+                    </Link>
                   </tr>
                 );
               })}
@@ -75,8 +55,8 @@ function DevClientTable() {
             <tfoot>
               <tr>
                 <th>Client ID</th>
-                <th>Payment At</th>
-                <th>Details</th>
+                <th>Client Name</th>
+                <th>Contact</th>
               </tr>
             </tfoot>
           </table>

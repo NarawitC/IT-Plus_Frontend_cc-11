@@ -1,7 +1,6 @@
 import React from 'react';
 import DevStat from '../components/Admin/DevStat';
 import DevClientTable from '../components/Admin/DevClientTable';
-
 function AdminOrderPage() {
   return (
     <>

@@ -29,8 +29,8 @@ function SupplierAuthContextProvider({ children }) {
           setRole(resSupplier.data.role);
         }
       } catch (err) {
-        removeAccessTOken();
-        navigate('/supplier');
+        // removeAccessTOken();
+        // navigate('/supplier');
       }
     };
     fetchSupplier();
