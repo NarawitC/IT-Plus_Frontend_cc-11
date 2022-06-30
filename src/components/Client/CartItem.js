@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CartImg from '../../../src/pictures/cart-test-1.jpg';
 import trash from '../../../src/pictures/trash.svg';
 import sumCheck from '../../../src/pictures/check_sum.svg';
@@ -7,12 +7,15 @@ import { useProductfilter } from '../../contexts/ProductContext';
 import { localsting } from '../../services/LocalstringComma';
 import { useAuthContext } from '../../contexts/Client/AuthCcontexts';
 import { useNavigate } from 'react-router-dom';
+import { CgChevronDoubleLeft } from 'react-icons/cg';
 
 function CartItem() {
+  // useEffect(() => {}, []);
   const { user } = useAuthContext();
 
   const {
     tempCarts,
+    settempCarts,
     totalCart,
     totalCartAmount,
     createCarts,
@@ -24,18 +27,30 @@ function CartItem() {
   const [count, setCount] = useState(0);
 
   const handleSubmitorder = async (tempCarts, userid) => {
+    // console.log(userid);
     const cartId = await createCarts(tempCarts, userid);
     setdbcart(cartId);
     navigate('/cart/checkout');
     // console.log(reponse);
   };
+  const handleDelcartlist = async (id) => {
+    await settempCarts((prev) => {
+      const newarr = prev.filter((elc) => {
+        if (elc.id !== id) {
+          return elc;
+        }
+      });
+      // console.log(newarr);
+      return newarr;
+    });
+  };
   return (
     <div className='grid grid-cols-4 gap-4 py-4 '>
-      {tempCarts?.map((el) => (
-        <LGCartlist el={el} />
+      {tempCarts?.map((el, idx) => (
+        <LGCartlist el={el} key={idx} handleDelcartlist={handleDelcartlist} />
       ))}
 
-      <div className='col-span-3'>
+      {/* <div className='col-span-3'>
         <div className='grid grid-cols-10 '>
           <div className='w-[100px] h-[100px]  col-span-1   '>
             <img src={CartImg} />
@@ -68,9 +83,7 @@ function CartItem() {
               >
                 -
               </button>
-              {/* --------------------------------------- ใส่จำนวนได้---------------------------------- */}
               <p className='my-auto text-[20px] px-4 '>{count}</p>
-              {/* ---------------------------------------ปุ่ม + ---------------------------------- */}
 
               <button
                 className='  w-[30px] h-[30px] text-black  bg-white btn btn-primary border-none'
@@ -86,7 +99,7 @@ function CartItem() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* <LGCartlist /> */}
       {/* ------------------------------------------------------ */}
