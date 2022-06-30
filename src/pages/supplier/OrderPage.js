@@ -14,7 +14,7 @@ const mockArr = [
   {
     firstName: 'Panit Su',
     id: 111,
-    netPrice: 11209.0,
+    productPrice: 11209.0,
     purchasedOrderStatus: 'PENDING',
     trackingId: '',
     status: '',
@@ -22,34 +22,34 @@ const mockArr = [
   {
     firstName: 'Pal X',
     id: 222,
-    netPrice: 34209.0,
+    productPrice: 34209.0,
     purchasedOrderStatus: 'CONFIRMED',
-    trackingId: '',
-    status: 'TO_SHIPPING_COMPANY',
+    trackingId: 'KER98900',
+    status: 'COMPLETED',
   },
   {
     firstName: 'Node JS',
     id: 333,
-    netPrice: 88209.0,
+    productPrice: 88209.0,
     purchasedOrderStatus: 'CONFIRMED',
-    trackingId: 'aaa',
+    trackingId: 'SHOP12304',
     status: 'TO_SHIPPING_COMPANY',
   },
   {
     firstName: 'Gun Meta',
     id: 444,
-    netPrice: 92209.0,
+    productPrice: 92209.0,
     purchasedOrderStatus: 'CONFIRMED',
-    trackingId: 'bbb',
+    trackingId: 'FLASH12334',
     status: 'TO_CLIENT',
   },
   {
     firstName: 'J Next',
     id: 555,
-    netPrice: 83229.0,
+    productPrice: 83229.0,
     purchasedOrderStatus: 'PENDING',
-    trackingId: 'ccc',
-    status: 'DELIVERED',
+    trackingId: '',
+    status: '',
   },
 ];
 function OrderPage() {
@@ -60,6 +60,16 @@ function OrderPage() {
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(mockArr);
   useEffect(() => {
+    const handleGetAllOrdersBySupplierId = async () => {
+      try {
+        const res = await getAllOrdersBySupplierId();
+        console.log(res.data);
+        setOrders(res.data.orders);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleGetAllOrdersBySupplierId();
     if (searchBy === 'id') {
       const filterByOrderId = (searchTerm) => {
         const resultArrByOrderId = mockArr.filter((el) =>
@@ -106,18 +116,6 @@ function OrderPage() {
       filterByStatus(orderSearchTerm);
     }
   }, [orderSearchTerm]);
-  // useEffect(() => {
-  //   const handleGetAllOrdersBySupplierId = async () => {
-  //     try {
-  //       const res = await getAllOrdersBySupplierId();
-  //       console.log(res.data);
-  //       setOrders(res.data.orders);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   handleGetAllOrdersBySupplierId();
-  // }, []);
 
   // const filterByUserId = (userId) => {};
   // const filterByStatus = (status) => {};
@@ -263,7 +261,7 @@ function OrderPage() {
                         </div>
                       </td>
                       <th>
-                        <p className=''>{el.netPrice.toFixed(2)}</p>
+                        <p className=''>{el.productPrice.toFixed(2)}</p>
                       </th>
                       <th>
                         <label class='swap'>

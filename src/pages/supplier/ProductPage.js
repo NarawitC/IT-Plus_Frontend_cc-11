@@ -5,6 +5,7 @@ import { MdOutlineEditNote } from 'react-icons/md';
 import { FiShoppingBag } from 'react-icons/fi';
 import { MdOutlineCancel } from 'react-icons/md';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 const mockArr = [
   {
     mainPicture: speaker,
@@ -38,7 +39,8 @@ const mockArr = [
     brand: 'Keychron',
   },
 ];
-function DynamicProductPage() {
+function ProductPage() {
+  const navigate = useNavigate();
   // const colorArr = [
   //   { PRODUCT_STATUS: 'PENDING', color: 'waring' },
   //   { PRODUCT_STATUS: 'APPROVED', color: 'success' },
@@ -241,10 +243,15 @@ function DynamicProductPage() {
                       </p>
                     </td>
                     <td>
-                      <div className='flex gap-2 items-center hover:scale-105  '>
+                      <button
+                        className='flex gap-2 items-center hover:scale-105'
+                        onClick={() => {
+                          navigate('/supplier/product/selected');
+                        }}
+                      >
                         <MdOutlineEditNote size={25} />
                         <p>แก้ไขสินค้า</p>
-                      </div>
+                      </button>
                     </td>
                   </tr>
                 </>
@@ -257,4 +264,4 @@ function DynamicProductPage() {
   );
 }
 
-export default DynamicProductPage;
+export default ProductPage;
