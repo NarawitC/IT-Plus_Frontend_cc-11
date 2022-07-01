@@ -5,5 +5,5 @@ export const getUserPurchasedOrders = async () => {
 };
 
 export const getAdminInfo = async () => {
-  return await axios.get('/admin');
+  return await axios.get('/admin/admin');
 };
