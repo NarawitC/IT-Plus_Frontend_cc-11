@@ -4,8 +4,8 @@ import {
   removeAccessTOken,
   setAccessToken,
 } from '../../services/localStorage';
-import { userSignIn, userSignUp } from '../../apis/user/auth';
-import { getUserInfo } from '../../apis/user/user';
+import { userSignIn, userSignUp } from '../../apis/client/auth';
+import { getUserInfo } from '../../apis/client/client';
 import { useNavigate } from 'react-router-dom';
 import { useErrorContext } from '../ErrorContext';
 

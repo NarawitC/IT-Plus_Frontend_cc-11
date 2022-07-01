@@ -40,14 +40,13 @@ import ProductfilterContextProvider from '../contexts/ProductContext';
 import ProductByBrand from '../pages/product/productbySubplier/ProductBySupplier';
 import CartPage from '../pages/client/CartPage';
 
-import OmiseTestPage from '../pages/OmiseTestPage';
+import OmiseTestPage from '../components/Client/order/payment/OmiseTestPage';
 
 function Router() {
   return (
     <ProductfilterContextProvider>
       <Routes>
         {/* todo wait for modify route */}
-        <Route path="/omise" element={<OmiseTestPage />} />
 
         <Route path="/" element={<Clientlayout />}>
           <Route path="" element={<Landingpage />} />
