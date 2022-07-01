@@ -1,10 +1,12 @@
 import BreadCrumbsCart from '../../components/Client/products/productInfo/BreadCrumbsCart';
 import { useProductfilter } from '../../contexts/ProductContext';
 import sumCheck from '../../../src/pictures/check_sum.svg';
-import homeIcon from '../../../src/pictures/home-icon.svg';
+
+import ModalAddress from '../../components/Client/clentCart/modalAddress';
 
 function CheckoutPage() {
   const { tempCarts } = useProductfilter();
+
   return (
     <div>
       <BreadCrumbsCart />
@@ -46,98 +48,7 @@ function CheckoutPage() {
                   id='my-modal-5'
                   className='modal-toggle'
                 />
-                <div className='modal'>
-                  <div className='modal-box w-4/5 '>
-                    <h3 className='font-bold text-lg'>
-                      <div className='flex'>
-                        <img src={homeIcon} className='px-2' />
-                        <div className='text-left'>
-                          <p className='text-[20px]'>เพิ่มที่อยู่ใหม่</p>
-                          <p className='text-[14px] text-gray-500 opacity-50'>
-                            ที่อยู่จัดส่งสินค้า
-                          </p>
-                        </div>
-                      </div>
-                    </h3>
-                    <div className='py-4'>
-                      <form>
-                        <div className='grid grid-cols-2 col gap-8'>
-                          <div className=''>
-                            <p className='text-left'>ชื่อ-นามสกุล</p>
-                            <input
-                              className='border-2 w-full'
-                              placeholder='กรอก ชื่อ-นามสกุล'
-                            ></input>
-                          </div>
-                          <div>
-                            <p className='text-left'>หมายเลขโทรศัพท์</p>
-                            <input
-                              className='border-2 w-full'
-                              placeholder='กรอก หมายเลขโทรศัพท์'
-                            ></input>
-                          </div>
-                        </div>
-                        <div>
-                          <p className='text-left'>ที่อยู่</p>
-                          <textarea
-                            className='textarea textarea-primary w-full'
-                            placeholder='กรอกที่อยู่'
-                          ></textarea>
-                        </div>
-                        <div className='grid grid-cols-2 w-full gap-8'>
-                          <div>
-                            <p className='text-left'>จังหวัด</p>
-                            <input
-                              className='border-2 w-full'
-                              placeholder='กรอกจังหวัด'
-                            ></input>
-                          </div>
-                          <div>
-                            <p className='text-left'>เขต</p>
-                            <input
-                              className='border-2 w-full'
-                              placeholder='กรอกเขต'
-                            ></input>
-                          </div>
-                        </div>
-                        <div className='grid grid-cols-2 gap-8'>
-                          <div>
-                            <p className='text-left'>ตำบล</p>
-                            <input
-                              className='border-2 w-full'
-                              placeholder='กรอกตำบล'
-                            ></input>
-                          </div>
-                          <div>
-                            <p className='text-left'>รหัสไปรษณี</p>
-                            <input
-                              className='border-2 w-full'
-                              placeholder='กรอก รหัสไปรษณี'
-                            ></input>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <div className='flex justify-end gap-8 px-4'>
-                      <div className='modal-action'>
-                        <label
-                          for='my-modal-5'
-                          className='btn bg-white border-none rounded-3xl mx-4 w-40'
-                        >
-                          ยกเลิก
-                        </label>
-                      </div>
-                      <div className='modal-action'>
-                        <label
-                          for='my-modal-5'
-                          className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl w-40'
-                        >
-                          บันทึก
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <ModalAddress />
               </div>
             </div>
           </div>

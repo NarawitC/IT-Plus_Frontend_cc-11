@@ -5,7 +5,9 @@ import Property from './Property';
 import { useLoading } from '../../../contexts/LoadingContext';
 import { useLocation } from 'react-router-dom';
 import { useProductfilter } from '../../../contexts/ProductContext';
-import LocalstringComma from '../../../services/LocalstringComma';
+import LocalstringComma, {
+  localsting,
+} from '../../../services/LocalstringComma';
 
 function ProductInfoPage() {
   const locate = useLocation();
@@ -134,12 +136,16 @@ function ProductInfoPage() {
           </div>
           <div>
             <div className='text-[10px] border-b-5'>
-              <a href=''>BenQ</a>
+              <a href=''>{singlepd?.Supplier.displayName}</a>
             </div>
             <div>{singlepd?.productName}</div>
             <div className='text-[10px]'>รหัสสินค้า : {singlepd?.id}</div>
-            <div className='text-[10px] text-gray-500 opacity-50 border-b-2 pb-2'>
-              ราคาปกติ: {singlepd?.price} Bath
+            <div>
+              {singlepd?.disount ? (
+                <div className='text-[10px] text-gray-500 opacity-50 border-b-2 pb-2 line-through'>
+                  ราคาปกติ: {localsting(+singlepd?.price)} Bath
+                </div>
+              ) : null}
             </div>
             <div className='flex gap-4 mt-8'>
               {singlepd?.disount ? (
@@ -149,8 +155,8 @@ function ProductInfoPage() {
               ) : null}
               <div className='text-[30px]'>
                 {!singlepd?.disount
-                  ? singlepd?.price
-                  : +singlepd?.price - +singlepd?.disount}{' '}
+                  ? localsting(+singlepd?.price)
+                  : localsting(+singlepd?.price - +singlepd?.disount)}{' '}
                 Bath
               </div>
             </div>
@@ -160,7 +166,11 @@ function ProductInfoPage() {
                 {/* ---------------------------------------ปุ่ม - ---------------------------------- */}
                 <div className='flex w-full justify-center items-center gap-2 border-2 rounded-lg '>
                   <button
-                    className='  w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black'
+                    className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none  ${
+                      count === 0
+                        ? 'btn-disabled text-gray-500 opacity-50 '
+                        : ' text-black'
+                    }`}
                     onClick={() => {
                       if (count === 0) {
                         setCount(+count);
@@ -172,18 +182,27 @@ function ProductInfoPage() {
                     -
                   </button>
                   {/* --------------------------------------- ใส่จำนวนได้---------------------------------- */}
-                  <p>{count}</p>
+                  <div className='px-4'>
+                    <p className='w-4 text-center'>{count}</p>
+                  </div>
                   {/* ---------------------------------------ปุ่ม + ---------------------------------- */}
 
                   <button
-                    className='  w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black'
+                    className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black ${
+                      singlepd?.stock <= count ? 'btn-disabled' : ''
+                    }`}
                     onClick={() => {
                       setCount(+count + 1);
                     }}
                   >
-                    +
+                    <div>+</div>
                   </button>
                 </div>
+                {singlepd?.stock <= count && (
+                  <div className='text-red-500 my-auto w-4 text-[16px]'>
+                    สินค้าหมด
+                  </div>
+                )}
               </div>
             </div>
             <div className='flex gap-4 mt-8'>
@@ -207,7 +226,7 @@ function ProductInfoPage() {
             </div>
           </div>
         </div>
-        <Property />
+        <Property singlepd={singlepd} />
       </div>
     </div>
   );
