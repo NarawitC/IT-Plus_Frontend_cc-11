@@ -4,8 +4,8 @@ import {
   removeAccessTOken,
   setAccessToken,
 } from '../../services/localStorage';
-import { userSignIn, userSignUp } from '../../apis/user/auth';
-import { getUserInfo } from '../../apis/user/user';
+import { userSignIn, userSignUp } from '../../apis/client/auth';
+import { getUserInfo } from '../../apis/client/client';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useErrorContext } from '../ErrorContext';
 import { SupplierAuthContext } from '../Supplier/SupplierAuthContext';
@@ -30,6 +30,7 @@ function AuthContextProvider({ children }) {
           // console.log('resMe.data.user need to fix');
           // if (resMe.data.user.role === 'CLIENT') {
           if (1) {
+            console.log(resMe.data.user);
             setUser(resMe.data.user);
           }
         }

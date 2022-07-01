@@ -42,19 +42,26 @@ import ProductByBrand from '../pages/product/productbySubplier/ProductBySupplier
 import CartPage from '../pages/client/CartPage';
 import DynamicSelectedProductPage from '../pages/supplier/DynamicSelectedProductPage';
 import AdminSignInPage from '../pages/AdminSignInPage';
+import SaleOrderPage from '../pages/client/SaleOrderPage';
+
+import { useAdminContext } from '../contexts/Admin/AdminContext';
+import { useSupplierContext } from '../contexts/Supplier/SupplierAuthContext';
 function Router() {
+  const { admin } = useAdminContext();
+  const { supplier } = useSupplierContext();
   return (
     <Routes>
       {/* todo wait for modify route */}
-      <Route path='/' element={<Clientlayout />}>
-        <Route path='' element={<Landingpage />} />
-        <Route path='/product' element={<ClientDynamicProductPage />} />
-        <Route path='/product/:productId' element={<ProductInfoPage />} />
-        <Route path='/my-accout' element={<ClientProfilePage />} />
-        <Route path='/cart' element={<CartPage />} />
-        <Route path='/cart/checkout' element={<CheckoutPage />} />
+      <Route path="/" element={<Clientlayout />}>
+        <Route path="" element={<Landingpage />} />
+        <Route path="/product" element={<ClientDynamicProductPage />} />
+        <Route path="/product/:productId" element={<ProductInfoPage />} />
+        <Route path="/my-accout" element={<ClientProfilePage />} />
+        <Route path="/order-history" element={<SaleOrderPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/cart/checkout" element={<CheckoutPage />} />
         <Route
-          path='/product/supplier/:subplierId'
+          path="/product/supplier/:subplierId"
           element={<ProductByBrand />}
         />
       </Route>
@@ -64,35 +71,48 @@ function Router() {
         <Route path='budget-me' element={<BudgetMePage />} />
         <Route path='my-spec' element={<MySpecPage />} />
       </Route> */}
-      <Route path='/supplier' element={<SupplierLayout />}>
-        <Route path='' element={<DynamicOrderPage />} />
-        <Route path='signup' element={<SupplierSignUpPage />} />
-        <Route path='my-product' element={<ProductPage />} />
-        <Route path='add-product' element={<DynamicAddProductPage />} />
-        <Route path='my-shop' element={<MyShopPage />} />
-        <Route path='balance-wallet' element={<BalanceWalletPage />} />
-        <Route path='order' element={<DynamicOrderPage />} />
-        {/* <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} /> */}
-        <Route path='order/selected' element={<DynamicSelectedOrderPage />} />
-        {/* <Route path='product/:productId' element={<DynamicSelectedProductPage />} /> */}
-        <Route
-          path='product/selected'
-          element={<DynamicSelectedProductPage />}
-        />
-        <Route path='tracking' element={<TrackingPage />} />
-      </Route>
-      <Route path='/admin' element={<DevLayout />}>
-        <Route path='client' element={<AdminClientPage />} />
-        {/* admin page layout */}
-        <Route path='order' element={<AdminOrderPage />} />
-        {/* // Admin Client page */}
-        <Route path='product' element={<AdminProductPage />} />
-        <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
-        <Route path='SignIn' element={<AdminSignInPage />} />
-        <Route path='' element={<Navigate to='/admin/order'></Navigate>} />
-      </Route>
 
-      <Route path='/' element={<Navigate to='/admin/order'></Navigate>} />
+      {supplier && (
+        <>
+          <Route path="/supplier" element={<SupplierLayout />}>
+            <Route path="" element={<DynamicOrderPage />} />
+            <Route path="signup" element={<SupplierSignUpPage />} />
+            <Route path="my-product" element={<ProductPage />} />
+            <Route path="add-product" element={<DynamicAddProductPage />} />
+            <Route path="my-shop" element={<MyShopPage />} />
+            <Route path="balance-wallet" element={<BalanceWalletPage />} />
+            <Route path="order" element={<DynamicOrderPage />} />
+            {/* <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} /> */}
+            <Route
+              path="order/selected"
+              element={<DynamicSelectedOrderPage />}
+            />
+            {/* <Route path='product/:productId' element={<DynamicSelectedProductPage />} /> */}
+            <Route
+              path="product/selected"
+              element={<DynamicSelectedProductPage />}
+            />
+            <Route path="tracking" element={<TrackingPage />} />
+          </Route>
+        </>
+      )}
+
+      {admin && (
+        <>
+          <Route path="/admin" element={<DevLayout />}>
+            <Route path="client" element={<AdminClientPage />} />
+            {/* admin page layout */}
+            <Route path="order" element={<AdminOrderPage />} />
+            {/* // Admin Client page */}
+            <Route path="product" element={<AdminProductPage />} />
+            <Route path="*" element={<Navigate to="/admin/order"></Navigate>} />
+            <Route path="SignIn" element={<AdminSignInPage />} />
+            <Route path="" element={<Navigate to="/admin/order"></Navigate>} />
+          </Route>
+        </>
+      )}
+
+      <Route path="/" element={<Navigate to="/admin/order"></Navigate>} />
     </Routes>
   );
 }

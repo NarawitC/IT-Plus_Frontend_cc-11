@@ -24,13 +24,13 @@ function AdminContextProvider({ children }) {
         const token = getAccessToken();
         if (token) {
           const resMe = await getAdminInfo();
-          console.log(resMe);
-          setAdmin(resMe.data.user);
+          // console.log(resMe);
+          setAdmin(resMe.data.admin);
         }
       } catch (err) {}
     };
     fetchMe();
-  }, [navigate]);
+  }, []);
 
   const adminLogin = async (input) => {
     const res = await adminSignIn(input);

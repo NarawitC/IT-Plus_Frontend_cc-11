@@ -120,7 +120,7 @@ function DynamicCartDropdown() {
                 <span className=' text-sm '>ยอดรวม </span>
                 <span className=' text-base text-primary font-bold '>
                   {' '}
-                  {totalCart ? totalCart : ''}บาท{' '}
+                  {totalCart ? localsting(totalCart) : ''}บาท{' '}
                 </span>
               </div>
               <div className='card-actions'>

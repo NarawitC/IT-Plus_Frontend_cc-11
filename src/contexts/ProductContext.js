@@ -12,8 +12,8 @@ import {
   getCart,
   getCartbyId,
   getCartbyIdapi,
-} from '../apis/user/order';
-import { getAllProductInfo, getProductById } from '../apis/user/product';
+} from '../apis/client/order';
+import { getAllProductInfo, getProductById } from '../apis/client/product';
 
 const ProductfilterContext = createContext();
 
@@ -151,8 +151,8 @@ function ProductfilterContextProvider({ children }) {
     const allcart = rescart.data.carts;
     const mycart = await allcart.find((el) => el.id === cartId);
     // const orders = [];
-    // console.log(cartId);
-    // console.log(mycart);
+    console.log(cartId);
+    console.log(mycart);
     const sipplierArr = await mycart.CartItems.map((el) => {
       // console.log(el.Product);
       return {
@@ -207,6 +207,7 @@ function ProductfilterContextProvider({ children }) {
     // console.log(cartId);
     // console.log(orders);
     const { data } = await createOrederswithItems(cartId, orders);
+
     // const uniqueSupplier = await sipplierArr.reduce((prev, next) => {
     //   if (prev.supplierId === next.supplierId) {
     //     return [...prev, next];
@@ -275,7 +276,7 @@ function ProductfilterContextProvider({ children }) {
     //   ]
     // }
     // const { data } = await createOrederswithItems();
-    // console.log(data);
+    console.log(data);
     return data;
   };
   return (
