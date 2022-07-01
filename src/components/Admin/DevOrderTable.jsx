@@ -4,14 +4,17 @@ import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
 
 function DevOrderTable() {
-  const ordermockup = [{}];
   const [AllOrder, setAllOrder] = useState();
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        // const client = await axios.get('/admin/order');
-        // setAllOrder(order.data.orders);
-      } catch (err) {}
+        const res = await axios.get('/admin/order');
+        const orderList = res.data.orders;
+        console.log(res.data);
+        setAllOrder(orderList);
+      } catch (e) {
+        console.log(e.response.data);
+      }
     };
     fetchOrder();
   }, []);
@@ -20,24 +23,28 @@ function DevOrderTable() {
   return (
     <>
       <div>
-        <div className='w-[800px] mt-4 mx-auto'>
+        <div className='w-[800px]'>
           <table className='table table-compact w-full'>
             <thead>
               <tr>
-                <th>Client ID</th>
-                <th>Payment At</th>
+                <th>Picture</th>
+                <th>Product Name</th>
+                <th>Price</th>
                 <th>Details</th>
               </tr>
             </thead>
             <tbody>
-              {ordermockup?.map((el) => {
+              {AllOrder?.map((el) => {
                 return (
                   <tr>
                     <th>{el.id}</th>
-                    <td>{el.payment}</td>
-                    <td>{'odk'}</td>
+                    <td>{el.productPrice}</td>
+                    <td></td>
+                    <td>{el.deliveryAddress}</td>``j
+                    <td>{el.createdAt}</td>
                     <td>
                       <FaEye />
+                      <button>Clear</button>
                     </td>
                   </tr>
                 );
@@ -45,9 +52,10 @@ function DevOrderTable() {
             </tbody>
             <tfoot>
               <tr>
-                <th>Client ID</th>
-                <th>Payment At</th>
-                <th>Details</th>
+                <th>OrderID</th>
+                <th>Price</th>
+                <th>Delivery Address</th>
+                <th>CreateAt</th>
               </tr>
             </tfoot>
           </table>
