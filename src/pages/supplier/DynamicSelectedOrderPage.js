@@ -15,10 +15,9 @@ import { useParams } from 'react-router-dom';
 import defaultPic from '../../pictures/defaultPic.png';
 function DynamicSelectedOrderPage() {
   const { orders, setOrders } = useContext(OrderContext);
-  console.log(orders);
-  console.log('-----------');
+  // console.log(orders);
   const params = useParams();
-  console.log(params);
+  // console.log(params);
   const navigate = useNavigate();
   const [selectedOrderObj, setSelectedOrderObj] = useState({
     OrderItems: [],
@@ -57,7 +56,7 @@ function DynamicSelectedOrderPage() {
   // ];
 
   useEffect(() => {
-    const handleGetAllOrdersBySupplierId = async () => {
+    const handleGetSelectedOrder = async () => {
       try {
         const res = await getAllOrdersBySupplierId();
         // console.log(res.data);
@@ -72,7 +71,7 @@ function DynamicSelectedOrderPage() {
         console.log(error);
       }
     };
-    handleGetAllOrdersBySupplierId();
+    handleGetSelectedOrder();
   }, [setOrders, params.orderId]);
 
   console.log('selectedOrderObj');

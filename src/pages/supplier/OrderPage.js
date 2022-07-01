@@ -11,48 +11,48 @@ import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
 import { MdOutlineCancel } from 'react-icons/md';
 import { OrderContext } from '../../contexts/Supplier/OrderContext';
 
-const mockArr = [
-  {
-    firstName: 'Panit Su',
-    id: 111,
-    productPrice: 11209.0,
-    purchasedOrderStatus: 'PENDING',
-    trackingId: '',
-    status: '',
-  },
-  {
-    firstName: 'Pal X',
-    id: 222,
-    productPrice: 34209.0,
-    purchasedOrderStatus: 'CONFIRMED',
-    trackingId: 'KER98900',
-    status: 'COMPLETED',
-  },
-  {
-    firstName: 'Node JS',
-    id: 333,
-    productPrice: 88209.0,
-    purchasedOrderStatus: 'CONFIRMED',
-    trackingId: 'SHOP12304',
-    status: 'TO_SHIPPING_COMPANY',
-  },
-  {
-    firstName: 'Gun Meta',
-    id: 444,
-    productPrice: 92209.0,
-    purchasedOrderStatus: 'CONFIRMED',
-    trackingId: 'FLASH12334',
-    status: 'TO_CLIENT',
-  },
-  {
-    firstName: 'J Next',
-    id: 555,
-    productPrice: 83229.0,
-    purchasedOrderStatus: 'PENDING',
-    trackingId: '',
-    status: '',
-  },
-];
+// const mockArr = [
+//   {
+//     firstName: 'Panit Su',
+//     id: 111,
+//     productPrice: 11209.0,
+//     purchasedOrderStatus: 'PENDING',
+//     trackingId: '',
+//     status: '',
+//   },
+//   {
+//     firstName: 'Pal X',
+//     id: 222,
+//     productPrice: 34209.0,
+//     purchasedOrderStatus: 'CONFIRMED',
+//     trackingId: 'KER98900',
+//     status: 'COMPLETED',
+//   },
+//   {
+//     firstName: 'Node JS',
+//     id: 333,
+//     productPrice: 88209.0,
+//     purchasedOrderStatus: 'CONFIRMED',
+//     trackingId: 'SHOP12304',
+//     status: 'TO_SHIPPING_COMPANY',
+//   },
+//   {
+//     firstName: 'Gun Meta',
+//     id: 444,
+//     productPrice: 92209.0,
+//     purchasedOrderStatus: 'CONFIRMED',
+//     trackingId: 'FLASH12334',
+//     status: 'TO_CLIENT',
+//   },
+//   {
+//     firstName: 'J Next',
+//     id: 555,
+//     productPrice: 83229.0,
+//     purchasedOrderStatus: 'PENDING',
+//     trackingId: '',
+//     status: '',
+//   },
+// ];
 function OrderPage() {
   const { orders, setOrders } = useContext(OrderContext);
   console.log(orders);

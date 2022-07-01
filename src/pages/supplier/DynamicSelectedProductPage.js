@@ -4,39 +4,84 @@ import subPicture2 from '../../productImg/item2.jpg';
 import subPicture3 from '../../productImg/item3.jpg';
 import subPicture4 from '../../productImg/item4.jpg';
 import { AiOutlineNumber } from 'react-icons/ai';
-
+import { useParams } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { SupplierProductContext } from '../../contexts/Supplier/SupplierProductContext';
+import defaultPic from '../../pictures/defaultPic.png';
+import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
+import { getProductById } from '../../apis/user/product';
 function DynamicSelectedProductPage() {
-  const mockObj = {
-    stock: 2,
-    price: 1149.0,
-    productName: 'ลำโพง Edifier R1855DB Computer Speaker',
-    status: 'PENDING',
-    rejectReason: null,
-    id: 101,
-    brand: 'Edifier',
-    category: 'computer-labtop',
-    subCategory: 'จอคอม',
-    description:
-      'นอกจากไมค์คุณภาพสูงแล้วหูฟังเล่นเกม Logitech Pro X ยังมาพร้อมกับการปรับแต่งเสียงผ่าน Software ได้ในตัว ทำให้นอกจากใช้เล่นเกมแล้วยังสามารถเอาไปใช้ ดูหนังฟังเพลงได้อีกด้วย โดยการเซฟ Presets เอาไว้ อีกทั้งยังมี Sound Card มาช่วยดันคุณภาพเสียงให้สูงขึ้นได้อีกด้วย แถมบอดี้ของมันยังแข็งแรงด้วยวัสดุโลหะ และอลูมิเนียม ด้วยการผสมกันของวัสดุทั้งสองอย่างทำให้ได้หูฟังที่แข็งแรงและน้ำหนักเบาสุด ๆ ',
-  };
+  const params = useParams();
+  console.log(params);
+  // const mockObj = {
+  //   stock: 2,
+  //   price: 1149.0,
+  //   productName: 'ลำโพง Edifier R1855DB Computer Speaker',
+  //   status: 'PENDING',
+  //   rejectReason: null,
+  //   id: 101,
+  //   brand: 'Edifier',
+  //   category: 'computer-labtop',
+  //   subCategory: 'จอคอม',
+  //   description:
+  //     'นอกจากไมค์คุณภาพสูงแล้วหูฟังเล่นเกม Logitech Pro X ยังมาพร้อมกับการปรับแต่งเสียงผ่าน Software ได้ในตัว ทำให้นอกจากใช้เล่นเกมแล้วยังสามารถเอาไปใช้ ดูหนังฟังเพลงได้อีกด้วย โดยการเซฟ Presets เอาไว้ อีกทั้งยังมี Sound Card มาช่วยดันคุณภาพเสียงให้สูงขึ้นได้อีกด้วย แถมบอดี้ของมันยังแข็งแรงด้วยวัสดุโลหะ และอลูมิเนียม ด้วยการผสมกันของวัสดุทั้งสองอย่างทำให้ได้หูฟังที่แข็งแรงและน้ำหนักเบาสุด ๆ ',
+  // };
   const mockProperties = [
     { topic: 'ขนาดจอ', description: '24 นิ้ว' },
     { topic: 'ความละเอียด', description: '10M pixels' },
     { topic: 'สี', description: 'ดำ' },
   ];
+
+  const { supplierProducts, setSupplierProducts } = useContext(
+    SupplierProductContext
+  );
+  const [selectedProductObj, setSelectedProductObj] = useState({
+    Promotions: [],
+    Category: {},
+    subCategory: {},
+    brand: 'Test brand name',
+    categoryId: 0,
+    description: '',
+    id: 0,
+    mainPicture: '',
+    price: 0,
+    productName: '',
+    stock: 999,
+    subCategoryId: 2,
+    subPicture1: '',
+    subPicture2: '',
+    subPicture3: '',
+    subPicture4: '',
+  });
+
+  useEffect(() => {
+    const handleGetSelectedProduct = async () => {
+      try {
+        const res = await getProductById(+params.productId);
+        console.log(res.data);
+        setSelectedProductObj(res.data.products);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleGetSelectedProduct();
+  }, [params.productId]);
+
   return (
     <div className=''>
       <br />
       <div className='flex flex-col p-7'>
-        <h1 className='text-3xl font-bold'>{mockObj.productName}</h1>
-        <p className='text-2xl text-gray-600'>{`รหัสสินค้า: ${mockObj.id}`}</p>
+        <h1 className='text-3xl font-bold'>
+          {selectedProductObj.productName || ''}
+        </h1>
+        <p className='text-2xl text-gray-600'>{`รหัสสินค้า: ${selectedProductObj.id}`}</p>
       </div>
       <br />
       <div className='flex justify-center'>
         <div className='flex flex-col'>
           <img
             className='h-80 w-auto object-contain border-2 p-4 rounded-lg hover:border-secondary'
-            src={mainPicture}
+            src={selectedProductObj.mainPicture || defaultPic}
             alt='mainPicture'
           />
           <br />
@@ -49,7 +94,7 @@ function DynamicSelectedProductPage() {
         <div className='flex flex-col '>
           <img
             className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-            src={subPicture1}
+            src={selectedProductObj.subPicture1 || defaultPic}
             alt='subPicture1'
           />
           <br />
@@ -58,7 +103,7 @@ function DynamicSelectedProductPage() {
         <div className='flex flex-col'>
           <img
             className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-            src={subPicture2}
+            src={selectedProductObj.subPicture2 || defaultPic}
             alt='subPicture2'
           />
           <br />
@@ -67,7 +112,7 @@ function DynamicSelectedProductPage() {
         <div className='flex flex-col'>
           <img
             className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-            src={subPicture3}
+            src={selectedProductObj.subPicture3 || defaultPic}
             alt='subPicture3'
           />
           <br />
@@ -76,7 +121,7 @@ function DynamicSelectedProductPage() {
         <div className='flex flex-col'>
           <img
             className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-            src={subPicture4}
+            src={selectedProductObj.subPicture4 || defaultPic}
             alt='subPicture4'
           />
           <br />
@@ -92,7 +137,7 @@ function DynamicSelectedProductPage() {
           >
             ชื่อสินค้า
           </label>
-          <p>{mockObj.productName}</p>
+          <p>{selectedProductObj.productName || ''}</p>
         </div>
         <div className='flex flex-col justify-center border-2 hover:border-info rounded-lg p-2'>
           <label
@@ -101,16 +146,16 @@ function DynamicSelectedProductPage() {
           >
             หมวดหมู่สินค้า
           </label>
-          <p>{mockObj.category}</p>
+          <p>{selectedProductObj.Category.categoryName || ''}</p>
         </div>
         <div className='flex flex-col justify-center border-2 hover:border-info rounded-lg p-2'>
           <label
-            htmlFor='subCategory'
+            htmlFor='SubCategory'
             className='font-bold block mb-2 text-sm  text-gray-1200 '
           >
             หมวดหมู่สินค้าย่อย
           </label>
-          <p>{mockObj.subCategory}</p>
+          {/* <p>{selectedProductObj.SubCategory.subCategoryName || ''}</p> */}
         </div>
 
         <div className='flex flex-col justify-center border-2 hover:border-info rounded-lg p-2'>
@@ -120,7 +165,7 @@ function DynamicSelectedProductPage() {
           >
             ราคาสินค้า
           </label>
-          <p>{mockObj.price.toFixed(2)}</p>
+          <p>{(+selectedProductObj.price).toFixed(2) || (0.0).toFixed(2)}</p>
         </div>
         <div className='flex flex-col justify-center border-2 hover:border-info rounded-lg p-2'>
           <label
@@ -129,7 +174,7 @@ function DynamicSelectedProductPage() {
           >
             แบรนด์สินค้า
           </label>
-          <p>{mockObj.brand}</p>
+          <p>{selectedProductObj.brand || ''}</p>
         </div>
         <div className='flex flex-col justify-center border-2 hover:border-info rounded-lg p-2'>
           <label
@@ -138,7 +183,7 @@ function DynamicSelectedProductPage() {
           >
             Stock
           </label>
-          <p>{mockObj.stock}</p>
+          <p>{selectedProductObj.stock}</p>
         </div>
       </div>
       <div className='flex justify-center'>
@@ -184,7 +229,7 @@ function DynamicSelectedProductPage() {
         >
           รายละเอียดสินค้า
         </label>
-        <p>{mockObj.description}</p>
+        <p>{selectedProductObj.description}</p>
         <br />
         <br />
       </div>

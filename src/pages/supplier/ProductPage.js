@@ -6,45 +6,51 @@ import { FiShoppingBag } from 'react-icons/fi';
 import { MdOutlineCancel } from 'react-icons/md';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
 import { useContext } from 'react';
 import { OrderContext } from '../../contexts/Supplier/OrderContext';
-const mockArr = [
-  {
-    mainPicture: speaker,
-    stock: 2,
-    price: 1149.0,
-    productName: 'ลำโพง Edifier R1855DB Computer Speaker',
-    status: 'PENDING',
-    rejectReason: null,
-    id: 101,
-    brand: 'Edifier',
-  },
-  {
-    mainPicture: chair,
-    stock: 12,
-    price: 3420.0,
-    productName: 'เก้าอี้เพื่อสุขภาพ Bewell Embrace Ergonomic Chair',
-    status: 'APPROVED',
-    rejectReason: null,
-    id: 202,
-    brand: 'Bewell',
-  },
-  {
-    mainPicture: keyboard,
-    stock: 22,
-    price: 8309.0,
-    productName:
-      'คีย์บอร์ด Keychron Q2 Knob Hot Swappable Mechanical Keyboard (EN/TH)',
-    status: 'REJECTED',
-    rejectReason: 'สินค้าผิดกฎหมาย',
-    id: 303,
-    brand: 'Keychron',
-  },
-];
+import { SupplierProductContext } from '../../contexts/Supplier/SupplierProductContext';
+import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
+import defaultPic from '../../pictures/defaultPic.png';
+// const mockArr = [
+//   {
+//     mainPicture: speaker,
+//     stock: 2,
+//     price: 1149.0,
+//     productName: 'ลำโพง Edifier R1855DB Computer Speaker',
+//     status: 'PENDING',
+//     rejectReason: null,
+//     id: 101,
+//     brand: 'Edifier',
+//   },
+//   {
+//     mainPicture: chair,
+//     stock: 12,
+//     price: 3420.0,
+//     productName: 'เก้าอี้เพื่อสุขภาพ Bewell Embrace Ergonomic Chair',
+//     status: 'APPROVED',
+//     rejectReason: null,
+//     id: 202,
+//     brand: 'Bewell',
+//   },
+//   {
+//     mainPicture: keyboard,
+//     stock: 22,
+//     price: 8309.0,
+//     productName:
+//       'คีย์บอร์ด Keychron Q2 Knob Hot Swappable Mechanical Keyboard (EN/TH)',
+//     status: 'REJECTED',
+//     rejectReason: 'สินค้าผิดกฎหมาย',
+//     id: 303,
+//     brand: 'Keychron',
+//   },
+// ];
 
 function ProductPage() {
   const navigate = useNavigate();
+  const { supplierProducts, setSupplierProducts } = useContext(
+    SupplierProductContext
+  );
+
   // const colorArr = [
   //   { PRODUCT_STATUS: 'PENDING', color: 'waring' },
   //   { PRODUCT_STATUS: 'APPROVED', color: 'success' },
@@ -54,7 +60,7 @@ function ProductPage() {
   const [productSearchTerm, setProductSearchTerm] = useState('');
   const [searchBy, setSearchBy] = useState('productName');
 
-  const [products, setProducts] = useState(mockArr);
+  const [products, setProducts] = useState([]);
 
   const findColor = (text) => {
     if (text === 'PENDING') {
@@ -90,12 +96,26 @@ function ProductPage() {
   // <option value='id'>รหัสสินค้า</option>
   // <option value='brand'>ยี่ห้อ</option>
   // <option value='deliveryStatus'>สถานะการจัดส่ง</option>
+
+  useEffect(() => {
+    const handleGetAllProductBySupplierId = async () => {
+      try {
+        const res = await getAllProductBySupplierId();
+        console.log(res.data);
+        setSupplierProducts(res.data.products);
+        setProducts(res.data.products);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleGetAllProductBySupplierId();
+  }, [setSupplierProducts]);
+
   useEffect(() => {
     // console.log(searchBy);
-
     if (searchBy === 'productName') {
       const filterByProductName = (searchTerm) => {
-        const resultArrByProductName = mockArr.filter((elIn, idx) => {
+        const resultArrByProductName = supplierProducts.filter((elIn, idx) => {
           return elIn.productName
             .trim()
             .replace(/\s/g, '')
@@ -110,7 +130,7 @@ function ProductPage() {
     if (searchBy === 'status') {
       const filterByStatus = (searchTerm) => {
         console.log(searchTerm.trim().replace(/\s/g, ''));
-        const resultArrByStatus = mockArr.filter((el) =>
+        const resultArrByStatus = supplierProducts.filter((el) =>
           el.status
             .trim()
             .replace(/\s/g, '')
@@ -124,7 +144,7 @@ function ProductPage() {
     if (searchBy === 'id') {
       const filterByProductId = (searchTerm) => {
         console.log(searchTerm.trim().replace(/\s/g, ''));
-        const resultArrByProductId = mockArr.filter((el) =>
+        const resultArrByProductId = supplierProducts.filter((el) =>
           String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
         );
         setProducts(resultArrByProductId);
@@ -134,7 +154,7 @@ function ProductPage() {
     if (searchBy === 'brand') {
       const filterByBrand = (searchTerm) => {
         console.log(searchTerm.trim().replace(/\s/g, ''));
-        const resultArrByBrand = mockArr.filter((el) =>
+        const resultArrByBrand = supplierProducts.filter((el) =>
           el.brand
             .trim()
             .replace(/\s/g, '')
@@ -145,7 +165,7 @@ function ProductPage() {
       };
       filterByBrand(productSearchTerm);
     }
-  }, [productSearchTerm]);
+  }, [productSearchTerm, searchBy, supplierProducts]);
 
   return (
     <div className='flex flex-col mb-[160px] h-auto'>
@@ -219,16 +239,16 @@ function ProductPage() {
                   <tr
                     className='hover cursor-pointer'
                     onClick={() => {
-                      navigate('/supplier/product/selected');
+                      navigate(`/supplier/product/${el.id}`);
                     }}
                   >
                     <td className='text-center font-bold'>{index + 1}</td>
-                    <td className='text-center font-bold '>{el.id}</td>
+                    <td className='text-center font-bold '>{el.id || 0}</td>
                     <td>
                       <div className='flex items-center space-x-3 justify-center'>
                         <img
                           className='object-contain h-16 w-[60px] '
-                          src={el.mainPicture}
+                          src={el.mainPicture || defaultPic}
                           alt='mainPic'
                         />
                       </div>
