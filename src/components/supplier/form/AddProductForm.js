@@ -103,7 +103,35 @@ function AddProductForm({ addNewProductSupplier }) {
     const newImageURL = URL.createObjectURL(mainPicture);
     // console.log(newImageURL);
     setImageURL(newImageURL);
-  }, [mainPicture]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+
+    if (subPicture1 === null) {
+      return;
+    }
+    const newSubPicture1URL = URL.createObjectURL(subPicture1);
+    // console.log(newImageURL);
+    setSubPictureURL1(newSubPicture1URL);
+
+    if (subPicture2 === null) {
+      return;
+    }
+    const newSubPicture2URL = URL.createObjectURL(subPicture2);
+    // console.log(newImageURL);
+    setSubPictureURL2(newSubPicture2URL);
+
+    if (subPicture3 === null) {
+      return;
+    }
+    const newSubPicture3URL = URL.createObjectURL(subPicture3);
+    // console.log(newImageURL);
+    setSubPictureURL3(newSubPicture3URL);
+
+    if (subPicture4 === null) {
+      return;
+    }
+    const newSubPicture4URL = URL.createObjectURL(subPicture4);
+    // console.log(newImageURL);
+    setSubPictureURL4(newSubPicture4URL);
+  }, [mainPicture, subPicture1, subPicture2, subPicture3, subPicture4]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
   // console.log({ imageURL: imageURL });
   const onMainPictureChange = (event) => {
     if (event.target.files[0]) {
@@ -111,60 +139,28 @@ function AddProductForm({ addNewProductSupplier }) {
     }
   };
   //-------------------------------------------------------------------------------
-  useEffect(() => {
-    if (subPicture1 === null) {
-      return;
-    }
-    const newSubPicture1URL = URL.createObjectURL(subPicture1);
-    // console.log(newImageURL);
-    setSubPictureURL1(newSubPicture1URL);
-  }, [subPicture1]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-  // console.log({ imageURL: imageURL });
+
   const onSubPicture1Change = (event) => {
     if (event.target.files[0]) {
       setSubPicture1(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
-  useEffect(() => {
-    if (subPicture2 === null) {
-      return;
-    }
-    const newSubPicture2URL = URL.createObjectURL(subPicture2);
-    // console.log(newImageURL);
-    setSubPictureURL2(newSubPicture2URL);
-  }, [subPicture2]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-  // console.log({ imageURL: imageURL });
+
   const onSubPicture2Change = (event) => {
     if (event.target.files[0]) {
       setSubPicture2(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
-  useEffect(() => {
-    if (subPicture3 === null) {
-      return;
-    }
-    const newSubPicture3URL = URL.createObjectURL(subPicture3);
-    // console.log(newImageURL);
-    setSubPictureURL3(newSubPicture3URL);
-  }, [subPicture3]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-  // console.log({ imageURL: imageURL });
+
   const onSubPicture3Change = (event) => {
     if (event.target.files[0]) {
       setSubPicture3(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
-  useEffect(() => {
-    if (subPicture4 === null) {
-      return;
-    }
-    const newSubPicture4URL = URL.createObjectURL(subPicture4);
-    // console.log(newImageURL);
-    setSubPictureURL4(newSubPicture4URL);
-  }, [subPicture4]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-  // console.log({ imageURL: imageURL });
+
   const onSubPicture4Change = (event) => {
     if (event.target.files[0]) {
       setSubPicture4(event.target.files[0]);

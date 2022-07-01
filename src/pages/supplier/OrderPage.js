@@ -230,13 +230,13 @@ function OrderPage() {
                 <th className=''>ชื่อลูกค้า</th>
                 <th className='flex justify-center'>หมายเลขคำสั่งซื้อ</th>
                 <th>ยอดคำสั่งซื้อ</th>
-                <th>สถานะการชำระเงิน</th>
+                <th className='text-center'>สถานะการชำระเงิน</th>
                 <th className='flex justify-center'>Tracking Id</th>
                 <th className='text-center'>Shipping Order Status</th>
               </tr>
             </thead>
             <tbody>
-              {shippingDetails.map((el, idx) => {
+              {orders.map((el, idx) => {
                 return (
                   <>
                     {}
@@ -244,8 +244,8 @@ function OrderPage() {
                       <td className='text-center'>{idx + 1}</td>
                       <td>
                         <div class='flex items-center space-x-3'>
-                          <div>
-                            <div class='font-bold'>{el.firstName}</div>
+                          <div className='flex w-[40px] justify-center'>
+                            <div class='font-bold'>{el.clientId}</div>
                           </div>
                         </div>
                       </td>
@@ -262,7 +262,9 @@ function OrderPage() {
                         </div>
                       </td>
                       <th>
-                        <p className=''>{el.productPrice.toFixed(2)}</p>
+                        <p className='flex justify-end'>
+                          {el.productPrice.toFixed(2)}
+                        </p>
                       </th>
                       <th>
                         <label class='swap'>
