@@ -91,6 +91,10 @@ function SupplierAuthContextProvider({ children }) {
     </SupplierAuthContext.Provider>
   );
 }
+const useSupplierContext = () => {
+  const ctx = useContext(SupplierAuthContext);
+  return ctx;
+};
 
 export default SupplierAuthContextProvider;
-export { SupplierAuthContext };
+export { SupplierAuthContext, useSupplierContext };

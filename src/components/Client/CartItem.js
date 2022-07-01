@@ -8,6 +8,7 @@ import { localsting } from '../../services/LocalstringComma';
 import { useAuthContext } from '../../contexts/Client/AuthCcontexts';
 import { useNavigate } from 'react-router-dom';
 import { CgChevronDoubleLeft } from 'react-icons/cg';
+import { BsPlusSquareDotted } from 'react-icons/bs';
 
 function CartItem() {
   // useEffect(() => {}, []);
@@ -47,63 +48,30 @@ function CartItem() {
   };
   return (
     <div className='grid grid-cols-4 gap-4 py-4 '>
-      {tempCarts?.map((el, idx) => (
-        <LGCartlist el={el} key={idx} handleDelcartlist={handleDelcartlist} />
-      ))}
-
-      {/* <div className='col-span-3'>
-        <div className='grid grid-cols-10 '>
-          <div className='w-[100px] h-[100px]  col-span-1   '>
-            <img src={CartImg} />
-          </div>
-          <div className='col-span-3 my-auto pl-14'>
-            <a href='#'>เก้าอี้สุขภาพ Bewell ENFOLD Ergonomic Chair</a>
-          </div>
-          <div className='col-span-3 m-auto '>
-            <div className='flex pt-6 gap-4'>
-              <div className='bg-red-500 text-white px-4 rounded-lg  h-10'>
-                <div className='my-2'>- THB 500</div>
-              </div>
-              <div className='font-bold text-[24px]'>THB 8,888</div>
-            </div>
-            <div className='line-through text-gray-500 opacity-50'>
-              THB 19,900
-            </div>
-          </div>
-          <div className='flex col-span-3 justify-end pr-8 gap-12 '>
-            <div className='col-span-1 flex my-auto border-2 rounded-lg   '>
-              <button
-                className='  w-[30px] h-[30px] text-black bg-white btn btn-primary border-none '
-                onClick={() => {
-                  if (count === 0) {
-                    setCount(+count);
-                  } else {
-                    setCount(+count - 1);
-                  }
-                }}
-              >
-                -
-              </button>
-              <p className='my-auto text-[20px] px-4 '>{count}</p>
-
-              <button
-                className='  w-[30px] h-[30px] text-black  bg-white btn btn-primary border-none'
-                onClick={() => {
-                  setCount(+count + 1);
-                }}
-              >
-                +
-              </button>
-            </div>
-            <div className='col-span-1 my-auto'>
-              <img src={trash} />
+      {tempCarts.length === 0 ? (
+        <div className='col-span-3 h-full bg-white '>
+          <div className='flex w-full'>
+            <div className='w-[100px] h-[100px] flex justify-center '>
+              <BsPlusSquareDotted
+                size={200}
+                color={'gray'}
+                className='mx-auto text-center'
+              />
             </div>
           </div>
         </div>
-      </div> */}
+      ) : (
+        <>
+          {tempCarts?.map((el, idx) => (
+            <LGCartlist
+              el={el}
+              key={idx}
+              handleDelcartlist={handleDelcartlist}
+            />
+          ))}
+        </>
+      )}
 
-      {/* <LGCartlist /> */}
-      {/* ------------------------------------------------------ */}
       <div className=' px-4 border-2 rounded-lg py-4'>
         <div className='flex gap-4'>
           <div>
