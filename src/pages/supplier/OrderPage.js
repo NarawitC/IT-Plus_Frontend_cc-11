@@ -55,22 +55,28 @@ const mockArr = [
 ];
 function OrderPage() {
   const { orders, setOrders } = useContext(OrderContext);
+  console.log(orders);
   const [orderSearchTerm, setOrderSearchTerm] = useState('');
   const [searchBy, setSearchBy] = useState('id');
   const navigate = useNavigate();
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(orders);
+
   useEffect(() => {
     const handleGetAllOrdersBySupplierId = async () => {
       try {
         const res = await getAllOrdersBySupplierId();
         console.log(res.data);
         setOrders(res.data.orders);
+        setShippingDetails(res.data.orders);
       } catch (error) {
         console.log(error);
       }
     };
     handleGetAllOrdersBySupplierId();
+  }, [setOrders]);
+
+  useEffect(() => {
     if (searchBy === 'id') {
       const filterByOrderId = (searchTerm) => {
         const resultArrByOrderId = orders.filter((el) =>
@@ -116,7 +122,7 @@ function OrderPage() {
       };
       filterByStatus(orderSearchTerm);
     }
-  }, [orderSearchTerm]);
+  }, [orderSearchTerm, orders, searchBy]);
 
   // const filterByUserId = (userId) => {};
   // const filterByStatus = (status) => {};
@@ -254,7 +260,7 @@ function OrderPage() {
                           <button
                             className='btn btn-ghost btn-md'
                             onClick={() => {
-                              navigate('/supplier/order/selected');
+                              navigate(`/supplier/order/${el.id}`);
                             }}
                           >
                             {el.id}

@@ -6,6 +6,9 @@ import { FiShoppingBag } from 'react-icons/fi';
 import { MdOutlineCancel } from 'react-icons/md';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
+import { useContext } from 'react';
+import { OrderContext } from '../../contexts/Supplier/OrderContext';
 const mockArr = [
   {
     mainPicture: speaker,
@@ -39,6 +42,7 @@ const mockArr = [
     brand: 'Keychron',
   },
 ];
+
 function ProductPage() {
   const navigate = useNavigate();
   // const colorArr = [
@@ -66,6 +70,20 @@ function ProductPage() {
       return 'base-content';
     }
   };
+
+  // useEffect(() => {
+  //   const handleGetAllOrdersBySupplierId = async () => {
+  //     try {
+  //       const res = await getAllOrdersBySupplierId();
+  //       console.log(res.data);
+  //       // setOrders(res.data.orders);
+  //       // setShippingDetails(res.data.orders);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   handleGetAllOrdersBySupplierId();
+  // }, []);
 
   // <option value='productName'>ชื่อสินค้า</option>
   // <option value='status'>สถานะสินค้า</option>
