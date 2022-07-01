@@ -28,7 +28,6 @@ function SupplierAuthContextProvider({ children }) {
     try {
       const token = getAccessToken();
       const resSupplier = await getSupplierInfo();
-      console.log(resSupplier.data.user.role);
       if (resSupplier.data.user.role === 'SUPPLIER') {
         setSupplier(resSupplier.data.user);
         setRole(resSupplier.data.user.role);

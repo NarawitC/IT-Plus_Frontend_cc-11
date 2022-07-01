@@ -45,7 +45,7 @@ function AuthContextProvider({ children }) {
       }
     };
     fetchMe();
-    console.log(user);
+    // console.log(user);
   }, []);
   // }, [navigate]);
 

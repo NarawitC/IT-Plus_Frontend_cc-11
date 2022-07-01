@@ -66,6 +66,8 @@ function ProductfilterContextProvider({ children }) {
   //   const [Productfilterstr, setProductfilterstr] = useState(null);
   const [priceRange, setPriceRange] = useState([]);
   const [product, setPoduct] = useState(null);
+  const [totalPage, setTotalPage] = useState(null);
+  const [page, setPage] = useState(1);
   useEffect(() => {
     PriceRangeFiler(priceRange);
     const sumPrice = () => {
@@ -105,6 +107,7 @@ function ProductfilterContextProvider({ children }) {
       return xxx;
     } else {
       // console.log(products);
+      setTotalPage(res.totalPage);
       setPoduct(products);
 
       return products;
@@ -297,6 +300,9 @@ function ProductfilterContextProvider({ children }) {
         dbcart,
         setdbcart,
         GetCartsbyId,
+        totalPage,
+        setPage,
+        page,
       }}
     >
       {children}
