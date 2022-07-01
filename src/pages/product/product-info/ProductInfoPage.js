@@ -8,6 +8,7 @@ import { useProductfilter } from '../../../contexts/ProductContext';
 import LocalstringComma, {
   localsting,
 } from '../../../services/LocalstringComma';
+import { useAdminContext } from '../../../contexts/Admin/AdminContext';
 
 function ProductInfoPage() {
   const locate = useLocation();
@@ -235,14 +236,7 @@ function ProductInfoPage() {
                   class='input input-bordered input-primary w-full max-w-xs mt-5 ms-3'
                 ></textarea>
                 <div className='flex gap-2 justify-end mt-3'>
-                  <button
-                    className='btn btn-success flex'
-                    // onClick={() => {
-                    //   HandleAddcart();
-                    // }}
-                  >
-                    Approve
-                  </button>
+                  <button className='btn btn-success flex'>Approve</button>
                   <button className='btn btn-warning flex'>Reject</button>
                 </div>
               </>
