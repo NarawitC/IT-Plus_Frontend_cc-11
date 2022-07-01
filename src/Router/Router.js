@@ -31,6 +31,7 @@ import { useLoading } from '../contexts/LoadingContext';
 import TrackingPage from '../pages/supplier/TrackingPage';
 import DynamicSelectedOrderPage from '../pages/supplier/DynamicSelectedOrderPage';
 import DynamicSelectedProductPage from '../pages/supplier/DynamicSelectedProductPage';
+import DynamicSelectedTransactionPage from '../pages/supplier/DynamicSelectedTransactionPage';
 function Router() {
   return (
     <Routes>
@@ -63,7 +64,11 @@ function Router() {
           path='product/selected'
           element={<DynamicSelectedProductPage />}
         />
-        <Route path='tracking' element={<TrackingPage />} />
+        {/* <Route path='tracking' element={<TrackingPage />} /> */}
+        <Route
+          path='transaction/selected'
+          element={<DynamicSelectedTransactionPage />}
+        />
       </Route>
       <Route path='/admin' element={<AdminLayout />}>
         <Route path='' element={<AdminOrder />} />

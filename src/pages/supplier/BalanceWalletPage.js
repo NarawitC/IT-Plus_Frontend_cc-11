@@ -1,8 +1,11 @@
 import { RiMoneyDollarBoxLine } from 'react-icons/ri';
 import { TiDocumentText } from 'react-icons/ti';
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { BiDetail } from 'react-icons/bi';
 function BalanceWalletPage() {
+  const navigate = useNavigate();
+
   const [openTransactions, setOpenTransactions] = useState(false);
   const [openWithdrawalForm, setOpenWithdrawalForm] = useState(false);
 
@@ -12,42 +15,42 @@ function BalanceWalletPage() {
       type: 'รับ',
       description: 'รายรับจาก order 200425EAN',
       amount: 100.0,
-      status: 'completed',
+      status: 'COMPLETED',
     },
     {
       date: '2022-06-18',
       type: 'รับ',
       description: 'รายรับจาก order 200325EAN',
       amount: 900.0,
-      status: 'completed',
+      status: 'COMPLETED',
     },
     {
       date: '2022-06-17',
       type: 'รับ',
       description: 'รายรับจาก order 200435EAN',
       amount: 1000.0,
-      status: 'completed',
+      status: 'COMPLETED',
     },
     {
       date: '2022-06-16',
       type: 'รับ',
       description: 'รายรับจาก order 200335EAN',
       amount: 1000.0,
-      status: 'completed',
+      status: 'COMPLETED',
     },
     {
       date: '2022-06-15',
       type: 'ถอน',
       description: 'การถอนไปยังเลขที่บัญชี (*1234)',
       amount: 2000.0,
-      status: 'In Progress',
+      status: 'IN PROGRESS',
     },
     {
       date: '2022-06-14',
       type: 'ถอน',
       description: 'การถอนไปยังเลขที่บัญชี (*1235)',
       amount: 1000.0,
-      status: 'completed',
+      status: 'COMPLETED',
     },
   ];
   return (
@@ -66,9 +69,25 @@ function BalanceWalletPage() {
           <div className='flex gap-10 '>
             <div
               onClick={() => {
-                setOpenWithdrawalForm(
-                  (openWithdrawalForm) => !openWithdrawalForm
-                );
+                if (
+                  openTransactions === false &&
+                  openWithdrawalForm === false
+                ) {
+                  setOpenWithdrawalForm(
+                    (openWithdrawalForm) => !openWithdrawalForm
+                  );
+                }
+                if (openTransactions === false && openWithdrawalForm === true) {
+                  setOpenWithdrawalForm(
+                    (openWithdrawalForm) => !openWithdrawalForm
+                  );
+                }
+                if (openTransactions === true && openWithdrawalForm === false) {
+                  setOpenWithdrawalForm(
+                    (openWithdrawalForm) => !openWithdrawalForm
+                  );
+                  setOpenTransactions((openTransactions) => !openTransactions);
+                }
               }}
               className='hover:scale-105 border-2 h-56 w-56 rounded flex flex-col items-center justify-center hover:border-warning'
             >
@@ -79,7 +98,21 @@ function BalanceWalletPage() {
             </div>
             <div
               onClick={() => {
-                setOpenTransactions((openTransactions) => !openTransactions);
+                if (
+                  openTransactions === false &&
+                  openWithdrawalForm === false
+                ) {
+                  setOpenTransactions((openTransactions) => !openTransactions);
+                }
+                if (openTransactions === false && openWithdrawalForm === true) {
+                  setOpenWithdrawalForm(
+                    (openWithdrawalForm) => !openWithdrawalForm
+                  );
+                  setOpenTransactions((openTransactions) => !openTransactions);
+                }
+                if (openTransactions === true && openWithdrawalForm === false) {
+                  setOpenTransactions((openTransactions) => !openTransactions);
+                }
               }}
               className='hover:scale-105 flex-col border-2 h-56 w-56 rounded flex items-center justify-center hover:border-info'
             >
@@ -134,6 +167,7 @@ function BalanceWalletPage() {
               <th className=''>รายละเอียด</th>
               <th className=''>จำนวนเงิน</th>
               <th className=''>สถานะ</th>
+              <th>รายละเอียด</th>
             </tr>
           </thead>
           <tbody>
@@ -141,33 +175,59 @@ function BalanceWalletPage() {
               return (
                 <>
                   <tr className='text-center hover' key={idx}>
-                    <td className='text-center'>{idx + 1}</td>
-                    <td>{el.date}</td>
+                    <td className='text-center font-bold'>{idx + 1}</td>
+                    <td className='font-bold'>{el.date}</td>
                     {el.type === 'รับ' ? (
                       <>
-                        <td className='text-success'>{el.type}</td>
+                        <td className='text-success font-bold'>{el.type}</td>
                       </>
                     ) : (
                       <>
-                        <td className='text-error'>{el.type}</td>
+                        <td className='text-error font-bold'>{el.type}</td>
                       </>
                     )}
                     <td>
-                      <button className='  text-ghost hover:text-blue-900 hover:scale-105'>
-                        {el.description}
-                      </button>
+                      {el.type === 'รับ' ? (
+                        <>
+                          <button
+                            className='  font-bold text-ghost hover:text-blue-900 hover:scale-105'
+                            onClick={() => {
+                              navigate('/supplier/order/selected');
+                            }}
+                          >
+                            {el.description}
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <p className=' font-bold text-ghost  '>
+                            {el.description}
+                          </p>
+                        </>
+                      )}
                     </td>
-
-                    <td className='flex justify-end'>{el.amount.toFixed(2)}</td>
-                    {el.status === 'completed' ? (
+                    <td className='flex justify-end font-bold'>
+                      {el.amount.toFixed(2)}
+                    </td>
+                    {el.status === 'COMPLETED' ? (
                       <>
-                        <td className='text-success'>{el.status}</td>
+                        <td className='text-success font-bold'>{el.status}</td>
                       </>
                     ) : (
                       <>
-                        <td className='text-warning'>{el.status}</td>
+                        <td className='text-warning font-bold'>{el.status}</td>
                       </>
                     )}
+                    <td>
+                      <button
+                        className='flex w-[70px] justify-center hover:scale-125 text-info font-bold '
+                        onClick={() => {
+                          navigate('/supplier/transaction/selected');
+                        }}
+                      >
+                        {<BiDetail size={25} />}
+                      </button>
+                    </td>
                   </tr>
                 </>
               );

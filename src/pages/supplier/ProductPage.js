@@ -171,7 +171,7 @@ function ProductPage() {
             </div>
             <button
               onClick={() => setProductSearchTerm('')}
-              className='hover:scale-125 text-secondary'
+              className='hover:scale-125 '
             >
               {<MdOutlineCancel size={25} />}
             </button>
@@ -204,8 +204,8 @@ function ProductPage() {
                       navigate('/supplier/product/selected');
                     }}
                   >
-                    <td className='text-center'>{index + 1}</td>
-                    <td className='text-center '>{el.id}</td>
+                    <td className='text-center font-bold'>{index + 1}</td>
+                    <td className='text-center font-bold '>{el.id}</td>
                     <td>
                       <div className='flex items-center space-x-3 justify-center'>
                         <img
@@ -217,8 +217,10 @@ function ProductPage() {
                     </td>
                     <td>
                       <div>
-                        <div className='font-bold '>{el.brand}</div>
-                        <div className=' w-[380px] flex overflow-x-auto h-12 items-center'>
+                        <div className='font-bold  text-lg text-blue-900'>
+                          {el.brand}
+                        </div>
+                        <div className=' w-[380px] flex overflow-x-auto h-12 items-center font-bold'>
                           {el.productName}
                         </div>
                       </div>
