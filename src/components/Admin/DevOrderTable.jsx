@@ -2,6 +2,7 @@ import React from 'react';
 import { FaEye } from 'react-icons/fa';
 import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function DevOrderTable() {
   const [AllOrder, setAllOrder] = useState();
@@ -23,14 +24,16 @@ function DevOrderTable() {
   return (
     <>
       <div>
-        <div className='w-[800px]'>
-          <table className='table table-compact w-full'>
+        <div>
+          <table className='table table-compact w-full mx-auto'>
             <thead>
               <tr>
-                <th>Picture</th>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Details</th>
+                <th>Order Id</th>
+                <th>Client Id</th>
+                <th>Total Price</th>
+                <th>Delivery Address</th>
+                <th>Delivery Price</th>
+                <th>UpdateAt</th>
               </tr>
             </thead>
             <tbody>
@@ -43,8 +46,9 @@ function DevOrderTable() {
                     <td>{el.deliveryAddress}</td>``j
                     <td>{el.createdAt}</td>
                     <td>
-                      <FaEye />
-                      <button>Clear</button>
+                      <Link to='*' className='btn btn-accent'>
+                        <FaEye />
+                      </Link>
                     </td>
                   </tr>
                 );
@@ -52,10 +56,12 @@ function DevOrderTable() {
             </tbody>
             <tfoot>
               <tr>
-                <th>OrderID</th>
-                <th>Price</th>
+                <th>Order Id</th>
+                <th>Client Id</th>
+                <th>Total Price</th>
                 <th>Delivery Address</th>
-                <th>CreateAt</th>
+                <th>Delivery Price</th>
+                <th>UpdateAt</th>
               </tr>
             </tfoot>
           </table>

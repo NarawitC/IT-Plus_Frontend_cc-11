@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FaEye } from 'react-icons/fa';
 
 function DevProductTable() {
   const [AllProduct, setAllProduct] = useState();
@@ -69,7 +71,9 @@ function DevProductTable() {
                 <td>{el.supplierId}</td>
                 <td>{el.status}</td>
                 <td>
-                  <button className='btn btn-ghost btn-xs'>details</button>
+                  <Link to='*' className='btn btn-accent'>
+                    <FaEye />
+                  </Link>
                 </td>
               </tr>
             );
