@@ -129,8 +129,8 @@ function BalanceWalletPage() {
           openWithdrawalForm === false ? 'hidden' : ''
         } border-2 p-4 rounded-lg`}
       >
-        <div className='border-2 p-2 rounded-lg'>
-          <h1 className='text-2xl'>{`ทำการโอนเงินจากบัญชี IT-Plus ไปยังหมายเลขบัญชี 1234099997`}</h1>
+        <div className='  border-b-2 border-t-2 p-2'>
+          <h1 className='text-2xl font-bold'>{`ทำการโอนเงินจากบัญชี IT-Plus ไปยังหมายเลขบัญชี 1234099997`}</h1>
         </div>
         <div>
           <br />
@@ -143,11 +143,13 @@ function BalanceWalletPage() {
             <p>ค่าธรรมเนียม</p>
             <p>0.00</p>
           </div>
+          <br />
           <div className='flex justify-between text-2xl'>
             <p>รวม</p>
             <p className='font-bold'>10000.00</p>
           </div>
         </div>
+        <br />
         <br />
         <div className='flex justify-center'>
           <button className='btn btn-secondary w-[140px] hover:scale-105 font-bold text-2xl'>
