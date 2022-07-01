@@ -9,6 +9,7 @@ import ReRenderContextProvider from './contexts/ReRenderContext';
 import SupplierAuthContextProvider from './contexts/Supplier/SupplierAuthContext';
 import ShippingOrderStatusContextProvider from './contexts/Supplier/ShippingOrderStatusContext';
 import OrderContextProvider from './contexts/Supplier/OrderContext';
+import SupplierProductContextProvider from './contexts/Supplier/SupplierProductContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -16,11 +17,13 @@ root.render(
       <BrowserRouter>
         <ReRenderContextProvider>
           <SupplierAuthContextProvider>
-            <OrderContextProvider>
-              <ShippingOrderStatusContextProvider>
-                <App />
-              </ShippingOrderStatusContextProvider>
-            </OrderContextProvider>
+            <SupplierProductContextProvider>
+              <OrderContextProvider>
+                <ShippingOrderStatusContextProvider>
+                  <App />
+                </ShippingOrderStatusContextProvider>
+              </OrderContextProvider>
+            </SupplierProductContextProvider>
           </SupplierAuthContextProvider>
         </ReRenderContextProvider>
       </BrowserRouter>
