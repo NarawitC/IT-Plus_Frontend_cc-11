@@ -12,8 +12,8 @@ import {
   getCart,
   getCartbyId,
   getCartbyIdapi,
-} from '../apis/user/order';
-import { getAllProductInfo, getProductById } from '../apis/user/product';
+} from '../apis/client/order';
+import { getAllProductInfo, getProductById } from '../apis/client/product';
 
 const ProductfilterContext = createContext();
 
@@ -207,6 +207,7 @@ function ProductfilterContextProvider({ children }) {
     // console.log(cartId);
     // console.log(orders);
     const { data } = await createOrederswithItems(cartId, orders);
+
     // const uniqueSupplier = await sipplierArr.reduce((prev, next) => {
     //   if (prev.supplierId === next.supplierId) {
     //     return [...prev, next];
