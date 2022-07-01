@@ -19,11 +19,14 @@ function Topheader({ clicksidebar }) {
       <ModalAny inputEmodal={inputEmodal} />
       <Dragbutton clicksidebar={clicksidebar} />
       <div className='flex-1'>
-        <Link className='btn btn-ghost normal-case text-xl font-bold' to={'/'}>
+        <Link className='mr-2 normal-case text-xl font-bold' to={'/'}>
           <div>
-            {/* <img src={headerlogo} /> */}
-            <span className='text-primary'>IT </span>
-            <span>Plus</span>
+            <img
+              src={headerlogo}
+              className={'mask w-48  ring-gray-700/20 duration-150 rounded-md'}
+            />
+            {/* <span className='text-primary'>IT </span>
+            <span>Plus</span> */}
           </div>
         </Link>
         <Searchbar />
