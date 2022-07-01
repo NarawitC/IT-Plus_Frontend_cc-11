@@ -42,6 +42,7 @@ import ProductByBrand from '../pages/product/productbySubplier/ProductBySupplier
 import CartPage from '../pages/client/CartPage';
 import DynamicSelectedProductPage from '../pages/supplier/DynamicSelectedProductPage';
 import AdminSignInPage from '../pages/AdminSignInPage';
+import SaleOrderPage from '../pages/client/SaleOrderPage';
 function Router() {
   return (
     <Routes>
@@ -51,6 +52,7 @@ function Router() {
         <Route path='/product' element={<ClientDynamicProductPage />} />
         <Route path='/product/:productId' element={<ProductInfoPage />} />
         <Route path='/my-accout' element={<ClientProfilePage />} />
+        <Route path='/order-history' element={<SaleOrderPage />} />
         <Route path='/cart' element={<CartPage />} />
         <Route path='/cart/checkout' element={<CheckoutPage />} />
         <Route
