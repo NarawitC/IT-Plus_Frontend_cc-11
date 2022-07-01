@@ -11,7 +11,7 @@ function CheckoutPage() {
   const [subtotalCart, setsubtotalCart] = useState([]);
   const [TotaltoOdcart, setTotaltoOdcart] = useState(null);
   const [cartOrder, setcartOrder] = useState(null);
-  const { dbcart, GetCartsbyId } = useProductfilter();
+  const { dbcart, GetCartsbyId, createOrderandOrderItems } = useProductfilter();
   const { setIsLoading } = useLoading();
   useEffect(() => {
     // console.log(dbcart);
@@ -21,7 +21,7 @@ function CheckoutPage() {
         const rescart = await GetCartsbyId(dbcart);
         console.log(rescart);
         setcartOrder(rescart.CartItems);
-        sumPrice();
+        await sumPrice();
       }
     };
     const sumPrice = () => {
@@ -48,7 +48,9 @@ function CheckoutPage() {
     setIsLoading(false);
   }, []);
 
-  const handleCreateOrder = () => {};
+  const handleCreateOrder = async () => {
+    const res = await createOrderandOrderItems(dbcart, 'address is here');
+  };
   return (
     <div>
       <BreadCrumbsCart />

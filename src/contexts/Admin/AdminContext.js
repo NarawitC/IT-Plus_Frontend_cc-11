@@ -10,6 +10,7 @@ import { useErrorContext } from '../ErrorContext';
 import { adminSignIn } from '../../apis/admin/authAdmin';
 import { getAdminInfo } from '../../apis/admin/admin';
 import { adminClient } from '../../apis/admin/clientAdmin';
+import { scarr } from '../../apis/admin/adminUserAPI';
 
 const AdminContext = createContext();
 
@@ -19,6 +20,7 @@ function AdminContextProvider({ children }) {
   const { setError } = useErrorContext();
 
   useEffect(() => {
+    console.log(scarr);
     const fetchMe = async () => {
       try {
         const token = getAccessToken();
@@ -30,7 +32,7 @@ function AdminContextProvider({ children }) {
       } catch (err) {}
     };
     fetchMe();
-  }, [navigate]);
+  }, []);
 
   const adminLogin = async (input) => {
     const res = await adminSignIn(input);

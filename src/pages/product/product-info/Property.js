@@ -31,9 +31,9 @@ function Property() {
       <div className='px-8 '>
         <div>
           <div className='grid-cols-3 grid px-4 py-4 '>
-            {mockProperties.map((el) => (
+            {mockProperties.map((el, idx) => (
               <>
-                <div>{el.topic}</div>
+                <div key={idx}>{el.topic}</div>
                 <div className='col-span-2'>{el.discription}</div>
               </>
             ))}
