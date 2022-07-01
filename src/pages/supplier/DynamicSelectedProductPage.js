@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from 'react';
 import { SupplierProductContext } from '../../contexts/Supplier/SupplierProductContext';
 import defaultPic from '../../pictures/defaultPic.png';
 import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
-import { getProductById } from '../../apis/user/product';
+import { getProductById } from '../../apis/supplier/supplierProduct';
 function DynamicSelectedProductPage() {
   const params = useParams();
   console.log(params);
@@ -36,9 +36,10 @@ function DynamicSelectedProductPage() {
     SupplierProductContext
   );
   const [selectedProductObj, setSelectedProductObj] = useState({
+    Properties: [],
     Promotions: [],
     Category: {},
-    subCategory: {},
+    SubCategory: {},
     brand: 'Test brand name',
     categoryId: 0,
     description: '',
@@ -59,13 +60,14 @@ function DynamicSelectedProductPage() {
       try {
         const res = await getProductById(+params.productId);
         console.log(res.data);
-        setSelectedProductObj(res.data.products);
+        setSelectedProductObj(res.data.product);
+        console.log(selectedProductObj.SubCategory.subCategoryName);
       } catch (error) {
         console.log(error);
       }
     };
     handleGetSelectedProduct();
-  }, [params.productId]);
+  }, [params.productId, selectedProductObj.SubCategory.subCategoryName]);
 
   return (
     <div className=''>
@@ -155,9 +157,8 @@ function DynamicSelectedProductPage() {
           >
             หมวดหมู่สินค้าย่อย
           </label>
-          {/* <p>{selectedProductObj.SubCategory.subCategoryName || ''}</p> */}
+          <p>{selectedProductObj.SubCategory.subCategoryName || ''}</p>
         </div>
-
         <div className='flex flex-col justify-center border-2 hover:border-info rounded-lg p-2'>
           <label
             htmlFor='price'
@@ -197,19 +198,19 @@ function DynamicSelectedProductPage() {
             </tr>
           </thead>
           <tbody>
-            {mockProperties.map((el, index) => {
+            {selectedProductObj.Properties.map((el, index) => {
               return (
                 <>
                   <tr className=''>
                     <td className='text-center'>{index + 1}</td>
                     <td className=''>
                       <div className='border-2 hover:border-info rounded-lg h-10 p-2 flex items-center'>
-                        {el.topic}
+                        {el.topic || ''}
                       </div>
                     </td>
                     <td>
                       <div className='border-2 hover:border-info rounded-lg h-10 p-2 flex items-center'>
-                        {el.description}
+                        {el.description || ''}
                       </div>
                     </td>
                     <td></td>
@@ -229,7 +230,7 @@ function DynamicSelectedProductPage() {
         >
           รายละเอียดสินค้า
         </label>
-        <p>{selectedProductObj.description}</p>
+        <p>{selectedProductObj.description || ''}</p>
         <br />
         <br />
       </div>

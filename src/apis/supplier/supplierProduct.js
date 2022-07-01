@@ -16,3 +16,7 @@ export const createProductPropertyByProductId = async (
     properties: properties,
   });
 };
+
+export const getProductById = async (productId) => {
+  return axios.get(`/client/product/${productId}`);
+};
