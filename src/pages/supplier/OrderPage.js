@@ -1,7 +1,7 @@
 import { TbTruckDelivery } from 'react-icons/tb';
 import { GiEmptyMetalBucket } from 'react-icons/gi';
 import { useState, useEffect } from 'react';
-import { ShippingOrderStatusContext } from '../../contexts/ShippingOrderStatusContext';
+import { ShippingOrderStatusContext } from '../../contexts/Supplier/ShippingOrderStatusContext';
 import { useContext } from 'react';
 import { CgFileDocument } from 'react-icons/cg';
 import { RiTodoLine } from 'react-icons/ri';
@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
 import { MdOutlineCancel } from 'react-icons/md';
+import { OrderContext } from '../../contexts/Supplier/OrderContext';
 
 const mockArr = [
   {
@@ -53,7 +54,7 @@ const mockArr = [
   },
 ];
 function OrderPage() {
-  const [orders, setOrders] = useState([]);
+  const { orders, setOrders } = useContext(OrderContext);
   const [orderSearchTerm, setOrderSearchTerm] = useState('');
   const [searchBy, setSearchBy] = useState('id');
   const navigate = useNavigate();

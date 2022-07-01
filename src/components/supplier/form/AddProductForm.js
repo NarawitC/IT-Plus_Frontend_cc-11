@@ -612,7 +612,7 @@ function AddProductForm({ addNewProductSupplier }) {
           <div className='flex justify-center'>
             <button
               type='button'
-              className='btn btn-info text-center hover:info-focus '
+              className='btn bg-blue-400 text-center border-none hover:bg-blue-500  '
               onClick={() => {
                 if (properties.length < 10) {
                   setProperties([
