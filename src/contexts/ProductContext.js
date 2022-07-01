@@ -78,7 +78,7 @@ function ProductfilterContextProvider({ children }) {
         });
         const total = subtotal.reduce((a, b) => a + b, 0);
         const totoalAmount = tempCarts
-          .map((el) => el.amount)
+          ?.map((el) => el.amount)
           .reduce((a, b) => a + b, 0);
         setTotalcart(total);
         settotalCartAmount(totoalAmount);
