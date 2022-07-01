@@ -23,7 +23,7 @@ function DevSignIn() {
       const result = await adminLogin({ employeeId, password });
       console.log(result);
       if (result) {
-        navigate('/admin');
+        navigate('/admin/client');
       }
     } catch (err) {
       console.log(err);

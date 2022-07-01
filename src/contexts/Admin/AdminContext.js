@@ -23,9 +23,9 @@ function AdminContextProvider({ children }) {
       try {
         const token = getAccessToken();
         if (token) {
-          // const resMe = await getAdminInfo();
-          // console.log(resMe);
-          // setAdmin(resMe.data.user);
+          const resMe = await getAdminInfo();
+          console.log(resMe);
+          setAdmin(resMe.data.user);
         }
       } catch (err) {}
     };
@@ -55,6 +55,7 @@ function AdminContextProvider({ children }) {
         adminLogin,
         adminGetClient,
         signOut,
+        admin,
       }}
     >
       {children}

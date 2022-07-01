@@ -1,7 +1,7 @@
 import AdminLayout from '../pages/AdminLayout';
 import Clientlayout from '../pages/Clientlayout';
 import SupplierLayout from '../components/supplier/layout/SupplierLayout';
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 
 import Landingpage from '../pages/Userpages/Landingpage';
 import DevStat from '../components/Admin/DevStat';

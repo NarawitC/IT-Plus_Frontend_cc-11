@@ -6,6 +6,7 @@ import { useLoading } from '../../../contexts/LoadingContext';
 import { useLocation } from 'react-router-dom';
 import { useProductfilter } from '../../../contexts/ProductContext';
 import LocalstringComma from '../../../services/LocalstringComma';
+import { useAdminContext } from '../../../contexts/Admin/AdminContext';
 
 function ProductInfoPage() {
   const locate = useLocation();
@@ -13,6 +14,7 @@ function ProductInfoPage() {
   const [count, setCount] = useState(0);
   const [Objecturl, setObjectJa] = useState([]);
   const [singlepd, setsinglepd] = useState(null);
+  const { admin } = useAdminContext();
   const { getsinglepd, settempCarts, tempCarts } = useProductfilter();
   const { setIsLoading } = useLoading();
   useEffect(() => {
@@ -205,6 +207,28 @@ function ProductInfoPage() {
                 ซื้อเลย
               </button>
             </div>
+
+            {admin ? (
+              <>
+                <textarea
+                  type='text-area'
+                  rows='2'
+                  placeholder='Type here'
+                  class='input input-bordered input-primary w-full max-w-xs mt-5 ms-3'
+                ></textarea>
+                <div className='flex gap-2 justify-end mt-3'>
+                  <button
+                    className='btn btn-success flex'
+                    // onClick={() => {
+                    //   HandleAddcart();
+                    // }}
+                  >
+                    Approve
+                  </button>
+                  <button className='btn btn-warning flex'>Reject</button>
+                </div>
+              </>
+            ) : null}
           </div>
         </div>
         <Property />

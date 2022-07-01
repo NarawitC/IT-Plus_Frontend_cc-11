@@ -8,6 +8,7 @@ import ErrorContextProvider from './contexts/ErrorContext';
 import ReRenderContextProvider from './contexts/ReRenderContext';
 import SupplierAuthContextProvider from './contexts/Supplier/SupplierAuthContext';
 import ShippingOrderStatusContextProvider from './contexts/ShippingOrderStatusContext';
+import AdminContextProvider from './contexts/Admin/AdminContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -16,7 +17,9 @@ root.render(
         <ReRenderContextProvider>
           <SupplierAuthContextProvider>
             <ShippingOrderStatusContextProvider>
-              <App />
+              <AdminContextProvider>
+                <App />
+              </AdminContextProvider>
             </ShippingOrderStatusContextProvider>
           </SupplierAuthContextProvider>
         </ReRenderContextProvider>
