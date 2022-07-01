@@ -25,9 +25,7 @@ function AdminContextProvider({ children }) {
     const resMe = await getAdminInfo();
     console.log(resMe);
     setAdmin(resMe.data.admin);
-
-    // const resMe = await getAdminInfo();
-    // setAdmin(resMe.data.user);
+    return resMe.data.admin;
   };
 
   const signOut = () => {
