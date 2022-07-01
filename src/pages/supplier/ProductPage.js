@@ -216,7 +216,7 @@ function ProductPage() {
           </div>
         </div>
       </div>
-      <div className='flex m-4  object-contain h-auto overflow-x-auto '>
+      <div className='flex m-4  object-contain h-auto overflow-x-auto justify-center '>
         <table className='table'>
           <thead className=''>
             <tr className=''>
