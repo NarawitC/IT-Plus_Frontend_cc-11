@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import Searchbar from './Searchbar/Searchbar';
+import headerlogo from '../../../../icons/IT_PLUS_smLOGO.png';
 import Dragbutton from './Dragbutton';
 import Clientinfo from '../Utils/Clientinfo';
 import ModalAny from '../../authforms/ModalAuth';
@@ -12,7 +13,6 @@ import { useErrorContext } from '../../../../contexts/ErrorContext';
 function Topheader({ clicksidebar }) {
   const { user } = useAuthContext();
   const { setError } = useErrorContext();
-  const { tempCarts } = useProductfilter();
   const inputEmodal = useRef();
   return (
     <div className='navbar flex flex-row justify-start h-1/2'>
@@ -21,6 +21,7 @@ function Topheader({ clicksidebar }) {
       <div className='flex-1'>
         <Link className='btn btn-ghost normal-case text-xl font-bold' to={'/'}>
           <div>
+            {/* <img src={headerlogo} /> */}
             <span className='text-primary'>IT </span>
             <span>Plus</span>
           </div>
@@ -36,7 +37,7 @@ function Topheader({ clicksidebar }) {
         ) : (
           <Clientinfo />
         )}
-        <DynamicCartDropdown tempCarts={tempCarts} />
+        <DynamicCartDropdown />
       </div>
     </div>
   );

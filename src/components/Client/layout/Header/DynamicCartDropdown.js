@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useProductfilter } from '../../../../contexts/ProductContext';
 import { localsting } from '../../../../services/LocalstringComma';
 
-function DynamicCartDropdown({ tempCarts }) {
+function DynamicCartDropdown() {
   const navigate = useNavigate();
-  const { totalCart } = useProductfilter();
+  const { totalCart, tempCarts } = useProductfilter();
   // useEffect(() => {
   //   // console.log(tempCarts);
   // }, []);
@@ -120,7 +120,7 @@ function DynamicCartDropdown({ tempCarts }) {
                 <span className=' text-sm '>ยอดรวม </span>
                 <span className=' text-base text-primary font-bold '>
                   {' '}
-                  {totalCart}บาท{' '}
+                  {totalCart ? totalCart : ''}บาท{' '}
                 </span>
               </div>
               <div className='card-actions'>
