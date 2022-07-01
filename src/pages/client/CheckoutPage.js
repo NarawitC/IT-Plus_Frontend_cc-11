@@ -5,14 +5,17 @@ import homeIcon from '../../../src/pictures/home-icon.svg';
 import { useEffect, useState } from 'react';
 import { getCart } from '../../apis/user/order';
 import { localsting } from '../../services/LocalstringComma';
+import { useLoading } from '../../contexts/LoadingContext';
 
 function CheckoutPage() {
   const [subtotalCart, setsubtotalCart] = useState([]);
   const [TotaltoOdcart, setTotaltoOdcart] = useState(null);
   const [cartOrder, setcartOrder] = useState(null);
   const { dbcart, GetCartsbyId } = useProductfilter();
+  const { setIsLoading } = useLoading();
   useEffect(() => {
     // console.log(dbcart);
+    setIsLoading(true);
     const fetchCartDb = async () => {
       if (dbcart) {
         const rescart = await GetCartsbyId(dbcart);
@@ -42,6 +45,7 @@ function CheckoutPage() {
       }
     };
     fetchCartDb();
+    setIsLoading(false);
   }, []);
 
   const handleCreateOrder = () => {};
