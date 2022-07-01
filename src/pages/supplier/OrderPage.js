@@ -59,7 +59,7 @@ function OrderPage() {
   const [searchBy, setSearchBy] = useState('id');
   const navigate = useNavigate();
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
-  const [shippingDetails, setShippingDetails] = useState(mockArr);
+  const [shippingDetails, setShippingDetails] = useState(orders);
   useEffect(() => {
     const handleGetAllOrdersBySupplierId = async () => {
       try {
@@ -73,7 +73,7 @@ function OrderPage() {
     handleGetAllOrdersBySupplierId();
     if (searchBy === 'id') {
       const filterByOrderId = (searchTerm) => {
-        const resultArrByOrderId = mockArr.filter((el) =>
+        const resultArrByOrderId = orders.filter((el) =>
           String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
         );
         setShippingDetails(resultArrByOrderId);
@@ -89,7 +89,7 @@ function OrderPage() {
         //     console.log(elIn.firstName.replace(/\s/g, '').toLowerCase());
         //     return elIn.firstName.replace(/\s/g, '').toLowerCase().includes(el);
         //   });
-        const resultArrByName = mockArr.filter((elIn, idx) => {
+        const resultArrByName = orders.filter((elIn, idx) => {
           return elIn.firstName
             .trim()
             .replace(/\s/g, '')
@@ -109,7 +109,7 @@ function OrderPage() {
     if (searchBy === 'status') {
       const filterByStatus = (searchTerm) => {
         console.log(searchTerm.trim().replace(/\s/g, ''));
-        const resultArrByStatus = mockArr.filter((el) =>
+        const resultArrByStatus = orders.filter((el) =>
           el.status.toLowerCase().includes(searchTerm.trim().replace(/\s/g, ''))
         );
         setShippingDetails(resultArrByStatus);
@@ -236,7 +236,7 @@ function OrderPage() {
               </tr>
             </thead>
             <tbody>
-              {orders.map((el, idx) => {
+              {shippingDetails.map((el, idx) => {
                 return (
                   <>
                     {}

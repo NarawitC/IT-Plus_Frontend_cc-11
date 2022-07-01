@@ -8,9 +8,10 @@ import LogInForm from '../../form/LogInForm';
 import { SupplierAuthContext } from '../../../../contexts/Supplier/SupplierAuthContext';
 import { useNavigate } from 'react-router-dom';
 import defaultPic from '../../../../pictures/previewPic.png';
+
 function ProfileDropDown() {
   const navigate = useNavigate();
-  const { signOut, role, user } = useContext(SupplierAuthContext);
+  const { signOut, role, supplier } = useContext(SupplierAuthContext);
   console.log(role);
 
   return (
@@ -20,11 +21,11 @@ function ProfileDropDown() {
           {role === 'SUPPLIER' ? (
             <div className=' flex items-center gap-4  '>
               <img
-                src={user.profilePicture || defaultPic}
+                src={supplier.profilePicture || defaultPic}
                 alt='profilePic'
                 className='rounded-full h-8 w-8'
               />
-              <p>{user.firstName}</p>
+              <p>{supplier.firstName}</p>
             </div>
           ) : (
             <>{<CgProfile />}</>
