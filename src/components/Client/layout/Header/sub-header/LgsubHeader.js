@@ -87,19 +87,17 @@ function LgsubHeader() {
   ];
 
   return (
-    <div>
-      <div className='carousel rounded-box overflow-y-hidden h-full py-4 gap-6'>
-        {mockList.map((el, index) => (
-          <div
-            key={index}
-            className='carousel-item cursor-pointer w-1/8 max-w-md p-1 flex flex-col items-center text-mono '
-            onClick={() => navigate(`/product/${el.page}`)}
-          >
-            {el.icon}
-            <span>{el.text}</span>
-          </div>
-        ))}
-      </div>
+    <div className='carousel rounded-box overflow-y-hidden h-full py-4 px-4 mx-4 gap-6'>
+      {mockList.map((el, index) => (
+        <div
+          key={index}
+          className='carousel-item cursor-pointer w-1/8 max-w-md p-1 flex flex-col items-center text-mono '
+          onClick={() => navigate(`/product/${el.page}`)}
+        >
+          {el.icon}
+          <span>{el.text}</span>
+        </div>
+      ))}
     </div>
   );
 }
