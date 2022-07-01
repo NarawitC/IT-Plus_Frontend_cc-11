@@ -7,9 +7,13 @@ function DevProductTable() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const product = await axios.get('/admin/product');
-        setAllProduct(product.data.products);
-      } catch (err) {}
+        const res = await axios.get('/admin/product');
+        const productList = res.data.products;
+        console.log(productList);
+        setAllProduct(productList);
+      } catch (e) {
+        console.log(e.response.data);
+      }
     };
     fetchProduct();
   }, []);
@@ -17,67 +21,67 @@ function DevProductTable() {
 
   return (
     <div className='mx-auto my-5'>
-      <table className='table w-full'>
+      <table className='table w-full table-fixed'>
         <thead>
           <tr>
-            <th>
-              <label>
-                <input type='checkbox' className='checkbox' />
-              </label>
-            </th>
-            <th>Picture</th>
-            <th>Order ID</th>
+            <th>Product Title</th>
+            <th> </th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Supplier ID</th>
             <th>Status</th>
-            <th>Details</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>
-              <label>
-                <input type='checkbox' className='checkbox' />
-              </label>
-            </th>
-            <td>
-              <div className='flex items-center space-x-3'>
-                <div className='avatar'>
-                  <div className='mask mask-squircle w-12 h-12'>
-                    <img
-                      className='rounded-3'
-                      style={{
-                        width: 25,
-                        height: 25,
-                      }}
-                      src='{Image}'
-                      alt='Avatar Tailwind CSS Component'
-                    />
+          {AllProduct?.map((el) => {
+            return (
+              <tr>
+                <td>
+                  <div className='flex items-center space-x-1 truncate'>
+                    <div className='avatar'>
+                      <div className='mask mask-squircle w-20 h-20'>
+                        <img
+                          className='overflow-auto truncate'
+                          style={{
+                            width: 100,
+                            height: 100,
+                          }}
+                          src={el.mainPicture}
+                          alt='Avatar Tailwind CSS Component'
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <div className='font-bold overflow-auto truncate'>
+                        {el.productName}
+                      </div>
+                    </div>
+                    <div className='text-sm opacity-50'>{el.id}</div>
                   </div>
-                </div>
-                <div>
-                  <div className='font-bold'>Hart Hagerty</div>
-                  <div className='text-sm opacity-50'>United States</div>
-                </div>
-              </div>
-            </td>
-            <td>
-              Zemlak, Daniel and Leannon
-              <span className='badge badge-ghost badge-sm'>
-                Desktop Support Technician
-              </span>
-            </td>
-            <td>Purple</td>
-            <th>
-              <button className='btn btn-ghost btn-xs'>details</button>
-            </th>
-          </tr>
+                </td>
+
+                <td className='overflow-auto truncate'>
+                  {el.description}
+                  <span className='badge badge-ghost badge-sm'>{el.brand}</span>
+                </td>
+                <td>{el.price}</td>
+                <td>{el.stock}</td>
+                <td>{el.supplierId}</td>
+                <td>{el.status}</td>
+                <td>
+                  <button className='btn btn-ghost btn-xs'>details</button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
+
         <tfoot>
           <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
-            <th></th>
+            <th>Product Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Details</th>
           </tr>
         </tfoot>
       </table>

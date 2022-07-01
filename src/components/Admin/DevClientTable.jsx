@@ -11,7 +11,6 @@ function DevClientTable() {
       try {
         const res = await axios.get('/admin/client');
         const clientList = res.data.users;
-        console.log(clientList);
         setAllClient(clientList);
       } catch (e) {
         console.log(e.response.data);
