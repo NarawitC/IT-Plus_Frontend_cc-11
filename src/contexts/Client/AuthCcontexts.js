@@ -53,6 +53,7 @@ function AuthContextProvider({ children }) {
     // console.log(res);
     setAccessToken(res.data.token);
     const resMe = await getUserInfo();
+    console.log(resMe);
     setUser(resMe.data.user);
   };
 
