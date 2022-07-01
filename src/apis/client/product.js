@@ -7,4 +7,3 @@ export const getAllProductInfo = async () => {
 export const getProductById = async (id) => {
   return axios.get(`/user/product/${id}`);
 };
-
