@@ -36,7 +36,7 @@ function AddProductForm({ addNewProductSupplier }) {
   const [price, setPrice] = useState('');
   const [brand, setBrand] = useState('');
   const [stock, setStock] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [categoryId, setCategoryId] = useState(0);
   const [subCategoryId, setSubCategoryId] = useState('');
   const [description, setDescription] = useState('');
   const [properties, setProperties] = useState([]);
@@ -44,6 +44,7 @@ function AddProductForm({ addNewProductSupplier }) {
   const [index, setIndex] = useState(0);
   const [indexes, setIndexes] = useState([]);
   const [categories, setCategories] = useState([]);
+  console.log('-------------------');
   console.log({ subCatOptions: subCatOptions });
   console.log({ categoryId: categoryId });
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
@@ -83,11 +84,11 @@ function AddProductForm({ addNewProductSupplier }) {
         console.log(res.data);
         setCategories(res.data.categories);
         console.log(categoryId);
-        const selectedSubCat = res.data.categories.find(
+        const selectedSubCategoryArray = categories.find(
           (el) => el.id === +categoryId
         );
-        if (selectedSubCat) {
-          setSubCatOptions(selectedSubCat);
+        if (selectedSubCategoryArray) {
+          setSubCatOptions(selectedSubCategoryArray);
         }
       } catch (error) {
         console.log(error);
@@ -506,10 +507,18 @@ function AddProductForm({ addNewProductSupplier }) {
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
                 value={categoryId}
-                onChange={(event) => setCategoryId(event.target.value)}
+                onChange={(event) => {
+                  setCategoryId(event.target.value);
+                  console.log(categoryId);
+                  const selectedSubCategoryArray = categories.find(
+                    (el) => el.id === +categoryId
+                  );
+                  console.log(selectedSubCategoryArray);
+                  // setSubCatOptions();
+                }}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้า</option>
-                {categories.map((el) => {
+                {categories?.map((el) => {
                   return (
                     <>
                       <option value={el.id || 0}>
@@ -518,11 +527,6 @@ function AddProductForm({ addNewProductSupplier }) {
                     </>
                   );
                 })}
-                {/* <option value='computer-notebook'>
-                  คอมพิวเตอร์และโน๊ตบุ๊ค
-                </option>
-                <option value='it-accessories'>อุปกรณ์ไอที</option>
-                <option value='music-movie'>ดูหนัง ฟังเพลง</option> */}
               </select>
             </div>
           </div>
@@ -542,16 +546,16 @@ function AddProductForm({ addNewProductSupplier }) {
                 onChange={(event) => setSubCategoryId(event.target.value)}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้าย่อย</option>
-                <option value={1}>อุปกรณ์ไอที</option>
-                {/* {subCatOptions.map((el, index) => {
+                {/* <option value={1}>อุปกรณ์ไอที</option>  */}
+                {subCatOptions.SubCategories?.map((el) => {
                   return (
                     <>
-                      <option key={index} value={el.id || 0}>
+                      <option value={el.id || 0}>
                         {el.subCategoryName || ''}
                       </option>
                     </>
                   );
-                })} */}
+                })}
                 {/* <option value='computer-notebook'>
                   คอมพิวเตอร์และโน๊ตบุ๊ค
                 </option>
@@ -636,7 +640,7 @@ function AddProductForm({ addNewProductSupplier }) {
               </thead>
             </table>
             <tbody>
-              {properties.map((el, idx) => {
+              {properties?.map((el, idx) => {
                 return (
                   <div className='p-2' key={idx}>
                     <AddPropertyRow
