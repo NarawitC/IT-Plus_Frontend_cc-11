@@ -94,11 +94,11 @@ function Router() {
             {/* admin page layout */}
             <Route path='order' element={<AdminOrderPage />} />
 
-            <Route path='promotion' element={<AdminPromotion />} />
             <Route path='product' element={<AdminProductPage />} />
             <Route path='sign-in' element={<AdminSignInPage />} />
             <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
             <Route path='' element={<Navigate to='/admin/order'></Navigate>} />
+            <Route path='promotion' element={<AdminPromotion />} />
           </Route>
         </>
       )}
