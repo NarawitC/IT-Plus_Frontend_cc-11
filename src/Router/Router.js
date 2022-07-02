@@ -4,24 +4,13 @@ import SupplierLayout from '../components/supplier/layout/SupplierLayout';
 import { Link, Route, Routes } from 'react-router-dom';
 
 import Landingpage from '../pages/Userpages/Landingpage';
-import DevStat from '../components/Admin/DevStat';
 import AdminOrderPage from '../pages/AdminOrderPage';
 import AdminProductPage from '../pages/AdminProductPage';
 import AdminClientPage from '../pages/AdminOrderPage';
+import AdminPromotion from '../components/Admin/AdminPromotion';
 import CheckoutPage from '../../src/pages/client/CheckoutPage';
 import DevLayout from '../components/Admin/DevLayout';
 import { Navigate } from 'react-router-dom';
-
-// import Clientlayout from '../pages/Clientlayout';
-// import Landingpage from '../pages/Userpages/Landingpage';
-// import ClientSignUpPage from '../pages/client/ClientSignUpPage';
-// import CategoryPage from '../pages/client/CategoryPage';
-// import ProductItemPage from '../pages/client/ProductItemPage';
-// import CartPage from '../pages/client/CartPage';
-// import PaymentPage from '../pages/client/PaymentPage';
-// import SaleOrderPage from '../pages/client/SaleOrderPage';
-// import MySpecPage from '../pages/client/MySpecPage';
-// import BudgetMePage7 from '../pages/client/BudgetMePage';
 
 import SupplierHomePage from '../pages/supplier/SupplierHomePage';
 import SupplierSignUpPage from '../pages/supplier/SupplierSignUpPage';
@@ -104,11 +93,12 @@ function Router() {
             <Route path='client' element={<AdminClientPage />} />
             {/* admin page layout */}
             <Route path='order' element={<AdminOrderPage />} />
-            {/* // Admin Client page */}
+
             <Route path='product' element={<AdminProductPage />} />
-            <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
             <Route path='sign-in' element={<AdminSignInPage />} />
+            <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
             <Route path='' element={<Navigate to='/admin/order'></Navigate>} />
+            <Route path='promotion' element={<AdminPromotion />} />
           </Route>
         </>
       )}

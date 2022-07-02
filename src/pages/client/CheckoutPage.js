@@ -16,18 +16,19 @@ function CheckoutPage() {
   const { setIsLoading } = useLoading();
   useEffect(() => {
     // console.log(dbcart);
-    setIsLoading(true);
     const fetchCartDb = async () => {
       if (dbcart) {
         const rescart = await GetCartsbyId(dbcart);
-        console.log(rescart);
+        // console.log(rescart);
         setcartOrder(rescart.CartItems);
-        await sumPrice();
+        return rescart.CartItems;
       }
     };
-    const sumPrice = () => {
-      if (cartOrder?.length > 0) {
-        const subtotal = cartOrder?.map((el) => {
+    const sumPrice = async () => {
+      setIsLoading(true);
+      const rescartCartitem = await fetchCartDb();
+      if (rescartCartitem?.length > 0) {
+        const subtotal = rescartCartitem?.map((el) => {
           // console.log(el);
           if (el.Product.Promotions?.length > 0) {
             return (
@@ -37,16 +38,16 @@ function CheckoutPage() {
           } else return el.Product.price * el.quantity;
         });
         const total = subtotal.reduce((a, b) => a + b, 0);
-        const totoalAmount = cartOrder
+        const totoalAmount = rescartCartitem
           .map((el) => el.amount)
           .reduce((a, b) => a + b, 0);
         // setTotalcart(total);
         setsubtotalCart(subtotal);
         setTotaltoOdcart(total);
+        setIsLoading(false);
       }
     };
-    fetchCartDb();
-    setIsLoading(false);
+    sumPrice();
   }, []);
 
   const handleCreateOrder = async () => {
@@ -58,6 +59,16 @@ function CheckoutPage() {
       <BreadCrumbsCart />
 
       <div className='border-2 rounded-lg py-4 my-4 col-span-2'>
+        <>
+          <div className='bg-black max-w-2xl mx-auto py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8'>
+            <div className='flex flex-row gap-2'>
+              <p className=' font-bold text-lg text-zinc-600'>
+                IT Plus Recommend
+              </p>
+              <div className='grid grid-cols-4 gap-4 py-4 '></div>
+            </div>
+          </div>
+        </>
         <div className='flex gap-4 border-b-2 pb-4 px-2'>
           <div>
             <img src={sumCheck} />

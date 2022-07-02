@@ -31,9 +31,9 @@ function ClientDynamicProductPage() {
 
           <div className='btn-group py-4 justify-center '>
             {totalPageArr.length > 0
-              ? totalPageArr.map((el) => (
+              ? totalPageArr.map((el, idx) => (
                   <button
-                    key={el}
+                    key={idx}
                     className={`btn btn-primary ${
                       +page === el || 'bg-white text-primary hover:text-white '
                     }`}
