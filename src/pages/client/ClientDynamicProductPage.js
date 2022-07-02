@@ -8,7 +8,11 @@ import { FaRegThumbsUp } from 'react-icons/fa';
 import { useProductfilter } from '../../contexts/ProductContext';
 
 function ClientDynamicProductPage() {
-  const { product } = useProductfilter();
+  const { product, totalPage, page, setPage } = useProductfilter();
+  const totalPageArr = [];
+  for (let i = 1; i <= totalPage; i++) {
+    totalPageArr.push(i);
+  }
   return (
     <>
       <div className='bg-white '>
@@ -20,9 +24,25 @@ function ClientDynamicProductPage() {
             </p>
           </div>
           <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 '>
-            {product?.map((el) => (
-              <DynamicClientProductCard el={el} />
+            {product?.map((el, idx) => (
+              <DynamicClientProductCard key={idx} el={el} />
             ))}
+          </div>
+
+          <div className='btn-group py-4 justify-center '>
+            {totalPageArr.length > 0
+              ? totalPageArr.map((el) => (
+                  <button
+                    key={el}
+                    className={`btn btn-primary ${
+                      +page === el || 'bg-white text-primary hover:text-white '
+                    }`}
+                    onClick={() => setPage(el)}
+                  >
+                    {el}
+                  </button>
+                ))
+              : null}
           </div>
         </div>
       </div>
