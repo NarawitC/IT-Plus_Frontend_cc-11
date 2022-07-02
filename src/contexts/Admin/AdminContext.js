@@ -10,7 +10,6 @@ import { useErrorContext } from '../ErrorContext';
 import { adminSignIn } from '../../apis/admin/authAdmin';
 import { getAdminInfo } from '../../apis/admin/admin';
 import { adminClient } from '../../apis/admin/clientAdmin';
-import { scarr } from '../../apis/admin/adminUserAPI';
 
 const AdminContext = createContext();
 
@@ -18,18 +17,17 @@ function AdminContextProvider({ children }) {
   const [admin, setAdmin] = useState(null);
   const navigate = useNavigate();
   const { setError } = useErrorContext();
-
   useEffect(() => {
-    // console.log(scarr);
     const fetchMe = async () => {
       try {
         const token = getAccessToken();
         if (token) {
-          // const resMe = await getAdminInfo();
-          // console.log(resMe);
-          // setAdmin(resMe.data.user);
+          const resMe = await getAdminInfo();
+          setAdmin(resMe.data.admin);
         }
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
     };
     fetchMe();
   }, []);
@@ -38,14 +36,16 @@ function AdminContextProvider({ children }) {
     const res = await adminSignIn(input);
     console.log(res);
     setAccessToken(res.data.token);
-    // const resMe = await getAdminInfo();
-    // setAdmin(resMe.data.user);
+    const resMe = await getAdminInfo();
+    // console.log(resMe);
+    setAdmin(resMe.data.admin);
+    return resMe.data.admin;
   };
 
   const signOut = () => {
     removeAccessTOken();
     setAdmin(null);
-    navigate('');
+    navigate('/admin/sign-in');
   };
 
   const adminGetClient = async () => {
@@ -57,6 +57,7 @@ function AdminContextProvider({ children }) {
         adminLogin,
         adminGetClient,
         signOut,
+        admin,
       }}
     >
       {children}

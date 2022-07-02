@@ -28,7 +28,6 @@ function SupplierAuthContextProvider({ children }) {
     try {
       const token = getAccessToken();
       const resSupplier = await getSupplierInfo();
-      console.log(resSupplier.data.user.role);
       if (resSupplier.data.user.role === 'SUPPLIER') {
         setSupplier(resSupplier.data.user);
         setRole(resSupplier.data.user.role);
@@ -92,6 +91,10 @@ function SupplierAuthContextProvider({ children }) {
     </SupplierAuthContext.Provider>
   );
 }
+const useSupplierContext = () => {
+  const ctx = useContext(SupplierAuthContext);
+  return ctx;
+};
 
 export default SupplierAuthContextProvider;
-export { SupplierAuthContext };
+export { SupplierAuthContext, useSupplierContext };

@@ -1,11 +1,13 @@
 import React from 'react';
 import DevSidebarMenu from './DevSidebarMenu';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { useAdminContext } from '../../contexts/Admin/AdminContext';
 
 function DevSideBar() {
+  const { signOut } = useAdminContext();
   return (
     <>
-      <div className='drawer absolute '>
+      <div className='drawer absolute z-30'>
         <input id='my-drawer' type='checkbox' className='drawer-toggle' />
         <div className='drawer-content'>
           <label htmlFor='my-drawer' className='btn btn-primary drawer-button'>
@@ -19,6 +21,11 @@ function DevSideBar() {
             <DevSidebarMenu title='Client' path='/admin/client' />
             <DevSidebarMenu title='Orders' path='/admin/orders' />
             <DevSidebarMenu title='Products' path='/admin/product' />
+            <DevSidebarMenu
+              title='Logout'
+              path='/admin/sign-in'
+              onClick={signOut}
+            />
           </ul>
         </div>
       </div>
