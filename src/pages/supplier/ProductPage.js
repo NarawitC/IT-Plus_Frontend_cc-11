@@ -52,7 +52,6 @@ function ProductPage() {
     SupplierProductContext
   );
   const { role } = useContext(SupplierAuthContext);
-  console.log(role);
 
   // const colorArr = [
   //   { PRODUCT_STATUS: 'PENDING', color: 'waring' },

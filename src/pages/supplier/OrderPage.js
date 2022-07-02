@@ -62,131 +62,18 @@ function OrderPage() {
   const navigate = useNavigate();
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(orders);
+  console.log(shippingDetails);
   const { role } = useContext(SupplierAuthContext);
-  const mockArr = [
-    {
-      id: 1,
-      productPrice: 2997,
-      deliveryAddress: 'Note home',
-      deliveryPrice: 50,
-      createdAt: '2022-07-01T14:18:31.000Z',
-      updatedAt: '2022-07-01T14:18:31.000Z',
-      clientId: 1,
-      supplierId: 1,
-      OrderItems: [
-        {
-          id: 2,
-          quantity: 2,
-          promotionId: null,
-          discount: 0,
-          createdAt: '2022-07-01T14:18:31.000Z',
-          updatedAt: '2022-07-01T14:18:31.000Z',
-          orderId: 1,
-          productId: 2,
-          Product: {
-            id: 2,
-            productName: 'product name 2',
-            price: 999,
-            brand: 'Test brand name',
-            description: 'Test description',
-            stock: 999,
-            mainPicture:
-              'https://res.cloudinary.com/narawit/image/upload/v1655109976/IT_Shop/Default%20photo/defaultMainPicture_kyzjrb.png',
-            subPicture1:
-              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
-            subPicture2:
-              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
-            subPicture3:
-              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
-            subPicture4:
-              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
-            status: 'APPROVED',
-            rejectReason: null,
-            createdAt: '2022-07-01T09:51:56.000Z',
-            updatedAt: '2022-07-01T09:51:56.000Z',
-            changeStatusAdminId: 1,
-            categoryId: 1,
-            supplierId: 1,
-            subCategoryId: 2,
-            Promotions: [],
-          },
-        },
-        {
-          id: 1,
-          quantity: 1,
-          promotionId: null,
-          discount: 0,
-          createdAt: '2022-07-01T14:18:31.000Z',
-          updatedAt: '2022-07-01T14:18:31.000Z',
-          orderId: 1,
-          productId: 1,
-          Product: {
-            id: 1,
-            productName: 'product name 1',
-            price: 999,
-            brand: 'Test brand name',
-            description: 'Test description',
-            stock: 999,
-            mainPicture:
-              'https://res.cloudinary.com/narawit/image/upload/v1656683586/cl4fn6hkhjytbhbbyuib.jpg',
-            subPicture1:
-              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
-            subPicture2:
-              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
-            subPicture3:
-              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
-            subPicture4:
-              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
-            status: 'APPROVED',
-            rejectReason: null,
-            createdAt: '2022-07-01T09:51:56.000Z',
-            updatedAt: '2022-07-01T13:53:07.000Z',
-            changeStatusAdminId: 1,
-            categoryId: 1,
-            supplierId: 1,
-            subCategoryId: 1,
-            Promotions: [],
-          },
-        },
-      ],
-      PurchasedOrder: {
-        id: 1,
-        paymentAt: '2022-07-01T08:16:27.000Z',
-        transactionId: 'testtransactionId',
-        createdAt: '2022-07-01T14:18:44.000Z',
-        updatedAt: '2022-07-01T14:18:44.000Z',
-        orderId: 1,
-        ShippingOrder: null,
-      },
-      Client: {
-        id: 1,
-        createdAt: '2022-07-01T09:51:54.000Z',
-        updatedAt: '2022-07-01T09:51:54.000Z',
-        userId: 2,
-        User: {
-          id: 2,
-          firstName: 'Narawit',
-          lastName: 'Chai-client',
-          email: 'Narawit-client@mail.com',
-          phoneNumber: '0111111111',
-          address: 'Narawit home',
-          role: 'CLIENT',
-          createdAt: '2022-07-01T09:51:54.000Z',
-          updatedAt: '2022-07-01T09:51:54.000Z',
-        },
-      },
-    },
-  ];
 
   useEffect(() => {
     const handleGetAllOrdersBySupplierId = async () => {
       try {
-        // const res = await getAllOrdersBySupplierId();
-        // console.log(res.data);
-        // setOrders(res.data.orders);
-        setOrders(mockArr);
-        // setShippingDetails(res.data.orders);
-        setShippingDetails(mockArr);
+        const res = await getAllOrdersBySupplierId();
+        console.log(res.data);
+        setOrders(res.data.orders);
+        // setOrders(mockArr);
+        setShippingDetails(res.data.orders);
+        // setShippingDetails(mockArr);
       } catch (error) {
         console.log(error);
       }
@@ -214,7 +101,7 @@ function OrderPage() {
         //     return elIn.firstName.replace(/\s/g, '').toLowerCase().includes(el);
         //   });
         const resultArrByName = orders.filter((elIn, idx) => {
-          return elIn.firstName
+          return elIn.Client.User.firstName
             .trim()
             .replace(/\s/g, '')
             .toLowerCase()
@@ -234,7 +121,9 @@ function OrderPage() {
       const filterByStatus = (searchTerm) => {
         console.log(searchTerm.trim().replace(/\s/g, ''));
         const resultArrByStatus = orders.filter((el) =>
-          el.status.toLowerCase().includes(searchTerm.trim().replace(/\s/g, ''))
+          el?.status
+            ?.toLowerCase()
+            .includes(searchTerm.trim().replace(/\s/g, ''))
         );
         setShippingDetails(resultArrByStatus);
       };
@@ -362,79 +251,94 @@ function OrderPage() {
             {role === 'SUPPLIER' ? (
               <>
                 <tbody>
-                  {shippingDetails.map((el, idx) => {
+                  {shippingDetails?.map((el, idx) => {
                     return (
                       <>
-                        {}
-                        <tr className='hover' key={idx}>
+                        <tr className='hover cursor-pointer' key={idx}>
                           <td className='text-center'>{idx + 1}</td>
                           <td>
                             <div class='flex items-center space-x-3'>
                               <div className='flex w-[40px] justify-center'>
-                                <div class='font-bold'>{el.clientId}</div>
+                                <div class='font-bold'>
+                                  {el.Client.User.firstName || ''}
+                                </div>
                               </div>
                             </div>
                           </td>
                           <td>
-                            <div className='flex space-x-3 justify-center'>
-                              <button
-                                className='btn btn-ghost btn-md'
-                                onClick={() => {
-                                  navigate(`/supplier/order/${el.id}`);
-                                }}
-                              >
+                            <div
+                              className='flex space-x-3 justify-center items-center'
+                              onClick={() => {
+                                navigate(`/supplier/order/${el.id}`);
+                              }}
+                            >
+                              <p className='cursor-pointer border-2 hover:border-primary w-[50px] rounded-lg text-center p-2 h-14 flex items-center justify-center bg-white '>
                                 {el.id}
-                              </button>
+                              </p>
                             </div>
                           </td>
                           <th>
-                            <p className='flex justify-end'>
+                            <p className='flex justify-end '>
                               {el.productPrice.toFixed(2)}
                             </p>
                           </th>
                           <th>
                             <label class='swap'>
                               <input type='checkbox' />
-                              {el.purchasedOrderStatus === 'CONFIRMED' ? (
+                              {el.PurchasedOrder !== null ? (
                                 <>
-                                  <div className='swap-off text-success  text-center'>
+                                  <div className=' text-success text-center'>
+                                    CONFIRMED
+                                  </div>
+                                  {/* <div className='swap-off text-success  text-center'>
                                     {el.purchasedOrderStatus}
-                                  </div>
-                                  <div className='swap-on text-warning text-center'>
-                                    PENDING
-                                  </div>
+                                  </div> */}
                                 </>
                               ) : (
                                 <>
-                                  <div className='swap-off text-warning text-center'>
+                                  {/* <div className='swap-off text-success  text-center'>
                                     {el.purchasedOrderStatus}
-                                  </div>
-                                  <div className='swap-on text-success text-center'>
-                                    CONFIRMED
+                                  </div> */}
+                                  <div className=' text-warning text-center'>
+                                    PENDING
                                   </div>
                                 </>
                               )}
                             </label>
                           </th>
-                          <th className='flex justify-center'>
-                            <input
-                              className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary'
-                              placeholder='Tracking Id'
-                              onChange={(event) =>
-                                setShippingDetails((prevShippingDetail) => [
-                                  ...prevShippingDetail.slice(0, idx),
-                                  {
-                                    ...prevShippingDetail[idx],
-                                    trackingId: event.target.value,
-                                  },
-                                  ...prevShippingDetail.slice(idx + 1),
-                                ])
-                              }
-                              value={el.trackingId}
-                            />
+                          <th className=''>
+                            {el.PurchasedOrder?.ShippingOrder?.trackingId ||
+                            !el.PurchasedOrder ? (
+                              <>
+                                <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
+                                  {el.PurchasedOrder?.ShippingOrder
+                                    ?.trackingId || '-'}
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <input
+                                  className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary '
+                                  placeholder='Tracking Id'
+                                  onChange={(event) =>
+                                    setShippingDetails((prevShippingDetail) => [
+                                      ...prevShippingDetail.slice(0, idx),
+                                      {
+                                        ...prevShippingDetail[idx],
+                                        trackingId: event.target.value,
+                                        orderId: el.id,
+                                      },
+                                      ...prevShippingDetail.slice(idx + 1),
+                                    ])
+                                  }
+                                  value={el.trackingId}
+                                />
+                              </>
+                            )}
                           </th>
                           <th className=''>
-                            {el.purchasedOrderStatus === 'CONFIRMED' ? (
+                            {el.PurchasedOrder?.status === 'CONFIRMED' ||
+                            el.PurchasedOrder?.ShippingOrder?.trackingId ? (
                               <select
                                 className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
                                 onChange={(event) =>
@@ -444,6 +348,7 @@ function OrderPage() {
                                     {
                                       ...prevShippingDetail[idx],
                                       status: event.target.value.trim(),
+                                      orderId: el.id,
                                     },
                                     ...prevShippingDetail.slice(idx + 1),
                                   ])

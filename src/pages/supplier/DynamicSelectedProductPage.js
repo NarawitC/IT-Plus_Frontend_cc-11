@@ -4,13 +4,17 @@ import subPicture2 from '../../productImg/item2.jpg';
 import subPicture3 from '../../productImg/item3.jpg';
 import subPicture4 from '../../productImg/item4.jpg';
 import { AiOutlineNumber } from 'react-icons/ai';
-import { useParams } from 'react-router-dom';
+import { FiEdit } from 'react-icons/fi';
+import { Navigate, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { SupplierProductContext } from '../../contexts/Supplier/SupplierProductContext';
 import defaultPic from '../../pictures/defaultPic.png';
 import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
 import { getProductById } from '../../apis/supplier/supplierProduct';
+import { TiDeleteOutline } from 'react-icons/ti';
+import { useNavigate } from 'react-router-dom';
 function DynamicSelectedProductPage() {
+  const navigate = useNavigate();
   const params = useParams();
   console.log(params);
   // const mockObj = {
@@ -26,6 +30,9 @@ function DynamicSelectedProductPage() {
   //   description:
   //     'นอกจากไมค์คุณภาพสูงแล้วหูฟังเล่นเกม Logitech Pro X ยังมาพร้อมกับการปรับแต่งเสียงผ่าน Software ได้ในตัว ทำให้นอกจากใช้เล่นเกมแล้วยังสามารถเอาไปใช้ ดูหนังฟังเพลงได้อีกด้วย โดยการเซฟ Presets เอาไว้ อีกทั้งยังมี Sound Card มาช่วยดันคุณภาพเสียงให้สูงขึ้นได้อีกด้วย แถมบอดี้ของมันยังแข็งแรงด้วยวัสดุโลหะ และอลูมิเนียม ด้วยการผสมกันของวัสดุทั้งสองอย่างทำให้ได้หูฟังที่แข็งแรงและน้ำหนักเบาสุด ๆ ',
   // };
+
+  const [openEditPrice, setOpenEditPrice] = useState(false);
+  const [newPrice, setNewPrice] = useState(0);
   const mockProperties = [
     { topic: 'ขนาดจอ', description: '24 นิ้ว' },
     { topic: 'ความละเอียด', description: '10M pixels' },
@@ -69,14 +76,42 @@ function DynamicSelectedProductPage() {
     handleGetSelectedProduct();
   }, [params.productId, selectedProductObj.SubCategory.subCategoryName]);
 
+  const handleUpdateProductPriceByProductId = (newPrice, productId) => {
+    try {
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleDeleteProductByProductId = (productId) => {
+    try {
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    handleUpdateProductPriceByProductId();
+  }, [openEditPrice]);
+
   return (
     <div className=''>
       <br />
-      <div className='flex flex-col p-7'>
-        <h1 className='text-3xl font-bold'>
-          {selectedProductObj.productName || ''}
-        </h1>
-        <p className='text-2xl text-gray-600'>{`รหัสสินค้า: ${selectedProductObj.id}`}</p>
+      <div className='flex justify-between items-center'>
+        <div className='flex flex-col p-7'>
+          <h1 className='text-3xl font-bold'>
+            {selectedProductObj.productName || ''}
+          </h1>
+          <p className='text-2xl text-gray-600'>{`รหัสสินค้า: ${selectedProductObj.id}`}</p>
+        </div>
+        <div
+          className='btn btn-secondary flex justify-center'
+          onClick={() => {
+            handleDeleteProductByProductId(selectedProductObj.id);
+            navigate('/supplier/my-product');
+          }}
+        >
+          {<TiDeleteOutline size={35} />}
+          <p>ลบสินค้า</p>
+        </div>
       </div>
       <br />
       <div className='flex justify-center'>
@@ -159,14 +194,53 @@ function DynamicSelectedProductPage() {
           </label>
           <p>{selectedProductObj.SubCategory.subCategoryName || ''}</p>
         </div>
-        <div className='flex flex-col justify-center border-2 hover:border-info rounded-lg p-2'>
-          <label
-            htmlFor='price'
-            className='block mb-2 text-sm font-bold text-gray-1200 '
+        <div className='flex justify-between border-2 hover:border-info rounded-lg p-2 items-center'>
+          <div className='flex flex-col'>
+            <label
+              htmlFor='price'
+              className='block mb-2 text-sm font-bold text-gray-1200 '
+            >
+              ราคาสินค้า
+            </label>
+            {openEditPrice === true ? (
+              <div className='flex gap-2'>
+                <input
+                  type='number'
+                  onChange={(event) => {
+                    setNewPrice(+event.target.value);
+                  }}
+                  value={newPrice.toString()}
+                  className='p-2 border-2 rounded-lg'
+                />
+                <div
+                  className='btn btn-secondary btn-sm h-[44px]'
+                  onClick={() => {
+                    handleUpdateProductPriceByProductId(
+                      newPrice,
+                      selectedProductObj.id
+                    );
+                  }}
+                >
+                  ยืนยัน
+                </div>
+              </div>
+            ) : (
+              <>
+                <p className=''>
+                  {(+selectedProductObj.price).toFixed(2) || (0.0).toFixed(2)}
+                </p>
+              </>
+            )}
+          </div>
+          <div
+            className='flex items-center hover:scale-110 gap-2 cursor-pointer'
+            onClick={() => {
+              setOpenEditPrice((openEditPrice) => !openEditPrice);
+            }}
           >
-            ราคาสินค้า
-          </label>
-          <p>{(+selectedProductObj.price).toFixed(2) || (0.0).toFixed(2)}</p>
+            <p className='text '>แก้ไข</p>
+            <div className=''>{<FiEdit size={35} />}</div>
+          </div>
         </div>
         <div className='flex flex-col justify-center border-2 hover:border-info rounded-lg p-2'>
           <label
