@@ -188,7 +188,7 @@ function DynamicSelectedOrderPage() {
                   <tr
                     className='hover cursor-pointer'
                     onClick={() => {
-                      navigate(`/supplier/product/selected`);
+                      navigate(`/supplier/product/${el.Product.id}`);
                     }}
                   >
                     <td className='text-center'>{index + 1}</td>

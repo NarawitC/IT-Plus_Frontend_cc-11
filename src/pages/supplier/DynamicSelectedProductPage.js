@@ -4,6 +4,7 @@ import subPicture2 from '../../productImg/item2.jpg';
 import subPicture3 from '../../productImg/item3.jpg';
 import subPicture4 from '../../productImg/item4.jpg';
 import { AiOutlineNumber } from 'react-icons/ai';
+import { BsCamera } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { Navigate, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
@@ -62,6 +63,8 @@ function DynamicSelectedProductPage() {
     subPicture4: '',
   });
 
+  console.log(selectedProductObj);
+
   useEffect(() => {
     const handleGetSelectedProduct = async () => {
       try {
@@ -74,7 +77,7 @@ function DynamicSelectedProductPage() {
       }
     };
     handleGetSelectedProduct();
-  }, [params.productId, selectedProductObj.SubCategory.subCategoryName]);
+  }, [params.productId, selectedProductObj?.SubCategory?.subCategoryName]);
 
   const handleUpdateProductPriceByProductId = (newPrice, productId) => {
     try {
@@ -98,9 +101,9 @@ function DynamicSelectedProductPage() {
       <div className='flex justify-between items-center'>
         <div className='flex flex-col p-7'>
           <h1 className='text-3xl font-bold'>
-            {selectedProductObj.productName || ''}
+            {selectedProductObj?.productName || ''}
           </h1>
-          <p className='text-2xl text-gray-600'>{`รหัสสินค้า: ${selectedProductObj.id}`}</p>
+          <p className='text-2xl text-gray-600'>{`รหัสสินค้า: ${selectedProductObj?.id}`}</p>
         </div>
         <div
           className='btn btn-secondary flex justify-center'
@@ -116,16 +119,22 @@ function DynamicSelectedProductPage() {
       <br />
       <div className='flex justify-center'>
         <div className='flex flex-col'>
-          <img
-            className='h-80 w-auto object-contain border-2 p-4 rounded-lg hover:border-secondary'
-            src={selectedProductObj.mainPicture || defaultPic}
-            alt='mainPicture'
-          />
-          <br />
-          <p className='text-center'>{`รูปหลัก`}</p>
+          <div>
+            <img
+              className=' tabIndex="0" h-80 w-auto object-contain border-2 p-8 rounded-lg hover:border-secondary'
+              src={selectedProductObj.mainPicture || defaultPic}
+              alt='mainPicture'
+            />
+            <div className='flex justify-end gap-2 items-center cursor-pointer hover:scale-105 p-2 '>
+              <p>แก้ไขรูปภาพ</p>
+              {<BsCamera size={35} />}
+            </div>
+          </div>
+          <p className='text-center font-bold'>{`รูปหลัก`}</p>
         </div>
         <br />
       </div>
+      <br />
       <br />
       <div className='flex gap-2 justify-center'>
         <div className='flex flex-col '>
@@ -135,7 +144,7 @@ function DynamicSelectedProductPage() {
             alt='subPicture1'
           />
           <br />
-          <p className='text-center'>{`รูป 1`}</p>
+          <p className='text-center font-bold'>{`รูป 1`}</p>
         </div>
         <div className='flex flex-col'>
           <img
@@ -144,7 +153,7 @@ function DynamicSelectedProductPage() {
             alt='subPicture2'
           />
           <br />
-          <p className='text-center'>{`รูป 2`}</p>
+          <p className='text-center font-bold'>{`รูป 2`}</p>
         </div>
         <div className='flex flex-col'>
           <img
@@ -153,7 +162,7 @@ function DynamicSelectedProductPage() {
             alt='subPicture3'
           />
           <br />
-          <p className='text-center'>{`รูป 3`}</p>
+          <p className='text-center font-bold'>{`รูป 3`}</p>
         </div>
         <div className='flex flex-col'>
           <img
@@ -162,7 +171,7 @@ function DynamicSelectedProductPage() {
             alt='subPicture4'
           />
           <br />
-          <p className='text-center'>{`รูป 4`}</p>
+          <p className='text-center font-bold'>{`รูป 4`}</p>
         </div>
       </div>
       <br />
