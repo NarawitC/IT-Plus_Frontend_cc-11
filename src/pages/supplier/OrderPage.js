@@ -62,13 +62,130 @@ function OrderPage() {
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(orders);
 
+  const mockArr = [
+    {
+      id: 1,
+      productPrice: 2997,
+      deliveryAddress: 'Note home',
+      deliveryPrice: 50,
+      createdAt: '2022-07-01T14:18:31.000Z',
+      updatedAt: '2022-07-01T14:18:31.000Z',
+      clientId: 1,
+      supplierId: 1,
+      OrderItems: [
+        {
+          id: 2,
+          quantity: 2,
+          promotionId: null,
+          discount: 0,
+          createdAt: '2022-07-01T14:18:31.000Z',
+          updatedAt: '2022-07-01T14:18:31.000Z',
+          orderId: 1,
+          productId: 2,
+          Product: {
+            id: 2,
+            productName: 'product name 2',
+            price: 999,
+            brand: 'Test brand name',
+            description: 'Test description',
+            stock: 999,
+            mainPicture:
+              'https://res.cloudinary.com/narawit/image/upload/v1655109976/IT_Shop/Default%20photo/defaultMainPicture_kyzjrb.png',
+            subPicture1:
+              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+            subPicture2:
+              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+            subPicture3:
+              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+            subPicture4:
+              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+            status: 'APPROVED',
+            rejectReason: null,
+            createdAt: '2022-07-01T09:51:56.000Z',
+            updatedAt: '2022-07-01T09:51:56.000Z',
+            changeStatusAdminId: 1,
+            categoryId: 1,
+            supplierId: 1,
+            subCategoryId: 2,
+            Promotions: [],
+          },
+        },
+        {
+          id: 1,
+          quantity: 1,
+          promotionId: null,
+          discount: 0,
+          createdAt: '2022-07-01T14:18:31.000Z',
+          updatedAt: '2022-07-01T14:18:31.000Z',
+          orderId: 1,
+          productId: 1,
+          Product: {
+            id: 1,
+            productName: 'product name 1',
+            price: 999,
+            brand: 'Test brand name',
+            description: 'Test description',
+            stock: 999,
+            mainPicture:
+              'https://res.cloudinary.com/narawit/image/upload/v1656683586/cl4fn6hkhjytbhbbyuib.jpg',
+            subPicture1:
+              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+            subPicture2:
+              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+            subPicture3:
+              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+            subPicture4:
+              'https://res.cloudinary.com/narawit/image/upload/v1655109981/IT_Shop/Default%20photo/defaultSubPicture_e1uec8.png',
+            status: 'APPROVED',
+            rejectReason: null,
+            createdAt: '2022-07-01T09:51:56.000Z',
+            updatedAt: '2022-07-01T13:53:07.000Z',
+            changeStatusAdminId: 1,
+            categoryId: 1,
+            supplierId: 1,
+            subCategoryId: 1,
+            Promotions: [],
+          },
+        },
+      ],
+      PurchasedOrder: {
+        id: 1,
+        paymentAt: '2022-07-01T08:16:27.000Z',
+        transactionId: 'testtransactionId',
+        createdAt: '2022-07-01T14:18:44.000Z',
+        updatedAt: '2022-07-01T14:18:44.000Z',
+        orderId: 1,
+        ShippingOrder: null,
+      },
+      Client: {
+        id: 1,
+        createdAt: '2022-07-01T09:51:54.000Z',
+        updatedAt: '2022-07-01T09:51:54.000Z',
+        userId: 2,
+        User: {
+          id: 2,
+          firstName: 'Narawit',
+          lastName: 'Chai-client',
+          email: 'Narawit-client@mail.com',
+          phoneNumber: '0111111111',
+          address: 'Narawit home',
+          role: 'CLIENT',
+          createdAt: '2022-07-01T09:51:54.000Z',
+          updatedAt: '2022-07-01T09:51:54.000Z',
+        },
+      },
+    },
+  ];
+
   useEffect(() => {
     const handleGetAllOrdersBySupplierId = async () => {
       try {
-        const res = await getAllOrdersBySupplierId();
-        console.log(res.data);
-        setOrders(res.data.orders);
-        setShippingDetails(res.data.orders);
+        // const res = await getAllOrdersBySupplierId();
+        // console.log(res.data);
+        // setOrders(res.data.orders);
+        setOrders(mockArr);
+        // setShippingDetails(res.data.orders);
+        setShippingDetails(mockArr);
       } catch (error) {
         console.log(error);
       }

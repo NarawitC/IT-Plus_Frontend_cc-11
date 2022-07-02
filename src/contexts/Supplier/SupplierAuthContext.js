@@ -10,10 +10,13 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from '../../config/axios';
 import { ReRenderContext } from '../ReRenderContext';
+import { SupplierProductContext } from '../../contexts/Supplier/SupplierProductContext';
+
 const SupplierAuthContext = createContext();
 
 function SupplierAuthContextProvider({ children }) {
   const { reRender, setReRender } = useContext(ReRenderContext);
+
   const [supplier, setSupplier] = useState(null);
   const [role, setRole] = useState(null);
   const navigate = useNavigate();
@@ -62,10 +65,10 @@ function SupplierAuthContextProvider({ children }) {
 
   const signOut = () => {
     removeAccessTOken(); //
-    setReRender((reRender) => !reRender);
     setSupplier(null);
     setRole('');
-    navigate('/');
+    setReRender((reRender) => !reRender);
+    navigate('/supplier');
   };
 
   const signUp = async (input) => {

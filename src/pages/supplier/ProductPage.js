@@ -232,7 +232,7 @@ function ProductPage() {
             </tr>
           </thead>
           <tbody className=''>
-            {products.map((el, index) => {
+            {products?.map((el, index) => {
               let color = findColor(el.status);
               return (
                 <>
