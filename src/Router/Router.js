@@ -49,6 +49,7 @@ import { useSupplierContext } from '../contexts/Supplier/SupplierAuthContext';
 function Router() {
   const { admin } = useAdminContext();
   const { supplier } = useSupplierContext();
+  console.log(admin);
   return (
     <Routes>
       {/* todo wait for modify route */}
