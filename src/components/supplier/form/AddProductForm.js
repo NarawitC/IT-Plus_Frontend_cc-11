@@ -542,6 +542,7 @@ function AddProductForm({ addNewProductSupplier }) {
                 onChange={(event) => setSubCategoryId(event.target.value)}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้าย่อย</option>
+                <option value={1}>อุปกรณ์ไอที</option>
                 {/* {subCatOptions.map((el, index) => {
                   return (
                     <>
