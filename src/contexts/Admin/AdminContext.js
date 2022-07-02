@@ -45,7 +45,7 @@ function AdminContextProvider({ children }) {
   const signOut = () => {
     removeAccessTOken();
     setAdmin(null);
-    navigate('');
+    navigate('/admin/sign-in');
   };
 
   const adminGetClient = async () => {
