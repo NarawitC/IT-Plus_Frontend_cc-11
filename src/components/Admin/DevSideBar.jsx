@@ -1,8 +1,10 @@
 import React from 'react';
 import DevSidebarMenu from './DevSidebarMenu';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { useAdminContext } from '../../contexts/Admin/AdminContext';
 
 function DevSideBar() {
+  const { signOut } = useAdminContext();
   return (
     <>
       <div className='drawer absolute z-30'>
@@ -19,7 +21,11 @@ function DevSideBar() {
             <DevSidebarMenu title='Client' path='/admin/client' />
             <DevSidebarMenu title='Orders' path='/admin/orders' />
             <DevSidebarMenu title='Products' path='/admin/product' />
-            <DevSidebarMenu title='Logout' path='/admin/signIn' />
+            <DevSidebarMenu
+              title='Logout'
+              path='/admin/sign-in'
+              onClick={signOut}
+            />
           </ul>
         </div>
       </div>
