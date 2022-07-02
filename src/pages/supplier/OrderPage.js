@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
 import { MdOutlineCancel } from 'react-icons/md';
 import { OrderContext } from '../../contexts/Supplier/OrderContext';
+import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
 
 // const mockArr = [
 //   {
@@ -61,7 +62,7 @@ function OrderPage() {
   const navigate = useNavigate();
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(orders);
-
+  const { role } = useContext(SupplierAuthContext);
   const mockArr = [
     {
       id: 1,
@@ -358,112 +359,118 @@ function OrderPage() {
                 <th className='text-center'>Shipping Order Status</th>
               </tr>
             </thead>
-            <tbody>
-              {shippingDetails.map((el, idx) => {
-                return (
-                  <>
-                    {}
-                    <tr className='hover' key={idx}>
-                      <td className='text-center'>{idx + 1}</td>
-                      <td>
-                        <div class='flex items-center space-x-3'>
-                          <div className='flex w-[40px] justify-center'>
-                            <div class='font-bold'>{el.clientId}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div className='flex space-x-3 justify-center'>
-                          <button
-                            className='btn btn-ghost btn-md'
-                            onClick={() => {
-                              navigate(`/supplier/order/${el.id}`);
-                            }}
-                          >
-                            {el.id}
-                          </button>
-                        </div>
-                      </td>
-                      <th>
-                        <p className='flex justify-end'>
-                          {el.productPrice.toFixed(2)}
-                        </p>
-                      </th>
-                      <th>
-                        <label class='swap'>
-                          <input type='checkbox' />
-                          {el.purchasedOrderStatus === 'CONFIRMED' ? (
-                            <>
-                              <div className='swap-off text-success  text-center'>
-                                {el.purchasedOrderStatus}
+            {role === 'SUPPLIER' ? (
+              <>
+                <tbody>
+                  {shippingDetails.map((el, idx) => {
+                    return (
+                      <>
+                        {}
+                        <tr className='hover' key={idx}>
+                          <td className='text-center'>{idx + 1}</td>
+                          <td>
+                            <div class='flex items-center space-x-3'>
+                              <div className='flex w-[40px] justify-center'>
+                                <div class='font-bold'>{el.clientId}</div>
                               </div>
-                              <div className='swap-on text-warning text-center'>
-                                PENDING
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className='swap-off text-warning text-center'>
-                                {el.purchasedOrderStatus}
-                              </div>
-                              <div className='swap-on text-success text-center'>
-                                CONFIRMED
-                              </div>
-                            </>
-                          )}
-                        </label>
-                      </th>
-                      <th className='flex justify-center'>
-                        <input
-                          className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary'
-                          placeholder='Tracking Id'
-                          onChange={(event) =>
-                            setShippingDetails((prevShippingDetail) => [
-                              ...prevShippingDetail.slice(0, idx),
-                              {
-                                ...prevShippingDetail[idx],
-                                trackingId: event.target.value,
-                              },
-                              ...prevShippingDetail.slice(idx + 1),
-                            ])
-                          }
-                          value={el.trackingId}
-                        />
-                      </th>
-                      <th className=''>
-                        {el.purchasedOrderStatus === 'CONFIRMED' ? (
-                          <select
-                            className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
-                            onChange={(event) =>
-                              //
-                              setShippingDetails((prevShippingDetail) => [
-                                ...prevShippingDetail.slice(0, idx),
-                                {
-                                  ...prevShippingDetail[idx],
-                                  status: event.target.value.trim(),
-                                },
-                                ...prevShippingDetail.slice(idx + 1),
-                              ])
-                            }
-                            value={el.status}
-                            type='text'
-                            placeholder={el.status}
-                          >
-                            <option value='TO_SHIPPING_COMPANY'>
-                              กำลังดำเนินการ
-                            </option>
-                            <option value='TO_CLIENT'>กำลังจัดส่ง</option>
-                            <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
-                          </select>
-                        ) : (
-                          <p className='text-center'>-</p>
-                        )}
-                      </th>
-                    </tr>
-                  </>
-                );
-              })}
-            </tbody>
+                            </div>
+                          </td>
+                          <td>
+                            <div className='flex space-x-3 justify-center'>
+                              <button
+                                className='btn btn-ghost btn-md'
+                                onClick={() => {
+                                  navigate(`/supplier/order/${el.id}`);
+                                }}
+                              >
+                                {el.id}
+                              </button>
+                            </div>
+                          </td>
+                          <th>
+                            <p className='flex justify-end'>
+                              {el.productPrice.toFixed(2)}
+                            </p>
+                          </th>
+                          <th>
+                            <label class='swap'>
+                              <input type='checkbox' />
+                              {el.purchasedOrderStatus === 'CONFIRMED' ? (
+                                <>
+                                  <div className='swap-off text-success  text-center'>
+                                    {el.purchasedOrderStatus}
+                                  </div>
+                                  <div className='swap-on text-warning text-center'>
+                                    PENDING
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div className='swap-off text-warning text-center'>
+                                    {el.purchasedOrderStatus}
+                                  </div>
+                                  <div className='swap-on text-success text-center'>
+                                    CONFIRMED
+                                  </div>
+                                </>
+                              )}
+                            </label>
+                          </th>
+                          <th className='flex justify-center'>
+                            <input
+                              className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary'
+                              placeholder='Tracking Id'
+                              onChange={(event) =>
+                                setShippingDetails((prevShippingDetail) => [
+                                  ...prevShippingDetail.slice(0, idx),
+                                  {
+                                    ...prevShippingDetail[idx],
+                                    trackingId: event.target.value,
+                                  },
+                                  ...prevShippingDetail.slice(idx + 1),
+                                ])
+                              }
+                              value={el.trackingId}
+                            />
+                          </th>
+                          <th className=''>
+                            {el.purchasedOrderStatus === 'CONFIRMED' ? (
+                              <select
+                                className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
+                                onChange={(event) =>
+                                  //
+                                  setShippingDetails((prevShippingDetail) => [
+                                    ...prevShippingDetail.slice(0, idx),
+                                    {
+                                      ...prevShippingDetail[idx],
+                                      status: event.target.value.trim(),
+                                    },
+                                    ...prevShippingDetail.slice(idx + 1),
+                                  ])
+                                }
+                                value={el.status}
+                                type='text'
+                                placeholder={el.status}
+                              >
+                                <option value='TO_SHIPPING_COMPANY'>
+                                  กำลังดำเนินการ
+                                </option>
+                                <option value='TO_CLIENT'>กำลังจัดส่ง</option>
+                                <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
+                              </select>
+                            ) : (
+                              <p className='text-center'>-</p>
+                            )}
+                          </th>
+                        </tr>
+                      </>
+                    );
+                  })}
+                </tbody>
+              </>
+            ) : (
+              <></>
+            )}
           </table>
         </div>
         <br />

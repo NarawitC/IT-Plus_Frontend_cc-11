@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { OrderContext } from '../../contexts/Supplier/OrderContext';
 import { SupplierProductContext } from '../../contexts/Supplier/SupplierProductContext';
+import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
 import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
 import defaultPic from '../../pictures/defaultPic.png';
 // const mockArr = [
@@ -50,6 +51,8 @@ function ProductPage() {
   const { supplierProducts, setSupplierProducts } = useContext(
     SupplierProductContext
   );
+  const { role } = useContext(SupplierAuthContext);
+  console.log(role);
 
   // const colorArr = [
   //   { PRODUCT_STATUS: 'PENDING', color: 'waring' },
@@ -231,78 +234,84 @@ function ProductPage() {
               <th className=''></th>
             </tr>
           </thead>
-          <tbody className=''>
-            {products?.map((el, index) => {
-              let color = findColor(el.status);
-              return (
-                <>
-                  <tr
-                    className='hover cursor-pointer'
-                    onClick={() => {
-                      navigate(`/supplier/product/${el.id}`);
-                    }}
-                  >
-                    <td className='text-center font-bold'>{index + 1}</td>
-                    <td className='text-center font-bold '>{el.id || 0}</td>
-                    <td>
-                      <div className='flex items-center space-x-3 justify-center'>
-                        <img
-                          className='object-contain h-16 w-[60px] '
-                          src={el.mainPicture || defaultPic}
-                          alt='mainPic'
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <div>
-                        <div className='font-bold  text-lg text-blue-900'>
-                          {el.brand}
-                        </div>
-                        <div className=' w-[380px] flex overflow-x-auto h-12 items-center font-bold'>
-                          {el.productName}
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='flex justify-center'>
-                        <p className='text-ghost font-bold'>{el.stock}</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='flex justify-end font-bold'>
-                        <p className=''>{el.price.toFixed(2)}</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='flex justify-center'>
-                        <p
-                          className={`text-center font-bold justify-end text-${color}`}
-                        >
-                          {el.status}
-                        </p>
-                      </div>
-                    </td>
-                    <td>
-                      <p className=' text-xs w-[90px] flex overflow-x-auto justify-center'>
-                        {el.rejectReason || '-'}
-                      </p>
-                    </td>
-                    <td>
-                      <button
-                        className='flex gap-2 items-center hover:scale-105'
+          {role === 'SUPPLIER' ? (
+            <>
+              <tbody className=''>
+                {products?.map((el, index) => {
+                  let color = findColor(el.status);
+                  return (
+                    <>
+                      <tr
+                        className='hover cursor-pointer'
                         onClick={() => {
-                          navigate('/supplier/product/selected');
+                          navigate(`/supplier/product/${el.id}`);
                         }}
                       >
-                        <MdOutlineEditNote size={25} />
-                        <p>แก้ไขสินค้า</p>
-                      </button>
-                    </td>
-                  </tr>
-                </>
-              );
-            })}
-          </tbody>
+                        <td className='text-center font-bold'>{index + 1}</td>
+                        <td className='text-center font-bold '>{el.id || 0}</td>
+                        <td>
+                          <div className='flex items-center space-x-3 justify-center'>
+                            <img
+                              className='object-contain h-16 w-[60px] '
+                              src={el.mainPicture || defaultPic}
+                              alt='mainPic'
+                            />
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <div className='font-bold  text-lg text-blue-900'>
+                              {el.brand}
+                            </div>
+                            <div className=' w-[380px] flex overflow-x-auto h-12 items-center font-bold'>
+                              {el.productName}
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div className='flex justify-center'>
+                            <p className='text-ghost font-bold'>{el.stock}</p>
+                          </div>
+                        </td>
+                        <td>
+                          <div className='flex justify-end font-bold'>
+                            <p className=''>{el.price.toFixed(2)}</p>
+                          </div>
+                        </td>
+                        <td>
+                          <div className='flex justify-center'>
+                            <p
+                              className={`text-center font-bold justify-end text-${color}`}
+                            >
+                              {el.status}
+                            </p>
+                          </div>
+                        </td>
+                        <td>
+                          <p className=' text-xs w-[90px] flex overflow-x-auto justify-center'>
+                            {el.rejectReason || '-'}
+                          </p>
+                        </td>
+                        <td>
+                          <button
+                            className='flex gap-2 items-center hover:scale-105'
+                            onClick={() => {
+                              navigate('/supplier/product/selected');
+                            }}
+                          >
+                            <MdOutlineEditNote size={25} />
+                            <p>แก้ไขสินค้า</p>
+                          </button>
+                        </td>
+                      </tr>
+                    </>
+                  );
+                })}
+              </tbody>
+            </>
+          ) : (
+            <></>
+          )}
         </table>
       </div>
     </div>

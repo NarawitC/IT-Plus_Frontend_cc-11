@@ -10,7 +10,6 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from '../../config/axios';
 import { ReRenderContext } from '../ReRenderContext';
-import { SupplierProductContext } from '../../contexts/Supplier/SupplierProductContext';
 
 const SupplierAuthContext = createContext();
 
