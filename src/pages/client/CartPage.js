@@ -3,7 +3,8 @@ import { useProductfilter } from '../../contexts/ProductContext';
 import CartItem from '../../components/Client/CartItem';
 import { useEffect } from 'react';
 import DynamicClientCheckoutmode from '../../components/Client/clentCart/DynamicClientCheckoutmode';
-
+import { BsPlusSquareDotted } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 // useEffect(() => {}, []);
 
 function CartPage() {
@@ -21,8 +22,23 @@ function CartPage() {
           </div>
         </div>
       </div>
-      <CartItem />
-      <DynamicClientCheckoutmode />
+      {tempCarts?.length > 0 ? (
+        <>
+          <CartItem />
+        </>
+      ) : (
+        <div className=' flex flex-col justify-center items-center'>
+          <BsPlusSquareDotted
+            size={200}
+            color={'gray'}
+            className='mx-auto flex  justify-center text-center'
+          />
+          <p className='font-bold my-2'> ไม่มีสินค้าในรถเข็น </p>
+          <Link to='/' className='text-primary hover:text-blue-700'>
+            กลับหน้าหลัก
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

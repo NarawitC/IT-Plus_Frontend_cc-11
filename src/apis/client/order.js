@@ -16,6 +16,9 @@ export const createOrederswithItems = (cartId, cartItems) => {
   return axios.post(`/client/order/${cartId}`, { orders: cartItems });
 };
 
+export const getAllOrders = (cartId) => {
+  return axios.get('/client/order/');
+};
 // export const createOrderAndDeleteInCartOrder = async () => {
 //   return await axios.patch('/order/createOrder');
 // };

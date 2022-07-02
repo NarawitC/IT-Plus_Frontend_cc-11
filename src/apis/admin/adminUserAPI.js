@@ -169,15 +169,17 @@ export const scarr = [
 ];
 
 export const CareateSubcat = async () => {
-  sc1.map((el) => {
-    console.log(el);
-    funncreatesubcat(el, 1);
-  });
-  const funncreatesubcat = async (s_catname, catid) => {
-    return await axios.post('/admin/sub-category', {
-      subCategoryName: s_catname,
-      categoryId: catid,
+  scarr.map((el, idx) => {
+    el.map((elsubcat) => {
+      const funncreatesubcat = async (s_catname, catid) => {
+        console.log(elsubcat);
+        await axios.post('/admin/sub-category', {
+          subCategoryName: elsubcat,
+          categoryId: catid,
+        });
+      };
+      funncreatesubcat(elsubcat, idx + 1);
     });
-  };
+  });
 };
 // CareateSubcat();

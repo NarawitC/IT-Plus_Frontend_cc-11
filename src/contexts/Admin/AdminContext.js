@@ -17,13 +17,27 @@ function AdminContextProvider({ children }) {
   const [admin, setAdmin] = useState(null);
   const navigate = useNavigate();
   const { setError } = useErrorContext();
+  useEffect(() => {
+    const fetchMe = async () => {
+      try {
+        const token = getAccessToken();
+        if (token) {
+          const resMe = await getAdminInfo();
+          setAdmin(resMe.data.admin);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchMe();
+  }, []);
 
   const adminLogin = async (input) => {
     const res = await adminSignIn(input);
-    // console.log(res);
+    console.log(res);
     setAccessToken(res.data.token);
     const resMe = await getAdminInfo();
-    console.log(resMe);
+    // console.log(resMe);
     setAdmin(resMe.data.admin);
     return resMe.data.admin;
   };
@@ -31,7 +45,7 @@ function AdminContextProvider({ children }) {
   const signOut = () => {
     removeAccessTOken();
     setAdmin(null);
-    navigate('');
+    navigate('/admin/sign-in');
   };
 
   const adminGetClient = async () => {

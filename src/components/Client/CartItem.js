@@ -9,9 +9,22 @@ import { useAuthContext } from '../../contexts/Client/AuthCcontexts';
 import { useNavigate } from 'react-router-dom';
 import { CgChevronDoubleLeft } from 'react-icons/cg';
 import { BsPlusSquareDotted } from 'react-icons/bs';
+import DynamicClientCheckoutmode from './clentCart/DynamicClientCheckoutmode';
 
 function CartItem() {
-  // useEffect(() => {}, []);
+  const [cartOrder, setcartOrder] = useState(null);
+
+  useEffect(() => {
+    const fetchCartDb = async () => {
+      if (dbcart) {
+        const rescart = await GetCartsbyId(dbcart);
+        // console.log(rescart);
+        setcartOrder(rescart.CartItems);
+        return rescart.CartItems;
+      }
+    };
+    fetchCartDb();
+  }, []);
   const { user } = useAuthContext();
 
   const {
@@ -23,17 +36,25 @@ function CartItem() {
     createOrderandOrderItems,
     dbcart,
     setdbcart,
+    GetCartsbyId,
   } = useProductfilter();
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
 
-  const handleSubmitorder = async (tempCarts, userid) => {
+  const handleSubmitcart = async (tempCarts, userid) => {
     // console.log(userid);
     console.log(userid);
     const cartId = await createCarts(tempCarts, userid);
     setdbcart(cartId);
-    navigate('/cart/checkout');
+
+    // navigate('/cart/checkout');
     // console.log(reponse);
+  };
+  const handleCreateOrder = async () => {
+    const res = await createOrderandOrderItems(dbcart, 'address is here');
+    console.log(res.data);
+    console.log('res.data');
+    navigate('/cart/checkout');
   };
   const handleDelcartlist = async (id) => {
     await settempCarts((prev) => {
@@ -47,32 +68,16 @@ function CartItem() {
     });
   };
   return (
-    <div className='grid grid-cols-4 gap-4 py-4 '>
-      {tempCarts.length === 0 ? (
-        <div className='col-span-3 h-full bg-white '>
-          <div className='flex w-full'>
-            <div className='w-[100px] h-[100px] flex justify-center '>
-              <BsPlusSquareDotted
-                size={200}
-                color={'gray'}
-                className='mx-auto text-center'
-              />
-            </div>
-          </div>
+    <div className='grid grid-cols-6 gap-4 py-4 '>
+      {tempCarts?.map((el, idx) => (
+        <LGCartlist el={el} key={idx} handleDelcartlist={handleDelcartlist} />
+      ))}
+      {dbcart ? (
+        <div className=' col-span-4'>
+          <DynamicClientCheckoutmode />
         </div>
-      ) : (
-        <>
-          {tempCarts?.map((el, idx) => (
-            <LGCartlist
-              el={el}
-              key={idx}
-              handleDelcartlist={handleDelcartlist}
-            />
-          ))}
-        </>
-      )}
-
-      <div className=' px-4 border-2 rounded-lg py-4'>
+      ) : null}
+      <div className='col-start-5 col-span-2 px-4 border-2 rounded-lg py-4'>
         <div className='flex gap-4'>
           <div>
             <img src={sumCheck} />
@@ -106,14 +111,26 @@ function CartItem() {
               (รวมภาษีมูลค่าเพิ่ม)
             </div>
           </div>
-          <div
-            className='btn btn-primary rounded-lg text-white '
-            onClick={() => {
-              handleSubmitorder(tempCarts, user.id);
-            }}
-          >
-            ทำการสั่งซื้อ
-          </div>
+
+          {!dbcart ? (
+            <div
+              className='btn btn-primary rounded-lg text-white '
+              onClick={() => {
+                handleSubmitcart(tempCarts, user.id);
+              }}
+            >
+              ทำการสั่งซื้อ
+            </div>
+          ) : (
+            <div
+              className='btn btn-primary rounded-lg text-white '
+              onClick={() => {
+                handleCreateOrder(dbcart, 'address is here');
+              }}
+            >
+              ยืนยันที่อยู่จัดส่ง
+            </div>
+          )}
         </div>
       </div>
     </div>
