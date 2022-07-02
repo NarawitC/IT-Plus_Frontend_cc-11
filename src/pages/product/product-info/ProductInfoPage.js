@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BiErrorCircle } from 'react-icons/bi';
 import BreadCrumbs from '../../../components/Client/products/productInfo/BreadCrumbs';
 import addCartIcon from '../../../../src/components/Client/products/productInfo/icons/add-to-cart.svg';
 import Property from './Property';
@@ -13,7 +14,7 @@ import { useAdminContext } from '../../../contexts/Admin/AdminContext';
 function ProductInfoPage() {
   const locate = useLocation();
   const [idx, setIdx] = useState(0);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [Objecturl, setObjectJa] = useState([]);
   const [singlepd, setsinglepd] = useState(null);
   const { admin } = useAdminContext();
@@ -136,16 +137,19 @@ function ProductInfoPage() {
               />
             </div>
           </div>
-          <div>
+          <div className='w-80'>
             <div className='text-[10px] border-b-5'>
               <a href=''>{singlepd?.Supplier.displayName}</a>
             </div>
             <div>{singlepd?.productName}</div>
+
             <div className='text-[10px]'>รหัสสินค้า : {singlepd?.id}</div>
+            <div className='text-[10px] '>คลังสินค้า : {singlepd?.stock}</div>
+
             <div>
               {singlepd?.disount ? (
                 <div className='text-[10px] text-gray-500 opacity-50 border-b-2 pb-2 line-through'>
-                  ราคาปกติ: {localsting(+singlepd?.price)} Bath
+                  ราคาปกติ: {localsting(+singlepd?.price)} ฿
                 </div>
               ) : null}
             </div>
@@ -159,22 +163,21 @@ function ProductInfoPage() {
                 {!singlepd?.disount
                   ? localsting(+singlepd?.price)
                   : localsting(+singlepd?.price - +singlepd?.disount)}{' '}
-                Bath
+                ฿
               </div>
             </div>
             <div className='flex gap-4 mt-8'>
               <div className='flex gap-4'>
-                จำนวน:
+                <div className='my-auto text-[18px]'>จำนวน:</div>
+
                 {/* ---------------------------------------ปุ่ม - ---------------------------------- */}
                 <div className='flex w-full justify-center items-center gap-2 border-2 rounded-lg '>
                   <button
                     className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none  ${
-                      count === 0
-                        ? 'btn-disabled text-gray-500 opacity-50 '
-                        : ' text-black'
+                      count === 1 ? 'btn-disabled  ' : ' text-black'
                     }`}
                     onClick={() => {
-                      if (count === 0) {
+                      if (count === 1) {
                         setCount(+count);
                       } else {
                         setCount(+count - 1);
@@ -191,7 +194,7 @@ function ProductInfoPage() {
 
                   <button
                     className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black ${
-                      singlepd?.stock <= count ? 'btn-disabled' : ''
+                      singlepd?.stock <= count ? 'btn-disabled ' : 'text-black'
                     }`}
                     onClick={() => {
                       setCount(+count + 1);
@@ -200,13 +203,19 @@ function ProductInfoPage() {
                     <div>+</div>
                   </button>
                 </div>
-                {singlepd?.stock <= count && (
-                  <div className='text-red-500 my-auto w-4 text-[16px]'>
-                    สินค้าหมด
-                  </div>
-                )}
               </div>
             </div>
+            <div>
+              {singlepd?.stock <= count && (
+                <div className='text-red-500  w-full flex gap-2 mt-4'>
+                  <BiErrorCircle />
+                  <p className='text-[12px] text-right'>
+                    ไม่สามารถเพิ่มจำนวนสินค้าได้ เนื่องจากเกินจำนวนคลังสินค้า
+                  </p>
+                </div>
+              )}
+            </div>
+
             <div className='flex gap-4 mt-8'>
               <button
                 className='bg-white flex btn btn-primary'

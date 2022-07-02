@@ -46,6 +46,8 @@ import SaleOrderPage from '../pages/client/SaleOrderPage';
 
 import { useAdminContext } from '../contexts/Admin/AdminContext';
 import { useSupplierContext } from '../contexts/Supplier/SupplierAuthContext';
+import ClientOrderPage from '../pages/client/orderPage';
+
 function Router() {
   const { admin } = useAdminContext();
   const { supplier } = useSupplierContext();
@@ -60,6 +62,8 @@ function Router() {
         <Route path='/order-history' element={<SaleOrderPage />} />
         <Route path='/cart' element={<CartPage />} />
         <Route path='/cart/checkout' element={<CheckoutPage />} />
+        <Route path='/order/:order' element={<ClientOrderPage />} />
+
         <Route
           path='/product/supplier/:subplierId'
           element={<ProductByBrand />}
