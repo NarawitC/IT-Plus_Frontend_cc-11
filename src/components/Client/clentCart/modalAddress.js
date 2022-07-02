@@ -4,7 +4,7 @@ import { getProvince } from '../../../apis/openapis/location';
 import location from '../../../apis/fakeapi/locationProvince.json';
 import axios from 'axios';
 
-function ModalAddress({ setState }) {
+function ModalAddress({ setState, user }) {
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
   const [subDistrict, setSubDistrict] = useState([]);

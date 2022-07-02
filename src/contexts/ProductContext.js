@@ -9,6 +9,7 @@ import {
   createCartbyClientId,
   createCartitems,
   createOrederswithItems,
+  getAllOrders,
   getCart,
   getCartbyId,
   getCartbyIdapi,
@@ -282,6 +283,13 @@ function ProductfilterContextProvider({ children }) {
     console.log(data);
     return data;
   };
+  const cilentgetAllOrders = async () => {
+    const res = await getAllOrders();
+    // const allcart = rescart;
+    // const mycart = await allcart.find((el) => el.id === cartId);
+    // const res = await getCartbyIdapi(cartId);
+    return res.data;
+  };
   return (
     <ProductfilterContext.Provider
       value={{
@@ -303,6 +311,7 @@ function ProductfilterContextProvider({ children }) {
         totalPage,
         setPage,
         page,
+        cilentgetAllOrders,
       }}
     >
       {children}

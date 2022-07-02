@@ -19,7 +19,8 @@ function CheckoutPage() {
     const fetchCartDb = async () => {
       if (dbcart) {
         const rescart = await GetCartsbyId(dbcart);
-        // console.log(rescart);
+        console.log(rescart);
+        console.log('rescart');
         setcartOrder(rescart.CartItems);
         return rescart.CartItems;
       }
@@ -47,7 +48,7 @@ function CheckoutPage() {
         setIsLoading(false);
       }
     };
-    sumPrice();
+    // sumPrice();
   }, []);
 
   const handleCreateOrder = async () => {
@@ -121,7 +122,7 @@ function CheckoutPage() {
           <div
             className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl text-white text-[24px] hover:from-blue-600 hover:to-blue-400'
             onClick={() => {
-              handleCreateOrder();
+              // handleCreateOrder();
             }}
           >
             ชำระเงิน

@@ -29,7 +29,7 @@ function LGCartlist({ el, handleDelcartlist }) {
   }, [count]);
   return (
     <>
-      <div className='col-span-3'>
+      <div className='col-span-4'>
         <div className='grid grid-cols-10 '>
           <div className='w-[100px] h-[100px]  col-span-1   '>
             <img src={el.mainPicture} />
