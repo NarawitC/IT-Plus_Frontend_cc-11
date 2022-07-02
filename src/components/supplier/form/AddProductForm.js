@@ -5,6 +5,8 @@ import { TbListDetails } from 'react-icons/tb';
 import AddPropertyRow from '../form/AddPropertyRow';
 import { useNavigate } from 'react-router-dom';
 import { IoAddCircleOutline } from 'react-icons/io5';
+import { getAllCategoryInfo } from '../../../apis/supplier/supplierCategory';
+import { getSubCategoryByCategoryId } from '../../../apis/supplier/supplierSubCategory';
 function AddProductForm({ addNewProductSupplier }) {
   const navigate = useNavigate();
   // const inputEl = useRef();
@@ -41,6 +43,7 @@ function AddProductForm({ addNewProductSupplier }) {
   const [subCatOptions, setSubCatOptions] = useState([]);
   const [index, setIndex] = useState(0);
   const [indexes, setIndexes] = useState([]);
+  const [categories, setCategories] = useState([]);
   console.log({ subCatOptions: subCatOptions });
   console.log({ categoryId: categoryId });
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
@@ -71,30 +74,67 @@ function AddProductForm({ addNewProductSupplier }) {
   //   }
   //   console.log(subCatOptions);
   // }, [categoryName]);
+  //------------------------------------------
 
   useEffect(() => {
-    if (categoryId === '1') {
-      setSubCatOptions([
-        { value: 1, displayText: 'โน๊ตบุ๊ค' },
-        { value: 2, displayText: 'แท็ปเล็ต' },
-        { value: 3, displayText: 'จอคอม' },
-      ]);
-    }
-    if (categoryId === '2') {
-      setSubCatOptions([
-        { value: 4, displayText: 'เมาส์' },
-        { value: 5, displayText: 'คีย์บอร์ด' },
-        { value: 6, displayText: 'ตัวจ่ายไฟ' },
-      ]);
-    }
-    if (categoryId === '3') {
-      setSubCatOptions([
-        { value: 7, displayText: 'หูฟัง' },
-        { value: 8, displayText: 'ลำโพง' },
-      ]);
-    }
-    console.log(subCatOptions);
+    const handleGetAllCategory = async () => {
+      try {
+        const res = await getAllCategoryInfo();
+        console.log(res.data);
+        setCategories(res.data.categories);
+        console.log(categoryId);
+        const selectedSubCat = res.data.categories.find(
+          (el) => el.id === +categoryId
+        );
+        if (selectedSubCat) {
+          setSubCatOptions(selectedSubCat);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleGetAllCategory();
+
+    // const handleGetSubCategoryByCategoryId = async (categoryId) => {
+    //   try {
+    //     const resSubCat = await getSubCategoryByCategoryId(categoryId);
+    //     console.log(resSubCat.data);
+    //     // setCategories(res.data.categories);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // handleGetSubCategoryByCategoryId(+categoryId);
   }, [categoryId]);
+
+  //------------------------------------------
+  // useEffect(() => {
+  // }, [categoryId]);
+  //------------------------------------------
+  // useEffect(() => {
+  //   if (categoryId === '1') {
+  //     setSubCatOptions([
+  //       { value: 1, displayText: 'โน๊ตบุ๊ค' },
+  //       { value: 2, displayText: 'แท็ปเล็ต' },
+  //       { value: 3, displayText: 'จอคอม' },
+  //     ]);
+  //   }
+  //   if (categoryId === '2') {
+  //     setSubCatOptions([
+  //       { value: 4, displayText: 'เมาส์' },
+  //       { value: 5, displayText: 'คีย์บอร์ด' },
+  //       { value: 6, displayText: 'ตัวจ่ายไฟ' },
+  //     ]);
+  //   }
+  //   if (categoryId === '3') {
+  //     setSubCatOptions([
+  //       { value: 7, displayText: 'หูฟัง' },
+  //       { value: 8, displayText: 'ลำโพง' },
+  //     ]);
+  //   }
+  //   console.log(subCatOptions);
+  // }, [categoryId, subCatOptions]);
+  //------------------------------------------
 
   useEffect(() => {
     if (mainPicture === null) {
@@ -469,14 +509,20 @@ function AddProductForm({ addNewProductSupplier }) {
                 onChange={(event) => setCategoryId(event.target.value)}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้า</option>
+                {categories.map((el) => {
+                  return (
+                    <>
+                      <option value={el.id || 0}>
+                        {el.categoryName || ''}
+                      </option>
+                    </>
+                  );
+                })}
                 {/* <option value='computer-notebook'>
                   คอมพิวเตอร์และโน๊ตบุ๊ค
                 </option>
                 <option value='it-accessories'>อุปกรณ์ไอที</option>
                 <option value='music-movie'>ดูหนัง ฟังเพลง</option> */}
-                <option value={1}>คอมพิวเตอร์และโน๊ตบุ๊ค</option>
-                <option value={2}>อุปกรณ์ไอที</option>
-                <option value={3}>ดูหนัง ฟังเพลง</option>
               </select>
             </div>
           </div>
@@ -496,15 +542,15 @@ function AddProductForm({ addNewProductSupplier }) {
                 onChange={(event) => setSubCategoryId(event.target.value)}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้าย่อย</option>
-                {subCatOptions.map((el, index) => {
+                {/* {subCatOptions.map((el, index) => {
                   return (
                     <>
-                      <option key={index} value={el.value}>
-                        {el.displayText}
+                      <option key={index} value={el.id || 0}>
+                        {el.subCategoryName || ''}
                       </option>
                     </>
                   );
-                })}
+                })} */}
                 {/* <option value='computer-notebook'>
                   คอมพิวเตอร์และโน๊ตบุ๊ค
                 </option>
@@ -663,8 +709,7 @@ function AddProductForm({ addNewProductSupplier }) {
                 subPicture4,
                 properties,
               });
-
-              // navigate('/supplier/my-product');
+              navigate('/supplier/my-product');
             }}
           >
             เพิ่มสินค้า

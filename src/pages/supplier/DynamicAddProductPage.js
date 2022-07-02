@@ -41,7 +41,7 @@ function DynamicAddProductPage() {
 
     const res = await createProduct(formData);
     console.log(res.data.product);
-    // await createProductPropertyByProductId(res.data.product.id, properties);
+    await createProductPropertyByProductId(res.data.product.id, properties);
     setReRender((reRender) => !reRender);
   };
 
