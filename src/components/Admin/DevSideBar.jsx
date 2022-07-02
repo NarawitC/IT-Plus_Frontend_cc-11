@@ -19,6 +19,7 @@ function DevSideBar() {
             <DevSidebarMenu title='Client' path='/admin/client' />
             <DevSidebarMenu title='Orders' path='/admin/orders' />
             <DevSidebarMenu title='Products' path='/admin/product' />
+            <DevSidebarMenu title='Create Promotion' path='/admin/promotion' />
             <DevSidebarMenu title='Logout' path='/admin/signIn' />
           </ul>
         </div>
