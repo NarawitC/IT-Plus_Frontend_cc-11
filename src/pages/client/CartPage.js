@@ -23,7 +23,9 @@ function CartPage() {
         </div>
       </div>
       {tempCarts?.length > 0 ? (
-        <CartItem />
+        <>
+          <CartItem />
+        </>
       ) : (
         <div className=' flex flex-col justify-center items-center'>
           <BsPlusSquareDotted

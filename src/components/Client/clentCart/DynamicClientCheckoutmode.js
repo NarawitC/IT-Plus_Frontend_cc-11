@@ -1,14 +1,16 @@
 import React from 'react';
 import homeIcon from '../../../../src/pictures/home-icon.svg';
+import { useAuthContext } from '../../../contexts/Client/AuthCcontexts';
 import ModalAddress from './modalAddress';
 
 function DynamicClientCheckoutmode() {
+  const { user } = useAuthContext();
   return (
     <>
-      <div className='grid grid-cols-5 gap-8 mt-8'>
-        <div className='col-span-3'>
+      <div className='w-full grid grid-cols-5 gap-8 mt-8'>
+        <div className='col-span-5'>
           <div className='flex gap-4 justify-between'>
-            <p className='font-bold text-[24px]'>ที่อยู่จัดส่งสินค้า</p>
+            <p className='font-bold text-[24px]'>เลือกที่อยู่จัดส่งสินค้า</p>
             <div className='flex gap-8 text-primary px-8'>
               <label
                 for='my-modal-5'
@@ -22,8 +24,8 @@ function DynamicClientCheckoutmode() {
           </div>
         </div>
       </div>
-      <div className='grid grid-cols-5 gap-8'>
-        <div className='col-span-3 text-center  rounded-xl my-4 '>
+      <div className='grid col-span-5 grid-cols-5 gap-8'>
+        <div className='col-span-5 text-center  rounded-xl my-4 '>
           <div className=' border-2 rounded-xl mx-4 mt-4 py-2'>
             <div className='text-[20px] font-bold py-4'>
               <p>ที่อยู่จัดส่งสินค้า</p>

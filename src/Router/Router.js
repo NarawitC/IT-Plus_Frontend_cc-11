@@ -31,7 +31,7 @@ import ProductByBrand from '../pages/product/productbySubplier/ProductBySupplier
 import CartPage from '../pages/client/CartPage';
 import DynamicSelectedProductPage from '../pages/supplier/DynamicSelectedProductPage';
 import AdminSignInPage from '../pages/AdminSignInPage';
-import SaleOrderPage from '../pages/client/SaleOrderPage';
+import SaleOrderPage from '../pages/client/ClientOrderLogPage';
 
 import { useAdminContext } from '../contexts/Admin/AdminContext';
 import { useSupplierContext } from '../contexts/Supplier/SupplierAuthContext';
@@ -62,7 +62,7 @@ function Router() {
         <Route path='my-spec' element={<MySpecPage />} />
       </Route> */}
 
-      {supplier && (
+      {1 && (
         <>
           <Route path='/supplier' element={<SupplierLayout />}>
             <Route path='' element={<DynamicOrderPage />} />
