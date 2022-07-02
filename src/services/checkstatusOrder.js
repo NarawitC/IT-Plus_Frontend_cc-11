@@ -1,4 +1,5 @@
 import { ORDER_STATUS } from '../config/constants';
+
 export const checkStatusOrder = (order) => {
   let status = ORDER_STATUS.pending;
   if (order) {
@@ -9,4 +10,5 @@ export const checkStatusOrder = (order) => {
       }
     }
   }
+  return status;
 };
