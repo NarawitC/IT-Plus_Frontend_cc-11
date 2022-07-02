@@ -48,29 +48,9 @@ function CartItem() {
   };
   return (
     <div className='grid grid-cols-4 gap-4 py-4 '>
-      {tempCarts.length === 0 ? (
-        <div className='col-span-3 h-full bg-white '>
-          <div className='flex w-full'>
-            <div className='w-[100px] h-[100px] flex justify-center '>
-              <BsPlusSquareDotted
-                size={200}
-                color={'gray'}
-                className='mx-auto text-center'
-              />
-            </div>
-          </div>
-        </div>
-      ) : (
-        <>
-          {tempCarts?.map((el, idx) => (
-            <LGCartlist
-              el={el}
-              key={idx}
-              handleDelcartlist={handleDelcartlist}
-            />
-          ))}
-        </>
-      )}
+      {tempCarts?.map((el, idx) => (
+        <LGCartlist el={el} key={idx} handleDelcartlist={handleDelcartlist} />
+      ))}
 
       <div className=' px-4 border-2 rounded-lg py-4'>
         <div className='flex gap-4'>

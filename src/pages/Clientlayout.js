@@ -11,7 +11,7 @@ import { useLoading } from '../contexts/LoadingContext';
 
 function Clientlayout() {
   const eldrawer = useRef();
-  const { Isloading } = useLoading();
+  const { IsLoading } = useLoading();
   const { error } = useErrorContext();
   const clicksidebar = () => {
     eldrawer.current.click();
@@ -20,7 +20,7 @@ function Clientlayout() {
     <AuthContextProvider>
       <CountdownContextProvider>
         <div data-theme='winter'>
-          {Isloading ? <LoadingPage /> : null}
+          {IsLoading ? <LoadingPage /> : null}
           {error ? <DynamicAlerttoast error={error} /> : null}
           {/* {error ? <DynamicAlerttoast /> : null} */}
           <SideDrawer eldrawer={eldrawer} />

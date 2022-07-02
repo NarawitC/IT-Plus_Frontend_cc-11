@@ -20,7 +20,7 @@ function AdminContextProvider({ children }) {
   const { setError } = useErrorContext();
 
   useEffect(() => {
-    console.log(scarr);
+    // console.log(scarr);
     const fetchMe = async () => {
       try {
         const token = getAccessToken();
@@ -36,7 +36,7 @@ function AdminContextProvider({ children }) {
 
   const adminLogin = async (input) => {
     const res = await adminSignIn(input);
-    // console.log(res);
+    console.log(res);
     setAccessToken(res.data.token);
     // const resMe = await getAdminInfo();
     // setAdmin(resMe.data.user);

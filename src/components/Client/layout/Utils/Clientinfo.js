@@ -22,7 +22,7 @@ function Clientinfo() {
           </Link>
         </li>
         <li>
-          <a>My Orders</a>
+          <Link to='/order-history'>My Orders</Link>
         </li>
         <li>
           <a

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProductfilter } from '../../../../contexts/ProductContext';
 import { localsting } from '../../../../services/LocalstringComma';
-
+import { BsPlusSquareDotted } from 'react-icons/bs';
 function DynamicCartDropdown() {
   const navigate = useNavigate();
   const { totalCart, tempCarts } = useProductfilter();
@@ -47,92 +47,101 @@ function DynamicCartDropdown() {
           >
             <div className='card-body'>
               <span className='font-bold text-lg border-b-2'>รายการของฉัน</span>
-              {/*  */}
-              {tempCarts?.map((el, index) => {
-                // console.log(el);
-                return (
-                  <div key={index} className=' flex flex-col my-auto '>
-                    <div className='flex flex-row  border-b-2 w-full h-24 py-1'>
-                      <img src={el?.mainPicture} className='w-1/3' />
-                      <div className='flex-col flex-1 mx-2 gap-1'>
-                        {el?.Promotions?.length > 0 ? (
-                          <>
-                            <span className='text-sm p-[2px] font-bold m-2 rounded-sm bg-red-600 text-white'>
-                              {el?.Promotions[0].discount}
-                            </span>
-                            <span className='font-bold'>
-                              {localsting(
-                                el?.price - el?.Promotions[0].discount
-                              )}
-                            </span>
+              {tempCarts?.length > 0 ? (
+                <>
+                  {tempCarts?.map((el, index) => {
+                    // console.log(el);
+                    return (
+                      <div key={index} className=' flex flex-col my-auto '>
+                        <div className='flex flex-row  border-b-2 w-full h-24 py-1'>
+                          <img src={el?.mainPicture} className='w-1/3' />
+                          <div className='flex-col flex-1 mx-2 gap-1'>
+                            {el?.Promotions?.length > 0 ? (
+                              <>
+                                <span className='text-sm p-[2px] font-bold m-2 rounded-sm bg-red-600 text-white'>
+                                  {el?.Promotions[0].discount}
+                                </span>
+                                <span className='font-bold'>
+                                  {localsting(
+                                    el?.price - el?.Promotions[0].discount
+                                  )}
+                                </span>
 
-                            <p className=' mx-2 text-[10px] mt-[2px] text-gray-600/50 line-through'>
-                              {localsting(el?.price)}
+                                <p className=' mx-2 text-[10px] mt-[2px] text-gray-600/50 line-through'>
+                                  {localsting(el?.price)}
+                                </p>
+                              </>
+                            ) : (
+                              <span className='ml-2 font-bold'>
+                                {`${localsting(el?.price)}`} THB
+                              </span>
+                            )}
+
+                            <p className=' mx-2 text-sm'>{el?.productName}</p>
+                            <p className='mx-2 text-[10px] text-gray-800/60 '>
+                              จำนวน: {el?.amount + ''}
                             </p>
-                          </>
-                        ) : (
-                          <span className='ml-2 font-bold'>
-                            {`${localsting(el?.price)}`} THB
-                          </span>
-                        )}
-
-                        <p className=' mx-2 text-sm'>{el?.productName}</p>
-                        <p className='mx-2 text-[10px] text-gray-800/60 '>
-                          จำนวน: {el?.amount + ''}
-                        </p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                );
-              })}
-              {/* <div className=' flex flex-col my-auto '>
+                    );
+                  })}
+                  {/* <div className=' flex flex-col my-auto '>
                 <div className='flex flex-row  border-b-2 w-full h-24 py-1'>
-                  <img src='' className='w-1/3' />
-                  <div className='flex-col flex-1 mx-2 gap-1'>
-                    <span className='text-sm p-[2px] font-bold m-2 rounded-sm bg-red-600 text-white'>
-                      10%
-                    </span>
-                    <span>30000</span>
-                    <p className=' mx-2 text-[10px] mt-[2px] text-gray-600/50'>
-                      ifDshowoldprice
-                    </p>
-                    <p className=' mx-2 text-sm'>Hoalalalal</p>
-                    <p className='mx-2 text-[10px] '>amount: 1</p>
-                  </div>
+                <img src='' className='w-1/3' />
+                <div className='flex-col flex-1 mx-2 gap-1'>
+                <span className='text-sm p-[2px] font-bold m-2 rounded-sm bg-red-600 text-white'>
+                10%
+                </span>
+                <span>30000</span>
+                <p className=' mx-2 text-[10px] mt-[2px] text-gray-600/50'>
+                ifDshowoldprice
+                </p>
+                <p className=' mx-2 text-sm'>Hoalalalal</p>
+                <p className='mx-2 text-[10px] '>amount: 1</p>
                 </div>
-              </div>
-              <div className=' flex flex-col my-auto '>
+                </div>
+                </div>
+                <div className=' flex flex-col my-auto '>
                 <div className='flex flex-row  border-b-2 w-full h-24 py-1'>
-                  <img src='' className='w-1/3' />
-                  <div className='flex-col flex-1 mx-2 gap-1'>
-                    <span>30000</span>
-                    <p className=' mx-2 text-[10px] mt-[2px] text-gray-600/50'>
-                      ifDshowoldprice
-                    </p>
-                    <p className=' mx-2 text-sm'>Hoalalalal</p>
-                    <p className='mx-2 text-[10px] '>amount: 1</p>
-                  </div>
+                <img src='' className='w-1/3' />
+                <div className='flex-col flex-1 mx-2 gap-1'>
+                <span>30000</span>
+                <p className=' mx-2 text-[10px] mt-[2px] text-gray-600/50'>
+                ifDshowoldprice
+                </p>
+                <p className=' mx-2 text-sm'>Hoalalalal</p>
+                <p className='mx-2 text-[10px] '>amount: 1</p>
+                </div>
                 </div>
               </div> */}
 
-              {/*  */}
-              <div className='bg-stone-500/10 w-full h-12 border-y-2 mb-2 px-2 flex justify-between items-center '>
-                <span className=' text-sm '>ยอดรวม </span>
-                <span className=' text-base text-primary font-bold '>
-                  {' '}
-                  {totalCart ? localsting(totalCart) : ''}บาท{' '}
-                </span>
-              </div>
-              <div className='card-actions'>
-                <button
-                  className='btn btn-primary btn-block'
-                  onClick={() => {
-                    handleCreateCart();
-                  }}
-                >
-                  create cart
-                </button>
-              </div>
+                  {/*  */}
+                  <div className='bg-stone-500/10 w-full h-12 border-y-2 mb-2 px-2 flex justify-between items-center '>
+                    <span className=' text-sm '>ยอดรวม </span>
+                    <span className=' text-base text-primary font-bold '>
+                      {' '}
+                      {totalCart ? localsting(totalCart) : ''}บาท{' '}
+                    </span>
+                  </div>
+                  <div className='card-actions'>
+                    <button
+                      className='btn btn-primary btn-block'
+                      onClick={() => {
+                        handleCreateCart();
+                      }}
+                    >
+                      create cart
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <BsPlusSquareDotted
+                  size={80}
+                  color={'gray'}
+                  className='mx-auto text-center my-20'
+                />
+              )}
             </div>
           </div>
         </div>
