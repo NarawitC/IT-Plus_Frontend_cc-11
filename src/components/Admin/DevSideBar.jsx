@@ -2,10 +2,11 @@ import React from 'react';
 import DevSidebarMenu from './DevSidebarMenu';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
+
 function DevSideBar() {
   return (
     <>
-      <div className='drawer absolute hover:max-w-lg z-20'>
+      <div className='drawer absolute md:max-w-lg z-20'>
         <input id='my-drawer' type='checkbox' className='drawer-toggle' />
         <div className='drawer-content'>
           <label htmlFor='my-drawer' className='btn btn-primary drawer-button'>
