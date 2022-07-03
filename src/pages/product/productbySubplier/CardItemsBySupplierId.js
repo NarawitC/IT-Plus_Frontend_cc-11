@@ -1,13 +1,20 @@
+import { useEffect, useState } from 'react';
 import { useProductfilter } from '../../../contexts/ProductContext';
 
-function CardItemsBySupplierId() {
+function CardItemsBySupplierId({ supplierId }) {
   const { product } = useProductfilter();
+  const [productBySupplier, setProductBySupplier] = useState(null);
+
+  useEffect(() => {
+    const result = product?.filter((item) => item.supplierId === supplierId);
+    setProductBySupplier(result);
+  }, [product, supplierId]);
 
   console.log(product);
   return (
     <>
       <div className=' px-5 mt-6 grid grid-col-3 gap-y-10 gap-x-4 sm:grid-cols-2 lg:grid-cols-3 '>
-        {product?.map(
+        {productBySupplier?.map(
           ({ price, discout, productName, mainPicture, id, href }) => (
             <div
               key={id}

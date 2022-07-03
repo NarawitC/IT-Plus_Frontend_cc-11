@@ -7,8 +7,10 @@ import { getCart } from '../../apis/client/order';
 import { localsting } from '../../services/LocalstringComma';
 import { useLoading } from '../../contexts/LoadingContext';
 import ModalAddress from '../../components/Client/clentCart/modalAddress';
+import { useOrderContext } from '../../contexts/Client/orderContext';
 
 function CheckoutPage() {
+  const { checkoutAddress } = useOrderContext();
   const [subtotalCart, setsubtotalCart] = useState([]);
   const [TotaltoOdcart, setTotaltoOdcart] = useState(null);
   const [cartOrder, setcartOrder] = useState(null);
@@ -52,7 +54,7 @@ function CheckoutPage() {
   }, []);
 
   const handleCreateOrder = async () => {
-    const res = await createOrderandOrderItems(dbcart, 'address is here');
+    const res = await createOrderandOrderItems(dbcart, checkoutAddress);
   };
 
   return (
@@ -121,9 +123,7 @@ function CheckoutPage() {
           </div>
           <div
             className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl text-white text-[24px] hover:from-blue-600 hover:to-blue-400'
-            onClick={() => {
-              // handleCreateOrder();
-            }}
+            onClick={handleCreateOrder}
           >
             ชำระเงิน
           </div>

@@ -32,9 +32,9 @@ function ProductByBrand() {
         <div className='px-20'>
           <div className='border-2 h-40 pl-8 flex gap-4'>
             <div className='my-auto w-[90px] h-[90px] border-2 rounded-lg  gap-8 '>
-              <div>{supplier.profilePicture}</div>
+              <div>{supplier?.profilePicture}</div>
             </div>
-            <div className='my-auto'>{supplier.displayName}</div>
+            <div className='my-auto'>{supplier?.displayName}</div>
           </div>
           <div className=' py-4 font-bold'>ดูสินค้าทั้งหมด</div>
           <div className='grid grid-cols-4 gap-8  py-8 border-y-2'>
@@ -54,7 +54,7 @@ function ProductByBrand() {
             <RangrPrice />
 
             <div className='col-span-3  border-l-2'>
-              <CardItemsBySupplierId />
+              <CardItemsBySupplierId supplierId={supplier?.id} />
             </div>
           </div>
         </div>

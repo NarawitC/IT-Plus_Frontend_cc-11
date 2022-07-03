@@ -1,10 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import itemImg1 from '../../src/productImg/item1.jpg';
-import itemImg2 from '../../src/productImg/item2.jpg';
-import itemImg3 from '../../src/productImg/item3.jpg';
-import itemImg4 from '../../src/productImg/item4.jpg';
-import { CareateSubcat } from '../apis/admin/adminUserAPI';
 import {
   createCartbyClientId,
   createCartitems,

@@ -14,6 +14,8 @@ import DynamicClientCheckoutmode from './clentCart/DynamicClientCheckoutmode';
 function CartItem() {
   const [cartOrder, setcartOrder] = useState(null);
 
+  console.log(cartOrder);
+
   useEffect(() => {
     const fetchCartDb = async () => {
       if (dbcart) {

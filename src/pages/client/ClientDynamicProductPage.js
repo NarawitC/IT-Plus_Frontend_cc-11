@@ -1,14 +1,11 @@
 import DynamicClientProductCard from '../../components/Client/products/DynamicClientProductCard';
-
-import itemImg1 from '../../../src/productImg/item1.jpg';
-import itemImg2 from '../../../src/productImg/item2.jpg';
-import itemImg3 from '../../../src/productImg/item3.jpg';
-import itemImg4 from '../../../src/productImg/item4.jpg';
 import { FaRegThumbsUp } from 'react-icons/fa';
 import { useProductfilter } from '../../contexts/ProductContext';
+import { useNavigate } from 'react-router-dom';
 
 function ClientDynamicProductPage() {
   const { product, totalPage, page, setPage } = useProductfilter();
+
   const totalPageArr = [];
   for (let i = 1; i <= totalPage; i++) {
     totalPageArr.push(i);

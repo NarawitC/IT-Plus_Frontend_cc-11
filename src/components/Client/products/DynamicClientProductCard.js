@@ -10,8 +10,7 @@ function DynamicClientProductCard({ el }) {
     stock,
     discout,
     productName,
-    imageSrc,
-    imageAlt,
+
     id,
     href,
   } = el;

@@ -6,13 +6,16 @@ import Property from './Property';
 import { useLoading } from '../../../contexts/LoadingContext';
 import { useLocation } from 'react-router-dom';
 import { useProductfilter } from '../../../contexts/ProductContext';
+import { useNavigate } from 'react-router-dom';
 import LocalstringComma, {
   localsting,
 } from '../../../services/LocalstringComma';
 import { useAdminContext } from '../../../contexts/Admin/AdminContext';
 
-function ProductInfoPage() {
+function ProductInfoPage({}) {
   const locate = useLocation();
+  const navigate = useNavigate();
+
   const [idx, setIdx] = useState(0);
   const [count, setCount] = useState(1);
   const [Objecturl, setObjectJa] = useState([]);
@@ -139,7 +142,9 @@ function ProductInfoPage() {
           </div>
           <div className='w-80'>
             <div className='text-[10px] border-b-5'>
-              <a href=''>{singlepd?.Supplier.displayName}</a>
+              <a href={`/product/supplier/${singlepd?.Supplier.id}`}>
+                {singlepd?.Supplier.displayName}
+              </a>
             </div>
             <div>{singlepd?.productName}</div>
 
