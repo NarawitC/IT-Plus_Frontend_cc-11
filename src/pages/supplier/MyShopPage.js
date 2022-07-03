@@ -1,37 +1,37 @@
 import { useContext } from 'react';
-
+import previewPic from '../../pictures/previewPic.png';
 import SupplierLayout from '../../components/supplier/layout/SupplierLayout';
 import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
 
 function MyShopPage() {
-  const mockObj = {
-    firstName: 'พณิช',
-    lastName: 'สุวิมลเสถียร',
-    phoneNumber: '0870802727',
-    email: 'lgwamhmmams@gmail.com',
-    address: '24/14 หมู่ 3 ตำบลคลองสี่ อำเภอคลองหลวง จังหวัดปทุมธานี 12120',
-    displayName: 'บริษัท มาร์เวล จำกัด',
-    description:
-      'IT Plus เริ่มต้นทำธุรกิจ เกี่ยวกับลำโพง หูฟัง และเครื่องเสียง โดยมีจุดเริ่มต้นจากความรักในเสียงเพลง นำไปสู่ความสนใจในเครื่องเสียง ไม่ว่าจะเป็นลำโพงคอมพิวเตอร์ ลำโพงบ้าน หรือ หูฟังรูปแบบต่างๆ เมื่อได้เข้าไปมีส่วนร่วมกับสังคมคนรักเครื่องเสียง',
-    lineId: 'panit.su',
-    bankAccountName: 'บริษัท มาร์เวล จำกัด',
-    bankAccount: '0011223344',
-  };
-  // const { supplier } = useContext(SupplierAuthContext);
+  // const mockObj = {
+  //   firstName: 'พณิช',
+  //   lastName: 'สุวิมลเสถียร',
+  //   phoneNumber: '0870802727',
+  //   email: 'lgwamhmmams@gmail.com',
+  //   address: '24/14 หมู่ 3 ตำบลคลองสี่ อำเภอคลองหลวง จังหวัดปทุมธานี 12120',
+  //   displayName: 'บริษัท มาร์เวล จำกัด',
+  //   description:
+  //     'IT Plus เริ่มต้นทำธุรกิจ เกี่ยวกับลำโพง หูฟัง และเครื่องเสียง โดยมีจุดเริ่มต้นจากความรักในเสียงเพลง นำไปสู่ความสนใจในเครื่องเสียง ไม่ว่าจะเป็นลำโพงคอมพิวเตอร์ ลำโพงบ้าน หรือ หูฟังรูปแบบต่างๆ เมื่อได้เข้าไปมีส่วนร่วมกับสังคมคนรักเครื่องเสียง',
+  //   lineId: 'panit.su',
+  //   bankAccountName: 'บริษัท มาร์เวล จำกัด',
+  //   bankAccount: '0011223344',
+  // };
+  const { supplier } = useContext(SupplierAuthContext);
   // console.log({ supplier: supplier });
 
   return (
     <div className=' '>
       <div className='bg-white flex flex-col items-center  h-[320px] pt-6 '>
-        <div className='image overflow-hidden flex flex-col  w-[266px] justify-center items-center pt-6'>
+        <div className='image overflow-hidden flex flex-col  w-[266px] justify-center items-center pt-6 '>
           <img
             className='rounded-full w-56 h-56 bg-gradient-to-r p-[3px] from-info to-primary drop-shadow-xl hover:scale-110  '
-            src='https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-121.jpg'
-            alt=''
+            src={supplier?.Supplier?.profilePicture || previewPic}
+            alt='profilePic'
           />
           <br />
           <h1 className='text-gray-900 text-center font-bold text-xl leading-8 my-1'>
-            {mockObj.displayName}
+            {supplier?.Supplier?.displayName}
           </h1>
         </div>
       </div>
@@ -61,43 +61,43 @@ function MyShopPage() {
           <div className='grid md:grid-cols-2 text-sm '>
             <div className='grid grid-cols-2 '>
               <div className='px-4 py-2 font-semibold'>ชื่อ:</div>
-              <div className='px-4 py-2'>{mockObj.firstName}</div>
+              <div className='px-4 py-2'>{supplier?.firstName}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>นามสกุล:</div>
-              <div className='px-4 py-2'>{mockObj.lastName}</div>
+              <div className='px-4 py-2'>{supplier?.lastName}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>เบอร์โทรศัพท์:</div>
-              <div className='px-4 py-2'>{mockObj.phoneNumber}</div>
+              <div className='px-4 py-2'>{supplier?.phoneNumber}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>Line ID:</div>
-              <div className='px-4 py-2'>{mockObj.lineId}</div>
+              <div className='px-4 py-2'>{supplier?.Supplier?.lineId}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>ที่อยู่:</div>
-              <div className='px-4 py-2'>{mockObj.address}</div>
+              <div className='px-4 py-2'>{supplier?.address}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>รายละเอียดร้านค้า:</div>
-              <div className='px-4 py-2'>{mockObj.description}</div>
+              <div className='px-4 py-2'>{supplier?.Supplier?.description}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>E-mail:</div>
               <div className='px-4 py-2'>
                 <a className='text-blue-800' href='mailto:jane@example.com'>
-                  {mockObj.email}
+                  {supplier?.email}
                 </a>
               </div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>ชื่อบัญชี:</div>
-              <div className='px-4 py-2'>{mockObj.bankAccountName}</div>
+              <div className='px-4 py-2'>{supplier?.Supplier?.bankName}</div>
             </div>
             <div className='grid grid-cols-2'>
               <div className='px-4 py-2 font-semibold'>เลขที่บัญชี:</div>
-              <div className='px-4 py-2'>{mockObj.bankAccount}</div>
+              <div className='px-4 py-2'>{supplier?.Supplier?.bankAccount}</div>
             </div>
           </div>
         </div>

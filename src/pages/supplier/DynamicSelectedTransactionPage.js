@@ -3,9 +3,11 @@ function DynamicSelectedTransactionPage() {
   return (
     <div className=' p-10 rounded-3xl border-2 m-16'>
       <div className=''>
-        <h1 className='text-4xl text-center font-bold'>การโอนเงินผ่านธนาคาร</h1>
+        <h1 className='text-4xl text-center font-bold'>
+          Invoice หลักฐานการทำธุรกรรม
+        </h1>
         <br />
-        <p className='text-info text-center text-4xl font-bold'>฿ 24,000.00</p>
+        <p className='text-info text-center text-4xl font-bold'>฿ 10,000.00</p>
         <br />
         <p className=' text-center text-2xl text-gray-600'>IN PROGRESS</p>
       </div>
