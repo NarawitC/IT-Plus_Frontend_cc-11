@@ -65,6 +65,15 @@ function OrderPage() {
   console.log(shippingDetails);
   const { role } = useContext(SupplierAuthContext);
 
+  console.log(orders);
+  let accuDate = [];
+
+  const getDateArr = orders.map((el) => {
+    return accuDate.push(el.createdAt);
+  });
+
+  console.log(getDateArr);
+
   useEffect(() => {
     const handleGetAllOrdersBySupplierId = async () => {
       try {
@@ -240,6 +249,7 @@ function OrderPage() {
             <thead>
               <tr className=''>
                 <th className=''>ลำดับ</th>
+                <th className='text-center'>วันที่</th>
                 <th className=''>ชื่อลูกค้า</th>
                 <th className='flex justify-center'>หมายเลขคำสั่งซื้อ</th>
                 <th>ยอดคำสั่งซื้อ</th>
@@ -256,6 +266,13 @@ function OrderPage() {
                       <>
                         <tr className='hover cursor-pointer' key={idx}>
                           <td className='text-center'>{idx + 1}</td>
+                          <td>{`${el.createdAt.slice(
+                            8,
+                            10
+                          )}${el.createdAt.slice(4, 7)}-${el.createdAt.slice(
+                            0,
+                            4
+                          )}`}</td>
                           <td>
                             <div class='flex items-center space-x-3'>
                               <div className='flex w-[40px] justify-center'>

@@ -25,7 +25,7 @@ function MyShopPage() {
       <div className='bg-white flex flex-col items-center  h-[320px] pt-6 '>
         <div className='image overflow-hidden flex flex-col  w-[266px] justify-center items-center pt-6 '>
           <img
-            className='rounded-full w-56 h-56 bg-gradient-to-r p-[3px] from-info to-primary drop-shadow-xl hover:scale-110  '
+            className='rounded-full w-52 h-52 bg-gradient-to-r p-[3px] from-info to-primary drop-shadow-xl hover:scale-110 object-fit '
             src={supplier?.Supplier?.profilePicture || previewPic}
             alt='profilePic'
           />
