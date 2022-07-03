@@ -22,16 +22,21 @@ function AuthContextProvider({ children }) {
   useEffect(() => {
     const fetchMe = async () => {
       try {
-        const token = getAccessToken();
-        // console.log(token);
-        if (token) {
-          const resMe = await getUserInfo();
-          // console.log(resMe.data.user);
-          // console.log('resMe.data.user need to fix');
-          // if (resMe.data.user.role === 'CLIENT') {
-          if (1) {
+        if (
+          !location.pathname.startsWith('/supplier') &&
+          !location.pathname.startsWith('/admin')
+        ) {
+          const token = getAccessToken();
+          // console.log(token);
+          if (token) {
+            const resMe = await getUserInfo();
             // console.log(resMe.data.user);
-            setUser(resMe.data.user);
+            // console.log('resMe.data.user need to fix');
+            if (resMe.data.user.role === 'CLIENT') {
+              // if (1) {
+              // console.log(resMe.data.user);
+              setUser(resMe.data.user);
+            }
           }
         }
       } catch (err) {
@@ -39,8 +44,8 @@ function AuthContextProvider({ children }) {
           !location.pathname.startsWith('/supplier') &&
           !location.pathname.startsWith('/admin')
         ) {
-          // removeAccessTOken();
-          // navigate('/');
+          removeAccessTOken();
+          navigate('/');
         }
       }
     };

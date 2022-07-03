@@ -26,11 +26,13 @@ function SupplierAuthContextProvider({ children }) {
 
   const fetchSupplier = async () => {
     try {
-      const token = getAccessToken();
-      const resSupplier = await getSupplierInfo();
-      if (resSupplier.data.user.role === 'SUPPLIER') {
-        setSupplier(resSupplier.data.user);
-        setRole(resSupplier.data.user.role);
+      if (location.pathname.startsWith('/supplier')) {
+        const token = getAccessToken();
+        const resSupplier = await getSupplierInfo();
+        if (resSupplier.data.user.role === 'SUPPLIER') {
+          setSupplier(resSupplier.data.user);
+          setRole(resSupplier.data.user.role);
+        }
       }
     } catch (err) {
       console.log(err);
