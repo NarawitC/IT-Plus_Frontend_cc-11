@@ -94,6 +94,7 @@ function Router() {
             <Route path='client' element={<AdminClientPage />} />
             <Route path='order' element={<AdminOrderPage />} />
             <Route path='product' element={<AdminProductPage />} />
+            <Route path='product/:productId' element={<ProductInfoPage />} />
             {/* <Route path='sign-in' element={<AdminSignInPage />} /> */}
             <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
             <Route path='' element={<Navigate to='/admin/order'></Navigate>} />
