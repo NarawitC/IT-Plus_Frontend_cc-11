@@ -39,7 +39,7 @@ function ProductInfoPage({}) {
       setsinglepd(null);
       setIsLoading(true);
       const singlePD = await getsinglepd(productId);
-      // await console.log(singlePD);
+      await console.log(singlePD);
       await setsinglepd(singlePD);
       await setCount(1);
       const ObjectJa = [
@@ -159,22 +159,24 @@ function ProductInfoPage({}) {
           <div className='text-[10px] '>คลังสินค้า : {singlepd?.stock}</div>
 
           <div>
-            {singlepd?.disount ? (
+            {singlepd?.Promotions.length > 0 ? (
               <div className='text-[10px] text-gray-500 opacity-50 border-b-2 pb-2 line-through'>
                 ราคาปกติ: {localsting(+singlepd?.price)} ฿
               </div>
             ) : null}
           </div>
           <div className='flex gap-4 mt-8'>
-            {singlepd?.disount ? (
+            {singlepd?.Promotions[0].discount ? (
               <div className='text-[20px] bg-red-800 rounded-lg text-white text-center px-4 my-auto py-2'>
-                ส่วนลด {singlepd?.disount}-
+                ส่วนลด -{singlepd?.Promotions[0].discount}
               </div>
             ) : null}
             <div className='text-[30px]'>
-              {!singlepd?.disount
+              {!singlepd?.Promotions[0].discount
                 ? localsting(+singlepd?.price)
-                : localsting(+singlepd?.price - +singlepd?.disount)}{' '}
+                : localsting(
+                    +singlepd?.price - +singlepd?.Promotions[0].discount
+                  )}{' '}
               ฿
             </div>
           </div>
