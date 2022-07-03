@@ -10,3 +10,7 @@ export const getAllOrdersBySupplierId = async () => {
 // export const getOrderItemsByOrderItemId = async (orderItemId) => {
 //   return await axios.get(`/supplier/order-item/${orderItemId}`);
 // };
+
+export const getOrderByOrderId = async (orderId) => {
+  return await axios.get(`/supplier/order/${orderId}`);
+}

@@ -3,6 +3,7 @@ import { FaEye } from 'react-icons/fa';
 import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { dateFormat } from '../../services/dateFormat';
 
 function DevOrderTable() {
   const [AllOrder, setAllOrder] = useState();
@@ -11,7 +12,7 @@ function DevOrderTable() {
       try {
         const res = await axios.get('/admin/order');
         const orderList = res.data.orders;
-        console.log(res.data);
+        // console.log(res.data);
         setAllOrder(orderList);
       } catch (e) {
         console.log(e.response.data);
@@ -19,7 +20,7 @@ function DevOrderTable() {
     };
     fetchOrder();
   }, []);
-  console.log(AllOrder);
+  // console.log(AllOrder);
 
   return (
     <>
@@ -33,7 +34,7 @@ function DevOrderTable() {
                 <th>Total Price</th>
                 <th>Delivery Address</th>
                 <th>Delivery Price</th>
-                <th>UpdateAt</th>
+                <th>Update At</th>
                 <th>Details</th>
               </tr>
             </thead>
@@ -42,12 +43,16 @@ function DevOrderTable() {
                 return (
                   <tr>
                     <th>{el.id}</th>
-                    <td>{el.productPrice}</td>
-                    <td></td>
-                    <td>{el.deliveryAddress}</td>``j
-                    <td>{el.createdAt}</td>
+                    <td>{el.clientId}</td>
+                    <td>{el.productPrice + el.deliveryPrice}</td>
+                    <td>{el.deliveryAddress}</td>
+                    <td>{el.deliveryPrice}</td>
+                    <td>{dateFormat(el.createdAt)}</td>
                     <td>
-                      <Link to='*' className='btn btn-accent'>
+                      <Link
+                        to={`/admin/order/${el.id}`}
+                        className='btn btn-accent'
+                      >
                         <FaEye />
                       </Link>
                     </td>
@@ -62,7 +67,8 @@ function DevOrderTable() {
                 <th>Total Price</th>
                 <th>Delivery Address</th>
                 <th>Delivery Price</th>
-                <th>UpdateAt</th>
+                <th>Update At</th>
+                <th>Details</th>
               </tr>
             </tfoot>
           </table>
