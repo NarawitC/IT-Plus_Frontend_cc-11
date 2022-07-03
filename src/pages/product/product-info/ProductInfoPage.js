@@ -220,34 +220,9 @@ function ProductInfoPage({}) {
                       <div>+</div>
                     </button>
                   </div>
-                  {singlepd?.stock <= count && (
-                    <div className='text-red-500 my-auto w-4 text-[16px]'>
-                      สินค้าหมด
-                    </div>
-                  )}
                 </div>
               </div>
-              <div className='flex gap-4 mt-8'>
-                <button
-                  className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black ${
-                    singlepd?.stock <= count ? 'btn-disabled ' : 'text-black'
-                  }`}
-                  onClick={() => {
-                    HandleAddcart();
-                  }}
-                >
-                  <img src={addCartIcon} className='mr-4 ' />
-                  ใส่รถเข็นเลย
-                </button>
-                <button
-                  className='btn btn-primary'
-                  onClick={() => {
-                    HandleAddcart();
-                  }}
-                >
-                  ซื้อเลย
-                </button>
-              </div>
+
               <div>
                 {singlepd?.stock <= count && (
                   <div className='text-red-500  w-full flex gap-2 mt-4'>
