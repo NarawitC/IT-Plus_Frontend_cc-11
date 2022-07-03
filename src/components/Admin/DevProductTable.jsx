@@ -23,15 +23,17 @@ function DevProductTable() {
 
   return (
     <div className='mx-auto my-5'>
-      <table className='table w-full table-fixed'>
+      <table className='table w-3/4 table-fixed mx-auto'>
         <thead>
           <tr>
-            <th>Product Title</th>
-            <th> </th>
+            <th>Main Image</th>
+            <th className='w-40'>Product Title</th>
+            <th>Discription</th>
             <th>Price</th>
             <th>Stock</th>
             <th>Supplier ID</th>
             <th>Status</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
@@ -49,23 +51,21 @@ function DevProductTable() {
                             height: 100,
                           }}
                           src={el.mainPicture}
-                          alt='Avatar Tailwind CSS Component'
                         />
                       </div>
                     </div>
                     <div>
-                      <div className='font-bold overflow-auto truncate'>
-                        {el.productName}
-                      </div>
+                      <div className='font-bold overflow-auto truncate'></div>
                     </div>
                     <div className='text-sm opacity-50'>{el.id}</div>
                   </div>
                 </td>
 
                 <td className='overflow-auto truncate'>
-                  {el.description}
+                  {el.productName}
                   <span className='badge badge-ghost badge-sm'>{el.brand}</span>
                 </td>
+                <td className='truncate'>{el.description}</td>
                 <td>{el.price}</td>
                 <td>{el.stock}</td>
                 <td>{el.supplierId}</td>
@@ -82,9 +82,13 @@ function DevProductTable() {
 
         <tfoot>
           <tr>
+            <th>Main Image</th>
             <th>Product Title</th>
-            <th>Description</th>
+            <th>Discription</th>
             <th>Price</th>
+            <th>Stock</th>
+            <th>Supplier ID</th>
+            <th>Status</th>
             <th>Details</th>
           </tr>
         </tfoot>

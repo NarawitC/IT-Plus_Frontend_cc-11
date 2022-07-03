@@ -24,7 +24,7 @@ function DevClientTable() {
     <>
       <div>
         <div className='w-[800px] mt-4 mx-auto'>
-          <table className='table table-compact w-full'>
+          <table className='table table-compact w-3/4 mx-auto'>
             <thead>
               <tr>
                 <th>Client ID</th>
