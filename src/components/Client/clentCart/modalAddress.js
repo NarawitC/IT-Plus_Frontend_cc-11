@@ -2,21 +2,16 @@ import { useEffect, useState } from 'react';
 import homeIcon from '../../../../src/pictures/home-icon.svg';
 import { getProvince } from '../../../apis/openapis/location';
 import location from '../../../apis/fakeapi/locationProvince.json';
+import { useOrderContext } from '../../../contexts/Client/orderContext';
 import axios from 'axios';
 
-function ModalAddress({ setState, user }) {
+function ModalAddress({ user }) {
+  const { setCheckoutAddress } = useOrderContext();
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
   const [subDistrict, setSubDistrict] = useState([]);
-  //   console.log(province);
-  //   console.log(district);
-  //   console.log(subDistrict);
-
-  //   setState({
-  //     province: province.name_th,
-  //     district: district.name_th,
-  //     subDistrict: subDistrict.name_th,
-  //   });
+  const [postcode, setPostcode] = useState(null);
+  const [textaddress, setTextaddress] = useState('');
 
   useEffect(() => {
     setProvince(location[0]);
@@ -34,6 +29,12 @@ function ModalAddress({ setState, user }) {
     }
   }, [district]);
 
+  useEffect(() => {
+    if (subDistrict.zip_code) {
+      setPostcode(subDistrict.zip_code);
+    }
+  }, [subDistrict]);
+
   return (
     <div className='modal'>
       <div className='modal-box w-4/5 '>
@@ -50,27 +51,15 @@ function ModalAddress({ setState, user }) {
         </h3>
         <div className='py-4'>
           <form>
-            <div className='grid grid-cols-2 col gap-8'>
-              <div className=''>
-                <p className='text-left'>ชื่อ-นามสกุล</p>
-                <input
-                  className='border-2 w-full'
-                  placeholder='กรอก ชื่อ-นามสกุล'
-                ></input>
-              </div>
-              <div>
-                <p className='text-left'>หมายเลขโทรศัพท์</p>
-                <input
-                  className='border-2 w-full'
-                  placeholder='กรอก หมายเลขโทรศัพท์'
-                ></input>
-              </div>
-            </div>
+            <div className='grid grid-cols-2 col gap-8'></div>
             <div>
               <p className='text-left'>ที่อยู่</p>
               <textarea
                 className='textarea textarea-primary w-full'
                 placeholder='กรอกที่อยู่'
+                name='textaddress'
+                value={textaddress}
+                onChange={(e) => setTextaddress(e.target.value)}
               ></textarea>
             </div>
             <div className='grid grid-cols-2 w-full gap-8'>
@@ -139,10 +128,7 @@ function ModalAddress({ setState, user }) {
               {/* -------------------------------------------------------------- */}
               <div>
                 <p className='text-left'>รหัสไปรษณี</p>
-                <input
-                  className='border-2 w-full'
-                  placeholder='กรอก รหัสไปรษณี'
-                ></input>
+                <div className='border-2 w-full text-left'>{postcode}</div>
               </div>
               {/* ----------------------------------------------------------------- */}
             </div>
@@ -161,6 +147,11 @@ function ModalAddress({ setState, user }) {
             <label
               for='my-modal-5'
               className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl w-40'
+              onClick={() =>
+                setCheckoutAddress(
+                  `${textaddress}  ${subDistrict.name_th} ${district.name_th} ${province.name_th} ${postcode}`
+                )
+              }
             >
               บันทึก
             </label>

@@ -85,7 +85,15 @@ function SupplierAuthContextProvider({ children }) {
 
   return (
     <SupplierAuthContext.Provider
-      value={{ signUp, supplier, setSupplier, signIn, signOut, role, setRole }}
+      value={{
+        signUp,
+        supplier,
+        setSupplier,
+        signIn,
+        signOut,
+        role,
+        setRole,
+      }}
     >
       {children}
     </SupplierAuthContext.Provider>

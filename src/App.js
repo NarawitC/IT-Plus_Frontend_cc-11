@@ -1,4 +1,5 @@
 import AuthContextProvider from './contexts/Client/AuthCcontexts';
+import OrderContextProvider from './contexts/Client/orderContext';
 import LoadingContextProvider from './contexts/LoadingContext';
 import ProductfilterContextProvider from './contexts/ProductContext';
 
@@ -10,7 +11,9 @@ function App() {
       <AuthContextProvider>
         <LoadingContextProvider>
           <ProductfilterContextProvider>
-            <Router />
+            <OrderContextProvider>
+              <Router />
+            </OrderContextProvider>
           </ProductfilterContextProvider>
         </LoadingContextProvider>
       </AuthContextProvider>

@@ -14,6 +14,8 @@ import DynamicClientCheckoutmode from './clentCart/DynamicClientCheckoutmode';
 function CartItem() {
   const [cartOrder, setcartOrder] = useState(null);
 
+  console.log(cartOrder);
+
   useEffect(() => {
     const fetchCartDb = async () => {
       if (dbcart) {
@@ -93,7 +95,7 @@ function CartItem() {
                   ({totalCartAmount}ชิ้น)
                 </div>
               </div>
-              <div>THB {localsting(totalCart)}</div>
+              <div>฿ {localsting(totalCart)}</div>
             </div>
             <div className='flex justify-between'>
               <p className='font-bold '>ค่าจัดส่ง</p>
@@ -104,7 +106,7 @@ function CartItem() {
             <div className='flex justify-between '>
               <div className='font-bold'>ยอดสุทธิ</div>
               <div className='text-primary font-bold text-[20px] '>
-                THB {localsting(totalCart)}
+                ฿ {localsting(totalCart)}
               </div>
             </div>
             <div className='text-[14px] text-gray-500 opacity-50 line-through'>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { BiErrorCircle } from 'react-icons/bi';
 import { useParams, useLocation } from 'react-router-dom';
 import BreadCrumbs from '../../../components/Client/products/productInfo/BreadCrumbs';
 import addCartIcon from '../../../../src/components/Client/products/productInfo/icons/add-to-cart.svg';
 import Property from './Property';
 import { useLoading } from '../../../contexts/LoadingContext';
 import { useProductfilter } from '../../../contexts/ProductContext';
+import { useNavigate } from 'react-router-dom';
 import LocalstringComma, {
   localsting,
 } from '../../../services/LocalstringComma';
@@ -15,10 +17,12 @@ import {
 } from '../../../apis/admin/productAdmin';
 import { PRODUCT_STATUS } from '../../../config/constants';
 
-function ProductInfoPage() {
+function ProductInfoPage({}) {
   const locate = useLocation();
+  const navigate = useNavigate();
+
   const [idx, setIdx] = useState(0);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [Objecturl, setObjectJa] = useState([]);
   const [singlepd, setsinglepd] = useState(null);
   const [rejectReason, setRejectReason] = useState('');
@@ -112,165 +116,202 @@ function ProductInfoPage() {
   return (
     <div>
       <BreadCrumbs />
-      <div className='  '>
-        <div className=' flex mt-8 justify-center gap-8 '>
-          <div className='flex'>
-            <div className=''>
-              {Objecturl
-                ? Objecturl?.map((el, idx) => {
-                    return (
-                      <>
-                        <div
-                          key={idx}
-                          className=' w-[60px] h-[60px] '
-                          role='button'
-                          onMouseEnter={() => setIdx(idx)}
-                        >
-                          <img
-                            src={el.url}
-                            className='w-full h-full object-cover'
-                          />
-                        </div>
-                      </>
-                    );
-                  })
-                : null}
-            </div>
-            <div className=' w-96 h-96'>
-              <img
-                src={Objecturl[idx]?.url}
-                className='w-full h-full object-cover'
-              />
-            </div>
+
+      <div className=' flex mt-8 justify-center gap-8 '>
+        <div className='flex'>
+          <div className=''>
+            {Objecturl
+              ? Objecturl?.map((el, idx) => {
+                  return (
+                    <>
+                      <div
+                        key={idx}
+                        className=' w-[60px] h-[60px] '
+                        role='button'
+                        onMouseEnter={() => setIdx(idx)}
+                      >
+                        <img
+                          src={el.url}
+                          className='w-full h-full object-cover'
+                        />
+                      </div>
+                    </>
+                  );
+                })
+              : null}
           </div>
-          <div>
-            <div className='text-[10px] border-b-5'>
-              <a href=''>{singlepd?.Supplier.displayName}</a>
-            </div>
-            <div>{singlepd?.productName}</div>
-            <div className='text-[10px]'>รหัสสินค้า : {singlepd?.id}</div>
-            <div>
-              {singlepd?.disount ? (
-                <div className='text-[10px] text-gray-500 opacity-50 border-b-2 pb-2 line-through'>
-                  ราคาปกติ: {localsting(+singlepd?.price)} Bath
-                </div>
-              ) : null}
-            </div>
-            <div className='flex gap-4 mt-8'>
-              {singlepd?.disount ? (
-                <div className='text-[20px] bg-red-800 rounded-lg text-white text-center px-4 my-auto py-2'>
-                  ส่วนลด {singlepd?.disount}-
-                </div>
-              ) : null}
-              <div className='text-[30px]'>
-                {!singlepd?.disount
-                  ? localsting(+singlepd?.price)
-                  : localsting(+singlepd?.price - +singlepd?.disount)}{' '}
-                Bath
-              </div>
-            </div>
-            {admin ? (
-              <div>Stock: {singlepd?.stock}</div>
-            ) : (
-              <>
-                <div className='flex gap-4 mt-8'>
-                  <div className='flex gap-4'>
-                    จำนวน:
-                    {/* ---------------------------------------ปุ่ม - ---------------------------------- */}
-                    <div className='flex w-full justify-center items-center gap-2 border-2 rounded-lg '>
-                      <button
-                        className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none  ${
-                          count === 0
-                            ? 'btn-disabled text-gray-500 opacity-50 '
-                            : ' text-black'
-                        }`}
-                        onClick={() => {
-                          if (count === 0) {
-                            setCount(+count);
-                          } else {
-                            setCount(+count - 1);
-                          }
-                        }}
-                      >
-                        -
-                      </button>
-                      {/* --------------------------------------- ใส่จำนวนได้---------------------------------- */}
-                      <div className='px-4'>
-                        <p className='w-4 text-center'>{count}</p>
-                      </div>
-                      {/* ---------------------------------------ปุ่ม + ---------------------------------- */}
-
-                      <button
-                        className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black ${
-                          singlepd?.stock <= count ? 'btn-disabled' : ''
-                        }`}
-                        onClick={() => {
-                          setCount(+count + 1);
-                        }}
-                      >
-                        <div>+</div>
-                      </button>
-                    </div>
-                    {singlepd?.stock <= count && (
-                      <div className='text-red-500 my-auto w-4 text-[16px]'>
-                        สินค้าหมด
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className='flex gap-4 mt-8'>
-                  <button
-                    className='bg-white flex btn btn-primary'
-                    onClick={() => {
-                      HandleAddcart();
-                    }}
-                  >
-                    <img src={addCartIcon} className='mr-4 ' />
-                    ใส่รถเข็นเลย
-                  </button>
-                  <button
-                    className='btn btn-primary'
-                    onClick={() => {
-                      HandleAddcart();
-                    }}
-                  >
-                    ซื้อเลย
-                  </button>
-                </div>
-              </>
-            )}
-
-            {admin && singlepd?.status === PRODUCT_STATUS.PENDING ? (
-              <>
-                <textarea
-                  onChange={(e) => {
-                    setRejectReason(e.target.value);
-                  }}
-                  value={rejectReason}
-                  type='text-area'
-                  placeholder='Type here'
-                  class='input input-bordered input-primary w-full max-w-xs mt-5 ms-3'
-                ></textarea>
-                <div className='flex gap-2 justify-end mt-3'>
-                  <button
-                    className='btn btn-success flex'
-                    onClick={handleApproveButton}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className='btn btn-warning flex'
-                    onClick={handleRejectButton}
-                  >
-                    Reject
-                  </button>
-                </div>
-              </>
-            ) : null}
+          <div className=' w-96 h-96'>
+            <img
+              src={Objecturl[idx]?.url}
+              className='w-full h-full object-cover'
+            />
           </div>
         </div>
-        <Property singlepd={singlepd} />
+        <div className='w-80'>
+          <div className='text-[10px] border-b-5'>
+            <a href={`/product/supplier/${singlepd?.Supplier.id}`}>
+              {singlepd?.Supplier.displayName}
+            </a>
+          </div>
+          <div>{singlepd?.productName}</div>
+
+          <div className='text-[10px]'>รหัสสินค้า : {singlepd?.id}</div>
+          <div className='text-[10px] '>คลังสินค้า : {singlepd?.stock}</div>
+
+          <div>
+            {singlepd?.disount ? (
+              <div className='text-[10px] text-gray-500 opacity-50 border-b-2 pb-2 line-through'>
+                ราคาปกติ: {localsting(+singlepd?.price)} ฿
+              </div>
+            ) : null}
+          </div>
+          <div className='flex gap-4 mt-8'>
+            {singlepd?.disount ? (
+              <div className='text-[20px] bg-red-800 rounded-lg text-white text-center px-4 my-auto py-2'>
+                ส่วนลด {singlepd?.disount}-
+              </div>
+            ) : null}
+            <div className='text-[30px]'>
+              {!singlepd?.disount
+                ? localsting(+singlepd?.price)
+                : localsting(+singlepd?.price - +singlepd?.disount)}{' '}
+              ฿
+            </div>
+          </div>
+          {admin ? (
+            <div>Stock: {singlepd?.stock}</div>
+          ) : (
+            <>
+              <div className='flex gap-4 mt-8'>
+                <div className='flex gap-4'>
+                  จำนวน:
+                  {/* ---------------------------------------ปุ่ม - ---------------------------------- */}
+                  <div className='flex w-full justify-center items-center gap-2 border-2 rounded-lg '>
+                    <button
+                      className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none  ${
+                        count === 1
+                          ? 'btn-disabled text-gray-500 opacity-50 '
+                          : ' text-black'
+                      }`}
+                      onClick={() => {
+                        if (count === 0) {
+                          setCount(+count);
+                        } else {
+                          setCount(+count - 1);
+                        }
+                      }}
+                    >
+                      -
+                    </button>
+                    {/* --------------------------------------- ใส่จำนวนได้---------------------------------- */}
+                    <div className='px-4'>
+                      <p className='w-4 text-center'>{count}</p>
+                    </div>
+                    {/* ---------------------------------------ปุ่ม + ---------------------------------- */}
+
+                    <button
+                      className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black ${
+                        singlepd?.stock <= count ? 'btn-disabled' : ''
+                      }`}
+                      onClick={() => {
+                        setCount(+count + 1);
+                      }}
+                    >
+                      <div>+</div>
+                    </button>
+                  </div>
+                  {singlepd?.stock <= count && (
+                    <div className='text-red-500 my-auto w-4 text-[16px]'>
+                      สินค้าหมด
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className='flex gap-4 mt-8'>
+                <button
+                  className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black ${
+                    singlepd?.stock <= count ? 'btn-disabled ' : 'text-black'
+                  }`}
+                  onClick={() => {
+                    HandleAddcart();
+                  }}
+                >
+                  <img src={addCartIcon} className='mr-4 ' />
+                  ใส่รถเข็นเลย
+                </button>
+                <button
+                  className='btn btn-primary'
+                  onClick={() => {
+                    HandleAddcart();
+                  }}
+                >
+                  ซื้อเลย
+                </button>
+              </div>
+            </>
+          )}
+
+          <div>
+            {singlepd?.stock <= count && (
+              <div className='text-red-500  w-full flex gap-2 mt-4'>
+                <BiErrorCircle />
+                <p className='text-[12px] text-right'>
+                  ไม่สามารถเพิ่มจำนวนสินค้าได้ เนื่องจากเกินจำนวนคลังสินค้า
+                </p>
+              </div>
+            )}
+          </div>
+
+          <div className='flex gap-4 mt-8'>
+            <button
+              className='bg-white flex btn btn-primary'
+              onClick={() => {
+                HandleAddcart();
+              }}
+            >
+              <img src={addCartIcon} className='mr-4 ' />
+              ใส่รถเข็นเลย
+            </button>
+            <button
+              className='btn btn-primary'
+              onClick={() => {
+                HandleAddcart();
+              }}
+            >
+              ซื้อเลย
+            </button>
+          </div>
+
+          {admin && singlepd?.status === PRODUCT_STATUS.PENDING ? (
+            <>
+              <textarea
+                onChange={(e) => {
+                  setRejectReason(e.target.value);
+                }}
+                value={rejectReason}
+                type='text-area'
+                placeholder='Type here'
+                class='input input-bordered input-primary w-full max-w-xs mt-5 ms-3'
+              ></textarea>
+              <div className='flex gap-2 justify-end mt-3'>
+                <button
+                  className='btn btn-success flex'
+                  onClick={handleApproveButton}
+                >
+                  Approve
+                </button>
+                <button
+                  className='btn btn-warning flex'
+                  onClick={handleRejectButton}
+                >
+                  Reject
+                </button>
+              </div>
+            </>
+          ) : null}
+        </div>
       </div>
+      <Property singlepd={singlepd} />
     </div>
   );
 }
