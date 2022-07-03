@@ -38,7 +38,7 @@ import { useSupplierContext } from '../contexts/Supplier/SupplierAuthContext';
 function Router() {
   const { admin } = useAdminContext();
   const { supplier } = useSupplierContext();
-  console.log(admin);
+  // console.log(admin);
   return (
     <Routes>
       {/* todo wait for modify route */}
@@ -62,7 +62,7 @@ function Router() {
         <Route path='my-spec' element={<MySpecPage />} />
       </Route> */}
 
-      {1 && (
+      {supplier && (
         <>
           <Route path='/supplier' element={<SupplierLayout />}>
             <Route path='' element={<DynamicOrderPage />} />
