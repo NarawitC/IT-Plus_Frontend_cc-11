@@ -13,7 +13,7 @@ function NotiDropDown() {
       </label>
       <ul
         tabIndex='0'
-        class='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-[300px]'
+        className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-[300px]'
       >
         <li>
           <Link to={`/supplier`}>

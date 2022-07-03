@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import { useLocation, useNavigate, createSearchParams } from 'react-router-dom';
 
-
 import {
   createCartbyClientId,
   createCartitems,
@@ -52,7 +51,6 @@ function ProductfilterContextProvider({ children }) {
       }
     };
     sumPrice();
-
   }, [priceRange, tempCarts, searchParams]);
 
   const PriceRangeFiler = async (productRange) => {
@@ -278,9 +276,9 @@ function ProductfilterContextProvider({ children }) {
         totalPage,
         setPage,
         page,
-        searchTextinp,
-        setsearchTextinp,
-        handleClickparmsQ,
+        // searchTextinp,
+        // setsearchTextinp,
+        // handleClickparmsQ,
 
         setProductquery,
         cilentgetAllOrders,

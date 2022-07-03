@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BiErrorCircle } from 'react-icons/bi';
+import { motion } from 'framer-motion';
 import { useParams, useLocation } from 'react-router-dom';
 import BreadCrumbs from '../../../components/Client/products/productInfo/BreadCrumbs';
 import addCartIcon from '../../../../src/components/Client/products/productInfo/icons/add-to-cart.svg';
@@ -71,7 +72,7 @@ function ProductInfoPage({}) {
     if (findAlredyCart !== undefined) {
       await settempCarts((prev) => {
         // console.log(prev);
-        const newarr = prev.map((el) => {
+        const newarr = prev.map((el, idx) => {
           if (el.id === singlepd.id) {
             // console.log(el.id);
             // console.log(singlepd.id);
@@ -114,7 +115,11 @@ function ProductInfoPage({}) {
   };
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <BreadCrumbs />
 
       <div className=' flex mt-8 justify-center gap-8 '>
@@ -123,9 +128,8 @@ function ProductInfoPage({}) {
             {Objecturl
               ? Objecturl?.map((el, idx) => {
                   return (
-                    <>
+                    <div key={idx}>
                       <div
-                        key={idx}
                         className=' w-[60px] h-[60px] '
                         role='button'
                         onMouseEnter={() => setIdx(idx)}
@@ -135,7 +139,7 @@ function ProductInfoPage({}) {
                           className='w-full h-full object-cover'
                         />
                       </div>
-                    </>
+                    </div>
                   );
                 })
               : null}
@@ -166,16 +170,16 @@ function ProductInfoPage({}) {
             ) : null}
           </div>
           <div className='flex gap-4 mt-8'>
-            {singlepd?.Promotions[0].discount ? (
+            {singlepd?.Promotions[0]?.discount ? (
               <div className='text-[20px] bg-red-800 rounded-lg text-white text-center px-4 my-auto py-2'>
-                ส่วนลด -{singlepd?.Promotions[0].discount}
+                ส่วนลด -{singlepd?.Promotions[0]?.discount}
               </div>
             ) : null}
             <div className='text-[30px]'>
-              {!singlepd?.Promotions[0].discount
+              {!singlepd?.Promotions[0]?.discount
                 ? localsting(+singlepd?.price)
                 : localsting(
-                    +singlepd?.price - +singlepd?.Promotions[0].discount
+                    +singlepd?.price - +singlepd?.Promotions[0]?.discount
                   )}{' '}
               ฿
             </div>
@@ -236,7 +240,7 @@ function ProductInfoPage({}) {
                 )}
               </div>
 
-              <div className='flex gap-4 mt-8'>
+              <div key={idx} className='flex gap-4 mt-8'>
                 <button
                   className='bg-white flex btn btn-primary'
                   onClick={() => {
@@ -267,7 +271,7 @@ function ProductInfoPage({}) {
                 value={rejectReason}
                 type='text-area'
                 placeholder='Type here'
-                class='input input-bordered input-primary w-full max-w-xs mt-5 ms-3'
+                className='input input-bordered input-primary w-full max-w-xs mt-5 ms-3'
               ></textarea>
               <div className='flex gap-2 justify-end mt-3'>
                 <button
@@ -287,8 +291,8 @@ function ProductInfoPage({}) {
           ) : null}
         </div>
       </div>
-      <Property singlepd={singlepd} productId={productId} />
-    </div>
+      <Property singlepd={singlepd} />
+    </motion.div>
   );
 }
 
