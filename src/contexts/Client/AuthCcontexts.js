@@ -28,9 +28,9 @@ function AuthContextProvider({ children }) {
           const resMe = await getUserInfo();
           // console.log(resMe.data.user);
           // console.log('resMe.data.user need to fix');
-          // if (resMe.data.user.role === 'CLIENT') {
-          if (1) {
-            console.log(resMe.data.user);
+          if (resMe.data.user.role === 'CLIENT') {
+            // if (1) {
+            // console.log(resMe.data.user);
             setUser(resMe.data.user);
           }
         }
@@ -39,8 +39,8 @@ function AuthContextProvider({ children }) {
           !location.pathname.startsWith('/supplier') &&
           !location.pathname.startsWith('/admin')
         ) {
-          // removeAccessTOken();
-          // navigate('/');
+          removeAccessTOken();
+          navigate('/');
         }
       }
     };
