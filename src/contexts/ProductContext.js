@@ -88,7 +88,7 @@ function ProductfilterContextProvider({ children }) {
     );
   };
   useEffect(() => {
-    console.log(productquery);
+    // console.log(productquery);
     PriceRangeFiler(priceRange, productquery);
   }, [priceRange, productquery]);
 
@@ -113,7 +113,7 @@ function ProductfilterContextProvider({ children }) {
   }, [tempCarts]);
   const PriceRangeFiler = async (productRange, productquery) => {
     const params = await new URLSearchParams([['answer', 42]]);
-    console.log(params);
+    // console.log(params);
     const res = await getAllproduct('param');
     // console.log(res);
     // console.log(productRange);

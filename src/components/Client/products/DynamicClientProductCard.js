@@ -8,7 +8,7 @@ function DynamicClientProductCard({ el }) {
     price,
     mainPicture,
     stock,
-    discout,
+    Promotions,
     productName,
     imageSrc,
     imageAlt,
@@ -23,31 +23,31 @@ function DynamicClientProductCard({ el }) {
         navigate(`/product/${id}`);
       }}
     >
-      <div className='w-full bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75  lg:aspect-none'>
+      <div className='w-full h-4/6 mt-4 bg-white aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75  lg:aspect-none'>
         <img
           src={mainPicture}
           alt={'imageAlt'}
-          className='w-full  object-center   lg:w-full  '
+          className='w-full  object-center  lg:w-full  '
         />
       </div>
-      <div className='mt-4 flex justify-between'>
-        <div>
-          <h3 className='text-sm text-gray-700'>
+      <div className='mt-4 flex justify-between '>
+        <div className='w-full'>
+          <h3 className='text-sm text-gray-700 '>
             <a href={href}>
               <span aria-hidden='true' className='absolute inset-0' />
               {productName}
             </a>
           </h3>
           <div>
-            {discout ? (
-              <div className='text-sm font-medium  py-2'>
+            {Promotions?.length > 0 ? (
+              <div className='text-sm font-medium  py-2  '>
                 <p className='text-emerald-700 text-[20px] text-right'>
-                  THB {(price - discout).toLocaleString('en-US')}
+                  THB {(price - Promotions[0].discount).toLocaleString('en-US')}
                 </p>
                 <div className='flex pt-3'>
-                  {discout ? (
+                  {Promotions?.length > 0 ? (
                     <p className='text-xs flex-1 text-red-600 opacity-50'>
-                      Discount {discout} THB
+                      Discount {Promotions[0].discount} THB
                     </p>
                   ) : (
                     <p className='text-xs flex-1 text-red-600 opacity-50'>

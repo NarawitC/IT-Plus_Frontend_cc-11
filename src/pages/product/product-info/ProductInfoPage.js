@@ -64,7 +64,7 @@ function ProductInfoPage() {
         const newarr = prev.map((el) => {
           if (el.id === singlepd.id) {
             // console.log(el.id);
-            // console.log(singlepd.id);
+            // console.log(singlepd);
             el.amount += count;
             return el;
           } else return el;
@@ -104,7 +104,7 @@ function ProductInfoPage() {
 
   return (
     <div>
-      <BreadCrumbs />
+      <BreadCrumbs Productname={singlepd?.productName} />
       <div className='  '>
         <div className=' flex mt-8 justify-center gap-8 '>
           <div className='flex'>
@@ -143,22 +143,24 @@ function ProductInfoPage() {
             <div>{singlepd?.productName}</div>
             <div className='text-[10px]'>รหัสสินค้า : {singlepd?.id}</div>
             <div>
-              {singlepd?.disount ? (
+              {singlepd?.Promotions.length > 0 ? (
                 <div className='text-[10px] text-gray-500 opacity-50 border-b-2 pb-2 line-through'>
                   ราคาปกติ: {localsting(+singlepd?.price)} Bath
                 </div>
               ) : null}
             </div>
             <div className='flex gap-4 mt-8'>
-              {singlepd?.disount ? (
+              {singlepd?.Promotions.length > 0 ? (
                 <div className='text-[20px] bg-red-800 rounded-lg text-white text-center px-4 my-auto py-2'>
-                  ส่วนลด {singlepd?.disount}-
+                  ส่วนลด -{singlepd?.Promotions[0].discount}
                 </div>
               ) : null}
               <div className='text-[30px]'>
-                {!singlepd?.disount
+                {!singlepd?.Promotions.length > 0
                   ? localsting(+singlepd?.price)
-                  : localsting(+singlepd?.price - +singlepd?.disount)}{' '}
+                  : localsting(
+                      +singlepd?.price - +singlepd?.Promotions[0].discount
+                    )}{' '}
                 Bath
               </div>
             </div>
