@@ -48,7 +48,7 @@ function CartItem() {
 
   const handleSubmitcart = async (tempCarts, userid) => {
     // console.log(userid);
-    console.log(userid);
+    // console.log(userid);
     const cartId = await createCarts(tempCarts, userid);
     setdbcart(cartId);
 
@@ -57,8 +57,7 @@ function CartItem() {
   };
   const handleCreateOrder = async () => {
     const res = await createOrderandOrderItems(dbcart, 'address is here');
-    console.log(res.data);
-    console.log('res.data');
+    // console.log(res.data);
     navigate('/cart/checkout');
   };
   const handleDelcartlist = async (id) => {

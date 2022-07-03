@@ -1,16 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Ficon from '../../../../src/icons/fs-1.svg';
 import { useCountdown } from '../../../contexts/clountdownContext';
+import { useLoading } from '../../../contexts/LoadingContext';
 import { useProductfilter } from '../../../contexts/ProductContext';
 import SmPillButton from '../../commonUtils/SmPillButton';
 import DynamicClientProductCard from '../products/DynamicClientProductCard';
 
 function FlashSaleCountdownbar() {
+  const [FlashsaleProducts, setFlashsaleProducts] = useState([]);
   const { SetcountdownStrbydate, Days, Hrs, Mins, Secs } = useCountdown();
-  useEffect(() => {
-    SetcountdownStrbydate(1);
-  }, []);
   const { product } = useProductfilter();
+  const { setIsLoading } = useLoading();
+  useEffect(() => {
+    const fetchFlashsale = async () => {
+      setIsLoading(true);
+      SetcountdownStrbydate(1);
+      const onlyPros = await product?.filter((el) => el.Promotions.length > 0);
+      setFlashsaleProducts(onlyPros);
+      // console.log(onlyPros);
+      // console.log('onlyPros');
+      setIsLoading(false);
+    };
+    fetchFlashsale();
+  }, []);
 
   return (
     <div>
@@ -67,7 +79,7 @@ function FlashSaleCountdownbar() {
       </div>
 
       <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 '>
-        {product?.map((el, idx) => (
+        {FlashsaleProducts?.map((el, idx) => (
           <DynamicClientProductCard el={el} key={idx} />
         ))}
       </div>

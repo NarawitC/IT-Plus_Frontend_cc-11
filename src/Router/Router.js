@@ -66,10 +66,10 @@ function Router() {
         <Route path='my-spec' element={<MySpecPage />} />
       </Route> */}
 
-      {
-        ( 1 && (
-          <>
-            <Route path='/supplier' element={<SupplierLayout />}>
+      <>
+        <Route path='/supplier' element={<SupplierLayout />}>
+          {supplier && (
+            <>
               <Route path='' element={<DynamicOrderPage />} />
               <Route path='signup' element={<SupplierSignUpPage />} />
               <Route path='my-product' element={<ProductPage />} />
@@ -88,10 +88,12 @@ function Router() {
                 element={<DynamicSelectedProductPage />}
               />
               <Route path='tracking' element={<TrackingPage />} />
-            </Route>
-          </>
-        ))
-      }
+            </>
+          )}
+          <Route path='' element={<SupplierSignUpPage />} />
+          <Route path='*' element={<Navigate to='/supplier'></Navigate>} />
+        </Route>
+      </>
 
       {admin && (
         <>

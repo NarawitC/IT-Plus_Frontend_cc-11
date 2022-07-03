@@ -21,8 +21,6 @@ function CheckoutPage() {
     const fetchCartDb = async () => {
       if (dbcart) {
         const rescart = await GetCartsbyId(dbcart);
-        console.log(rescart);
-        console.log('rescart');
         setcartOrder(rescart.CartItems);
         return rescart.CartItems;
       }
@@ -50,7 +48,7 @@ function CheckoutPage() {
         setIsLoading(false);
       }
     };
-    // sumPrice();
+    sumPrice();
   }, []);
 
   const handleCreateOrder = async () => {

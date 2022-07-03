@@ -1,4 +1,4 @@
-function BreadCrumbs() {
+function BreadCrumbs({ Productname }) {
   return (
     <div>
       <div class='text-sm breadcrumbs  border-b-2  opacity-50'>
@@ -12,7 +12,7 @@ function BreadCrumbs() {
           <li>
             <a>จอคอมพิวเตอร์ (Monitor)</a>
           </li>
-          <li>จอคอม BenQ EW2880U 28" IPS Monitor 60Hz</li>
+          {Productname ? <li>{Productname}</li> : null}
         </ul>
       </div>
     </div>
