@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+
+import { useLocation, useNavigate, createSearchParams } from 'react-router-dom';
+
 
 import {
   createCartbyClientId,
@@ -15,6 +17,7 @@ import { getAllProductInfo, getProductById } from '../apis/client/product';
 const ProductfilterContext = createContext();
 
 function ProductfilterContextProvider({ children }) {
+  const navigate = useNavigate();
   //
   const [dbcart, setdbcart] = useState(null);
 
@@ -28,26 +31,8 @@ function ProductfilterContextProvider({ children }) {
   const [productquery, setProductquery] = useState(null);
   const [totalPage, setTotalPage] = useState(null);
   const [page, setPage] = useState(1);
-  const [searchTextinp, setsearchTextinp] = useState('');
-  const navigate = useNavigate();
-  useEffect(() => {
-    // console.log(page);
-    // console.log(searchTextinp);
-    // console.log(productquery);
-    // PriceRangeFiler(priceRange, productquery);
-  }, [page, searchTextinp]);
 
-  const handleClickparmsQ = () => {
-    navigate(
-      `/product/?${page ? 'page=' + page : ''}${
-        searchTextinp ? '&searchText=' + searchTextinp : ''
-      }`
-    );
-  };
-  useEffect(() => {
-    // console.log(productquery);
-    PriceRangeFiler(priceRange, productquery);
-  }, [priceRange, productquery]);
+  const [searchParams, setSearchParams] = useState({});
 
   useEffect(() => {
     const sumPrice = () => {
@@ -67,11 +52,12 @@ function ProductfilterContextProvider({ children }) {
       }
     };
     sumPrice();
-  }, [tempCarts]);
-  const PriceRangeFiler = async (productRange, productquery) => {
-    const params = await new URLSearchParams([['answer', 42]]);
-    // console.log(params);
-    const res = await getAllproduct('param');
+
+  }, [priceRange, tempCarts, searchParams]);
+
+  const PriceRangeFiler = async (productRange) => {
+    const res = await getAllproduct();
+
     // console.log(res);
     // console.log(productRange);
     const { products } = res;
@@ -102,7 +88,7 @@ function ProductfilterContextProvider({ children }) {
     // return await products[id];
   };
   const getAllproduct = async () => {
-    const { data } = await getAllProductInfo();
+    const { data } = await getAllProductInfo({ searchParams });
     return data;
     // console.log(product[id]);
     // return await products[id];
@@ -270,6 +256,7 @@ function ProductfilterContextProvider({ children }) {
     // const res = await getCartbyIdapi(cartId);
     return res.data;
   };
+
   return (
     <ProductfilterContext.Provider
       value={{
@@ -297,6 +284,8 @@ function ProductfilterContextProvider({ children }) {
 
         setProductquery,
         cilentgetAllOrders,
+        setSearchParams,
+        searchParams,
       }}
     >
       {children}

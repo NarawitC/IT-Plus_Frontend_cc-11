@@ -1,12 +1,18 @@
 import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+
 import { useProductfilter } from '../../../../../contexts/ProductContext';
+
 function Searchbar() {
-  const { setsearchTextinp, searchTextinp, handleClickparmsQ } =
-    useProductfilter();
-  const navigate = useNavigate();
+  const [searchText, setSearchText] = useState('');
+  const { searchParams, setSearchParams } = useProductfilter();
+
+  const handleSearchButton = (e) => {
+    e.preventDefault();
+    setSearchParams((prev) => ({ ...prev, searchText }));
+  };
+
   return (
     <>
       <div className='form-control block w-full h-2/5 py-1 my-2 ml-2 self-center items-start'>
@@ -17,16 +23,18 @@ function Searchbar() {
               value={searchTextinp}
               placeholder='Search items with itplus'
               className=' input appearance-none self-center h-6 w-full align-middle focus:outline-none text-base text-slate-500'
-              onChange={(e) => setsearchTextinp(e.target.value)}
+
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+
             ></input>
           </div>
           <div className='w-1/10 relative block -mt-1 '>
             <button
               className='btn btn-circle gradeient1 border-0 -p-3 '
-              onClick={() => {
-                handleClickparmsQ();
-                // navigate(`/product/?searchText=${searchTextinp}`);
-              }}
+
+              onClick={handleSearchButton}
+
             >
               <FiSearch size={30} color={'white'} scale={20} strokeWidth={3} />
             </button>
