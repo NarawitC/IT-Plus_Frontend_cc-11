@@ -248,39 +248,38 @@ function ProductInfoPage({}) {
                   ซื้อเลย
                 </button>
               </div>
+              <div>
+                {singlepd?.stock <= count && (
+                  <div className='text-red-500  w-full flex gap-2 mt-4'>
+                    <BiErrorCircle />
+                    <p className='text-[12px] text-right'>
+                      ไม่สามารถเพิ่มจำนวนสินค้าได้ เนื่องจากเกินจำนวนคลังสินค้า
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <div className='flex gap-4 mt-8'>
+                <button
+                  className='bg-white flex btn btn-primary'
+                  onClick={() => {
+                    HandleAddcart();
+                  }}
+                >
+                  <img src={addCartIcon} className='mr-4 ' />
+                  ใส่รถเข็นเลย
+                </button>
+                <button
+                  className='btn btn-primary'
+                  onClick={() => {
+                    HandleAddcart();
+                  }}
+                >
+                  ซื้อเลย
+                </button>
+              </div>
             </>
           )}
-
-          <div>
-            {singlepd?.stock <= count && (
-              <div className='text-red-500  w-full flex gap-2 mt-4'>
-                <BiErrorCircle />
-                <p className='text-[12px] text-right'>
-                  ไม่สามารถเพิ่มจำนวนสินค้าได้ เนื่องจากเกินจำนวนคลังสินค้า
-                </p>
-              </div>
-            )}
-          </div>
-
-          <div className='flex gap-4 mt-8'>
-            <button
-              className='bg-white flex btn btn-primary'
-              onClick={() => {
-                HandleAddcart();
-              }}
-            >
-              <img src={addCartIcon} className='mr-4 ' />
-              ใส่รถเข็นเลย
-            </button>
-            <button
-              className='btn btn-primary'
-              onClick={() => {
-                HandleAddcart();
-              }}
-            >
-              ซื้อเลย
-            </button>
-          </div>
 
           {admin && singlepd?.status === PRODUCT_STATUS.PENDING ? (
             <>
