@@ -285,7 +285,7 @@ function ProductInfoPage({}) {
           ) : null}
         </div>
       </div>
-      <Property singlepd={singlepd} />
+      <Property singlepd={singlepd} productId={productId} />
     </div>
   );
 }

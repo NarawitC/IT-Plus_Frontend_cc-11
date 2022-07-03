@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BiErrorCircle } from 'react-icons/bi';
 import CartImg from '../../../../src/pictures/cart-test-1.jpg';
 import trash from '../../../../src/pictures/trash.svg';
 import { useProductfilter } from '../../../contexts/ProductContext';
@@ -19,10 +20,10 @@ function LGCartlist({ el, handleDelcartlist }) {
           return elc;
         } else return elc;
       });
-      // console.log(newarr);
       return newarr;
     });
   };
+  console.log(el.id);
 
   useEffect(() => {
     handleChangeamount();
@@ -43,24 +44,30 @@ function LGCartlist({ el, handleDelcartlist }) {
               <>
                 <div className='flex pt-6 gap-4'>
                   <div className='bg-red-500 text-white px-4 rounded-lg  h-10'>
-                    <div className='my-2'>- THB 500</div>
+                    <div className='my-2'>- ฿ 500</div>
                   </div>
                   <div className='font-bold text-[24px]'>
-                    THB {localsting(el.price - el.Promotions[0].discount)}
+                    ฿ {localsting(el.price - el.Promotions[0].discount)}
                   </div>
                 </div>
                 <div className='line-through text-gray-500 opacity-50'>
-                  THB {localsting(el.price)}
+                  ฿ {localsting(el.price)}
                 </div>
               </>
             ) : (
-              <div className='font-bold text-[24px]'>THB {el.price}</div>
+              <div className='font-bold text-[24px]'>
+                ฿ {localsting(el.price)}
+              </div>
             )}
           </div>
           <div className='flex col-span-3 justify-end pr-8 gap-12 '>
             <div className='col-span-1 flex my-auto border-2 rounded-lg   '>
               <button
-                className='  w-[30px] h-[30px] text-black bg-white btn btn-primary border-none '
+                className={` w-[30px] h-[30px]  bg-white btn btn-primary border-none ${
+                  count === 1
+                    ? 'btn-disabled text-gray-500 opacity-50'
+                    : 'text-black'
+                }`}
                 onClick={() => {
                   if (count === 0) {
                     setCount(+count);
@@ -71,12 +78,16 @@ function LGCartlist({ el, handleDelcartlist }) {
               >
                 -
               </button>
-              {/* --------------------------------------- ใส่จำนวนได้---------------------------------- */}
+              {/* --------------------------------------- จำนวน---------------------------------- */}
               <p className='my-auto text-[20px] px-4 '>{count}</p>
               {/* ---------------------------------------ปุ่ม + ---------------------------------- */}
 
               <button
-                className='  w-[30px] h-[30px] text-black  bg-white btn btn-primary border-none'
+                className={`w-[30px] h-[30px]   bg-white btn btn-primary border-none ${
+                  el.stock <= count
+                    ? 'btn-disabled text-gray-500 opacity-50'
+                    : 'text-black'
+                }`}
                 onClick={() => {
                   setCount(+count + 1);
                 }}
@@ -93,6 +104,16 @@ function LGCartlist({ el, handleDelcartlist }) {
               />
             </div>
           </div>
+        </div>
+        <div className='flex justify-end'>
+          {el.stock <= count && (
+            <div className='flex text-red-500 gap-2 '>
+              <BiErrorCircle />
+              <p className=' text-[12px]'>
+                ไม่สามารถเพิ่มจำนวนสินค้าได้ เนื่องจากเกินจำนวนคลังสินค้า
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </>

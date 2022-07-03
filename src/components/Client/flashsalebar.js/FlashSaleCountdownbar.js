@@ -20,47 +20,47 @@ function FlashSaleCountdownbar() {
         </div>
         <div className='flex text-black'>
           <div>
-            <div className='text-[20px] font-bold  '>Special Price!</div>
+            <div className='text-[20px] font-bold  '>Special Price!!</div>
             <div className='text-right'>Eleminated in</div>
             {/* <div className='text-[20px] font-bold '>ราคาพิเศษ</div> */}
             {/* <div>เหลือเวลาเพียง</div> */}
           </div>
-          <div className='flex gap-4 items-center ml-4 mt-1'>
+          <div className='grid grid-cols-4 gap-2 items-center ml-4 mt-1'>
             <div className='flex flex-col'>
-              <div className='countdown text-center bg-black py-1'>
+              <div className='countdown text-center bg-black py-4'>
                 <div
-                  className='  font-bold  bg-black  text-white max-w-fit mx-auto'
+                  className='font-bold    text-white max-w-fit mx-auto'
                   style={{ '--value': Days }}
                 ></div>
               </div>
-              <p>Days</p>
+              <p className='text-center font-bold text-[14px]'>Days</p>
             </div>
             <div className='flex flex-col'>
-              <div className='countdown text-center bg-black py-1 '>
+              <div className='countdown text-center bg-black py-4 '>
                 <p
-                  className=' font-bold  bg-black text-white max-w-fit mx-auto'
+                  className=' font-bold   text-white max-w-fit mx-auto'
                   style={{ '--value': Hrs }}
                 ></p>
               </div>
-              <p>Hours</p>
+              <p className='text-center font-bold text-[14px]'>Hours</p>
             </div>
             <div className='flex flex-col'>
-              <div className='countdown text-center bg-black py-1'>
+              <div className='countdown text-center bg-black py-4'>
                 <div
-                  className=' font-bold bg-black text-white max-w-fit mx-auto'
+                  className=' font-bold  text-white max-w-fit mx-auto'
                   style={{ '--value': Mins }}
                 ></div>
               </div>
-              <p>Min</p>
+              <p className='text-center font-bold text-[14px]'>Min</p>
             </div>
             <div className='flex flex-col'>
-              <div className='countdown text-center bg-black py-1'>
+              <div className='countdown text-center bg-black py-4'>
                 <div
-                  className=' font-bold bg-black text-white max-w-fit mx-auto'
+                  className=' font-bold  text-white  max-w-fit mx-auto'
                   style={{ '--value': Secs }}
                 ></div>
               </div>
-              <p>Sec</p>
+              <p className='text-center font-bold text-[14px]'>Sec</p>
             </div>
           </div>
         </div>

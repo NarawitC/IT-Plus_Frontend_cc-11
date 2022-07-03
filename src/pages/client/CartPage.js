@@ -27,7 +27,7 @@ function CartPage() {
           <CartItem />
         </>
       ) : (
-        <div className=' flex flex-col justify-center items-center'>
+        <div className=' flex flex-col justify-center items-center py-20'>
           <BsPlusSquareDotted
             size={200}
             color={'gray'}

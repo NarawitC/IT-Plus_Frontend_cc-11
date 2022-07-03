@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import IconProperty from '../../../components/Client/products/productInfo/icons/product-spec.svg';
+import { getProductById } from '../../../apis/client/product';
 
-function Property({ singLepd }) {
+function Property({ productId, singlepd }) {
+  console.log(singlepd);
+
   return (
     <div
       className='w-2/3
@@ -16,15 +19,14 @@ function Property({ singLepd }) {
       <div className='px-8 '>
         <div>
           <div className='grid-cols-3 grid px-4 py-4 '>
-            {singLepd?.map((el, idx) => (
+            {singlepd?.Properties.map((el, idx) => (
               <>
                 <div key={idx}>{el.topic}</div>
-                <div className='col-span-2'>{el.discription}</div>
+                <div className='col-span-2 font-bold'>{el.description}</div>
               </>
             ))}
           </div>
         </div>
-        <div></div>
       </div>
     </div>
   );

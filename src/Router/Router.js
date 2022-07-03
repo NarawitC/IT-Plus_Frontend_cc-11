@@ -66,30 +66,32 @@ function Router() {
         <Route path='my-spec' element={<MySpecPage />} />
       </Route> */}
 
-      {supplier && (
-        <>
-          <Route path='/supplier' element={<SupplierLayout />}>
-            <Route path='' element={<DynamicOrderPage />} />
-            <Route path='signup' element={<SupplierSignUpPage />} />
-            <Route path='my-product' element={<ProductPage />} />
-            <Route path='add-product' element={<DynamicAddProductPage />} />
-            <Route path='my-shop' element={<MyShopPage />} />
-            <Route path='balance-wallet' element={<BalanceWalletPage />} />
-            <Route path='order' element={<DynamicOrderPage />} />
-            {/* <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} /> */}
-            <Route
-              path='order/selected'
-              element={<DynamicSelectedOrderPage />}
-            />
-            {/* <Route path='product/:productId' element={<DynamicSelectedProductPage />} /> */}
-            <Route
-              path='product/selected'
-              element={<DynamicSelectedProductPage />}
-            />
-            <Route path='tracking' element={<TrackingPage />} />
-          </Route>
-        </>
-      )}
+      {
+        ( 1 && (
+          <>
+            <Route path='/supplier' element={<SupplierLayout />}>
+              <Route path='' element={<DynamicOrderPage />} />
+              <Route path='signup' element={<SupplierSignUpPage />} />
+              <Route path='my-product' element={<ProductPage />} />
+              <Route path='add-product' element={<DynamicAddProductPage />} />
+              <Route path='my-shop' element={<MyShopPage />} />
+              <Route path='balance-wallet' element={<BalanceWalletPage />} />
+              <Route path='order' element={<DynamicOrderPage />} />
+              {/* <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} /> */}
+              <Route
+                path='order/selected'
+                element={<DynamicSelectedOrderPage />}
+              />
+              {/* <Route path='product/:productId' element={<DynamicSelectedProductPage />} /> */}
+              <Route
+                path='product/selected'
+                element={<DynamicSelectedProductPage />}
+              />
+              <Route path='tracking' element={<TrackingPage />} />
+            </Route>
+          </>
+        ))
+      }
 
       {admin && (
         <>
