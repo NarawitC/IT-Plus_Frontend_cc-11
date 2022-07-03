@@ -45,7 +45,7 @@ function DynamicClientCheckoutmode() {
                   id='my-modal-5'
                   className='modal-toggle'
                 />
-                <ModalAddress />
+                <ModalAddress user={user} />
               </div>
             </div>
           </div>
