@@ -40,7 +40,7 @@ function ProductInfoPage({}) {
       setsinglepd(null);
       setIsLoading(true);
       const singlePD = await getsinglepd(productId);
-      await console.log(singlePD);
+      // await console.log(singlePD);
       await setsinglepd(singlePD);
       await setCount(1);
       const ObjectJa = [
