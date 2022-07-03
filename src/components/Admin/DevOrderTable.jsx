@@ -25,7 +25,7 @@ function DevOrderTable() {
     <>
       <div>
         <div>
-          <table className='table table-compact w-full mx-auto'>
+          <table className='table table-compact w-3/4 mx-auto'>
             <thead>
               <tr>
                 <th>Order Id</th>
@@ -34,6 +34,7 @@ function DevOrderTable() {
                 <th>Delivery Address</th>
                 <th>Delivery Price</th>
                 <th>UpdateAt</th>
+                <th>Details</th>
               </tr>
             </thead>
             <tbody>

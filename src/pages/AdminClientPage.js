@@ -8,7 +8,6 @@ function DevClientPage() {
   return (
     <>
       <div data-theme='luxury'>
-        <DevStat />
         <div>
           <DevClientTable />
         </div>
