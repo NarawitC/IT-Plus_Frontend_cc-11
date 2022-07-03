@@ -185,38 +185,62 @@ function DynamicSelectedProductPage() {
           <br />
           <div className='flex gap-2 justify-center'>
             <div className='flex flex-col '>
-              <img
-                className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-                src={selectedProductObj.subPicture1 || defaultPic}
-                alt='subPicture1'
-              />
+              <div className='border-2 hover:border-primary  rounded-lg cursor-pointer'>
+                <img
+                  className='h-60 w-auto object-contain  p-4  '
+                  src={selectedProductObj.subPicture1 || defaultPic}
+                  alt='subPicture1'
+                />
+                <div className=' flex justify-end gap-2 items-center  p-2 '>
+                  <p>แก้ไขรูปภาพ</p>
+                  {<BsCamera size={35} />}
+                </div>
+              </div>
               <br />
               <p className='text-center font-bold'>{`รูป 1`}</p>
             </div>
             <div className='flex flex-col'>
-              <img
-                className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-                src={selectedProductObj.subPicture2 || defaultPic}
-                alt='subPicture2'
-              />
+              <div className='border-2 hover:border-primary  rounded-lg cursor-pointer'>
+                <img
+                  className='h-60 w-auto object-contain  p-4 '
+                  src={selectedProductObj.subPicture2 || defaultPic}
+                  alt='subPicture2'
+                />
+                <div className=' flex justify-end gap-2 items-center  p-2 '>
+                  <p>แก้ไขรูปภาพ</p>
+                  {<BsCamera size={35} />}
+                </div>
+              </div>
               <br />
               <p className='text-center font-bold'>{`รูป 2`}</p>
             </div>
             <div className='flex flex-col'>
-              <img
-                className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-                src={selectedProductObj.subPicture3 || defaultPic}
-                alt='subPicture3'
-              />
+              <div className='border-2 hover:border-primary  rounded-lg cursor-pointer'>
+                <img
+                  className='h-60 w-auto object-contain p-4 '
+                  src={selectedProductObj.subPicture3 || defaultPic}
+                  alt='subPicture3'
+                />
+                <div className=' flex justify-end gap-2 items-center  p-2 '>
+                  <p>แก้ไขรูปภาพ</p>
+                  {<BsCamera size={35} />}
+                </div>
+              </div>
               <br />
               <p className='text-center font-bold'>{`รูป 3`}</p>
             </div>
             <div className='flex flex-col'>
-              <img
-                className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-                src={selectedProductObj.subPicture4 || defaultPic}
-                alt='subPicture4'
-              />
+              <div className='border-2 hover:border-primary  rounded-lg cursor-pointer'>
+                <img
+                  className='h-60 w-auto object-contain  p-4  '
+                  src={selectedProductObj.subPicture4 || defaultPic}
+                  alt='subPicture4'
+                />
+                <div className=' flex justify-end gap-2 items-center  p-2 '>
+                  <p>แก้ไขรูปภาพ</p>
+                  {<BsCamera size={35} />}
+                </div>
+              </div>
               <br />
               <p className='text-center font-bold'>{`รูป 4`}</p>
             </div>

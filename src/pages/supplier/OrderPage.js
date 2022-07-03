@@ -265,8 +265,8 @@ function OrderPage() {
                     return (
                       <>
                         <tr className='hover cursor-pointer' key={idx}>
-                          <td className='text-center'>{idx + 1}</td>
-                          <td>{`${el.createdAt.slice(
+                          <td className='text-center  '>{idx + 1}</td>
+                          <td className='font-bold'>{`${el.createdAt.slice(
                             8,
                             10
                           )}${el.createdAt.slice(4, 7)}-${el.createdAt.slice(
@@ -284,7 +284,7 @@ function OrderPage() {
                           </td>
                           <td>
                             <div
-                              className='flex space-x-3 justify-center items-center'
+                              className='flex space-x-3 justify-center items-center font-bold'
                               onClick={() => {
                                 navigate(`/supplier/order/${el.id}`);
                               }}
