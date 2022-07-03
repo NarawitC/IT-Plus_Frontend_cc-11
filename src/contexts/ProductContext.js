@@ -112,8 +112,8 @@ function ProductfilterContextProvider({ children }) {
     const allcart = rescart.data.carts;
     const mycart = await allcart.find((el) => el.id === cartId);
     // const orders = [];
-    console.log(cartId);
-    console.log(mycart);
+    // console.log(cartId);
+    // console.log(mycart);
     const sipplierArr = await mycart.CartItems.map((el) => {
       // console.log(el.Product);
       return {
@@ -237,7 +237,7 @@ function ProductfilterContextProvider({ children }) {
     //   ]
     // }
     // const { data } = await createOrederswithItems();
-    console.log(data);
+    // console.log(data);
     return data;
   };
   const cilentgetAllOrders = async () => {
