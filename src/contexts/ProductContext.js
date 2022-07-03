@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import itemImg1 from '../../src/productImg/item1.jpg';
 import itemImg2 from '../../src/productImg/item2.jpg';
@@ -67,10 +68,31 @@ function ProductfilterContextProvider({ children }) {
   //   const [Productfilterstr, setProductfilterstr] = useState(null);
   const [priceRange, setPriceRange] = useState([]);
   const [product, setPoduct] = useState(null);
+  const [productquery, setProductquery] = useState(null);
   const [totalPage, setTotalPage] = useState(null);
   const [page, setPage] = useState(1);
+  const [searchTextinp, setsearchTextinp] = useState('');
+  const navigate = useNavigate();
   useEffect(() => {
-    PriceRangeFiler(priceRange);
+    // console.log(page);
+    // console.log(searchTextinp);
+    // console.log(productquery);
+    // PriceRangeFiler(priceRange, productquery);
+  }, [page, searchTextinp]);
+
+  const handleClickparmsQ = () => {
+    navigate(
+      `/product/?${page ? 'page=' + page : ''}${
+        searchTextinp ? '&searchText=' + searchTextinp : ''
+      }`
+    );
+  };
+  useEffect(() => {
+    console.log(productquery);
+    PriceRangeFiler(priceRange, productquery);
+  }, [priceRange, productquery]);
+
+  useEffect(() => {
     const sumPrice = () => {
       if (tempCarts?.length > 0) {
         const subtotal = tempCarts?.map((el) => {
@@ -88,10 +110,11 @@ function ProductfilterContextProvider({ children }) {
       }
     };
     sumPrice();
-  }, [priceRange, tempCarts]);
-
-  const PriceRangeFiler = async (productRange) => {
-    const res = await getAllproduct();
+  }, [tempCarts]);
+  const PriceRangeFiler = async (productRange, productquery) => {
+    const params = await new URLSearchParams([['answer', 42]]);
+    console.log(params);
+    const res = await getAllproduct('param');
     // console.log(res);
     // console.log(productRange);
     const { products } = res;
@@ -311,6 +334,11 @@ function ProductfilterContextProvider({ children }) {
         totalPage,
         setPage,
         page,
+        searchTextinp,
+        setsearchTextinp,
+        handleClickparmsQ,
+
+        setProductquery,
         cilentgetAllOrders,
       }}
     >
