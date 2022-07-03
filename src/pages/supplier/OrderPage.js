@@ -242,9 +242,9 @@ function OrderPage() {
                     <tr className='hover' key={idx}>
                       <td className='text-center'>{idx + 1}</td>
                       <td>
-                        <div class='flex items-center space-x-3'>
+                        <div className='flex items-center space-x-3'>
                           <div>
-                            <div class='font-bold'>{el.firstName}</div>
+                            <div className='font-bold'>{el.firstName}</div>
                           </div>
                         </div>
                       </td>
@@ -264,7 +264,7 @@ function OrderPage() {
                         <p className=''>{el.productPrice.toFixed(2)}</p>
                       </th>
                       <th>
-                        <label class='swap'>
+                        <label className='swap'>
                           <input type='checkbox' />
                           {el.purchasedOrderStatus === 'CONFIRMED' ? (
                             <>

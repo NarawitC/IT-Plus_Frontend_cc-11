@@ -4,6 +4,7 @@ import trash from '../../../src/pictures/trash.svg';
 import sumCheck from '../../../src/pictures/check_sum.svg';
 import LGCartlist from './clentCart/LGCartlist';
 import { useProductfilter } from '../../contexts/ProductContext';
+import { useOrderContext } from '../../contexts/Client/orderContext';
 import { localsting } from '../../services/LocalstringComma';
 import { useAuthContext } from '../../contexts/Client/AuthCcontexts';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +14,8 @@ import DynamicClientCheckoutmode from './clentCart/DynamicClientCheckoutmode';
 
 function CartItem() {
   const [cartOrder, setcartOrder] = useState(null);
+  const { checkoutAddress } = useOrderContext();
+  console.log(checkoutAddress);
 
   console.log(cartOrder);
 
@@ -69,7 +72,7 @@ function CartItem() {
     });
   };
   return (
-    <div className='grid grid-cols-6 gap-4 py-4 '>
+    <div className='grid grid-cols-6 gap-4 py-8 '>
       {tempCarts?.map((el, idx) => (
         <LGCartlist el={el} key={idx} handleDelcartlist={handleDelcartlist} />
       ))}

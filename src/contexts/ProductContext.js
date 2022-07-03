@@ -51,15 +51,15 @@ function ProductfilterContextProvider({ children }) {
       }
     };
     sumPrice();
-  }, [priceRange, tempCarts, ]);
+  }, [priceRange, tempCarts]);
   useEffect(() => {
     // console.log(productquery);
-    PriceRangeFiler(priceRange );
+    PriceRangeFiler(priceRange);
   }, [priceRange, searchParams]);
   const PriceRangeFiler = async (productRange) => {
-    console.log('first');
+    // console.log('first');
     const res = await getAllproduct();
-    console.log(res);
+    // console.log(res);
     // console.log(productRange);
     const { products } = res;
     // console.log(products);
