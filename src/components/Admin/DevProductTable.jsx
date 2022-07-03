@@ -11,7 +11,7 @@ function DevProductTable() {
       try {
         const res = await axios.get('/admin/product');
         const productList = res.data.products;
-        console.log(productList);
+        // console.log(productList);
         setAllProduct(productList);
       } catch (e) {
         console.log(e.response.data);
@@ -19,7 +19,7 @@ function DevProductTable() {
     };
     fetchProduct();
   }, []);
-  console.log(AllProduct);
+  // console.log(AllProduct);
 
   return (
     <div className='mx-auto my-5'>
@@ -28,7 +28,6 @@ function DevProductTable() {
           <tr>
             <th>Main Image</th>
             <th className='w-40'>Product Title</th>
-            <th>Discription</th>
             <th>Price</th>
             <th>Stock</th>
             <th>Supplier ID</th>
@@ -43,7 +42,7 @@ function DevProductTable() {
                 <td>
                   <div className='flex items-center space-x-1 truncate'>
                     <div className='avatar'>
-                      <div className='mask mask-squircle w-20 h-20'>
+                      <div className='w-20 h-20'>
                         <img
                           className='overflow-auto truncate'
                           style={{
@@ -65,13 +64,15 @@ function DevProductTable() {
                   {el.productName}
                   <span className='badge badge-ghost badge-sm'>{el.brand}</span>
                 </td>
-                <td className='truncate'>{el.description}</td>
                 <td>{el.price}</td>
                 <td>{el.stock}</td>
                 <td>{el.supplierId}</td>
                 <td>{el.status}</td>
                 <td>
-                  <Link to='*' className='btn btn-accent'>
+                  <Link
+                    to={`/admin/product/${el.id}`}
+                    className='btn btn-accent'
+                  >
                     <FaEye />
                   </Link>
                 </td>
@@ -84,7 +85,6 @@ function DevProductTable() {
           <tr>
             <th>Main Image</th>
             <th>Product Title</th>
-            <th>Discription</th>
             <th>Price</th>
             <th>Stock</th>
             <th>Supplier ID</th>

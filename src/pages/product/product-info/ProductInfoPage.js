@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import BreadCrumbs from '../../../components/Client/products/productInfo/BreadCrumbs';
 import addCartIcon from '../../../../src/components/Client/products/productInfo/icons/add-to-cart.svg';
 import Property from './Property';
 import { useLoading } from '../../../contexts/LoadingContext';
-import { useLocation } from 'react-router-dom';
 import { useProductfilter } from '../../../contexts/ProductContext';
 import LocalstringComma, {
   localsting,
 } from '../../../services/LocalstringComma';
 import { useAdminContext } from '../../../contexts/Admin/AdminContext';
+import {
+  adminApproveProduct,
+  adminRejectProduct,
+} from '../../../apis/admin/productAdmin';
+import { PRODUCT_STATUS } from '../../../config/constants';
 
 function ProductInfoPage() {
   const locate = useLocation();
@@ -16,9 +21,11 @@ function ProductInfoPage() {
   const [count, setCount] = useState(0);
   const [Objecturl, setObjectJa] = useState([]);
   const [singlepd, setsinglepd] = useState(null);
+  const [rejectReason, setRejectReason] = useState('');
   const { admin } = useAdminContext();
   const { getsinglepd, settempCarts, tempCarts } = useProductfilter();
   const { setIsLoading } = useLoading();
+  const { productId } = useParams();
   useEffect(() => {
     // const params = new URLSearchParams(window.location.search);
     // for (const param of params) {
@@ -27,8 +34,7 @@ function ProductInfoPage() {
     const fetchPd = async () => {
       setsinglepd(null);
       setIsLoading(true);
-      const pdid = locate.pathname.split('/')[2];
-      const singlePD = await getsinglepd(pdid);
+      const singlePD = await getsinglepd(productId);
       // await console.log(singlePD);
       await setsinglepd(singlePD);
       await setCount(1);
@@ -86,21 +92,22 @@ function ProductInfoPage() {
     }
   };
 
-  // const Product = {
-  //   mainPicture: singlepd.mainPicture,
-
-  //   sucPicture1:
-  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/06/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-icon.jpg',
-
-  //   subPicture2:
-  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/03/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-front-side-view.jpg',
-
-  //   subPicture3:
-  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/02/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-side-view.jpg',
-
-  //   subPicture4:
-  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/02/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-back-view.jpg',
-  // };
+  const handleApproveButton = async () => {
+    try {
+      await adminApproveProduct(singlepd.id);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleRejectButton = async () => {
+    try {
+      await adminRejectProduct(singlepd.id, rejectReason);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -162,82 +169,101 @@ function ProductInfoPage() {
                 Bath
               </div>
             </div>
-            <div className='flex gap-4 mt-8'>
-              <div className='flex gap-4'>
-                จำนวน:
-                {/* ---------------------------------------ปุ่ม - ---------------------------------- */}
-                <div className='flex w-full justify-center items-center gap-2 border-2 rounded-lg '>
-                  <button
-                    className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none  ${
-                      count === 0
-                        ? 'btn-disabled text-gray-500 opacity-50 '
-                        : ' text-black'
-                    }`}
-                    onClick={() => {
-                      if (count === 0) {
-                        setCount(+count);
-                      } else {
-                        setCount(+count - 1);
-                      }
-                    }}
-                  >
-                    -
-                  </button>
-                  {/* --------------------------------------- ใส่จำนวนได้---------------------------------- */}
-                  <div className='px-4'>
-                    <p className='w-4 text-center'>{count}</p>
-                  </div>
-                  {/* ---------------------------------------ปุ่ม + ---------------------------------- */}
+            {admin ? (
+              <div>Stock: {singlepd?.stock}</div>
+            ) : (
+              <>
+                <div className='flex gap-4 mt-8'>
+                  <div className='flex gap-4'>
+                    จำนวน:
+                    {/* ---------------------------------------ปุ่ม - ---------------------------------- */}
+                    <div className='flex w-full justify-center items-center gap-2 border-2 rounded-lg '>
+                      <button
+                        className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none  ${
+                          count === 0
+                            ? 'btn-disabled text-gray-500 opacity-50 '
+                            : ' text-black'
+                        }`}
+                        onClick={() => {
+                          if (count === 0) {
+                            setCount(+count);
+                          } else {
+                            setCount(+count - 1);
+                          }
+                        }}
+                      >
+                        -
+                      </button>
+                      {/* --------------------------------------- ใส่จำนวนได้---------------------------------- */}
+                      <div className='px-4'>
+                        <p className='w-4 text-center'>{count}</p>
+                      </div>
+                      {/* ---------------------------------------ปุ่ม + ---------------------------------- */}
 
+                      <button
+                        className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black ${
+                          singlepd?.stock <= count ? 'btn-disabled' : ''
+                        }`}
+                        onClick={() => {
+                          setCount(+count + 1);
+                        }}
+                      >
+                        <div>+</div>
+                      </button>
+                    </div>
+                    {singlepd?.stock <= count && (
+                      <div className='text-red-500 my-auto w-4 text-[16px]'>
+                        สินค้าหมด
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className='flex gap-4 mt-8'>
                   <button
-                    className={`w-[30px] h-[30px]  bg-white btn btn-primary border-none text-black ${
-                      singlepd?.stock <= count ? 'btn-disabled' : ''
-                    }`}
+                    className='bg-white flex btn btn-primary'
                     onClick={() => {
-                      setCount(+count + 1);
+                      HandleAddcart();
                     }}
                   >
-                    <div>+</div>
+                    <img src={addCartIcon} className='mr-4 ' />
+                    ใส่รถเข็นเลย
+                  </button>
+                  <button
+                    className='btn btn-primary'
+                    onClick={() => {
+                      HandleAddcart();
+                    }}
+                  >
+                    ซื้อเลย
                   </button>
                 </div>
-                {singlepd?.stock <= count && (
-                  <div className='text-red-500 my-auto w-4 text-[16px]'>
-                    สินค้าหมด
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className='flex gap-4 mt-8'>
-              <button
-                className='bg-white flex btn btn-primary'
-                onClick={() => {
-                  HandleAddcart();
-                }}
-              >
-                <img src={addCartIcon} className='mr-4 ' />
-                ใส่รถเข็นเลย
-              </button>
-              <button
-                className='btn btn-primary'
-                onClick={() => {
-                  HandleAddcart();
-                }}
-              >
-                ซื้อเลย
-              </button>
-            </div>
+              </>
+            )}
 
-            {admin ? (
+            {admin && singlepd?.status === PRODUCT_STATUS.PENDING ? (
               <>
                 <textarea
+                  onChange={(e) => {
+                    setRejectReason(e.target.value);
+                  }}
+                  value={rejectReason}
                   type='text-area'
-                  rows='2'
                   placeholder='Type here'
                   class='input input-bordered input-primary w-full max-w-xs mt-5 ms-3'
                 ></textarea>
                 <div className='flex gap-2 justify-end mt-3'>
-                  <button className='btn btn-success flex'>Approve</button>
-                  <button className='btn btn-warning flex'>Reject</button>
+                  <button
+                    className='btn btn-success flex'
+                    onClick={handleApproveButton}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    className='btn btn-warning flex'
+                    onClick={handleRejectButton}
+                  >
+                    Reject
+                  </button>
                 </div>
               </>
             ) : null}
