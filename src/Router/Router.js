@@ -30,8 +30,8 @@ import { useLoading } from '../contexts/LoadingContext';
 
 import TrackingPage from '../pages/supplier/TrackingPage';
 import DynamicSelectedOrderPage from '../pages/supplier/DynamicSelectedOrderPage';
-import DynamicSelectedProductPage from '../pages/supplier/DynamicSelectedProductPage';
 import DynamicSelectedTransactionPage from '../pages/supplier/DynamicSelectedTransactionPage';
+import DynamicEditSelectedProductPage from '../pages/supplier/DynamicEditSelectedProductPage';
 function Router() {
   return (
     <Routes>
@@ -62,7 +62,7 @@ function Router() {
         {/* <Route path='product/:productId' element={<DynamicSelectedProductPage />} /> */}
         <Route
           path='product/:productId'
-          element={<DynamicSelectedProductPage />}
+          element={<DynamicEditSelectedProductPage />}
         />
         {/* <Route path='tracking' element={<TrackingPage />} /> */}
         <Route

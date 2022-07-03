@@ -7,7 +7,7 @@ import subPicture4 from '../../productImg/item4.jpg';
 import { AiOutlineNumber } from 'react-icons/ai';
 import { BsCamera } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useContext, useEffect, useState, useRef } from 'react';
 import { SupplierProductContext } from '../../contexts/Supplier/SupplierProductContext';
 import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
@@ -34,7 +34,11 @@ function DynamicSelectedProductPage() {
   //     'นอกจากไมค์คุณภาพสูงแล้วหูฟังเล่นเกม Logitech Pro X ยังมาพร้อมกับการปรับแต่งเสียงผ่าน Software ได้ในตัว ทำให้นอกจากใช้เล่นเกมแล้วยังสามารถเอาไปใช้ ดูหนังฟังเพลงได้อีกด้วย โดยการเซฟ Presets เอาไว้ อีกทั้งยังมี Sound Card มาช่วยดันคุณภาพเสียงให้สูงขึ้นได้อีกด้วย แถมบอดี้ของมันยังแข็งแรงด้วยวัสดุโลหะ และอลูมิเนียม ด้วยการผสมกันของวัสดุทั้งสองอย่างทำให้ได้หูฟังที่แข็งแรงและน้ำหนักเบาสุด ๆ ',
   // };
   const modalRef = useRef();
+
   const [openEditPrice, setOpenEditPrice] = useState(false);
+
+  // const [openEditCategory, setOpenEditCategory] = useState(false);
+
   const [newPrice, setNewPrice] = useState((0.0).toFixed(2));
   const mockProperties = [
     { topic: 'ขนาดจอ', description: '24 นิ้ว' },
@@ -82,21 +86,21 @@ function DynamicSelectedProductPage() {
     handleGetSelectedProduct();
   }, [params.productId, selectedProductObj?.SubCategory?.subCategoryName]);
 
-  const handleUpdateProductPriceByProductId = (newPrice, productId) => {
-    try {
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleUpdateProductPriceByProductId = (newPrice, productId) => {
+  //   try {
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   const handleDeleteProductByProductId = (productId) => {
     try {
     } catch (err) {
       console.log(err);
     }
   };
-  useEffect(() => {
-    handleUpdateProductPriceByProductId();
-  }, [openEditPrice]);
+  // useEffect(() => {
+  //   handleUpdateProductPriceByProductId();
+  // }, [openEditPrice]);
 
   return (
     <div className=''>
@@ -295,21 +299,22 @@ function DynamicSelectedProductPage() {
                     <button
                       type='button'
                       className='btn btn-success h-[44px] hover:scale-105'
-                      onClick={() => {
-                        handleUpdateProductPriceByProductId(
-                          newPrice,
-                          selectedProductObj.id
-                        );
-                        setOpenEditPrice((openEditPrice) => !openEditPrice);
-                        handleGetSelectedProduct();
-                        setNewPrice((0.0).toFixed(2));
-                      }}
+                      onClick={() => {}}
                     >
                       ยืนยัน
                     </button>
                   </div>
                 ) : (
                   <>
+                    {/* <input
+                      disabled
+                      type='number'
+                      value={
+                        (+selectedProductObj.price).toFixed(2) ||
+                        (0.0).toFixed(2)
+                      }
+                      className='p-2 border-2 rounded-lg'
+                    /> */}
                     <p className=''>
                       {(+selectedProductObj.price).toFixed(2) ||
                         (0.0).toFixed(2)}
