@@ -1,11 +1,17 @@
 import DynamicClientProductCard from '../../components/Client/products/DynamicClientProductCard';
 import { FaRegThumbsUp } from 'react-icons/fa';
 import { useProductfilter } from '../../contexts/ProductContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function ClientDynamicProductPage() {
-  const { product, totalPage, page, setPage } = useProductfilter();
-
+  const locate = useLocation();
+  useEffect(() => {
+    setProductquery(Object.entries(locate.search.slice(1).split('&')));
+    // console.log(locate);
+  }, []);
+  const { product, totalPage, page, setPage, setProductquery } =
+    useProductfilter();
   const totalPageArr = [];
   for (let i = 1; i <= totalPage; i++) {
     totalPageArr.push(i);
@@ -13,7 +19,7 @@ function ClientDynamicProductPage() {
   return (
     <>
       <div className='bg-white '>
-        <div className='max-w-2xl mx-auto py-4 px-4  sm:px-6 lg:max-w-7xl lg:px-8 '>
+        <div className='max-w-2xl mx-auto py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8'>
           <div className='flex flex-row gap-2'>
             <FaRegThumbsUp className='block mt-1' size={20} />
             <p className=' font-bold text-lg text-zinc-600'>
