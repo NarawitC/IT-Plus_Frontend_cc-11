@@ -40,7 +40,7 @@ import ClientOrderPage from '../pages/client/orderPage';
 function Router() {
   const { admin } = useAdminContext();
   const { supplier } = useSupplierContext();
-  console.log(admin);
+  // console.log(admin);
   return (
     <Routes>
       {/* todo wait for modify route */}
@@ -66,7 +66,7 @@ function Router() {
         <Route path='my-spec' element={<MySpecPage />} />
       </Route> */}
 
-      {1 && (
+      {supplier && (
         <>
           <Route path='/supplier' element={<SupplierLayout />}>
             <Route path='' element={<DynamicOrderPage />} />
@@ -93,21 +93,19 @@ function Router() {
 
       {admin && (
         <>
+          <Route path='/admin/sign-in' element={<AdminSignInPage />} />
           <Route path='/admin' element={<DevLayout />}>
             <Route path='client' element={<AdminClientPage />} />
-            {/* admin page layout */}
             <Route path='order' element={<AdminOrderPage />} />
-
             <Route path='product' element={<AdminProductPage />} />
-            <Route path='sign-in' element={<AdminSignInPage />} />
+            <Route path='product/:productId' element={<ProductInfoPage />} />
+            {/* <Route path='sign-in' element={<AdminSignInPage />} /> */}
             <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
             <Route path='' element={<Navigate to='/admin/order'></Navigate>} />
             <Route path='promotion' element={<AdminPromotion />} />
           </Route>
         </>
       )}
-      <Route path='/admin/sign-in' element={<AdminSignInPage />} />
-
       <Route path='/' element={<Navigate to='/admin/order'></Navigate>} />
     </Routes>
   );

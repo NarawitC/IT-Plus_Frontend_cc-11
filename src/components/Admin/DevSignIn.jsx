@@ -19,7 +19,6 @@ function DevSignIn() {
 
   const handleSubmit = async (e) => {
     try {
-      console.log('first');
       e.preventDefault();
       const result = await adminLogin({ employeeId, password });
       console.log(result);

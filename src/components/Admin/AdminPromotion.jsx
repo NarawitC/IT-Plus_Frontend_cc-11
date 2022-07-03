@@ -8,7 +8,7 @@ function AdminPromotion() {
 
   return (
     <div className='w-full flex justify-center items-center flex-col gap-4 mt-5'>
-      <h1>Product ID</h1>
+      <h1 className='font-bold'>Product ID</h1>
       <input
         type='text'
         placeholder='Place ID'
@@ -20,18 +20,18 @@ function AdminPromotion() {
         placeholder='Discount'
         className='input input-bordered input-warning w-full max-w-xs'
       />
-      <h2>Start Promotion Date</h2>
       <div className='mx-auto'>
+        <h1>Start Promotion Date</h1>
         <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}
-          className='mx-auto my-3'
+          className='mx-auto my-3 rounded-lg'
         />
-        <h2>End Promotion Date</h2>
+        <h1>End Promotion Date</h1>
         <DatePicker
           selected={endDate}
           onChange={(date) => setEndDate(date)}
-          className='my-3'
+          className='mx-auto my-3 rounded-lg '
         />
       </div>
       <button className='btn btn-primary'>Submit</button>

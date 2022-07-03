@@ -11,7 +11,7 @@ function DevProductTable() {
       try {
         const res = await axios.get('/admin/product');
         const productList = res.data.products;
-        console.log(productList);
+        // console.log(productList);
         setAllProduct(productList);
       } catch (e) {
         console.log(e.response.data);
@@ -19,19 +19,20 @@ function DevProductTable() {
     };
     fetchProduct();
   }, []);
-  console.log(AllProduct);
+  // console.log(AllProduct);
 
   return (
     <div className='mx-auto my-5'>
-      <table className='table w-full table-fixed'>
+      <table className='table w-3/4 table-fixed mx-auto'>
         <thead>
           <tr>
-            <th>Product Title</th>
-            <th> </th>
+            <th>Main Image</th>
+            <th className='w-40'>Product Title</th>
             <th>Price</th>
             <th>Stock</th>
             <th>Supplier ID</th>
             <th>Status</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +42,7 @@ function DevProductTable() {
                 <td>
                   <div className='flex items-center space-x-1 truncate'>
                     <div className='avatar'>
-                      <div className='mask mask-squircle w-20 h-20'>
+                      <div className='w-20 h-20'>
                         <img
                           className='overflow-auto truncate'
                           style={{
@@ -49,21 +50,18 @@ function DevProductTable() {
                             height: 100,
                           }}
                           src={el.mainPicture}
-                          alt='Avatar Tailwind CSS Component'
                         />
                       </div>
                     </div>
                     <div>
-                      <div className='font-bold overflow-auto truncate'>
-                        {el.productName}
-                      </div>
+                      <div className='font-bold overflow-auto truncate'></div>
                     </div>
                     <div className='text-sm opacity-50'>{el.id}</div>
                   </div>
                 </td>
 
                 <td className='overflow-auto truncate'>
-                  {el.description}
+                  {el.productName}
                   <span className='badge badge-ghost badge-sm'>{el.brand}</span>
                 </td>
                 <td>{el.price}</td>
@@ -71,7 +69,10 @@ function DevProductTable() {
                 <td>{el.supplierId}</td>
                 <td>{el.status}</td>
                 <td>
-                  <Link to='*' className='btn btn-accent'>
+                  <Link
+                    to={`/admin/product/${el.id}`}
+                    className='btn btn-accent'
+                  >
                     <FaEye />
                   </Link>
                 </td>
@@ -82,9 +83,12 @@ function DevProductTable() {
 
         <tfoot>
           <tr>
+            <th>Main Image</th>
             <th>Product Title</th>
-            <th>Description</th>
             <th>Price</th>
+            <th>Stock</th>
+            <th>Supplier ID</th>
+            <th>Status</th>
             <th>Details</th>
           </tr>
         </tfoot>
