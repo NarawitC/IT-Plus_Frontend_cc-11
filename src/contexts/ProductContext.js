@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate, createSearchParams } from 'react-router-dom';
 
 import {
   createCartbyClientId,
@@ -14,6 +15,7 @@ import { getAllProductInfo, getProductById } from '../apis/client/product';
 const ProductfilterContext = createContext();
 
 function ProductfilterContextProvider({ children }) {
+  const navigate = useNavigate();
   //
   const [dbcart, setdbcart] = useState(null);
 
@@ -26,6 +28,7 @@ function ProductfilterContextProvider({ children }) {
   const [product, setPoduct] = useState(null);
   const [totalPage, setTotalPage] = useState(null);
   const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useState({});
   useEffect(() => {
     PriceRangeFiler(priceRange);
     const sumPrice = () => {
@@ -45,7 +48,7 @@ function ProductfilterContextProvider({ children }) {
       }
     };
     sumPrice();
-  }, [priceRange, tempCarts]);
+  }, [priceRange, tempCarts, searchParams]);
 
   const PriceRangeFiler = async (productRange) => {
     const res = await getAllproduct();
@@ -79,7 +82,7 @@ function ProductfilterContextProvider({ children }) {
     // return await products[id];
   };
   const getAllproduct = async () => {
-    const { data } = await getAllProductInfo();
+    const { data } = await getAllProductInfo({ searchParams });
     return data;
     // console.log(product[id]);
     // return await products[id];
@@ -247,6 +250,7 @@ function ProductfilterContextProvider({ children }) {
     // const res = await getCartbyIdapi(cartId);
     return res.data;
   };
+
   return (
     <ProductfilterContext.Provider
       value={{
@@ -269,6 +273,8 @@ function ProductfilterContextProvider({ children }) {
         setPage,
         page,
         cilentgetAllOrders,
+        setSearchParams,
+        searchParams,
       }}
     >
       {children}
