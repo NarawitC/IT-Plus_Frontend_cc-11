@@ -89,21 +89,18 @@ function Router() {
 
       {admin && (
         <>
+          <Route path='/admin/sign-in' element={<AdminSignInPage />} />
           <Route path='/admin' element={<DevLayout />}>
             <Route path='client' element={<AdminClientPage />} />
-            {/* admin page layout */}
             <Route path='order' element={<AdminOrderPage />} />
-
             <Route path='product' element={<AdminProductPage />} />
-            <Route path='sign-in' element={<AdminSignInPage />} />
+            {/* <Route path='sign-in' element={<AdminSignInPage />} /> */}
             <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
             <Route path='' element={<Navigate to='/admin/order'></Navigate>} />
             <Route path='promotion' element={<AdminPromotion />} />
           </Route>
         </>
       )}
-      <Route path='/admin/sign-in' element={<AdminSignInPage />} />
-
       <Route path='/' element={<Navigate to='/admin/order'></Navigate>} />
     </Routes>
   );
