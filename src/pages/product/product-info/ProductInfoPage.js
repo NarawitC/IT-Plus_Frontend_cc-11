@@ -86,22 +86,6 @@ function ProductInfoPage() {
     }
   };
 
-  // const Product = {
-  //   mainPicture: singlepd.mainPicture,
-
-  //   sucPicture1:
-  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/06/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-icon.jpg',
-
-  //   subPicture2:
-  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/03/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-front-side-view.jpg',
-
-  //   subPicture3:
-  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/02/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-side-view.jpg',
-
-  //   subPicture4:
-  //     'https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2022/02/Product/dell-s2422hg-23-6-va-curved-gaming-monitor-165hz-back-view.jpg',
-  // };
-
   return (
     <div>
       <BreadCrumbs Productname={singlepd?.productName} />
