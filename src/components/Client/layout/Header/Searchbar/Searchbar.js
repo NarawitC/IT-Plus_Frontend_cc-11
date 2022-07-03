@@ -20,21 +20,16 @@ function Searchbar() {
           <div className='w-full  flex justify-center'>
             <input
               type='text'
-              value={searchTextinp}
               placeholder='Search items with itplus'
               className=' input appearance-none self-center h-6 w-full align-middle focus:outline-none text-base text-slate-500'
-
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-
             ></input>
           </div>
           <div className='w-1/10 relative block -mt-1 '>
             <button
               className='btn btn-circle gradeient1 border-0 -p-3 '
-
               onClick={handleSearchButton}
-
             >
               <FiSearch size={30} color={'white'} scale={20} strokeWidth={3} />
             </button>

@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import { useLocation, useNavigate, createSearchParams } from 'react-router-dom';
 
-
 import {
   createCartbyClientId,
   createCartitems,
@@ -52,13 +51,15 @@ function ProductfilterContextProvider({ children }) {
       }
     };
     sumPrice();
-
-  }, [priceRange, tempCarts, searchParams]);
-
+  }, [priceRange, tempCarts, ]);
+  useEffect(() => {
+    // console.log(productquery);
+    PriceRangeFiler(priceRange );
+  }, [priceRange, searchParams]);
   const PriceRangeFiler = async (productRange) => {
+    console.log('first');
     const res = await getAllproduct();
-
-    // console.log(res);
+    console.log(res);
     // console.log(productRange);
     const { products } = res;
     // console.log(products);
@@ -89,6 +90,7 @@ function ProductfilterContextProvider({ children }) {
   };
   const getAllproduct = async () => {
     const { data } = await getAllProductInfo({ searchParams });
+    // console.log(data);
     return data;
     // console.log(product[id]);
     // return await products[id];
@@ -278,9 +280,6 @@ function ProductfilterContextProvider({ children }) {
         totalPage,
         setPage,
         page,
-        searchTextinp,
-        setsearchTextinp,
-        handleClickparmsQ,
 
         setProductquery,
         cilentgetAllOrders,
