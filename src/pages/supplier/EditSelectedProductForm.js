@@ -58,6 +58,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
   const inputEl1 = useRef();
   const [subPicture1, setSubPicture1] = useState(null);
   const [subPictureURL1, setSubPictureURL1] = useState('');
+  console.log(subPictureURL1);
 
   const inputEl2 = useRef();
   const [subPicture2, setSubPicture2] = useState(null);
@@ -135,21 +136,21 @@ function EditSelectedProductForm({ updateProductByProductId }) {
       return;
     }
     const newImageURL = URL.createObjectURL(mainPicture);
-    // console.log(newImageURL);
+    console.log(newImageURL);
     setImageURL(newImageURL);
 
     if (subPicture1 === null) {
       return;
     }
     const newSubPicture1URL = URL.createObjectURL(subPicture1);
-    // console.log(newImageURL);
+    console.log(newSubPicture1URL);
     setSubPictureURL1(newSubPicture1URL);
 
     if (subPicture2 === null) {
       return;
     }
     const newSubPicture2URL = URL.createObjectURL(subPicture2);
-    // console.log(newImageURL);
+    console.log(newSubPicture2URL);
     setSubPictureURL2(newSubPicture2URL);
 
     if (subPicture3 === null) {
@@ -351,13 +352,15 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                       </>
                     )}
                   </div>
-                  <input
-                    type='file'
-                    accept='image/*'
-                    className='hidden '
-                    ref={inputEl1}
-                    onChange={onSubPicture1Change}
-                  />
+                  <div className='flex justify-center'>
+                    <input
+                      type='file'
+                      accept='image/*'
+                      className='hidden '
+                      ref={inputEl1}
+                      onChange={onSubPicture1Change}
+                    />
+                  </div>
                   <div
                     className=' flex flex-col relative justify-center   p-2 rounded-md 
               '
