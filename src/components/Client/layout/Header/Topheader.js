@@ -11,10 +11,12 @@ import { useProductfilter } from '../../../../contexts/ProductContext';
 import { useErrorContext } from '../../../../contexts/ErrorContext';
 
 function Topheader({ clicksidebar }) {
+  const { tempCarts } = useProductfilter();
   const { user } = useAuthContext();
   const { setError } = useErrorContext();
   const { setSearchParams } = useProductfilter();
   const inputEmodal = useRef();
+
   const navigate = useNavigate();
   const handleBacktohome = async () => {
     await setSearchParams((prev) => {
@@ -22,6 +24,7 @@ function Topheader({ clicksidebar }) {
     });
     navigate('/');
   };
+
   return (
     <div className='navbar flex flex-row justify-start h-1/2'>
       <ModalAny inputEmodal={inputEmodal} />

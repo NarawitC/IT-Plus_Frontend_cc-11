@@ -2,10 +2,11 @@ import { createContext, useContext, useState } from 'react';
 
 const orderContext = createContext();
 function OrderContextProvider({ children }) {
-  const [CheckoutAddress, setCheckoutAddress] = useState(null);
-  // console.log(CheckoutAddress);
+
+  const [checkoutAddress, setCheckoutAddress] = useState(null);
+
   return (
-    <orderContext.Provider value={{ CheckoutAddress, setCheckoutAddress }}>
+    <orderContext.Provider value={{ checkoutAddress, setCheckoutAddress }}>
       {children}
     </orderContext.Provider>
   );

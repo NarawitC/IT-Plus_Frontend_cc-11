@@ -155,6 +155,7 @@ function ModalAddress({ user }) {
               className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl w-40'
               onClick={() =>
                 setCheckoutAddress((prev) => ({
+                  ...prev,
                   textaddress,
                   province: province.name_th,
                   district: district.name_th,

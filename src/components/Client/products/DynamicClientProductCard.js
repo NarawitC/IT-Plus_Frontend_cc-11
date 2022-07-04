@@ -22,11 +22,11 @@ function DynamicClientProductCard({ el }) {
         navigate(`/product/${id}`);
       }}
     >
-      <div className='w-full h-4/6 mt-4 bg-white aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75  lg:aspect-none'>
+      <div className='w-full h-[200px] mt-4 bg-white aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75  lg:aspect-none '>
         <img
           src={mainPicture}
           alt={'imageAlt'}
-          className='w-full  object-center  lg:w-full  '
+          className='w-full lg:w-full  h-full object-contain'
         />
       </div>
       <div className='mt-4 flex justify-between'>

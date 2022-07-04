@@ -136,7 +136,7 @@ function ProductInfoPage({}) {
                       >
                         <img
                           src={el.url}
-                          className='w-full h-full object-cover'
+                          className='w-full h-full object-contain'
                         />
                       </div>
                     </div>
@@ -147,7 +147,7 @@ function ProductInfoPage({}) {
           <div className=' w-96 h-96'>
             <img
               src={Objecturl[idx]?.url}
-              className='w-full h-full object-cover'
+              className='w-full h-full object-contain'
             />
           </div>
         </div>

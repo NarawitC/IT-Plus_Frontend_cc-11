@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useProductfilter } from '../../../../contexts/ProductContext';
 import { localsting } from '../../../../services/LocalstringComma';
 import { BsPlusSquareDotted } from 'react-icons/bs';
 import { useAuthContext } from '../../../../contexts/Client/AuthCcontexts';
+import { checkLocation } from '../../../../services/checkLocation';
 function DynamicCartDropdown({ inputEmodal }) {
+  const location = useLocation();
+  const { isClientCartPage } = checkLocation(location);
+  // console.log(isClientCartPage);
   const navigate = useNavigate();
   const { totalCart, tempCarts } = useProductfilter();
   const { user } = useAuthContext();
@@ -28,7 +32,12 @@ function DynamicCartDropdown({ inputEmodal }) {
         }}
       >
         <div className='dropdown dropdown-end'>
-          <label tabIndex='0' className='btn btn-ghost btn-circle'>
+          <label
+            tabIndex='0'
+            className={`btn btn-ghost btn-circle ${
+              isClientCartPage ? 'btn-disabled' : ''
+            }`}
+          >
             <div className={`${'indicator'}`}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
