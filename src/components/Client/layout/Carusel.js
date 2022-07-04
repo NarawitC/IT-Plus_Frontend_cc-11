@@ -5,27 +5,58 @@ import PicCur3 from '../../../../src/curImg/cur3.jpg';
 import PicCur4 from '../../../../src/curImg/cur4.jpg';
 
 function Carusel() {
-  const picarr = [PicCur1, PicCur2, PicCur3, PicCur4];
-  const [calusel, setcalusel] = useState(0);
-  const [caluseltran, setcaluseltran] = useState(null);
+  const [picarr, setPicarr] = useState([PicCur1, PicCur2, PicCur3, PicCur4]);
+  const [caluseldileft, setcaluseldileft] = useState(false);
+  const [caluseldiright, setcaluseldiright] = useState(false);
+  // const [caluseltran, setcaluseltran] = useState(null);
 
+  const handleCaluselleft = async () => {
+    setcaluseldileft(true);
+    setTimeout(() => {
+      setcaluseldileft((prev) => !prev);
+      setPicarr((prev) => {
+        const newer = [...prev];
+        const borrow = newer.pop();
+        newer.unshift(borrow);
+        setcaluseldileft(false);
+        return newer;
+      });
+    }, 700);
+  };
+
+  const handleCaluselright = async () => {
+    setcaluseldiright(true);
+    await setTimeout(() => {
+      setPicarr((prev) => {
+        const newer = [...prev];
+        const borrow = newer.shift();
+        newer.push(borrow);
+        setcaluseldiright(false);
+        return newer;
+      });
+    }, 700);
+  };
   return (
     <div className='carousel w-full'>
       {picarr.map((el, idx) => {
         return (
           <div
             key={idx}
-            id={`slide${idx + 1}`}
-            className='carousel-item relative w-full'
+            id={`slide${idx}`}
+            className={`carousel-item relative w-full  transform   ${
+              caluseldileft ? 'translate-x-full duration-700' : null
+            } 
+            ${caluseldiright ? '-translate-x-full  duration-700 ' : null}
+           `}
           >
             <img src={el} className='w-full' />
             <div
-              className={`absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2`}
+              className={`absolute flex justify-between transform  -translate-y-1/2 left-5 right-5 top-1/2`}
             >
               <div
                 className='btn btn-circle bg-transparent border-0'
                 onClick={() => {
-                  setcalusel(calusel - 1);
+                  handleCaluselleft();
                 }}
               >
                 ❮
@@ -34,8 +65,7 @@ function Carusel() {
                 // href='#slide2'
                 className='btn btn-circle bg-transparent border-0'
                 onClick={() => {
-                  setcalusel(calusel + 1);
-                  // setcaluseltran('right');
+                  handleCaluselright();
                 }}
               >
                 ❯

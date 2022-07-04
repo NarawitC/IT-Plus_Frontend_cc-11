@@ -149,6 +149,7 @@ function ProductfilterContextProvider({ children }) {
         orderItems: [],
       };
     });
+
     const uniqueSupplier = [];
     await sipplierArr?.map((el) => {
       if (uniqueSupplier?.length > 0) {
@@ -175,14 +176,15 @@ function ProductfilterContextProvider({ children }) {
             productId: element.Product.id,
             discount:
               element.Product.Promotions.length > 0
-                ? element.Product.Promotions.discount
+                ? element.Product.Promotions[0].discount
                 : 0,
             quantity: element.quantity,
           });
+          console.log(element);
           orders[supIndex].productPrice +=
             (element.Product.price -
               (element.Product.Promotions.length > 0
-                ? element.Product.Promotions.discount
+                ? element.Product.Promotions[0].discount
                 : 0)) *
             element.quantity;
         }
@@ -191,9 +193,10 @@ function ProductfilterContextProvider({ children }) {
     });
 
     // console.log(cartId);
-    // console.log(orders);
+    console.log(orders);
     const { data } = await createOrederswithItems(cartId, orders);
 
+    setdbcart(null);
     // const uniqueSupplier = await sipplierArr.reduce((prev, next) => {
     //   if (prev.supplierId === next.supplierId) {
     //     return [...prev, next];
