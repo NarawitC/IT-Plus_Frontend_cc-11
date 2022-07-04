@@ -212,9 +212,10 @@ function OrderPage() {
                 <select
                   name='searches'
                   id='searches'
-                  className=' text-bold text-primary-focus border-2 h-[53px] w-[230px] rounded-lg '
+                  className=' text-bold text-primary-focus border-2 h-[53px] w-[230px] rounded-lg p-2 '
                   onChange={(e) => {
                     setSearchBy(e.target.value);
+                    setOrderSearchTerm('');
                   }}
                   value={searchBy}
                 >
@@ -224,15 +225,36 @@ function OrderPage() {
                 </select>
               </div>
               <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
-                <input
-                  type='text'
-                  placeholder='ค้นหาคำสั่งซื้อ'
-                  className='input w-[395px] text-lg'
-                  onChange={(event) => {
-                    setOrderSearchTerm(event.target.value);
-                  }}
-                  value={orderSearchTerm}
-                />
+                {searchBy === 'status' ? (
+                  <>
+                    <select
+                      type='text'
+                      onChange={(event) => {
+                        setOrderSearchTerm(event.target.value);
+                      }}
+                      value={orderSearchTerm}
+                      className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
+                    >
+                      <option value='TO_SHIPPING_COMPANY'>
+                        กำลังดำเนินการ
+                      </option>
+                      <option value='TO_CLIENT'>กำลังจัดส่ง</option>
+                      <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
+                    </select>
+                  </>
+                ) : (
+                  <>
+                    <input
+                      type='text'
+                      placeholder='ค้นหาคำสั่งซื้อ'
+                      className='input w-[395px] text-lg'
+                      onChange={(event) => {
+                        setOrderSearchTerm(event.target.value);
+                      }}
+                      value={orderSearchTerm}
+                    />
+                  </>
+                )}
               </div>
               <button
                 onClick={() => setOrderSearchTerm('')}
@@ -252,7 +274,7 @@ function OrderPage() {
                 <th className='text-center'>วันที่</th>
                 <th className=''>ชื่อลูกค้า</th>
                 <th className='flex justify-center'>หมายเลขคำสั่งซื้อ</th>
-                <th>ยอดคำสั่งซื้อ</th>
+                <th className='text-end'>ยอดคำสั่งซื้อ</th>
                 <th className='text-center'>สถานะการชำระเงิน</th>
                 <th className='flex justify-center'>Tracking Id</th>
                 <th className='text-center'>Shipping Order Status</th>
@@ -289,7 +311,7 @@ function OrderPage() {
                                 navigate(`/supplier/order/${el.id}`);
                               }}
                             >
-                              <p className='cursor-pointer border-2 hover:border-primary w-[50px] rounded-lg text-center p-2 h-14 flex items-center justify-center bg-white '>
+                              <p className='cursor-pointer border-2 hover:border-primary w-[90px] rounded-lg text-center p-2 h-14 flex items-center justify-center bg-white '>
                                 {el.id}
                               </p>
                             </div>
