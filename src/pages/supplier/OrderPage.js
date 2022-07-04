@@ -11,7 +11,12 @@ import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
 import { MdOutlineCancel } from 'react-icons/md';
 import { OrderContext } from '../../contexts/Supplier/OrderContext';
 import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
-
+import {
+  createShippingOrder,
+  updateStatusToClient,
+  updateStatusToDelivered,
+} from '../../apis/supplier/supplierShippingOrder';
+import { FaRoad } from 'react-icons/fa';
 // const mockArr = [
 //   {
 //     firstName: 'Panit Su',
@@ -55,6 +60,7 @@ import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext
 //   },
 // ];
 function OrderPage() {
+  const [isEditTrackingId, setIsEditTrackingId] = useState(false);
   const { orders, setOrders } = useContext(OrderContext);
   console.log(orders);
   const [orderSearchTerm, setOrderSearchTerm] = useState('');
@@ -153,7 +159,7 @@ function OrderPage() {
       <div className=' grid grid-cols-2 gap-10'>
         <div className='stat flex justify-between items-center border-2 rounded-3xl hover:border-secondary '>
           <div className=''>
-            <div className='stat-title'>ที่ต้องชำระ</div>
+            <div className='stat-title'>รอชำระ</div>
             <div className='stat-value text-secondary'>2</div>
           </div>
           <div className=' text-secondary '>{<RiTodoLine size={45} />}</div>
@@ -174,7 +180,7 @@ function OrderPage() {
               ></path>
             </svg>
           </div>
-          <div className='stat-title'>ที่ต้องจัดส่ง</div>
+          <div className='stat-title'>ต้องส่ง</div>
           <div className='stat-value text-warning'>12</div>
         </div>
         <div className='stat border-2 rounded-3xl hover:border-accent'>
@@ -183,7 +189,7 @@ function OrderPage() {
               {<TbTruckDelivery size={45} />}
             </div>
           </div>
-          <div className='stat-title'>กำลังจัดส่ง</div>
+          <div className='stat-title'>กำลังส่ง</div>
           <div className='stat-value'>15</div>
         </div>
         <div className='stat border-2 rounded-3xl hover:border-info'>
@@ -236,10 +242,8 @@ function OrderPage() {
                       className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
                     >
                       <option value=''>กรุณาเลือกสถานะการจัดส่ง</option>
-                      <option value='TO_SHIPPING_COMPANY'>
-                        กำลังดำเนินการ
-                      </option>
-                      <option value='TO_CLIENT'>กำลังจัดส่ง</option>
+                      <option value='TO_SHIPPING_COMPANY'>ต้องส่ง</option>
+                      <option value='TO_CLIENT'>กำลังส่ง</option>
                       <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
                     </select>
                   </>
@@ -323,8 +327,7 @@ function OrderPage() {
                             </p>
                           </th>
                           <th>
-                            <label class='swap'>
-                              <input type='checkbox' />
+                            <label className=''>
                               {/* el.PurchasedOrder !== null */}
                               {el.PurchasedOrder !== null ? (
                                 <>
@@ -349,6 +352,7 @@ function OrderPage() {
                           </th>
                           <th className=''>
                             {el.PurchasedOrder?.ShippingOrder?.trackingId ||
+                            // 1 ? (
                             el.PurchasedOrder ? (
                               <>
                                 <input
@@ -361,6 +365,8 @@ function OrderPage() {
                                         ...prevShippingDetail[idx],
                                         trackingId: event.target.value,
                                         orderId: el.id,
+                                        shippingOrderId:
+                                          el.PurchasedOrder?.ShippingOrder?.id,
                                       },
                                       ...prevShippingDetail.slice(idx + 1),
                                     ])
@@ -377,35 +383,39 @@ function OrderPage() {
                               </>
                             )}
                           </th>
+                          {/* el.PurchasedOrder?.ShippingOrder?.trackingId */}
                           <th className=''>
-                            {el.PurchasedOrder?.status === 'CONFIRMED' ||
+                            {el.PurchasedOrder !== null &&
                             el.PurchasedOrder?.ShippingOrder?.trackingId ? (
-                              <select
-                                className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
-                                onChange={(event) =>
-                                  //
-                                  setShippingDetails((prevShippingDetail) => [
-                                    ...prevShippingDetail.slice(0, idx),
-                                    {
-                                      ...prevShippingDetail[idx],
-                                      status: event.target.value.trim(),
-                                      orderId: el.id,
-                                    },
-                                    ...prevShippingDetail.slice(idx + 1),
-                                  ])
-                                }
-                                value={el.status}
-                                type='text'
-                                placeholder={el.status}
-                              >
-                                <option value='TO_SHIPPING_COMPANY'>
-                                  กำลังดำเนินการ
-                                </option>
-                                <option value='TO_CLIENT'>กำลังจัดส่ง</option>
-                                <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
-                              </select>
+                              <>
+                                <p className='text-center'>กำลังส่ง</p>
+                              </>
                             ) : (
-                              <p className='text-center'>-</p>
+                              // <select
+                              //   className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
+                              //   onChange={(event) =>
+                              //     //
+                              //     setShippingDetails((prevShippingDetail) => [
+                              //       ...prevShippingDetail.slice(0, idx),
+                              //       {
+                              //         ...prevShippingDetail[idx],
+                              //         status: event.target.value.trim(),
+                              //         orderId: el.id,
+                              //       },
+                              //       ...prevShippingDetail.slice(idx + 1),
+                              //     ])
+                              //   }
+                              //   value={el.status}
+                              //   type='text'
+                              //   placeholder={el.status}
+                              // >
+                              //   <option value='TO_SHIPPING_COMPANY'>
+                              //     กำลังส่ง
+                              //   </option>
+                              //   <option value='TO_CLIENT'>กำลังส่ง</option>
+                              //   <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
+                              // </select>
+                              <p className='text-center'>ต้องส่ง</p>
                             )}
                           </th>
                         </tr>

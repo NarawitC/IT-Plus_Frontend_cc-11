@@ -248,7 +248,7 @@ function ProductPage() {
               <th></th>
               <th className='text-center'>รายการ</th>
               <th className='flex justify-center'>stock</th>
-              <th>ราคาต่อหน่วย</th>
+              <th className='text-end'>ราคาต่อหน่วย</th>
               <th className='text-center'>สถานะ</th>
               <th className='text-center'>หมายเหตุ</th>
               <th className=''></th>
