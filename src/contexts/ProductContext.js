@@ -132,7 +132,7 @@ function ProductfilterContextProvider({ children }) {
     const mycart = await allcart.find((el) => el.id === cartId);
     // const orders = [];
     // console.log(cartId);
-    // console.log(mycart);
+    console.log(mycart);
     const sipplierArr = await mycart.CartItems.map((el) => {
       // console.log(el.Product);
       return {

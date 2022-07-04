@@ -3,7 +3,7 @@ import { useProductfilter } from '../../contexts/ProductContext';
 import sumCheck from '../../../src/pictures/check_sum.svg';
 import homeIcon from '../../../src/pictures/home-icon.svg';
 import { useEffect, useState } from 'react';
-import { getCart } from '../../apis/client/order';
+import { getAllOrders, getCart } from '../../apis/client/order';
 import { localsting } from '../../services/LocalstringComma';
 import { useLoading } from '../../contexts/LoadingContext';
 import ModalAddress from '../../components/Client/clentCart/modalAddress';
@@ -11,48 +11,83 @@ import { useOrderContext } from '../../contexts/Client/orderContext';
 
 function CheckoutPage() {
   const { checkoutAddress } = useOrderContext();
-  const [subtotalCart, setsubtotalCart] = useState([]);
-  const [TotaltoOdcart, setTotaltoOdcart] = useState(null);
-  const [cartOrder, setcartOrder] = useState(null);
-  const { dbcart, GetCartsbyId, createOrderandOrderItems } = useProductfilter();
+
+  const [TotalPrice, setTotalPrice] = useState([]);
+  const [Totalamount, setTotalamount] = useState(null);
+  const [OrderArr, setOrderArr] = useState(null);
+
+  const { dbcart } = useProductfilter();
   const { setIsLoading } = useLoading();
   useEffect(() => {
     // console.log(dbcart);
-    const fetchCartDb = async () => {
+    const fetchorderDb = async () => {
+      // get thisorder by rescart
       if (dbcart) {
-        const rescart = await GetCartsbyId(dbcart);
-        setcartOrder(rescart.CartItems);
-        return rescart.CartItems;
+        const {
+          data: { orders },
+        } = await getAllOrders();
+        const arrOrderid = await dbcart
+          .map((el) => el.id)
+          .map((elodid) => {
+            for (let k of orders) {
+              if (elodid == k.id) return k;
+            }
+          });
+        return arrOrderid;
       }
     };
     const sumPrice = async () => {
       setIsLoading(true);
-      const rescartCartitem = await fetchCartDb();
-      if (rescartCartitem?.length > 0) {
-        const subtotal = rescartCartitem?.map((el) => {
+      const resOrderdb = await fetchorderDb();
+      setOrderArr(resOrderdb);
+      if (resOrderdb?.length > 0) {
+        const subtotal = resOrderdb?.map((el) => {
           // console.log(el);
-          if (el.Product.Promotions?.length > 0) {
-            return (
-              (+el.Product.price - +el.Product.Promotions[0].discount) *
-              el.quantity
-            );
-          } else return el.Product.price * el.quantity;
+          const products = el.OrderItems.map((eloi) => {
+            return {
+              productId: eloi.Product.id,
+              productName: eloi.Product.productName,
+              pic: eloi.Product.mainPicture,
+              amount: eloi.quantity,
+            };
+          });
+          return {
+            orderId: el.id,
+            ordertotal: el.productPrice,
+            products,
+            amountoi: products
+              .map((elAM) => elAM.amount)
+              .reduce((a, b) => a + b, 0),
+          };
+          // if (el.Product.Promotions?.length > 0) {
+          //   return (
+          //     (+el.Product.price - +el.Product.Promotions[0].discount) *
+          //     el.quantity
+          //   );
+          // } else return el.Product.price * el.quantity;
         });
-        const total = subtotal.reduce((a, b) => a + b, 0);
-        const totoalAmount = rescartCartitem
-          .map((el) => el.amount)
+        // console.log(subtotal);
+        // console.log('subtotal');
+        const total = subtotal
+          .map((elOT) => elOT.ordertotal)
+          .reduce((a, b) => +a + b, 0);
+        console.log(total);
+
+        const totalAmount = subtotal
+          .map((el) => el.amountoi)
           .reduce((a, b) => a + b, 0);
-        // setTotalcart(total);
-        setsubtotalCart(subtotal);
-        setTotaltoOdcart(total);
+        setTotalamount(totalAmount);
+        setTotalPrice(total);
+        // setTotaltoOdcart(total);
         setIsLoading(false);
       }
     };
     sumPrice();
   }, []);
 
-  const handleCreateOrder = async () => {
-    const res = await createOrderandOrderItems(dbcart, checkoutAddress);
+  const handlePayment = async () => {
+    console.log(OrderArr);
+    // const res = await createOrderandOrderItems(dbcart, checkoutAddress);
   };
 
   return (
@@ -76,18 +111,33 @@ function CheckoutPage() {
           </div>
           <div className='font-bold '>ตรวจสอบยอด</div>
         </div>
-        {cartOrder?.map((el) => {
-          console.log(cartOrder);
+        {OrderArr?.map((elOrder) => {
+          // console.log(elOrder);
           return (
             <div className='border-b-2 pb-4 px-4'>
               <div className='flex justify-between mt-4 '>
-                <div className=''>
-                  <div className='font-bold'>{el?.Product.productName}</div>
-                  <div className='text-gray-500 opacity-50'>
-                    จำนวน : {el?.quantity}
-                  </div>
-                </div>
-                <div>THB {localsting(subtotalCart)}</div>
+                {elOrder.OrderItems?.map((elpds) => {
+                  //product OrderItem lists here
+                  // console.log(elpds);
+                  const { productName, price, mainPicture } = elpds.Product;
+                  return (
+                    <>
+                      <div className=''>
+                        <div className='font-bold'>{productName}</div>
+                        <div className='text-gray-500 opacity-50'>
+                          จำนวน : {elpds?.quantity}
+                        </div>
+                      </div>
+                      <div>
+                        THB{' '}
+                        {elpds.discount
+                          ? localsting(elpds.quantity * price) - elpds.discount
+                          : localsting(elpds.quantity * price)}
+                      </div>
+                    </>
+                  );
+                  //product OrderItem lists here
+                })}
                 {/* <div>THB {TotaltoOdcart}</div> */}
               </div>
             </div>
@@ -99,9 +149,11 @@ function CheckoutPage() {
             <div className='flex justify-between '>
               <div className='flex'>
                 <div className='font-bold'>ยอดรวม</div>
-                <div className='text-gray-500 opacity-50'>(2ชิ้น)</div>
+                <div className='text-gray-500 opacity-50'>
+                  ({Totalamount}ชิ้น)
+                </div>
               </div>
-              <div>THB {localsting(TotaltoOdcart)}</div>
+              <div>THB {localsting(TotalPrice)}</div>
             </div>
             <div className='flex justify-between'>
               <p className='font-bold '>ค่าจัดส่ง</p>
@@ -112,7 +164,7 @@ function CheckoutPage() {
             <div className='flex justify-between '>
               <div className='font-bold'>ยอดสุทธิ</div>
               <div className='text-primary font-bold text-[20px] '>
-                THB {localsting(TotaltoOdcart - 0)}
+                THB {localsting(TotalPrice - 0)}
               </div>
             </div>
             <div className='text-[14px] text-gray-500 opacity-50 line-through'>
@@ -121,7 +173,7 @@ function CheckoutPage() {
           </div>
           <div
             className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl text-white text-[24px] hover:from-blue-600 hover:to-blue-400'
-            onClick={handleCreateOrder}
+            onClick={handlePayment}
           >
             ชำระเงิน
           </div>
