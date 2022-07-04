@@ -213,6 +213,7 @@ function ProductPage() {
                     <option value=''>กรุณาเลือกสถานะสินค้า</option>
                     <option value='PENDING'>อยู่ระหว่างดำเนินการ</option>
                     <option value='APPROVED'>อนุมัติแล้ว</option>
+                    <option value='REJECTED'>ถูกระงับ</option>
                   </select>
                 </>
               ) : (
@@ -269,7 +270,7 @@ function ProductPage() {
                         <td className='text-center font-bold'>{index + 1}</td>
                         <td className='text-center font-bold '>{el.id || 0}</td>
                         <td>
-                          <div className='flex items-center space-x-3 justify-center'>
+                          <div className='flex items-center space-x-3 justify-center  h-16 w-[60px] '>
                             <img
                               className='object-contain h-16 w-[60px] '
                               src={el.mainPicture || defaultPic}
@@ -282,7 +283,7 @@ function ProductPage() {
                             <div className='font-bold  text-lg text-blue-900'>
                               {el.brand}
                             </div>
-                            <div className=' w-[380px] flex overflow-x-auto h-12 items-center font-bold'>
+                            <div className=' w-[323px] flex overflow-x-auto h-12 items-center font-bold'>
                               {el.productName}
                             </div>
                           </div>
