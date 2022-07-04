@@ -80,11 +80,13 @@ function EditSelectedProductForm({ updateProductByProductId }) {
       // console.log(res.data);
       console.log(product);
       setSelectedProductObj(product);
+      console.log('BEFORE', product.mainPicture);
       setImageURL(product.mainPicture);
       setSubPictureURL1(product.subPicture1);
       setSubPictureURL2(product.subPicture2);
       setSubPictureURL3(product.subPicture3);
       setSubPictureURL4(product.subPicture4);
+      console.log(product.subPicture4);
       setProductName(product.productName);
       setCategoryId(product.categoryId);
       setSubCategoryId(product.subCategoryId);
@@ -131,76 +133,99 @@ function EditSelectedProductForm({ updateProductByProductId }) {
     handleGetAllCategory();
   }, [categoryId]);
 
-  useEffect(() => {
-    if (mainPicture === null) {
-      return;
-    }
-    const newImageURL = URL.createObjectURL(mainPicture);
-    console.log(newImageURL);
-    setImageURL(newImageURL);
+  // useEffect(() => {
+  //   if (mainPicture === null) {
+  //     console.log('GGGGGGG');
+  //     return;
+  //   }
+  //   // const newImageURL = URL.createObjectURL(mainPicture);
+  //   // console.log('AFTER', newImageURL);
+  //   // setImageURL(newImageURL);
 
-    if (subPicture1 === null) {
-      return;
-    }
-    const newSubPicture1URL = URL.createObjectURL(subPicture1);
-    console.log(newSubPicture1URL);
-    setSubPictureURL1(newSubPicture1URL);
+  //   if (subPicture1 !== null) {
+  //     return;
+  //   }
+  //   const newSubPicture1URL = URL.createObjectURL(subPicture1);
+  //   console.log(newSubPicture1URL);
+  //   setSubPictureURL1(newSubPicture1URL);
 
-    if (subPicture2 === null) {
-      return;
-    }
-    const newSubPicture2URL = URL.createObjectURL(subPicture2);
-    console.log(newSubPicture2URL);
-    setSubPictureURL2(newSubPicture2URL);
+  //   if (subPicture2 === null) {
+  //     return;
+  //   }
+  //   const newSubPicture2URL = URL.createObjectURL(subPicture2);
+  //   console.log(newSubPicture2URL);
+  //   setSubPictureURL2(newSubPicture2URL);
 
-    if (subPicture3 === null) {
-      return;
-    }
-    const newSubPicture3URL = URL.createObjectURL(subPicture3);
-    // console.log(newImageURL);
-    setSubPictureURL3(newSubPicture3URL);
+  //   if (subPicture3 === null) {
+  //     return;
+  //   }
+  //   const newSubPicture3URL = URL.createObjectURL(subPicture3);
+  //   // console.log(newSubPicture3URL);
+  //   setSubPictureURL3(newSubPicture3URL);
 
-    if (subPicture4 === null) {
-      return;
-    }
-    const newSubPicture4URL = URL.createObjectURL(subPicture4);
-    // console.log(newImageURL);
-    setSubPictureURL4(newSubPicture4URL);
-  }, [mainPicture, subPicture1, subPicture2, subPicture3, subPicture4]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+  //   if (subPicture4 === null) {
+  //     return;
+  //   }
+  //   const newSubPicture4URL = URL.createObjectURL(subPicture4);
+  //   // console.log(newSubPicture4URL);
+  //   setSubPictureURL4(newSubPicture4URL);
+  // }, [subPicture1, subPicture2, subPicture3, subPicture4]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
   // console.log({ imageURL: imageURL });
+
   const onMainPictureChange = (event) => {
-    if (event.target.files[0]) {
+    if (event.target.files.length !== 0) {
+      // setMainPicture(event.target.files[0]);
+      const newImageURL = URL.createObjectURL(event.target.files[0]);
+      console.log(newImageURL);
+      setImageURL(newImageURL);
       setMainPicture(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
 
   const onSubPicture1Change = (event) => {
-    if (event.target.files[0]) {
+    if (event.target.files.length !== 0) {
+      // setSubPicture1(event.target.files[0]);
+      const newSubPicture1URL = URL.createObjectURL(event.target.files[0]);
+      setSubPictureURL1(newSubPicture1URL);
       setSubPicture1(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
 
   const onSubPicture2Change = (event) => {
-    if (event.target.files[0]) {
+    if (event.target.files.length !== 0) {
+      const newSubPicture2URL = URL.createObjectURL(event.target.files[0]);
+      setSubPictureURL2(newSubPicture2URL);
       setSubPicture2(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
 
   const onSubPicture3Change = (event) => {
-    if (event.target.files[0]) {
+    if (event.target.files.length !== 0) {
+      const newSubPicture3URL = URL.createObjectURL(event.target.files[0]);
+      setSubPictureURL3(newSubPicture3URL);
       setSubPicture3(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
-
   const onSubPicture4Change = (event) => {
-    if (event.target.files[0]) {
-      setSubPicture4(event.target.files[0]);
+    if (event.target.files.length !== 0) {
+      const newSubPicture4URL = URL.createObjectURL(event.target.files[0]);
+      setSubPictureURL4(newSubPicture4URL);
+      setSubPicture3(event.target.files[0]);
     }
   };
+
+  // const onSubPicture4Change = (event) => {
+  //   if (event.target.files[0]) {
+  //     const newSubPicture4URL = URL.createObjectURL(event.target.files[0]);
+  //     setSubPicture4(newSubPicture4URL);
+  //     console.log(newSubPicture4URL);
+  //     console.log(event.target.files[0]);
+  //   }
+  // };
 
   return (
     <>
