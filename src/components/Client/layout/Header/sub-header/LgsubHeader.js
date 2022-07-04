@@ -45,7 +45,17 @@ function LgsubHeader() {
       const {
         data: { categories },
       } = await getAllCategoryInfo();
+      const All = {
+        SubCategories: [],
+        categoryName: 'All',
+        createdAt: '2022-07-01T11:28:48.000Z',
+        id: null,
+      };
+      // console.log(categories);
+
+      categories.unshift(All);
       setCategories(categories);
+      // navigate('/product');
     };
     fetchCategories();
   }, []);

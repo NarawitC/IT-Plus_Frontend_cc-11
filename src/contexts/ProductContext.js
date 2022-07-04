@@ -53,7 +53,15 @@ function ProductfilterContextProvider({ children }) {
     sumPrice();
   }, [priceRange, tempCarts]);
   useEffect(() => {
-    // console.log(productquery);
+    const createStrURL = async () => {
+      const urlpr =
+        '?' +
+        (await Object.entries(searchParams)
+          .map((el) => el.join('='))
+          .join('&'));
+      navigate('/product/' + urlpr);
+    };
+    createStrURL();
     PriceRangeFiler(priceRange);
   }, [priceRange, searchParams]);
   const PriceRangeFiler = async (productRange) => {

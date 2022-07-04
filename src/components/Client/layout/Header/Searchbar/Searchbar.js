@@ -1,6 +1,7 @@
 import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
+import { Navigate } from 'react-router-dom';
 
 import { useProductfilter } from '../../../../../contexts/ProductContext';
 
@@ -10,6 +11,7 @@ function Searchbar() {
 
   const handleSearchButton = (e) => {
     e.preventDefault();
+    // Navigate('/product');
     setSearchParams((prev) => ({ ...prev, searchText }));
   };
 
