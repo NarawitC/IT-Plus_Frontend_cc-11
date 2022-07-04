@@ -120,6 +120,9 @@ function CheckoutPage() {
                   //product OrderItem lists here
                   // console.log(elpds);
                   const { productName, price, mainPicture } = elpds.Product;
+                  // console.log(elpds.discount);
+                  // console.log(price);
+                  // console.log(elpds.quantity);
                   return (
                     <>
                       <div className=''>
@@ -131,8 +134,10 @@ function CheckoutPage() {
                       <div>
                         THB{' '}
                         {elpds.discount
-                          ? localsting(elpds.quantity * price) - elpds.discount
-                          : localsting(elpds.quantity * price)}
+                          ? localsting(
+                              +elpds.quantity * +price - +elpds.discount
+                            )
+                          : localsting(+elpds.quantity * +price)}
                       </div>
                     </>
                   );
