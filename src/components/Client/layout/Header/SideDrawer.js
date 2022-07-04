@@ -1,6 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getAllCategoryInfo } from '../../../../apis/client/category';
+import { useProductfilter } from '../../../../contexts/ProductContext';
 
 function SideDrawer({ eldrawer }) {
+  const { categorySelectd } = useProductfilter();
+  const [categories, setcategories] = useState();
+  useEffect(() => {
+    const fetchCategories = async () => {
+      if (1) {
+        const {
+          data: { categories },
+        } = await getAllCategoryInfo();
+        // const All = {
+        //   SubCategories: [],
+        //   categoryName: 'All',
+        //   createdAt: '2022-07-01T11:28:48.000Z',
+        //   id: null,
+        // };
+        // console.log(categories);
+        setcategories(categories);
+        // await categories.unshift(All);
+        // const thecat = await categories.filter(
+        //   (el) => el.id === categorySelectd
+        // );
+      }
+    };
+    fetchCategories();
+  }, []);
+
   const [isDraw, setisDraw] = useState(false);
   return (
     // <div>
@@ -29,13 +56,14 @@ function SideDrawer({ eldrawer }) {
       <div className='drawer-side'>
         <label htmlFor='my-drawer' className='drawer-overlay'></label>
         <ul className='menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content'>
+          <img sec />
+          สินค้าทั้งหมด
           {/* <!-- Sidebar content here --> */}
-          <li>
-            <a>Sidebar Item 1</a>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
+          {categories?.map((el) => (
+            <li>
+              <a>{el.categoryName}</a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

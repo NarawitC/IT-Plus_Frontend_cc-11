@@ -28,6 +28,17 @@ body {
   /* background-color: #f0f2f5; */
   background-color: #ffffff;
 }
+
+.overflow-displayNone {
+  overflow-x: scroll;
+}
+div::-webkit-scrollbar {
+  display: none;
+  display: none;
+}
+/* :overflow-y {
+  display: none;
+} */
 .box {
   border: 1px solid black;
 }

@@ -3,14 +3,23 @@ import { FaRegThumbsUp } from 'react-icons/fa';
 import { useProductfilter } from '../../contexts/ProductContext';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import BreadCrumbs from '../../components/Client/products/productInfo/BreadCrumbs';
 
 function ClientDynamicProductPage() {
   const locate = useLocation();
   useEffect(() => {
-    setProductquery(Object.entries(locate.search.slice(1).split('&')));
-    // console.log(locate);
+    // const params={
+    //   page: page,
+    //   time: locate)
+    // }
+    // const arrv1 = locate.search.slice(1).split('&');
+    // const arrv2 = arrv1.map((el) => el.split('='));
+    // // setProductquery(Object.fromEntries(arrv2));
+    // // console.log(arrv1);
+    // // console.log(arrv2);
+    // const params = Object.fromEntries(arrv2);
   }, []);
-  const { product, totalPage, page, setPage, setProductquery } =
+  const { product, totalPage, page, setPage, searchParams } =
     useProductfilter();
   const totalPageArr = [];
   for (let i = 1; i <= totalPage; i++) {
@@ -19,6 +28,7 @@ function ClientDynamicProductPage() {
   return (
     <>
       <div className='bg-white '>
+        <BreadCrumbs />
         <div className='max-w-2xl mx-auto py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8'>
           <div className='flex flex-row gap-2'>
             <FaRegThumbsUp className='block mt-1' size={20} />

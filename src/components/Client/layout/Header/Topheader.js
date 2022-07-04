@@ -4,7 +4,7 @@ import headerlogo from '../../../../icons/IT_PLUS_smLOGO.png';
 import Dragbutton from './Dragbutton';
 import Clientinfo from '../Utils/Clientinfo';
 import ModalAny from '../../authforms/ModalAuth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../../../contexts/Client/AuthCcontexts';
 import DynamicCartDropdown from './DynamicCartDropdown';
 import { useProductfilter } from '../../../../contexts/ProductContext';
@@ -13,13 +13,27 @@ import { useErrorContext } from '../../../../contexts/ErrorContext';
 function Topheader({ clicksidebar }) {
   const { user } = useAuthContext();
   const { setError } = useErrorContext();
+  const { setSearchParams } = useProductfilter();
   const inputEmodal = useRef();
+  const navigate = useNavigate();
+  const handleBacktohome = async () => {
+    await setSearchParams((prev) => {
+      return {};
+    });
+    navigate('/');
+  };
   return (
     <div className='navbar flex flex-row justify-start h-1/2'>
       <ModalAny inputEmodal={inputEmodal} />
       <Dragbutton clicksidebar={clicksidebar} />
       <div className='flex-1'>
-        <Link className='mr-2 normal-case text-xl font-bold' to={'/'}>
+        <Link
+          className='mr-2 normal-case text-xl font-bold'
+          to={'/'}
+          onClick={() => {
+            handleBacktohome();
+          }}
+        >
           <div>
             <img
               src={headerlogo}
