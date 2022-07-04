@@ -23,7 +23,7 @@ function LGCartlist({ el, handleDelcartlist }) {
       return newarr;
     });
   };
-  console.log(el.id);
+  // console.log(el.id);
 
   useEffect(() => {
     handleChangeamount();

@@ -138,7 +138,7 @@ function ProductfilterContextProvider({ children }) {
     const mycart = await allcart.find((el) => el.id === cartId);
     // const orders = [];
     // console.log(cartId);
-    console.log(mycart);
+    // console.log(mycart);
     const sipplierArr = await mycart.CartItems.map((el) => {
       // console.log(el.Product);
       return {
@@ -180,7 +180,7 @@ function ProductfilterContextProvider({ children }) {
                 : 0,
             quantity: element.quantity,
           });
-          console.log(element);
+          // console.log(element);
           orders[supIndex].productPrice +=
             (element.Product.price -
               (element.Product.Promotions.length > 0
@@ -193,7 +193,7 @@ function ProductfilterContextProvider({ children }) {
     });
 
     // console.log(cartId);
-    console.log(orders);
+    // console.log(orders);
     const { data } = await createOrederswithItems(cartId, orders);
 
     setdbcart(null);

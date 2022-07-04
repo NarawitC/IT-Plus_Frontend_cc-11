@@ -101,7 +101,9 @@ function ModalAddress({ user }) {
                   }}
                 >
                   {province.amphure?.map((item) => (
-                    <option value={item.id}>{item.name_th}</option>
+                    <option key={item.id} value={item.id}>
+                      {item.name_th}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -123,7 +125,9 @@ function ModalAddress({ user }) {
                   }}
                 >
                   {district.tambon?.map((item) => (
-                    <option value={item.id}>{item.name_th}</option>
+                    <option key={item.id} value={item.id}>
+                      {item.name_th}
+                    </option>
                   ))}
                 </select>
               </div>
