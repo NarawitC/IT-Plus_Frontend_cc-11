@@ -4,22 +4,31 @@ import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { dateFormat } from '../../services/dateFormat';
+import { useAdminSearchContext } from '../../contexts/Admin/AdminSearchContext';
 
 function DevOrderTable() {
   const [AllOrder, setAllOrder] = useState();
+  const { orderId } = useAdminSearchContext();
   useEffect(() => {
     const fetchOrder = async () => {
       try {
         const res = await axios.get('/admin/order');
         const orderList = res.data.orders;
         // console.log(res.data);
-        setAllOrder(orderList);
+        if (+orderId) {
+          const order = orderList.find((el) => el.id === +orderId);
+          if (order) {
+            setAllOrder([order]);
+          }
+        } else {
+          setAllOrder(orderList);
+        }
       } catch (e) {
         console.log(e.response.data);
       }
     };
     fetchOrder();
-  }, []);
+  }, [orderId]);
   // console.log(AllOrder);
 
   return (

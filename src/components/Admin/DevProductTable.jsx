@@ -3,22 +3,32 @@ import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEye } from 'react-icons/fa';
+import { useAdminSearchContext } from '../../contexts/Admin/AdminSearchContext';
 
 function DevProductTable() {
   const [AllProduct, setAllProduct] = useState();
+  const { productId } = useAdminSearchContext();
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get('/admin/product');
         const productList = res.data.products;
         // console.log(productList);
-        setAllProduct(productList);
+        if (+productId) {
+          const product = productList.find((el) => el.id === +productId);
+          if (product) {
+            setAllProduct([product]);
+          }
+        } else {
+          setAllProduct(productList);
+        }
       } catch (e) {
         console.log(e.response.data);
       }
     };
     fetchProduct();
-  }, []);
+  }, [productId]);
   // console.log(AllProduct);
 
   return (
@@ -36,9 +46,9 @@ function DevProductTable() {
           </tr>
         </thead>
         <tbody>
-          {AllProduct?.map((el) => {
+          {AllProduct?.map((el, idx) => {
             return (
-              <tr>
+              <tr key={idx}>
                 <td>
                   <div className='flex items-center space-x-1 truncate'>
                     <div className='avatar'>
