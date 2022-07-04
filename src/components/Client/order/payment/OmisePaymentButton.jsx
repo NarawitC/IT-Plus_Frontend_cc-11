@@ -1,18 +1,24 @@
 import { OMISE_PUBLIC_KEY } from '../../../../config/constants';
 import { omiseCheckoutCreditCard } from '../../../../apis/omise/omiseCheckout';
 import { createPurchasedOrder } from '../../../../apis/client/purchasedOrder';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../../../contexts/Client/AuthCcontexts';
+import { createShippingOrder } from '../../../../apis/supplier/supplierShippingOrder';
 
-function OmisePaymentButton() {
-  const totalPrice = 999;
-  const displayName = 'Note shop';
-  const profilePicture =
-    'https://res.cloudinary.com/narawit/image/upload/v1656510181/IT_Shop/Default%20photo/defaultSupplierProfilePicture_zum06n.png';
-  const clientId = 1;
-  const orderId = 1;
+function OmisePaymentButton({ className, orders, totalPrice }) {
+  const displayName = 'IT Plus';
+  const navigate = useNavigate();
+  const { user } = useAuthContext();
+  const clientId = user?.Client.id;
+  const orderIds = [];
+  orders?.forEach((order) => {
+    orderIds.push(order.id);
+  });
   const omiseCard = window.OmiseCard;
 
   const handleClickCheckoutButton = (e) => {
     e.preventDefault();
+    console.log('first');
     omiseCard.configure({
       publicKey: OMISE_PUBLIC_KEY,
       defaultPaymentMethod: 'credit_card',
@@ -29,7 +35,6 @@ function OmisePaymentButton() {
     omiseCard.open({
       amount: totalPrice * 100,
       frameLabel: displayName,
-      image: profilePicture,
       submitFormTarget: '#checkoutForm',
       onCreateTokenSuccess: async (token) => {
         // console.log(token);
@@ -43,12 +48,21 @@ function OmisePaymentButton() {
         if (status !== 'successful') {
           alert('Payment failed');
         } else if (status === 'successful') {
-          await createPurchasedOrder({
-            orderId,
+          const {
+            data: { purchasedOrders },
+          } = await createPurchasedOrder({
+            orderIds,
             paymentAt,
             transactionId,
           });
-          alert(`Payment successful, order id: ${orderId}`);
+          console.log(purchasedOrders);
+          const purchasedOrderIds = [];
+          purchasedOrders.forEach((purchasedOrder) => {
+            purchasedOrderIds.push({ purchasedOrderId: purchasedOrder.id });
+          });
+          await createShippingOrder({ purchasedOrderIds });
+          alert(`Payment successful, order id: ${orderIds.join(', ')}`);
+          navigate('/');
         }
       },
       onFormClosed: () => {},
@@ -56,14 +70,16 @@ function OmisePaymentButton() {
   };
 
   return (
-    <div>
-      <form id="checkoutForm">
-        <button
-          id="checkoutButton"
-          onClick={handleClickCheckoutButton}
-        >{`Pay ${totalPrice} THB`}</button>
-      </form>
-    </div>
+    <form
+      id='checkoutForm'
+      className={className}
+      onSubmit={handleClickCheckoutButton}
+    >
+      <button
+        type='submit'
+        id='checkoutButton'
+      >{`Pay ${totalPrice} THB`}</button>
+    </form>
   );
 }
 

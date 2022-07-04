@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 
 function DynamicClientCheckoutmode() {
   const { CheckoutAddress } = useOrderContext();
-  console.log(CheckoutAddress);
+  // console.log(CheckoutAddress);
   const { user } = useAuthContext();
   return (
     <motion.div

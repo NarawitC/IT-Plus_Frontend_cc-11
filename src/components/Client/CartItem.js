@@ -57,9 +57,9 @@ function CartItem() {
     // console.log(reponse);
   };
   const handleCreateOrder = async (dbcart, address) => {
-    console.log(dbcart);
+    // console.log(dbcart);
     const res = await createOrderandOrderItems(dbcart, 'address is here');
-    console.log(res);
+    // console.log(res);
     setdbcart(res.bulkOrder);
     navigate('/cart/checkout');
   };
