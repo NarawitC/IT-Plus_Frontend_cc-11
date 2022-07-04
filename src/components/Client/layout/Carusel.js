@@ -44,7 +44,7 @@ function Carusel() {
             key={idx}
             id={`slide${idx}`}
             className={`carousel-item relative w-full  transform   ${
-              caluseldileft ? 'translate-x-full duration-700' : null
+              caluseldileft ? 'translate-x-full  duration-700' : null
             } 
             ${caluseldiright ? '-translate-x-full  duration-700 ' : null}
            `}
