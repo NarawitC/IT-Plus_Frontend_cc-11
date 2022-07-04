@@ -16,9 +16,9 @@ function Property({ productId, singlepd }) {
       </div>
       <div className='px-8 '>
         <div>
-          <div className='grid-cols-3 grid px-4 py-4 '>
+          <div>
             {singlepd?.Properties.map((el, idx) => (
-              <div key={idx}>
+              <div key={idx} className='grid-cols-3 grid px-4 py-2'>
                 <div>{el.topic}</div>
                 <div className='col-span-2 font-bold'>{el.description}</div>
               </div>

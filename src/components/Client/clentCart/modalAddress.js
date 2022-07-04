@@ -139,7 +139,7 @@ function ModalAddress({ user }) {
         <div className='flex justify-end gap-8 px-4'>
           <div className='modal-action'>
             <label
-              for='my-modal-5'
+              htmlFor='my-modal-5'
               className='btn bg-white border-none rounded-3xl mx-4 w-40'
             >
               ยกเลิก
@@ -147,12 +147,16 @@ function ModalAddress({ user }) {
           </div>
           <div className='modal-action'>
             <label
-              for='my-modal-5'
+              htmlFor='my-modal-5'
               className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl w-40'
               onClick={() =>
-                setCheckoutAddress(
-                  `${textaddress}  ${subDistrict.name_th} ${district.name_th} ${province.name_th} ${postcode}`
-                )
+                setCheckoutAddress((prev) => ({
+                  textaddress,
+                  province: province.name_th,
+                  district: district.name_th,
+                  subDistrict: subDistrict.name_th,
+                  postcode,
+                }))
               }
             >
               บันทึก

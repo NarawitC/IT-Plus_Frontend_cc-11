@@ -7,7 +7,7 @@ import { localsting } from '../../../services/LocalstringComma';
 // import sumCheck from '../../../src/pictures/check_sum.svg';
 
 function LGCartlist({ el, handleDelcartlist }) {
-  const [count, setCount] = useState(el.amount || 0);
+  const [count, setCount] = useState(el.amount || 1);
   const { settempCarts } = useProductfilter();
   const handleChangeamount = async () => {
     await settempCarts((prev) => {
