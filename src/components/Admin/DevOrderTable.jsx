@@ -39,9 +39,9 @@ function DevOrderTable() {
               </tr>
             </thead>
             <tbody>
-              {AllOrder?.map((el) => {
+              {AllOrder?.map((el, idx) => {
                 return (
-                  <tr>
+                  <tr key={idx}>
                     <th>{el.id}</th>
                     <td>{el.clientId}</td>
                     <td>{el.productPrice + el.deliveryPrice}</td>

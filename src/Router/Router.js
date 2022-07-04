@@ -94,23 +94,30 @@ function Router() {
           <Route path='*' element={<Navigate to='/supplier'></Navigate>} />
         </Route>
       </>
-
-      {admin && (
-        <>
-          <Route path='/admin/sign-in' element={<AdminSignInPage />} />
-          <Route path='/admin' element={<DevLayout />}>
-            <Route path='client' element={<AdminClientPage />} />
-            <Route path='order' element={<AdminOrderPage />} />
-            <Route path='product' element={<AdminProductPage />} />
-            <Route path='product/:productId' element={<ProductInfoPage />} />
-            {/* <Route path='sign-in' element={<AdminSignInPage />} /> */}
-            <Route path='*' element={<Navigate to='/admin/order'></Navigate>} />
-            <Route path='' element={<Navigate to='/admin/order'></Navigate>} />
-            <Route path='promotion' element={<AdminPromotion />} />
-          </Route>
-        </>
-      )}
-      <Route path='/' element={<Navigate to='/admin/order'></Navigate>} />
+      <>
+        <Route path='/admin/sign-in' element={<AdminSignInPage />} />
+        {admin && (
+          <>
+            <Route path='/admin/sign-in' element={<AdminSignInPage />} />
+            <Route path='/admin' element={<DevLayout />}>
+              <Route path='client' element={<AdminClientPage />} />
+              <Route path='order' element={<AdminOrderPage />} />
+              <Route path='product' element={<AdminProductPage />} />
+              <Route path='product/:productId' element={<ProductInfoPage />} />
+              {/* <Route path='sign-in' element={<AdminSignInPage />} /> */}
+              <Route
+                path='*'
+                element={<Navigate to='/admin/order'></Navigate>}
+              />
+              <Route
+                path=''
+                element={<Navigate to='/admin/order'></Navigate>}
+              />
+              <Route path='promotion' element={<AdminPromotion />} />
+            </Route>
+          </>
+        )}
+      </>
     </Routes>
   );
 }
