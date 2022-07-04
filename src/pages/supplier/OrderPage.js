@@ -235,6 +235,7 @@ function OrderPage() {
                       value={orderSearchTerm}
                       className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
                     >
+                      <option value=''>กรุณาเลือกสถานะการจัดส่ง</option>
                       <option value='TO_SHIPPING_COMPANY'>
                         กำลังดำเนินการ
                       </option>

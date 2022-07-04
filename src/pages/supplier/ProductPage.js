@@ -186,6 +186,7 @@ function ProductPage() {
               <select
                 onChange={(e) => {
                   setSearchBy(e.target.value);
+                  setProductSearchTerm('');
                 }}
                 value={searchBy}
                 name='searches'
@@ -199,15 +200,34 @@ function ProductPage() {
               </select>
             </div>
             <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
-              <input
-                type='text'
-                placeholder='ค้นหาสินค้า'
-                className='input w-[395px] text-lg '
-                onChange={(event) => {
-                  setProductSearchTerm(event.target.value);
-                }}
-                value={productSearchTerm}
-              />
+              {searchBy === 'status' ? (
+                <>
+                  <select
+                    type='text'
+                    onChange={(event) => {
+                      setProductSearchTerm(event.target.value);
+                    }}
+                    value={productSearchTerm}
+                    className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
+                  >
+                    <option value=''>กรุณาเลือกสถานะสินค้า</option>
+                    <option value='PENDING'>อยู่ระหว่างดำเนินการ</option>
+                    <option value='APPROVED'>อนุมัติแล้ว</option>
+                  </select>
+                </>
+              ) : (
+                <>
+                  <input
+                    type='text'
+                    placeholder='ค้นหาสินค้า'
+                    className='input w-[395px] text-lg '
+                    onChange={(event) => {
+                      setProductSearchTerm(event.target.value);
+                    }}
+                    value={productSearchTerm}
+                  />
+                </>
+              )}
             </div>
             <button
               onClick={() => setProductSearchTerm('')}
