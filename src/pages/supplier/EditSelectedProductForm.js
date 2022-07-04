@@ -29,6 +29,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
   const [description, setDescription] = useState('');
   const [properties, setProperties] = useState([]);
   const [subCatOptions, setSubCatOptions] = useState([]);
+  console.log(subCatOptions);
   const [categories, setCategories] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedProductObj, setSelectedProductObj] = useState({
@@ -43,8 +44,8 @@ function EditSelectedProductForm({ updateProductByProductId }) {
     mainPicture: '',
     price: 0,
     productName: '',
-    stock: 999,
-    subCategoryId: 2,
+    stock: 0,
+    subCategoryId: 1,
     subPicture1: '',
     subPicture2: '',
     subPicture3: '',
@@ -640,7 +641,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                     onChange={(event) => setSubCategoryId(event.target.value)}
                   >
                     <option className=''>กรุณาเลือกหมวดหมู่สินค้าย่อย</option>
-                    {/* <option value={1}>อุปกรณ์ไอที</option>  */}
+                    <option value={1}>อุปกรณ์ไอที</option>
                     {subCatOptions.SubCategories?.map((el) => {
                       return (
                         <>

@@ -62,17 +62,17 @@ function OrderPage() {
   const navigate = useNavigate();
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   const [shippingDetails, setShippingDetails] = useState(orders);
-  console.log(shippingDetails);
+  // console.log(shippingDetails);
   const { role } = useContext(SupplierAuthContext);
 
-  console.log(orders);
+  // console.log(orders);
   let accuDate = [];
 
   const getDateArr = orders.map((el) => {
     return accuDate.push(el.createdAt);
   });
 
-  console.log(getDateArr);
+  // console.log(getDateArr);
 
   useEffect(() => {
     const handleGetAllOrdersBySupplierId = async () => {
