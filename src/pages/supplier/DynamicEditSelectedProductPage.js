@@ -2,8 +2,11 @@ import EditSelectedProductForm from '../../pages/supplier/EditSelectedProductFor
 import { ReRenderContext } from '../../contexts/ReRenderContext';
 import { useContext } from 'react';
 import axios from '../../config/axios';
+import { updateProduct } from '../../apis/supplier/supplierProduct';
+import { useNavigate } from 'react-router-dom';
 
 function DynamicEditSelectedProductPage() {
+  const navigate = useNavigate();
   const { setReRender } = useContext(ReRenderContext);
 
   const updateProductByProductId = async ({
@@ -20,7 +23,6 @@ function DynamicEditSelectedProductPage() {
     subPicture2,
     subPicture3,
     subPicture4,
-    properties,
   }) => {
     const formData = new FormData();
     formData.append('productName', productName);
@@ -36,10 +38,11 @@ function DynamicEditSelectedProductPage() {
     formData.append('subPicture3', subPicture3);
     formData.append('subPicture4', subPicture4);
 
-    // const res = await createProduct(formData);
-    // console.log(res.data.product);
+    const res = await updateProduct(productId, formData);
+    console.log(res);
+    navigate('/supplier/my-product');
     // await createProductPropertyByProductId(res.data.product.id, properties);
-    setReRender((reRender) => !reRender);
+    // setReRender((reRender) => !reRender);
   };
 
   return (

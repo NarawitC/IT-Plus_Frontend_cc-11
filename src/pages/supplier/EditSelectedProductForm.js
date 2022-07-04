@@ -797,10 +797,12 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                       ยกเลิก
                     </button>
                     <button
+                      type='button'
                       htmlFor='my-modal-4'
                       className='btn btn-secondary w-24'
                       onClick={async () => {
                         await updateProductByProductId({
+                          productId: selectedProductObj?.id,
                           productName,
                           description,
                           price,
@@ -816,7 +818,6 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                           properties,
                         });
                         modalRef.current.click();
-                        navigate('/supplier/my-product');
                       }}
                     >
                       ยืนยัน
