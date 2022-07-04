@@ -19,13 +19,13 @@ function AdminPromotion() {
   };
 
   return (
-    <div className='w-full flex justify-center items-center flex-col gap-4 mt-5'>
+    <div className='w-full flex justify-center items-center flex-col gap-4 pt-20'>
       <h1 className='font-bold'>Product ID</h1>
       <input
         type='number'
         value={productId}
         placeholder='Product ID'
-        className='input input-bordered input-lg w-full max-w-xs'
+        className='input input-bordered input-warning w-full max-w-xs'
         onChange={(e) => setProductId(+e.target.value)}
       />
       Enter Discount

@@ -3,7 +3,6 @@ import DevSidebarMenu from './DevSidebarMenu';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useAdminContext } from '../../contexts/Admin/AdminContext';
 
-
 function DevSideBar() {
   const { signOut } = useAdminContext();
   return (
@@ -19,11 +18,11 @@ function DevSideBar() {
         <div className='drawer-side'>
           <label htmlFor='my-drawer' className='drawer-overlay'></label>
           <ul className='menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content'>
-            <DevSidebarMenu title='Client' path='/admin/client' />
-            <DevSidebarMenu title='Orders' path='/admin/orders' />
+            {/* <DevSidebarMenu title='Client' path='/admin/client' /> */}
+            <DevSidebarMenu title='Orders' path='/admin/order' />
             <DevSidebarMenu title='Products' path='/admin/product' />
             <DevSidebarMenu title='Create Promotion' path='/admin/promotion' />
-            <DevSidebarMenu title='Logout' path='/admin/signIn' />
+            <DevSidebarMenu title='Logout' path='/admin/sign-in' />
           </ul>
         </div>
       </div>

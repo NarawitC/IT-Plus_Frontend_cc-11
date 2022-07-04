@@ -1,4 +1,3 @@
-import AdminLayout from '../pages/AdminLayout';
 import Clientlayout from '../pages/Clientlayout';
 import SupplierLayout from '../components/supplier/layout/SupplierLayout';
 import { Link, Route, Routes } from 'react-router-dom';
@@ -98,7 +97,6 @@ function Router() {
         <Route path='/admin/sign-in' element={<AdminSignInPage />} />
         {admin && (
           <>
-            <Route path='/admin/sign-in' element={<AdminSignInPage />} />
             <Route path='/admin' element={<DevLayout />}>
               <Route path='client' element={<AdminClientPage />} />
               <Route path='order' element={<AdminOrderPage />} />
