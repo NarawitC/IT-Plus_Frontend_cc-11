@@ -19,6 +19,7 @@ function ProductfilterContextProvider({ children }) {
   const navigate = useNavigate();
   //
   const [dbcart, setdbcart] = useState(null);
+  const [dborders, setDBorders] = useState(null);
 
   const [tempCarts, settempCarts] = useState([]);
   const [totalCart, setTotalcart] = useState(0);
@@ -32,7 +33,7 @@ function ProductfilterContextProvider({ children }) {
   const [page, setPage] = useState(1);
 
   const [searchParams, setSearchParams] = useState({});
-
+  const location = useLocation();
   useEffect(() => {
     const sumPrice = () => {
       if (tempCarts?.length > 0) {
@@ -61,8 +62,13 @@ function ProductfilterContextProvider({ children }) {
           .join('&'));
       navigate('/product/' + urlpr);
     };
-    createStrURL();
-    PriceRangeFiler(priceRange);
+    if (
+      !location.pathname.startsWith('/supplier') &&
+      !location.pathname.startsWith('/admin')
+    ) {
+      createStrURL();
+      PriceRangeFiler(priceRange);
+    }
   }, [priceRange, searchParams]);
   const PriceRangeFiler = async (productRange) => {
     // console.log('first');
@@ -284,6 +290,8 @@ function ProductfilterContextProvider({ children }) {
         createOrderandOrderItems,
         dbcart,
         setdbcart,
+        dborders,
+        setDBorders,
         GetCartsbyId,
         totalPage,
         setPage,

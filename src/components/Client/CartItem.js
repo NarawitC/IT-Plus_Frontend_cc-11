@@ -15,8 +15,20 @@ import DynamicClientCheckoutmode from './clentCart/DynamicClientCheckoutmode';
 function CartItem() {
   const [cartOrder, setcartOrder] = useState(null);
   const { checkoutAddress } = useOrderContext();
+  const { user } = useAuthContext();
   // console.log(checkoutAddress);
 
+  const {
+    tempCarts,
+    settempCarts,
+    totalCart,
+    totalCartAmount,
+    createCarts,
+    createOrderandOrderItems,
+    dbcart,
+    setdbcart,
+    GetCartsbyId,
+  } = useProductfilter();
   // console.log(cartOrder);
 
   useEffect(() => {
@@ -30,19 +42,7 @@ function CartItem() {
     };
     fetchCartDb();
   }, []);
-  const { user } = useAuthContext();
 
-  const {
-    tempCarts,
-    settempCarts,
-    totalCart,
-    totalCartAmount,
-    createCarts,
-    createOrderandOrderItems,
-    dbcart,
-    setdbcart,
-    GetCartsbyId,
-  } = useProductfilter();
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
 
@@ -56,8 +56,9 @@ function CartItem() {
     // console.log(reponse);
   };
   const handleCreateOrder = async (dbcart, address) => {
+    console.log(dbcart);
     const res = await createOrderandOrderItems(dbcart, 'address is here');
-    // console.log(res);
+    console.log(res);
     setdbcart(res.bulkOrder);
     navigate('/cart/checkout');
   };
