@@ -33,6 +33,8 @@ function ProductfilterContextProvider({ children }) {
   const [page, setPage] = useState(1);
 
   const [searchParams, setSearchParams] = useState({});
+
+  const [categorySelectd, setcategorySelectd] = useState(null);
   const location = useLocation();
   useEffect(() => {
     const sumPrice = () => {
@@ -55,12 +57,15 @@ function ProductfilterContextProvider({ children }) {
   }, [priceRange, tempCarts]);
   useEffect(() => {
     const createStrURL = async () => {
-      const urlpr =
-        '?' +
-        (await Object.entries(searchParams)
-          .map((el) => el.join('='))
-          .join('&'));
-      navigate('/product/' + urlpr);
+      if (location.pathname.startsWith('/product')) {
+        setcategorySelectd(searchParams.categoryId);
+        const urlpr =
+          '?' +
+          Object.entries(searchParams)
+            .map((el) => el.join('='))
+            .join('&');
+        navigate('/product/' + urlpr);
+      }
     };
     if (
       !location.pathname.startsWith('/supplier') &&
@@ -299,6 +304,9 @@ function ProductfilterContextProvider({ children }) {
         totalPage,
         setPage,
         page,
+
+        categorySelectd,
+        setcategorySelectd,
 
         setProductquery,
         cilentgetAllOrders,
