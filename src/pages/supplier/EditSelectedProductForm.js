@@ -14,6 +14,7 @@ import { IoAddCircleOutline } from 'react-icons/io5';
 import { getAllCategoryInfo } from '../../apis/supplier/supplierCategory';
 import { TbListDetails } from 'react-icons/tb';
 import { MdAddAPhoto } from 'react-icons/md';
+import { FiSave } from 'react-icons/fi';
 function EditSelectedProductForm({ updateProductByProductId }) {
   const modalRef = useRef();
   const navigate = useNavigate();
@@ -78,8 +79,18 @@ function EditSelectedProductForm({ updateProductByProductId }) {
       // console.log(res.data);
       console.log(product);
       setSelectedProductObj(product);
-
+      setImageURL(product.mainPicture);
+      setSubPictureURL1(product.subPicture1);
+      setSubPictureURL2(product.subPicture2);
+      setSubPictureURL3(product.subPicture3);
+      setSubPictureURL4(product.subPicture4);
       setProductName(product.productName);
+      setCategoryId(product.categoryId);
+      setSubCategoryId(product.subCategoryId);
+      setPrice(product.price);
+      setBrand(product.brand);
+      setStock(product.stock);
+      setDescription(product.description);
       // console.log(selectedProductObj.SubCategory.subCategoryName);
     } catch (error) {
       console.log(error);
@@ -196,7 +207,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
         <>
           <form className='pt-5'>
             <br />
-            <div className='flex justify-between items-center'>
+            <div className='flex justify-around items-center'>
               <div className='flex flex-col p-7'>
                 <h1 className='text-3xl font-bold'>
                   {selectedProductObj?.productName || ''}
@@ -259,7 +270,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
               <br />
               <div className='flex justify-center flex-col '>
                 <div
-                  className=' relative justify-center p-2 rounded-md 
+                  className=' relative justify-center p-2 rounded-md cursor-pointer 
               '
                   role='button'
                   onClick={() => inputElMain.current.click()}
@@ -268,13 +279,19 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                     <div className='flex flex-col justify-center'>
                       {imageURL ? (
                         <>
-                          <div className='border-2 rounded p-4 hover:border-secondary'>
+                          <div className='border-2 rounded-lg p-4 hover:border-secondary'>
                             <img
                               className='object-contain w-auto h-60'
                               src={imageURL}
                               alt='imageURL'
                             />
+                            <div className=' flex justify-end gap-2 items-center  '>
+                              <p>แก้ไขรูปภาพ</p>
+                              {<BsCamera size={35} />}
+                            </div>
                           </div>
+                          <br />
+                          <p className='text-center'>รูปหลัก</p>
                         </>
                       ) : (
                         <>
@@ -288,9 +305,6 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                       )}
                     </div>
                     <br />
-                    <p className='btn btn-primary rounded-lg  text-center'>
-                      อัพโหลดรูป
-                    </p>
                   </div>
                   <div className='flex justify-center'>
                     <input
@@ -313,12 +327,17 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                   >
                     {subPictureURL1 ? (
                       <>
-                        <img
-                          className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-                          src={subPictureURL1}
-                          alt='subPictureURL1'
-                        />
-
+                        <div className='border-2 rounded-lg p-4 hover:border-primary'>
+                          <img
+                            className='h-60 w-auto object-contain  p-4 '
+                            src={subPictureURL1}
+                            alt='subPictureURL1'
+                          />
+                          <div className=' flex justify-end gap-2 items-center  '>
+                            <p>แก้ไขรูปภาพ</p>
+                            {<BsCamera size={35} />}
+                          </div>
+                        </div>
                         <br />
                         <p className='text-center'>{`รูป 1`}</p>
                       </>
@@ -347,11 +366,17 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                   >
                     {subPictureURL2 ? (
                       <>
-                        <img
-                          className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-                          src={subPictureURL2}
-                          alt='subPictureURL2'
-                        />
+                        <div className='border-2 rounded-lg p-4 hover:border-primary'>
+                          <img
+                            className='h-60 w-auto object-contain  p-4 '
+                            src={subPictureURL2}
+                            alt='subPictureURL2'
+                          />
+                          <div className=' flex justify-end gap-2 items-center  '>
+                            <p>แก้ไขรูปภาพ</p>
+                            {<BsCamera size={35} />}
+                          </div>
+                        </div>
                         <br />
                         <p className='text-center'>{`รูป 2`}</p>
                       </>
@@ -380,11 +405,17 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                   >
                     {subPictureURL3 ? (
                       <>
-                        <img
-                          className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-                          src={subPictureURL3}
-                          alt='subPictureURL3'
-                        />
+                        <div className='border-2 rounded-lg p-4 hover:border-primary'>
+                          <img
+                            className='h-60 w-auto object-contain  p-4 '
+                            src={subPictureURL3}
+                            alt='subPictureURL3'
+                          />
+                          <div className=' flex justify-end gap-2 items-center  '>
+                            <p>แก้ไขรูปภาพ</p>
+                            {<BsCamera size={35} />}
+                          </div>
+                        </div>
                         <br />
                         <p className='text-center'>{`รูป 3`}</p>
                       </>
@@ -413,12 +444,17 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                   >
                     {subPictureURL4 ? (
                       <>
-                        <img
-                          className='h-60 w-auto object-contain border-2 p-4 rounded-lg hover:border-primary'
-                          src={subPictureURL4}
-                          alt='subPictureURL4'
-                        />
-
+                        <div className='border-2 rounded-lg p-4 hover:border-primary'>
+                          <img
+                            className='h-60 w-auto object-contain  p-4 '
+                            src={subPictureURL4}
+                            alt='subPictureURL4'
+                          />
+                          <div className=' flex justify-end gap-2 items-center  '>
+                            <p>แก้ไขรูปภาพ</p>
+                            {<BsCamera size={35} />}
+                          </div>
+                        </div>
                         <br />
                         <p className='text-center'>{`รูป 4`}</p>
                       </>
@@ -493,15 +529,15 @@ function EditSelectedProductForm({ updateProductByProductId }) {
               <br />
             </div>
             <div
-              className='flex justify-end items-center  gap-2 cursor-pointer  hover:text-info'
+              className='flex justify-end items-center pr-4  gap-2 cursor-pointer  hover:text-info'
               onClick={() => {
                 setIsEdit((isEdit) => !isEdit);
               }}
             >
               <div className=''>{<FiEdit size={35} />}</div>
-              <p className='text '>แก้ไข</p>
+              <p className='text '>แก้ไขรายละเอียดสินค้า</p>
             </div>
-            <div className='gap-2  grid  mb-6 lg:grid-cols-2'>
+            <div className='gap-2 p-4 grid  mb-6 lg:grid-cols-2'>
               <div className=''>
                 <div className='flex flex-col justify-center'>
                   <label
@@ -531,6 +567,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                     หมวดหมู่สินค้า
                   </label>
                   <select
+                    disabled={isEdit ? false : true}
                     id='category'
                     className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                     required
@@ -567,6 +604,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                     หมวดหมู่สินค้าย่อย
                   </label>
                   <select
+                    disabled={isEdit ? false : true}
                     id='subCategory'
                     className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                     required
@@ -601,6 +639,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                     ราคาสินค้า
                   </label>
                   <input
+                    disabled={isEdit ? false : true}
                     type='text'
                     id='price'
                     className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -620,6 +659,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                     แบรนด์สินค้า
                   </label>
                   <input
+                    disabled={isEdit ? false : true}
                     type='text'
                     id='brand'
                     className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -636,13 +676,14 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                     htmlFor='amount'
                     className='block mb-2 text-sm font-medium text-gray-1200 '
                   >
-                    จำนวน
+                    stock
                   </label>
                   <input
+                    disabled={isEdit ? false : true}
                     type='text'
                     id='amount'
                     className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                    placeholder='จำนวน'
+                    placeholder='stock'
                     required
                     value={stock}
                     onChange={(event) => setStock(event.target.value)}
@@ -689,46 +730,100 @@ function EditSelectedProductForm({ updateProductByProductId }) {
             </div>
             <br />
             <div className=''>
-              <label
-                for='description'
-                className='block mb-2 text-md font-medium text-gray-1200 '
-              >
-                รายละเอียดสินค้า
-              </label>
-              <textarea
-                id='description'
-                className=' w-[888px] h-[150px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                placeholder='รายละเอียดสินค้า'
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
-              />
+              <div className='flex flex-col items-center justify-center'>
+                <div className='flex justify-start  w-[888px]'>
+                  <label
+                    for='description'
+                    className='block mb-2 text-md font-medium text-gray-1200  '
+                  >
+                    รายละเอียดสินค้า
+                  </label>
+                </div>
+                <textarea
+                  disabled={isEdit ? false : true}
+                  id='description'
+                  className=' w-[888px] h-[150px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                  placeholder='รายละเอียดสินค้า'
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
+                />
+              </div>
             </div>
             <br />
             <div className='flex justify-center'>
-              <button
-                type='button'
-                className='btn btn-secondary btn-md'
-                onClick={async () => {
-                  await updateProductByProductId({
-                    productName,
-                    description,
-                    price,
-                    brand,
-                    stock,
-                    categoryId,
-                    subCategoryId,
-                    mainPicture,
-                    subPicture1,
-                    subPicture2,
-                    subPicture3,
-                    subPicture4,
-                    properties,
-                  });
-                  navigate('/supplier/my-product');
+              <div
+                onClick={() => {
+                  setIsEdit((isEdit) => !isEdit);
                 }}
               >
-                เพิ่มสินค้า
-              </button>
+                <label
+                  htmlFor='my-modal-4'
+                  className='btn btn-info modal-button flex gap-2 justify-center hover:scale-105 text-white'
+                >
+                  {<FiSave size={20} />}
+                  <p className='font-bold'>บันทึก</p>
+                </label>
+              </div>
+              <input
+                type='checkbox'
+                id='my-modal-4'
+                className='modal-toggle'
+                ref={modalRef}
+              />
+              <div className='modal'>
+                <div className='modal-box'>
+                  <label className='flex  flex-col justify-center items-center '>
+                    <div className=' pt-2'>
+                      <label
+                        htmlFor='my-modal-4'
+                        className='btn btn-sm btn-circle absolute right-2 top-2 '
+                      >
+                        ✕
+                      </label>
+                    </div>
+                    <h1>
+                      คุณยืนยันที่จะแก้ไขรายละเอียดสินค้าชิ้นนี้ตามนี้ใช่หรือไม่?
+                    </h1>
+                  </label>
+                  <div className='modal-action flex justify-center'>
+                    <button
+                      type='button'
+                      htmlFor='my-modal-4'
+                      className='btn btn-primary w-24'
+                      onClick={() => {
+                        modalRef.current.click();
+                      }}
+                    >
+                      ยกเลิก
+                    </button>
+                    <button
+                      htmlFor='my-modal-4'
+                      className='btn btn-secondary w-24'
+                      onClick={async () => {
+                        await updateProductByProductId({
+                          productName,
+                          description,
+                          price,
+                          brand,
+                          stock,
+                          categoryId,
+                          subCategoryId,
+                          mainPicture,
+                          subPicture1,
+                          subPicture2,
+                          subPicture3,
+                          subPicture4,
+                          properties,
+                        });
+                        modalRef.current.click();
+                        navigate('/supplier/my-product');
+                      }}
+                    >
+                      ยืนยัน
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
             <br />
           </form>
