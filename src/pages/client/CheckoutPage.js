@@ -8,6 +8,7 @@ import { localsting } from '../../services/LocalstringComma';
 import { useLoading } from '../../contexts/LoadingContext';
 import ModalAddress from '../../components/Client/clentCart/modalAddress';
 import { useOrderContext } from '../../contexts/Client/orderContext';
+import OmisePaymentButton from '../../components/Client/order/payment/OmisePaymentButton';
 
 function CheckoutPage() {
   const { checkoutAddress } = useOrderContext();
@@ -71,7 +72,7 @@ function CheckoutPage() {
         const total = subtotal
           .map((elOT) => elOT.ordertotal)
           .reduce((a, b) => +a + b, 0);
-        console.log(total);
+        // console.log(total);
 
         const totalAmount = subtotal
           .map((el) => el.amountoi)
@@ -84,7 +85,7 @@ function CheckoutPage() {
     };
     sumPrice();
   }, []);
-
+  // console.log(OrderArr);
   const handlePayment = async () => {
     console.log(OrderArr);
     // const res = await createOrderandOrderItems(dbcart, checkoutAddress);
@@ -111,12 +112,12 @@ function CheckoutPage() {
           </div>
           <div className='font-bold '>ตรวจสอบยอด</div>
         </div>
-        {OrderArr?.map((elOrder) => {
+        {OrderArr?.map((elOrder, idx) => {
           // console.log(elOrder);
           return (
-            <div className='border-b-2 pb-4 px-4'>
+            <div key={idx} className='border-b-2 pb-4 px-4'>
               <div className='flex justify-between mt-4 '>
-                {elOrder.OrderItems?.map((elpds) => {
+                {elOrder.OrderItems?.map((elpds, idx) => {
                   //product OrderItem lists here
                   // console.log(elpds);
                   const { productName, price, mainPicture } = elpds.Product;
@@ -124,7 +125,7 @@ function CheckoutPage() {
                   // console.log(price);
                   // console.log(elpds.quantity);
                   return (
-                    <>
+                    <div key={idx}>
                       <div className=''>
                         <div className='font-bold'>{productName}</div>
                         <div className='text-gray-500 opacity-50'>
@@ -139,7 +140,7 @@ function CheckoutPage() {
                             )
                           : localsting(+elpds.quantity * +price)}
                       </div>
-                    </>
+                    </div>
                   );
                   //product OrderItem lists here
                 })}
@@ -176,12 +177,13 @@ function CheckoutPage() {
               (รวมภาษีมูลค่าเพิ่ม)
             </div>
           </div>
-          <div
+          <OmisePaymentButton
             className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl text-white text-[24px] hover:from-blue-600 hover:to-blue-400'
-            onClick={handlePayment}
+            orders={OrderArr}
+            totalPrice={TotalPrice}
           >
             ชำระเงิน
-          </div>
+          </OmisePaymentButton>
         </div>
       </div>
     </div>

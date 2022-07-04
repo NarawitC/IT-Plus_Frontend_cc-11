@@ -6,7 +6,9 @@ import ModalAddress from './modalAddress';
 import { motion } from 'framer-motion';
 
 function DynamicClientCheckoutmode() {
+
   const { checkoutAddress, setCheckoutAddress } = useOrderContext();
+
   const { user } = useAuthContext();
   return (
     <motion.div

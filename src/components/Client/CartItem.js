@@ -53,6 +53,7 @@ function CartItem() {
     // console.log(reponse);
   };
   const handleCreateOrder = async (dbcart, address) => {
+
     if (checkoutAddress) {
       const res = await createOrderandOrderItems(dbcart, 'address is here');
       console.log(res);
@@ -61,6 +62,7 @@ function CartItem() {
     } else {
       alert('กรุณาเพิ่มที่อยู่การจัดส่ง');
     }
+
   };
   const handleDelcartlist = async (id) => {
     await settempCarts((prev) => {

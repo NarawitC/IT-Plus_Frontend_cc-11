@@ -14,7 +14,6 @@ import { SupplierAuthContext } from '../Supplier/SupplierAuthContext';
 const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
-  // const { user, setUser } = useContext(SupplierAuthContext);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const { setError } = useErrorContext();

@@ -33,6 +33,8 @@ function ProductfilterContextProvider({ children }) {
   const [page, setPage] = useState(1);
 
   const [searchParams, setSearchParams] = useState({});
+
+  const [categorySelectd, setcategorySelectd] = useState(null);
   const location = useLocation();
   useEffect(() => {
     const sumPrice = () => {
@@ -55,12 +57,15 @@ function ProductfilterContextProvider({ children }) {
   }, [priceRange, tempCarts]);
   useEffect(() => {
     const createStrURL = async () => {
-      const urlpr =
-        '?' +
-        (await Object.entries(searchParams)
-          .map((el) => el.join('='))
-          .join('&'));
-      navigate('/product/' + urlpr);
+      if (location.pathname.startsWith('/product')) {
+        setcategorySelectd(searchParams.categoryId);
+        const urlpr =
+          '?' +
+          Object.entries(searchParams)
+            .map((el) => el.join('='))
+            .join('&');
+        navigate('/product/' + urlpr);
+      }
     };
     if (
       !location.pathname.startsWith('/supplier') &&
@@ -138,7 +143,7 @@ function ProductfilterContextProvider({ children }) {
     const mycart = await allcart.find((el) => el.id === cartId);
     // const orders = [];
     // console.log(cartId);
-    console.log(mycart);
+    // console.log(mycart);
     const sipplierArr = await mycart.CartItems.map((el) => {
       // console.log(el.Product);
       return {
@@ -180,7 +185,7 @@ function ProductfilterContextProvider({ children }) {
                 : 0,
             quantity: element.quantity,
           });
-          console.log(element);
+          // console.log(element);
           orders[supIndex].productPrice +=
             (element.Product.price -
               (element.Product.Promotions.length > 0
@@ -193,7 +198,7 @@ function ProductfilterContextProvider({ children }) {
     });
 
     // console.log(cartId);
-    console.log(orders);
+    // console.log(orders);
     const { data } = await createOrederswithItems(cartId, orders);
 
     setdbcart(null);
@@ -299,6 +304,9 @@ function ProductfilterContextProvider({ children }) {
         totalPage,
         setPage,
         page,
+
+        categorySelectd,
+        setcategorySelectd,
 
         setProductquery,
         cilentgetAllOrders,

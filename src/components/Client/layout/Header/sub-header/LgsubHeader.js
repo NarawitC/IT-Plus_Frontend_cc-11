@@ -11,6 +11,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 // import { TbSmartHome } from 'react-icons/ts';
 import { getAllCategoryInfo } from '../../../../../apis/client/category';
 import { useProductfilter } from '../../../../../contexts/ProductContext';
+import CategoryItem from './CategoryItem';
 
 function LgsubHeader() {
   const navigate = useNavigate();
@@ -18,10 +19,34 @@ function LgsubHeader() {
   const [categories, setCategories] = useState(null);
   const { setSearchParams } = useProductfilter();
   const handleCategoryButton = (categoryId) => {
+    navigate('/product');
+
     setSearchParams((prev) => ({ ...prev, categoryId }));
   };
+  const [hoverIcon, sethoverIcon] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
   const icons = {
-    All: <TiThSmallOutline size={40} color={'gray'} />,
+    All: (
+      <TiThSmallOutline
+        size={40}
+        color={`${hoverIcon[0] ? '#1497D4' : 'gray'}`}
+      />
+    ),
     Entertainment: <TbMovie size={40} color={'gray'} />,
     'Smart home': <TbSmartHome size={40} color={'gray'} />,
     Outdoor: <TbBike size={40} color={'gray'} />,
@@ -39,7 +64,11 @@ function LgsubHeader() {
       <TbMovie size={40} color={'gray'} />
     ),
   };
-
+  // const advtiveicon = {};
+  // for (let Ico in icons) {
+  // icons[Ico].props.size = 50;
+  // console.log(icons[Ico].props);
+  // }
   useEffect(() => {
     const fetchCategories = async () => {
       const {
@@ -54,28 +83,88 @@ function LgsubHeader() {
       // console.log(categories);
 
       categories.unshift(All);
-      setCategories(categories);
       // navigate('/product');
+      setCategories(categories);
     };
     fetchCategories();
   }, []);
 
   return (
-    <div className='carousel rounded-box overflow-y-hidden h-full py-4 px-4 mx-4 gap-6'>
+    <div className=' rounded-box  overflow-x-scroll overflow-displayNone overflow-y-hidden w-full h-full py-4 gap-6'>
       {categories?.map((category, index) => (
-        <div
-          key={index}
-          className='carousel-item  cursor-pointer w-1/8 max-w-md p-1 flex flex-col items-center text-mono '
-          onClick={() => {
-            handleCategoryButton(category.id);
-          }}
-        >
-          {icons[category.categoryName]}
-          <span>{category.categoryName}</span>
-        </div>
+        <CategoryItem
+          category={category}
+          index={index}
+          icons={icons[category.categoryName]}
+          handleCategoryButton={handleCategoryButton}
+          sethoverIcon={sethoverIcon}
+        />
       ))}
     </div>
   );
 }
 
 export default LgsubHeader;
+
+// const icons = {
+//   All: (
+//     <TiThSmallOutline
+//       size={40}
+//       color={`${hoverIcon[0] ? '#1497D4' : 'gray'}`}
+//     />
+//   ),
+//   Entertainment: (
+//     <TbMovie size={40} color={`${hoverIcon[1] ? '#1497D4' : 'gray'}`} />
+//   ),
+//   'Smart home': (
+//     <TbSmartHome size={40} color={`${hoverIcon[2] ? '#1497D4' : 'gray'}`} />
+//   ),
+//   Outdoor: (
+//     <TbBike size={40} color={`${hoverIcon[3] ? '#1497D4' : 'gray'}`} />
+//   ),
+//   Computer: (
+//     <GoDeviceDesktop
+//       size={40}
+//       color={`${hoverIcon[4] ? '#1497D4' : 'gray'}`}
+//     />
+//   ),
+//   Camera: (
+//     <BsCamera size={40} color={`${hoverIcon[5] ? '#1497D4' : 'gray'}`} />
+//   ),
+//   'Live Streaming': (
+//     <BsCameraReels size={40} color={`${hoverIcon[6] ? '#1497D4' : 'gray'}`} />
+//   ),
+//   Extensions: (
+//     <BsPlug size={40} color={`${hoverIcon[7] ? '#1497D4' : 'gray'}`} />
+//   ),
+//   Gaming: (
+//     <BsController size={40} color={`${hoverIcon[8] ? '#1497D4' : 'gray'}`} />
+//   ),
+//   Health: (
+//     <FaDumbbell size={40} color={`${hoverIcon[9] ? '#1497D4' : 'gray'}`} />
+//   ),
+//   'Smart gadgets': (
+//     <MdOutlineMonitorWeight
+//       size={40}
+//       color={`${hoverIcon[10] ? '#1497D4' : 'gray'}`}
+//     />
+//   ),
+//   Music: (
+//     <HiOutlineMusicNote
+//       size={40}
+//       color={`${hoverIcon[11] ? '#1497D4' : 'gray'}`}
+//     />
+//   ),
+//   'Toys collective': (
+//     <HiOutlinePuzzle
+//       size={40}
+//       color={`${hoverIcon[12] ? '#1497D4' : 'gray'}`}
+//     />
+//   ),
+//   'Desk Setup': (
+//     <GiDesk size={40} color={`${hoverIcon[13] ? '#1497D4' : 'gray'}`} />
+//   ),
+//   'Label with Internally Disabled Control': (
+//     <TbMovie size={40} color={`${hoverIcon[14] ? '#1497D4' : 'gray'}`} />
+//   ),
+// };

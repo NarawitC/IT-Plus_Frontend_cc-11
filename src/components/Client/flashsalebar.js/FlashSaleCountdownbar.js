@@ -22,7 +22,7 @@ function FlashSaleCountdownbar() {
       setIsLoading(false);
     };
     fetchFlashsale();
-  }, []);
+  }, [product]);
 
   return (
     <div>

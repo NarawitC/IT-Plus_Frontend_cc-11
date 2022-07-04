@@ -42,7 +42,7 @@ function Carusel() {
         return (
           <div
             key={idx}
-            id={`slide${idx}`}
+            // id={`slide${idx + 1}`}
             className={`carousel-item relative w-full  transform   ${
               caluseldileft ? 'translate-x-full  duration-700' : null
             } 
