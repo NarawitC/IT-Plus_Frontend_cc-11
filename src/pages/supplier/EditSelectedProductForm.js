@@ -308,7 +308,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                         <>
                           <div className='border-2 rounded-lg p-4 hover:border-secondary'>
                             <img
-                              className='object-contain w-auto h-60'
+                              className='object-contain w-[320px] h-60'
                               src={imageURL}
                               alt='imageURL'
                             />
@@ -356,7 +356,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                       <>
                         <div className='border-2 rounded-lg p-4 hover:border-primary'>
                           <img
-                            className='h-60 w-auto object-contain  p-4 '
+                            className='h-60 w-[280px] object-contain  p-4 '
                             src={subPictureURL1}
                             alt='subPictureURL1'
                           />
@@ -395,9 +395,9 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                   >
                     {subPictureURL2 ? (
                       <>
-                        <div className='border-2 rounded-lg p-4 hover:border-primary'>
+                        <div className='border-2 rounded-lg p-4 hover:border-primary '>
                           <img
-                            className='h-60 w-auto object-contain  p-4 '
+                            className='h-60 w-[280px] object-contain  p-4 '
                             src={subPictureURL2}
                             alt='subPictureURL2'
                           />
@@ -434,9 +434,9 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                   >
                     {subPictureURL3 ? (
                       <>
-                        <div className='border-2 rounded-lg p-4 hover:border-primary'>
+                        <div className='border-2 rounded-lg p-4 hover:border-primary '>
                           <img
-                            className='h-60 w-auto object-contain  p-4 '
+                            className='h-60 w-[280px] object-contain  p-4 '
                             src={subPictureURL3}
                             alt='subPictureURL3'
                           />
@@ -473,9 +473,9 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                   >
                     {subPictureURL4 ? (
                       <>
-                        <div className='border-2 rounded-lg p-4 hover:border-primary'>
+                        <div className='border-2 rounded-lg p-4 hover:border-primary  '>
                           <img
-                            className='h-60 w-auto object-contain  p-4 '
+                            className='h-60 w-[280px] object-contain  p-4 '
                             src={subPictureURL4}
                             alt='subPictureURL4'
                           />
