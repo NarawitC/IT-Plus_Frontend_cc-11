@@ -11,9 +11,11 @@ import { useProductfilter } from '../../../../contexts/ProductContext';
 import { useErrorContext } from '../../../../contexts/ErrorContext';
 
 function Topheader({ clicksidebar }) {
+  const { tempCarts } = useProductfilter();
   const { user } = useAuthContext();
   const { setError } = useErrorContext();
   const inputEmodal = useRef();
+
   return (
     <div className='navbar flex flex-row justify-start h-1/2'>
       <ModalAny inputEmodal={inputEmodal} />

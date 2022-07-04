@@ -1,8 +1,6 @@
 import BreadCrumbsCart from '../../components/Client/products/productInfo/BreadCrumbsCart';
 import { useProductfilter } from '../../contexts/ProductContext';
 import CartItem from '../../components/Client/CartItem';
-import { useEffect } from 'react';
-import DynamicClientCheckoutmode from '../../components/Client/clentCart/DynamicClientCheckoutmode';
 import { motion } from 'framer-motion';
 import { BsPlusSquareDotted } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
@@ -22,7 +20,7 @@ function CartPage() {
           <div className='flex gap-4'>
             <p className='font-bold text-[24px]'>รถเข็นของฉัน</p>
             <p className='text-[16px] my-auto'>
-              (สินค้า {totalCartAmount} ชิ้น)
+              (สินค้า {tempCarts.length} ชิ้น)
             </p>
           </div>
         </div>
