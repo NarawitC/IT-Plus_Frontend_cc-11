@@ -105,7 +105,7 @@ function CheckoutPage() {
             </div>
           </div>
         </>
-        <div className='flex gap-4 border-b-2 pb-4 px-2'>
+        <div className='flex gap-4 border-b-2 pb-4 px-2 '>
           <div>
             <img src={sumCheck} />
           </div>
@@ -144,7 +144,7 @@ function CheckoutPage() {
           );
         })}
 
-        <div className=' grid grid-row-2 space-y-5 px-4 mt-4'>
+        <div className=' grid grid-row-2 space-y-5 px-4 mt-4 '>
           <div className='grid grid-row-2'>
             <div className='flex justify-between '>
               <div className='flex'>

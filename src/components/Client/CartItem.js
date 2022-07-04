@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import CartImg from '../../../src/pictures/cart-test-1.jpg';
+import { motion } from 'framer-motion';
 import trash from '../../../src/pictures/trash.svg';
 import sumCheck from '../../../src/pictures/check_sum.svg';
 import LGCartlist from './clentCart/LGCartlist';
@@ -74,72 +75,86 @@ function CartItem() {
     });
   };
   return (
-    <div className='grid grid-cols-6 gap-4 py-8 '>
-      {tempCarts?.map((el, idx) => (
-        <LGCartlist el={el} key={idx} handleDelcartlist={handleDelcartlist} />
-      ))}
-      {dbcart ? (
-        <div className=' col-span-4'>
-          <DynamicClientCheckoutmode />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <div className='grid grid-cols-6 gap-4 py-8 '>
+        <div className='col-span-4'>
+          {tempCarts?.map((el, idx) => (
+            <LGCartlist
+              el={el}
+              key={idx}
+              handleDelcartlist={handleDelcartlist}
+            />
+          ))}
+          {dbcart ? (
+            <div className=' col-span-4'>
+              <DynamicClientCheckoutmode />
+            </div>
+          ) : null}
         </div>
-      ) : null}
-      <div className='col-start-5 col-span-2 px-4 border-2 rounded-lg py-4'>
-        <div className='flex gap-4'>
-          <div>
-            <img src={sumCheck} />
-          </div>
-          <div className='font-bold'>ตรวจสอบยอด</div>
-        </div>
-        <div className=' grid grid-row-2 space-y-5'>
-          <div className='grid grid-row-2'>
-            <div className='flex justify-between mt-4'>
-              <div className='flex'>
-                <div className='font-bold'>ยอดรวม</div>
-                <div className='text-gray-500 opacity-50'>
-                  ({totalCartAmount}ชิ้น)
+        <div className='col-start-5 col-span-2 px-4  rounded-lg py-4 '>
+          <div className='border-2 p-4'>
+            <div className='flex gap-4 '>
+              <div>
+                <img src={sumCheck} />
+              </div>
+              <div className='font-bold'>ตรวจสอบยอด</div>
+            </div>
+            <div className=' grid grid-row-2 space-y-5 '>
+              <div className='grid grid-row-2'>
+                <div className='flex justify-between mt-4'>
+                  <div className='flex'>
+                    <div className='font-bold'>ยอดรวม</div>
+                    <div className='text-gray-500 opacity-50'>
+                      ({totalCartAmount}ชิ้น)
+                    </div>
+                  </div>
+                  <div>฿ {localsting(totalCart)}</div>
+                </div>
+                <div className='flex justify-between'>
+                  <p className='font-bold '>ค่าจัดส่ง</p>
+                  <div>ฟรี</div>
                 </div>
               </div>
-              <div>฿ {localsting(totalCart)}</div>
-            </div>
-            <div className='flex justify-between'>
-              <p className='font-bold '>ค่าจัดส่ง</p>
-              <div>ฟรี</div>
-            </div>
-          </div>
-          <div className=''>
-            <div className='flex justify-between '>
-              <div className='font-bold'>ยอดสุทธิ</div>
-              <div className='text-primary font-bold text-[20px] '>
-                ฿ {localsting(totalCart)}
+              <div className=''>
+                <div className='flex justify-between '>
+                  <div className='font-bold'>ยอดสุทธิ</div>
+                  <div className='text-primary font-bold text-[20px] '>
+                    ฿ {localsting(totalCart)}
+                  </div>
+                </div>
+                <div className='text-[14px] text-gray-500 opacity-50 line-through'>
+                  (รวมภาษีมูลค่าเพิ่ม)
+                </div>
               </div>
             </div>
-            <div className='text-[14px] text-gray-500 opacity-50 line-through'>
-              (รวมภาษีมูลค่าเพิ่ม)
-            </div>
-          </div>
 
-          {!dbcart ? (
-            <div
-              className='btn btn-primary rounded-lg text-white '
-              onClick={() => {
-                handleSubmitcart(tempCarts, user.id);
-              }}
-            >
-              ทำการสั่งซื้อ
-            </div>
-          ) : (
-            <div
-              className='btn btn-primary rounded-lg text-white '
-              onClick={() => {
-                handleCreateOrder(dbcart, 'address is here');
-              }}
-            >
-              ยืนยันที่อยู่จัดส่ง
-            </div>
-          )}
+            {!dbcart ? (
+              <div
+                className='btn btn-primary rounded-lg text-white mt-4 '
+                onClick={() => {
+                  handleSubmitcart(tempCarts, user.id);
+                }}
+              >
+                ทำการสั่งซื้อ
+              </div>
+            ) : (
+              <div
+                className='btn btn-primary rounded-lg text-white mt-4 '
+                onClick={() => {
+                  handleCreateOrder(dbcart, 'address is here');
+                }}
+              >
+                ยืนยันที่อยู่จัดส่ง
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

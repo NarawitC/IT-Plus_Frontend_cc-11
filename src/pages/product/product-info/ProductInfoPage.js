@@ -123,12 +123,12 @@ function ProductInfoPage({}) {
       <BreadCrumbs />
 
       <div className=' flex mt-8 justify-center gap-8 '>
-        <div className='flex'>
+        <div className='flex gap-4'>
           <div className=''>
             {Objecturl
               ? Objecturl?.map((el, idx) => {
                   return (
-                    <div key={idx}>
+                    <div key={idx} className='pb-4'>
                       <div
                         className=' w-[60px] h-[60px] '
                         role='button'
@@ -240,7 +240,7 @@ function ProductInfoPage({}) {
                 )}
               </div>
 
-              <div key={idx} className='flex gap-4 mt-8'>
+              <div className='flex gap-4 mt-8'>
                 <button
                   className='bg-white flex btn btn-primary'
                   onClick={() => {
@@ -254,6 +254,7 @@ function ProductInfoPage({}) {
                   className='btn btn-primary'
                   onClick={() => {
                     HandleAddcart();
+                    navigate('/cart');
                   }}
                 >
                   ซื้อเลย
