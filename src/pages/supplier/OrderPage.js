@@ -325,6 +325,7 @@ function OrderPage() {
                           <th>
                             <label class='swap'>
                               <input type='checkbox' />
+                              {/* el.PurchasedOrder !== null */}
                               {el.PurchasedOrder !== null ? (
                                 <>
                                   <div className=' text-success text-center'>
@@ -348,14 +349,7 @@ function OrderPage() {
                           </th>
                           <th className=''>
                             {el.PurchasedOrder?.ShippingOrder?.trackingId ||
-                            !el.PurchasedOrder ? (
-                              <>
-                                <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
-                                  {el.PurchasedOrder?.ShippingOrder
-                                    ?.trackingId || '-'}
-                                </p>
-                              </>
-                            ) : (
+                            el.PurchasedOrder ? (
                               <>
                                 <input
                                   className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary '
@@ -373,6 +367,13 @@ function OrderPage() {
                                   }
                                   value={el.trackingId}
                                 />
+                              </>
+                            ) : (
+                              <>
+                                <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
+                                  {el.PurchasedOrder?.ShippingOrder
+                                    ?.trackingId || '-'}
+                                </p>
                               </>
                             )}
                           </th>
