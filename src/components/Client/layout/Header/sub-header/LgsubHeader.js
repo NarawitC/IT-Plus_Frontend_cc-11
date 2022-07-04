@@ -65,7 +65,7 @@ function LgsubHeader() {
       {categories?.map((category, index) => (
         <div
           key={index}
-          className='carousel-item cursor-pointer w-1/8 max-w-md p-1 flex flex-col items-center text-mono '
+          className='carousel-item  cursor-pointer w-1/8 max-w-md p-1 flex flex-col items-center text-mono '
           onClick={() => {
             handleCategoryButton(category.id);
           }}

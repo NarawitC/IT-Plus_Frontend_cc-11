@@ -10,7 +10,7 @@ import { useRef, useContext, useState } from 'react';
 import { SupplierAuthContext } from '../../../../contexts/Supplier/SupplierAuthContext';
 function Header() {
   const navigate = useNavigate();
-  const { signIn, supplier } = useContext(SupplierAuthContext);
+  const { signIn, role } = useContext(SupplierAuthContext);
 
   // console.log('first', useNavigate);
   // console.log(navigate);
@@ -29,14 +29,17 @@ function Header() {
             </button>
           </Link>
           <div className='flex mr-12 gap-7 items-center justify-around'>
-            {supplier ? (
-              <ProfileIcon />
-            ) : (
-              <label htmlFor='my-modal-2' className='btn modal-button gap-2'>
-                <MdLogin />
-                <p>Login</p>
-              </label>
-            )}
+            <ProfileIcon />
+
+            <label
+              htmlFor='my-modal-2'
+              className={`${
+                role === 'SUPPLIER' ? 'hidden' : 'btn modal-button gap-2'
+              } `}
+            >
+              <MdLogin />
+              <p>Login</p>
+            </label>
             <input
               type='checkbox'
               id='my-modal-2'

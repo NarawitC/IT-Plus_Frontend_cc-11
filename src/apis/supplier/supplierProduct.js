@@ -16,3 +16,11 @@ export const createProductPropertyByProductId = async (
     properties: properties,
   });
 };
+
+export const getProductById = async (productId) => {
+  return axios.get(`/client/product/${productId}`);
+};
+
+export const updateProduct = async (productId, input) => {
+  return axios.patch(`/supplier/product/${productId}`, input);
+};

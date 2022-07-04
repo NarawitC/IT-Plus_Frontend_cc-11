@@ -5,6 +5,8 @@ import { TbListDetails } from 'react-icons/tb';
 import AddPropertyRow from '../form/AddPropertyRow';
 import { useNavigate } from 'react-router-dom';
 import { IoAddCircleOutline } from 'react-icons/io5';
+import { getAllCategoryInfo } from '../../../apis/supplier/supplierCategory';
+import { getSubCategoryByCategoryId } from '../../../apis/supplier/supplierSubCategory';
 function AddProductForm({ addNewProductSupplier }) {
   const navigate = useNavigate();
   // const inputEl = useRef();
@@ -34,13 +36,15 @@ function AddProductForm({ addNewProductSupplier }) {
   const [price, setPrice] = useState('');
   const [brand, setBrand] = useState('');
   const [stock, setStock] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [categoryId, setCategoryId] = useState(0);
   const [subCategoryId, setSubCategoryId] = useState('');
   const [description, setDescription] = useState('');
   const [properties, setProperties] = useState([]);
   const [subCatOptions, setSubCatOptions] = useState([]);
   const [index, setIndex] = useState(0);
   const [indexes, setIndexes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  console.log('-------------------');
   console.log({ subCatOptions: subCatOptions });
   console.log({ categoryId: categoryId });
   // const arr = [{ state: 'name', setState: 'setName', text: 'ชื่อ' }];
@@ -71,30 +75,67 @@ function AddProductForm({ addNewProductSupplier }) {
   //   }
   //   console.log(subCatOptions);
   // }, [categoryName]);
+  //------------------------------------------
 
   useEffect(() => {
-    if (categoryId === '1') {
-      setSubCatOptions([
-        { value: 1, displayText: 'โน๊ตบุ๊ค' },
-        { value: 2, displayText: 'แท็ปเล็ต' },
-        { value: 3, displayText: 'จอคอม' },
-      ]);
-    }
-    if (categoryId === '2') {
-      setSubCatOptions([
-        { value: 4, displayText: 'เมาส์' },
-        { value: 5, displayText: 'คีย์บอร์ด' },
-        { value: 6, displayText: 'ตัวจ่ายไฟ' },
-      ]);
-    }
-    if (categoryId === '3') {
-      setSubCatOptions([
-        { value: 7, displayText: 'หูฟัง' },
-        { value: 8, displayText: 'ลำโพง' },
-      ]);
-    }
-    console.log(subCatOptions);
+    const handleGetAllCategory = async () => {
+      try {
+        const res = await getAllCategoryInfo();
+        console.log(res.data);
+        setCategories(res.data.categories);
+        console.log(categoryId);
+        const selectedSubCategoryArray = categories.find(
+          (el) => el.id === +categoryId
+        );
+        if (selectedSubCategoryArray) {
+          setSubCatOptions(selectedSubCategoryArray);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleGetAllCategory();
+
+    // const handleGetSubCategoryByCategoryId = async (categoryId) => {
+    //   try {
+    //     const resSubCat = await getSubCategoryByCategoryId(categoryId);
+    //     console.log(resSubCat.data);
+    //     // setCategories(res.data.categories);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // handleGetSubCategoryByCategoryId(+categoryId);
   }, [categoryId]);
+
+  //------------------------------------------
+  // useEffect(() => {
+  // }, [categoryId]);
+  //------------------------------------------
+  // useEffect(() => {
+  //   if (categoryId === '1') {
+  //     setSubCatOptions([
+  //       { value: 1, displayText: 'โน๊ตบุ๊ค' },
+  //       { value: 2, displayText: 'แท็ปเล็ต' },
+  //       { value: 3, displayText: 'จอคอม' },
+  //     ]);
+  //   }
+  //   if (categoryId === '2') {
+  //     setSubCatOptions([
+  //       { value: 4, displayText: 'เมาส์' },
+  //       { value: 5, displayText: 'คีย์บอร์ด' },
+  //       { value: 6, displayText: 'ตัวจ่ายไฟ' },
+  //     ]);
+  //   }
+  //   if (categoryId === '3') {
+  //     setSubCatOptions([
+  //       { value: 7, displayText: 'หูฟัง' },
+  //       { value: 8, displayText: 'ลำโพง' },
+  //     ]);
+  //   }
+  //   console.log(subCatOptions);
+  // }, [categoryId, subCatOptions]);
+  //------------------------------------------
 
   useEffect(() => {
     if (mainPicture === null) {
@@ -103,7 +144,35 @@ function AddProductForm({ addNewProductSupplier }) {
     const newImageURL = URL.createObjectURL(mainPicture);
     // console.log(newImageURL);
     setImageURL(newImageURL);
-  }, [mainPicture]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
+
+    if (subPicture1 === null) {
+      return;
+    }
+    const newSubPicture1URL = URL.createObjectURL(subPicture1);
+    // console.log(newImageURL);
+    setSubPictureURL1(newSubPicture1URL);
+
+    if (subPicture2 === null) {
+      return;
+    }
+    const newSubPicture2URL = URL.createObjectURL(subPicture2);
+    // console.log(newImageURL);
+    setSubPictureURL2(newSubPicture2URL);
+
+    if (subPicture3 === null) {
+      return;
+    }
+    const newSubPicture3URL = URL.createObjectURL(subPicture3);
+    // console.log(newImageURL);
+    setSubPictureURL3(newSubPicture3URL);
+
+    if (subPicture4 === null) {
+      return;
+    }
+    const newSubPicture4URL = URL.createObjectURL(subPicture4);
+    // console.log(newImageURL);
+    setSubPictureURL4(newSubPicture4URL);
+  }, [mainPicture, subPicture1, subPicture2, subPicture3, subPicture4]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
   // console.log({ imageURL: imageURL });
   const onMainPictureChange = (event) => {
     if (event.target.files[0]) {
@@ -111,60 +180,28 @@ function AddProductForm({ addNewProductSupplier }) {
     }
   };
   //-------------------------------------------------------------------------------
-  useEffect(() => {
-    if (subPicture1 === null) {
-      return;
-    }
-    const newSubPicture1URL = URL.createObjectURL(subPicture1);
-    // console.log(newImageURL);
-    setSubPictureURL1(newSubPicture1URL);
-  }, [subPicture1]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-  // console.log({ imageURL: imageURL });
+
   const onSubPicture1Change = (event) => {
     if (event.target.files[0]) {
       setSubPicture1(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
-  useEffect(() => {
-    if (subPicture2 === null) {
-      return;
-    }
-    const newSubPicture2URL = URL.createObjectURL(subPicture2);
-    // console.log(newImageURL);
-    setSubPictureURL2(newSubPicture2URL);
-  }, [subPicture2]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-  // console.log({ imageURL: imageURL });
+
   const onSubPicture2Change = (event) => {
     if (event.target.files[0]) {
       setSubPicture2(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
-  useEffect(() => {
-    if (subPicture3 === null) {
-      return;
-    }
-    const newSubPicture3URL = URL.createObjectURL(subPicture3);
-    // console.log(newImageURL);
-    setSubPictureURL3(newSubPicture3URL);
-  }, [subPicture3]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-  // console.log({ imageURL: imageURL });
+
   const onSubPicture3Change = (event) => {
     if (event.target.files[0]) {
       setSubPicture3(event.target.files[0]);
     }
   };
   //-------------------------------------------------------------------------------
-  useEffect(() => {
-    if (subPicture4 === null) {
-      return;
-    }
-    const newSubPicture4URL = URL.createObjectURL(subPicture4);
-    // console.log(newImageURL);
-    setSubPictureURL4(newSubPicture4URL);
-  }, [subPicture4]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
-  // console.log({ imageURL: imageURL });
+
   const onSubPicture4Change = (event) => {
     if (event.target.files[0]) {
       setSubPicture4(event.target.files[0]);
@@ -198,7 +235,7 @@ function AddProductForm({ addNewProductSupplier }) {
         <br />
         <div className='flex gap-2 font-bold'>
           {<IoAddCircleOutline size={25} />}
-          <h1 className='text-3xl '>เพิ่มสินค้า</h1>
+          <h1 className='text-3xl font-bold '>เพิ่มสินค้า</h1>
         </div>
         <div className=''>
           <br />
@@ -470,17 +507,26 @@ function AddProductForm({ addNewProductSupplier }) {
                 className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 required
                 value={categoryId}
-                onChange={(event) => setCategoryId(event.target.value)}
+                onChange={(event) => {
+                  setCategoryId(event.target.value);
+                  console.log(categoryId);
+                  const selectedSubCategoryArray = categories.find(
+                    (el) => el.id === +categoryId
+                  );
+                  console.log(selectedSubCategoryArray);
+                  // setSubCatOptions();
+                }}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้า</option>
-                {/* <option value='computer-notebook'>
-                  คอมพิวเตอร์และโน๊ตบุ๊ค
-                </option>
-                <option value='it-accessories'>อุปกรณ์ไอที</option>
-                <option value='music-movie'>ดูหนัง ฟังเพลง</option> */}
-                <option value={1}>คอมพิวเตอร์และโน๊ตบุ๊ค</option>
-                <option value={2}>อุปกรณ์ไอที</option>
-                <option value={3}>ดูหนัง ฟังเพลง</option>
+                {categories?.map((el) => {
+                  return (
+                    <>
+                      <option value={el.id || 0}>
+                        {el.categoryName || ''}
+                      </option>
+                    </>
+                  );
+                })}
               </select>
             </div>
           </div>
@@ -500,11 +546,12 @@ function AddProductForm({ addNewProductSupplier }) {
                 onChange={(event) => setSubCategoryId(event.target.value)}
               >
                 <option className=''>กรุณาเลือกหมวดหมู่สินค้าย่อย</option>
-                {subCatOptions.map((el, index) => {
+                {/* <option value={1}>อุปกรณ์ไอที</option>  */}
+                {subCatOptions.SubCategories?.map((el) => {
                   return (
                     <>
-                      <option key={index} value={el.value}>
-                        {el.displayText}
+                      <option value={el.id || 0}>
+                        {el.subCategoryName || ''}
                       </option>
                     </>
                   );
@@ -593,7 +640,7 @@ function AddProductForm({ addNewProductSupplier }) {
               </thead>
             </table>
             <tbody>
-              {properties.map((el, idx) => {
+              {properties?.map((el, idx) => {
                 return (
                   <div className='p-2' key={idx}>
                     <AddPropertyRow
@@ -612,7 +659,7 @@ function AddProductForm({ addNewProductSupplier }) {
           <div className='flex justify-center'>
             <button
               type='button'
-              className='btn btn-info text-center hover:info-focus '
+              className='btn bg-blue-400 text-center border-none hover:bg-blue-500  '
               onClick={() => {
                 if (properties.length < 10) {
                   setProperties([
@@ -667,8 +714,7 @@ function AddProductForm({ addNewProductSupplier }) {
                 subPicture4,
                 properties,
               });
-
-              // navigate('/supplier/my-product');
+              navigate('/supplier/my-product');
             }}
           >
             เพิ่มสินค้า

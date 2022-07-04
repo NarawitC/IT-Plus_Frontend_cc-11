@@ -8,6 +8,7 @@ import LogInForm from '../../form/LogInForm';
 import { SupplierAuthContext } from '../../../../contexts/Supplier/SupplierAuthContext';
 import { useNavigate } from 'react-router-dom';
 import defaultPic from '../../../../pictures/previewPic.png';
+
 function ProfileDropDown() {
   const navigate = useNavigate();
   const { signOut, role, supplier } = useContext(SupplierAuthContext);

@@ -203,7 +203,7 @@ function ProductfilterContextProvider({ children }) {
     //   }
     // }, []);
     // const uniqueSupplier = sipplierArr.filter((el, index, arr) => {
-    //   console.log(el.supplierId);
+    //   console.log(el.supplierId)
     //   console.log(
     //     arr.find((eltofind) => el.supplierId === eltofind.supplierId)
     //   );

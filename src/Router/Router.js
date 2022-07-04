@@ -36,6 +36,8 @@ import { useAdminContext } from '../contexts/Admin/AdminContext';
 import { useSupplierContext } from '../contexts/Supplier/SupplierAuthContext';
 import ClientOrderPage from '../pages/client/orderPage';
 
+import DynamicSelectedTransactionPage from '../pages/supplier/DynamicSelectedTransactionPage';
+import DynamicEditSelectedProductPage from '../pages/supplier/DynamicEditSelectedProductPage';
 function Router() {
   const { admin } = useAdminContext();
   const { supplier } = useSupplierContext();
@@ -78,15 +80,24 @@ function Router() {
               <Route path='order' element={<DynamicOrderPage />} />
               {/* <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} /> */}
               <Route
-                path='order/selected'
+                path='order/:orderId'
                 element={<DynamicSelectedOrderPage />}
               />
               {/* <Route path='product/:productId' element={<DynamicSelectedProductPage />} /> */}
-              <Route
+              {/* <Route
                 path='product/selected'
                 element={<DynamicSelectedProductPage />}
               />
-              <Route path='tracking' element={<TrackingPage />} />
+              <Route path='tracking' element={<TrackingPage />} /> */}
+              <Route
+                path='product/:productId'
+                element={<DynamicEditSelectedProductPage />}
+              />
+              {/* <Route path='tracking' element={<TrackingPage />} /> */}
+              <Route
+                path='transaction/selected'
+                element={<DynamicSelectedTransactionPage />}
+              />
             </>
           )}
           <Route path='' element={<SupplierSignUpPage />} />

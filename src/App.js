@@ -5,6 +5,7 @@ import ProductfilterContextProvider from './contexts/ProductContext';
 import AdminSearchContextProvider from './contexts/Admin/AdminSearchContext';
 import { AnimatePresence } from 'framer-motion';
 import Router from './Router/Router';
+import AdminContextProvider from './contexts/Admin/AdminContext';
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
             <ProductfilterContextProvider>
               <OrderContextProvider>
                 <AdminSearchContextProvider>
-                  <Router />
+                  <AdminContextProvider>
+                    <Router />
+                  </AdminContextProvider>
                 </AdminSearchContextProvider>
               </OrderContextProvider>
             </ProductfilterContextProvider>

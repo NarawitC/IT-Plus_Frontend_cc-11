@@ -15,12 +15,11 @@ const SupplierAuthContext = createContext();
 
 function SupplierAuthContextProvider({ children }) {
   const { reRender, setReRender } = useContext(ReRenderContext);
+
   const [supplier, setSupplier] = useState(null);
   const [role, setRole] = useState(null);
   const navigate = useNavigate();
-  useEffect(() => {
-    fetchSupplier();
-  }, []);
+
   //url get myShop
   const location = useLocation();
 
@@ -70,10 +69,10 @@ function SupplierAuthContextProvider({ children }) {
 
   const signOut = () => {
     removeAccessTOken(); //
-    setReRender((reRender) => !reRender);
     setSupplier(null);
     setRole('');
-    navigate('/');
+    setReRender((reRender) => !reRender);
+    navigate('/supplier');
   };
 
   const signUp = async (input) => {
@@ -87,15 +86,7 @@ function SupplierAuthContextProvider({ children }) {
 
   return (
     <SupplierAuthContext.Provider
-      value={{
-        signUp,
-        supplier,
-        setSupplier,
-        signIn,
-        signOut,
-        role,
-        setRole,
-      }}
+      value={{ signUp, supplier, signIn, signOut, role, setRole }}
     >
       {children}
     </SupplierAuthContext.Provider>

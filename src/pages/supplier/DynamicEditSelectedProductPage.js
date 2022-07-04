@@ -1,16 +1,16 @@
-import AddProductForm from '../../components/supplier/form/AddProductForm';
+import EditSelectedProductForm from '../../pages/supplier/EditSelectedProductForm';
 import { ReRenderContext } from '../../contexts/ReRenderContext';
 import { useContext } from 'react';
 import axios from '../../config/axios';
-import {
-  createProduct,
-  createProductPropertyByProductId,
-} from '../../apis/supplier/supplierProduct';
+import { updateProduct } from '../../apis/supplier/supplierProduct';
+import { useNavigate } from 'react-router-dom';
 
-function DynamicAddProductPage() {
+function DynamicEditSelectedProductPage() {
+  const navigate = useNavigate();
   const { setReRender } = useContext(ReRenderContext);
 
-  const addNewProductSupplier = async ({
+  const updateProductByProductId = async ({
+    productId,
     productName,
     description,
     price,
@@ -23,7 +23,6 @@ function DynamicAddProductPage() {
     subPicture2,
     subPicture3,
     subPicture4,
-    properties,
   }) => {
     const formData = new FormData();
     formData.append('productName', productName);
@@ -39,17 +38,20 @@ function DynamicAddProductPage() {
     formData.append('subPicture3', subPicture3);
     formData.append('subPicture4', subPicture4);
 
-    const res = await createProduct(formData);
-    console.log(res.data.product);
-    await createProductPropertyByProductId(res.data.product.id, properties);
-    setReRender((reRender) => !reRender);
+    const res = await updateProduct(productId, formData);
+    console.log(res);
+    navigate('/supplier/my-product');
+    // await createProductPropertyByProductId(res.data.product.id, properties);
+    // setReRender((reRender) => !reRender);
   };
 
   return (
     <div>
-      <AddProductForm addNewProductSupplier={addNewProductSupplier} />
+      <EditSelectedProductForm
+        updateProductByProductId={updateProductByProductId}
+      />
     </div>
   );
 }
 
-export default DynamicAddProductPage;
+export default DynamicEditSelectedProductPage;
