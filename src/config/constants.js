@@ -8,3 +8,5 @@ export const PRODUCT_STATUS = {
   REJECTED: 'REJECTED',
   HIDDEN: 'HIDDEN',
 };
+
+export const GOOGLE_MAP_API_KEY = 'AIzaSyA_qd0eTMchM9MLphPooedQNE0dSgaJ8KA';
