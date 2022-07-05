@@ -4,8 +4,11 @@ import { createPurchasedOrder } from '../../../../apis/client/purchasedOrder';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../../../contexts/Client/AuthCcontexts';
 import { createShippingOrder } from '../../../../apis/supplier/supplierShippingOrder';
+import { localsting } from '../../../../services/LocalstringComma';
+import { useRef } from 'react';
 
 function OmisePaymentButton({ className, orders, totalPrice }) {
+  const formElement = useRef();
   const displayName = 'IT Plus';
   const navigate = useNavigate();
   const { user } = useAuthContext();
@@ -19,6 +22,7 @@ function OmisePaymentButton({ className, orders, totalPrice }) {
   const handleClickCheckoutButton = (e) => {
     e.preventDefault();
     console.log('first');
+
     omiseCard.configure({
       publicKey: OMISE_PUBLIC_KEY,
       defaultPaymentMethod: 'credit_card',
@@ -70,14 +74,12 @@ function OmisePaymentButton({ className, orders, totalPrice }) {
   };
 
   return (
-    <form
-      id='checkoutForm'
-      className={className}
-      onSubmit={handleClickCheckoutButton}
-    >
+    <form id='checkoutForm' className='flex justify-center '>
       <button
-        type='submit'
+        className={className}
+        ref={formElement}
         id='checkoutButton'
+        onClick={handleClickCheckoutButton}
       >{`Pay ${totalPrice} THB`}</button>
     </form>
   );
