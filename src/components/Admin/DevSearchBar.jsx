@@ -30,7 +30,7 @@ function DevSearchBar() {
   return (
     <div
       data-theme='cupcake'
-      className='flex justify-center items-center flex-row gap-5 pt-8'
+      className='flex justify-center items-center flex-row gap-5 '
     >
       <input
         value={searchValue}
