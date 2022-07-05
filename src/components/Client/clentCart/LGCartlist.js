@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { BiErrorCircle } from 'react-icons/bi';
-import CartImg from '../../../../src/pictures/cart-test-1.jpg';
 import trash from '../../../../src/pictures/trash.svg';
 import { useProductfilter } from '../../../contexts/ProductContext';
 import { localsting } from '../../../services/LocalstringComma';
@@ -31,12 +30,15 @@ function LGCartlist({ el, handleDelcartlist }) {
   return (
     <>
       <div className='col-span-4'>
-        <div className='grid grid-cols-10 '>
-          <div className='w-[100px] h-[100px]  col-span-1   '>
-            <img src={el.mainPicture} />
+        <div className='grid grid-cols-10  '>
+          <div className='w-[100px] h-[100px]  col-span-1  overflow-hidden'>
+            <img
+              src={el.mainPicture}
+              className='object-contain w-full h-full'
+            />
           </div>
           <div className='col-span-3 my-auto pl-14'>
-            <a href='#'>{el.productName}</a>
+            <div href='#'>{el.productName}</div>
           </div>
           <div className='col-span-3 m-auto '>
             {/* {1 ? ( */}

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import CartImg from '../../../src/pictures/cart-test-1.jpg';
 import { motion } from 'framer-motion';
-import trash from '../../../src/pictures/trash.svg';
 import sumCheck from '../../../src/pictures/check_sum.svg';
 import LGCartlist from './clentCart/LGCartlist';
 import { useProductfilter } from '../../contexts/ProductContext';
@@ -9,15 +7,13 @@ import { useOrderContext } from '../../contexts/Client/orderContext';
 import { localsting } from '../../services/LocalstringComma';
 import { useAuthContext } from '../../contexts/Client/AuthCcontexts';
 import { useNavigate } from 'react-router-dom';
-import { CgChevronDoubleLeft } from 'react-icons/cg';
-import { BsPlusSquareDotted } from 'react-icons/bs';
 import DynamicClientCheckoutmode from './clentCart/DynamicClientCheckoutmode';
 
 function CartItem() {
   const [cartOrder, setcartOrder] = useState(null);
   const { checkoutAddress } = useOrderContext();
+
   const { user } = useAuthContext();
-  // console.log(checkoutAddress);
 
   const {
     tempCarts,
@@ -57,11 +53,16 @@ function CartItem() {
     // console.log(reponse);
   };
   const handleCreateOrder = async (dbcart, address) => {
-    // console.log(dbcart);
-    const res = await createOrderandOrderItems(dbcart, 'address is here');
-    // console.log(res);
-    setdbcart(res.bulkOrder);
-    navigate('/cart/checkout');
+
+    if (checkoutAddress) {
+      const res = await createOrderandOrderItems(dbcart, 'address is here');
+      console.log(res);
+      setdbcart(res.bulkOrder);
+      navigate('/cart/checkout');
+    } else {
+      alert('กรุณาเพิ่มที่อยู่การจัดส่ง');
+    }
+
   };
   const handleDelcartlist = async (id) => {
     await settempCarts((prev) => {
@@ -148,7 +149,7 @@ function CartItem() {
                   handleCreateOrder(dbcart, 'address is here');
                 }}
               >
-                ยืนยันที่อยู่จัดส่ง
+                ยืนยันที่อยู่การจัดส่ง
               </div>
             )}
           </div>
