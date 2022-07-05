@@ -2,8 +2,8 @@
 import axios from 'axios';
 import { getAccessToken, getModsToken } from '../services/localStorage';
 
-export const API_ENDPOINT_URL = 'http://103.74.253.88:8000';
-// export const API_ENDPOINT_URL = 'http://localhost:8000';
+// export const API_ENDPOINT_URL = 'http://103.74.253.88:8000';
+export const API_ENDPOINT_URL = 'http://localhost:8000';
 // var config = {
 //     headers: {'Access-Control-Allow-Origin': '*'}
 // };
@@ -11,11 +11,11 @@ export const API_ENDPOINT_URL = 'http://103.74.253.88:8000';
 axios.interceptors.request.use(
   (config) => {
     if (config.url.includes('facebook')) {
-      console.log('hi');
-      console.log(config);
+      // console.log('hi');
+      // console.log(config);
       // config.headers = {
       //   // 'Access-Control-Allow-Origin': 'http://localhost:8000/oauth/facebook',
-      //   // 'Access-Control-Allow-Origin': 'https://www.facebook.com',
+      // 'Access-Control-Allow-Origin': 'https://www.facebook.com',
       // };
 
       return config;

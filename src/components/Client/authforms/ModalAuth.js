@@ -26,8 +26,8 @@ function ModalAny({ inputEmodal }) {
     //   },
     // });
     const link = 'http://localhost:8000/oauth/facebook';
-    // console.log(link);
-    window.open(link);
+    console.log(link);
+    // window.open(link);
     // window.location.href = link;
   };
 

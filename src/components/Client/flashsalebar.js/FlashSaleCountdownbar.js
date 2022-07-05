@@ -25,7 +25,7 @@ function FlashSaleCountdownbar() {
   }, [product]);
 
   return (
-    <div>
+    <>
       <div className='max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 bg-yellow-400 flex justify-between mt-8 items-center rounded-xl py-4'>
         <div>
           <img src={Ficon} />
@@ -78,23 +78,25 @@ function FlashSaleCountdownbar() {
         </div>
       </div>
 
-      <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 '>
-        {FlashsaleProducts?.map((el, idx) => (
-          <DynamicClientProductCard el={el} key={idx} />
-        ))}
-      </div>
-      <div
-        className='w-full flex justify-center mt-4
+      <div className='bg-white max-w-2xl mx-auto py-4 px-4  sm:px-6 lg:max-w-7xl lg:px-8 '>
+        <div className='mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-1 lg:grid-cols-4 xl:gap-x-8 '>
+          {FlashsaleProducts?.map((el, idx) => (
+            <DynamicClientProductCard el={el} key={idx} />
+          ))}
+        </div>
+        <div
+          className='w-full flex justify-center mt-4
       '
-      >
-        <SmPillButton
-          text='See All FlashSales'
-          className={
-            'btn btn-primary mx-auto self-center  hover:bg-white hover:text-gray-700/50 duration-200'
-          }
-        />
+        >
+          <SmPillButton
+            text='See All FlashSales'
+            className={
+              'btn btn-primary mx-auto self-center  hover:bg-white hover:text-gray-700/50 duration-200'
+            }
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

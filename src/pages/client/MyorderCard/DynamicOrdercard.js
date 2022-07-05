@@ -21,8 +21,8 @@ function DynamicOrdercard({ el }) {
   const navigate = useNavigate();
 
   const handelCotinueCheckout = async () => {
-    console.log(el);
-    setDBorders([el]);
+    // console.log(el);
+    await setDBorders([el]);
     navigate('/cart/checkout');
     // setQr(null);
     // console.log(el.id);
@@ -37,7 +37,17 @@ function DynamicOrdercard({ el }) {
           <strong className='block'>{`จำนวน: ${sumAm}`}</strong>
           <div></div>
           <span className='block'>{`สถานะ : ${
-            el.PurchasedOrder ? 'ชำระแล้ว' : 'รอการชำระ'
+            // if(el.PurchasedOrder?.ShippingOrder.status === 'TO_SHIPPING_COMPANY')return{}
+            el.PurchasedOrder && !el.PurchasedOrder.ShippingOrder
+              ? 'ชำระแล้ว'
+              : el.PurchasedOrder?.ShippingOrder.status ===
+                'TO_SHIPPING_COMPANY'
+              ? 'รอการจัดส่ง'
+              : el?.PurchasedOrder?.ShippingOrder?.status === 'TO_CLIENT'
+              ? 'รอการชำระ'
+              : el?.PurchasedOrder?.ShippingOrder?.status === 'DELIVERED'
+              ? 'เสร็จสิ้น'
+              : 'รอการชำระ'
           }`}</span>
         </div>
         <div className='flex flex-col justify-between'>
