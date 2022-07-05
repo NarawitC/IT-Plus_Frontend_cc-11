@@ -26,8 +26,11 @@ function ModalAny({ inputEmodal }) {
     //   },
     // });
     const link = 'http://localhost:8000/oauth/facebook';
-    console.log(link);
-    // window.open(link);
+    // console.log(link);
+    window.open(link);
+    const { data } = await axios.get('/oauth/facebook/callback');
+    console.log(data);
+
     // window.location.href = link;
   };
 
