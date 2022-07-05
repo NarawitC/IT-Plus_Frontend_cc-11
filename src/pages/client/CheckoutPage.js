@@ -96,7 +96,7 @@ function CheckoutPage() {
     <div>
       <BreadCrumbsCart />
 
-      <div className='border-2 rounded-lg py-4 my-4 col-span-2'>
+      <div className='border-2 rounded-lg py-4 my-4 col-span-2 px-40'>
         <div className='flex gap-4 border-b-2 pb-4 px-2 '>
           <div>
             <img src={sumCheck} />
@@ -106,11 +106,11 @@ function CheckoutPage() {
         {OrderArr?.map((elOrder, index) => {
           // console.log(elOrder);
           return (
-            <div className='border-b-2 pb-4 px-4'>
+            <div key={index} className='border-b-2 pb-4 px-4'>
               <p className='mt-2 text-sm'>
                 หมายเลขคำสั่งซื้อ i00xp{elOrder.id}
               </p>
-              <div className='flex flex-col mt-4 '>
+              <div className='grid grid-cols-1 py-4 gap-4  '>
                 {elOrder.OrderItems?.map((elpds, idx) => {
                   //product OrderItem lists here
                   // console.log(elpds);
