@@ -7,10 +7,12 @@ import { FcGoogle } from 'react-icons/fc';
 import { AiOutlineMail } from 'react-icons/ai';
 import { BsFacebook } from 'react-icons/bs';
 import CSignin from './signin';
+import axios from '../../config/axios';
+
 function ModalAny({ inputEmodal }) {
   const [UserAuthmodal, setUserAuthmodal] = useState(false);
   const [authOption, setauthOption] = useState(null);
-  const navigete = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div
@@ -52,13 +54,15 @@ function ModalAny({ inputEmodal }) {
                 />
                 <a className='tab text-md font-bold'>SIGN IN </a>
               </div>
+
               <div className='self-center  flex flex-col basis-5 w-4/6 mb-4'>
                 <SmPillButton
                   text={'Sign in with Facebook'}
                   className=' bg-[#3983FC] hover:bg-[#3983FC] border-2 w-full text-white font-medium h-9'
                   icon={<BsFacebook size={25} className='absolute' />}
                   onClick={(e) => {
-                    navigete('/auth/facebook');
+                    //                     navigate('/auth/facebook');
+                    // axios
                     // setauthOption(1);
                   }}
                 />
