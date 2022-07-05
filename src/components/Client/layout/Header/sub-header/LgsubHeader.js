@@ -91,7 +91,7 @@ function LgsubHeader() {
   }, []);
 
   return (
-    <div className=' rounded-box  overflow-x-scroll overflow-displayNone overflow-y-hidden w-full h-full py-4 gap-6'>
+    <div className='rounded-box overflow-x-scroll overflow-displayNone overflow-y-hidden w-full h-full py-4 gap-6'>
       {categories?.map((category, index) => (
         <CategoryItem
           category={category}

@@ -17,6 +17,16 @@
     rgba(0, 110, 223, 1) 97%
   );
 }
+.gradring {
+  /* --tw-ring-opacity: 1; */
+  /* --tw-ring-color: rgb(239 246 255 / var(--tw-ring-opacity)); */
+  /* --tw-ring-color: rgb(15, 203, 247); */
+  --tw-ring-color: linear-gradient(
+    130deg,
+    rgba(15, 203, 247, 1) 0%,
+    rgba(0, 110, 223, 1) 97% / var(--tw-ring-opacity)
+  );
+}
 
 body {
   margin: 0;
