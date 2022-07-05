@@ -24,7 +24,7 @@ function BreadCrumbs({ category, Productname }) {
           (el) => el.id === categorySelectd
         );
         setcat(thecat[0]);
-        console.log(thecat);
+        // console.log(thecat);
       }
       // navigate('/product');
       // setCategories(categories);
