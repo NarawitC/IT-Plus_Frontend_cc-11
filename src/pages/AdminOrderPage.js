@@ -4,7 +4,7 @@ import DevOrderTable from '../components/Admin/DevOrderTable';
 function AdminOrderPage() {
   return (
     <>
-      <div data-theme='luxury'>
+      <div data-theme='cupcake'>
         <DevStat />
         <div>
           <DevOrderTable />

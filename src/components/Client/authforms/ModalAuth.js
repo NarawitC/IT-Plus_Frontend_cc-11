@@ -10,7 +10,7 @@ import CSignin from './signin';
 function ModalAny({ inputEmodal }) {
   const [UserAuthmodal, setUserAuthmodal] = useState(false);
   const [authOption, setauthOption] = useState(null);
-  const navigete = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div
@@ -58,11 +58,11 @@ function ModalAny({ inputEmodal }) {
                   className=' bg-[#3983FC] hover:bg-[#3983FC] border-2 w-full text-white font-medium h-9'
                   icon={<BsFacebook size={25} className='absolute' />}
                   onClick={(e) => {
-                    navigete('/auth/facebook');
+                    // navigete('/auth/facebook');
                     // setauthOption(1);
                   }}
                 />
-                <div
+                {/* <div
                   className='fb-login-button btn'
                   data-width=''
                   data-size='large'
@@ -70,7 +70,7 @@ function ModalAny({ inputEmodal }) {
                   data-layout='rounded'
                   data-auto-logout-link='false'
                   data-use-continue-as='false'
-                ></div>
+                ></div> */}
 
                 <SmPillButton
                   text={'Sign in with Google'}

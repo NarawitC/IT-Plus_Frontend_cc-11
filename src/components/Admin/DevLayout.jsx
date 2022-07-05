@@ -10,8 +10,8 @@ function DevLayout() {
   const location = useLocation();
   const { isAdminPromotionPage } = checkLocation(location);
   return (
-    <div data-theme='luxury' className='w-full h-screen '>
-      {!isAdminPromotionPage && <DevSearchBar />}
+    <div data-theme='cupcake' className='w-full h-screen '>
+      <DevSearchBar />
       <DevSideBar />
       <div>
         <Outlet />

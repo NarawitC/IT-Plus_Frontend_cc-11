@@ -29,7 +29,7 @@ function DevSearchBar() {
 
   return (
     <div
-      data-theme='luxury'
+      data-theme='cupcake'
       className='flex justify-center items-center flex-row gap-5 pt-8'
     >
       <input
