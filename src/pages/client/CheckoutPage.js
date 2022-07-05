@@ -95,7 +95,7 @@ function CheckoutPage() {
     <div>
       <BreadCrumbsCart />
 
-      <div className='border-2 rounded-lg py-4 my-4 col-span-2'>
+      <div className='border-2 rounded-lg py-4 my-4 col-span-2 px-40'>
         <div className='flex gap-4 border-b-2 pb-4 px-2 '>
           <div>
             <img src={sumCheck} />
@@ -106,7 +106,7 @@ function CheckoutPage() {
           // console.log(elOrder);
           return (
             <div key={idx} className='border-b-2 pb-4 px-4'>
-              <div className='flex justify-between mt-4 '>
+              <div className='grid grid-cols-1 py-4 gap-4  '>
                 {elOrder.OrderItems?.map((elpds, idx) => {
                   //product OrderItem lists here
                   // console.log(elpds);
