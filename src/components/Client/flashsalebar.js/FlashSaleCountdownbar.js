@@ -10,16 +10,16 @@ function FlashSaleCountdownbar() {
   const [FlashsaleProducts, setFlashsaleProducts] = useState([]);
   const { SetcountdownStrbydate, Days, Hrs, Mins, Secs } = useCountdown();
   const { product } = useProductfilter();
-  const { setIsLoading } = useLoading();
+  // const { setIsLoading } = useLoading();
   useEffect(() => {
     const fetchFlashsale = async () => {
-      setIsLoading(true);
+      // setIsLoading(true);
       SetcountdownStrbydate(1);
       const onlyPros = await product?.filter((el) => el.Promotions.length > 0);
       setFlashsaleProducts(onlyPros);
       // console.log(onlyPros);
       // console.log('onlyPros');
-      setIsLoading(false);
+      // setIsLoading(false);
     };
     fetchFlashsale();
   }, [product]);

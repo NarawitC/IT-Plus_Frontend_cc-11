@@ -94,6 +94,7 @@ function LgsubHeader() {
     <div className='rounded-box overflow-x-scroll overflow-displayNone overflow-y-hidden w-full h-full py-4 gap-6'>
       {categories?.map((category, index) => (
         <CategoryItem
+          key={index}
           category={category}
           index={index}
           icons={icons[category.categoryName]}
