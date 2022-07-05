@@ -16,14 +16,14 @@ function SaleOrderPage() {
   }, []);
   return (
     <>
-      <div className='flex w-full justify-center   '>
+      <div className='flex w-full justify-center text-font-Kanit  '>
         <div className='flex flex-col w-2/3 justify-center'>
           <div className=' mb-2  rounded-xl  mt-4   border-2'>
-            <h3 className=' p-2 sm:p-4 text-lg rounded-t-xl font-medium bg-[#FAFAFA] mb-2 leading-6 text-gray-900'>
+            <h3 className=' p-2 sm:p-4 text-lg rounded-t-xl cursor-default font-medium bg-[#FAFAFA] mb-2 leading-6 text-gray-900'>
               รายการคำสั่งซื้อ
             </h3>
             <div className=' w-full flex flex-row bg-white'>
-              <SmPillButton text='ทั้งหมด' />
+              <SmPillButton className={'hover:text-blue-500'} text='ทั้งหมด' />
               <SmPillButton text='ตะกร้าทั้งหมด' />
               <SmPillButton text='ชำระแล้ว' />
               <SmPillButton text='เสร็จสิ้น' />

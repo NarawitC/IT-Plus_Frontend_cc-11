@@ -22,13 +22,14 @@ function CheckoutPage() {
   useEffect(() => {
     // console.log(dbcart);
     const fetchorderDb = async () => {
+      console.log(dborders);
       // get thisorder by rescart
       if (dborders) {
         const {
           data: { orders },
         } = await getAllOrders();
         const arrOrderid = await dborders
-          .map((el) => el.id)
+          ?.map((el) => el.id)
           .map((elodid) => {
             for (let k of orders) {
               if (elodid == k.id) return k;
