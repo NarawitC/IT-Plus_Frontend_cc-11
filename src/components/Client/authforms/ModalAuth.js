@@ -58,9 +58,20 @@ function ModalAny({ inputEmodal }) {
                   className=' bg-[#3983FC] hover:bg-[#3983FC] border-2 w-full text-white font-medium h-9'
                   icon={<BsFacebook size={25} className='absolute' />}
                   onClick={(e) => {
+                    navigete('/auth/facebook');
                     // setauthOption(1);
                   }}
                 />
+                <div
+                  class='fb-login-button btn'
+                  data-width=''
+                  data-size='large'
+                  data-button-type='continue_with'
+                  data-layout='rounded'
+                  data-auto-logout-link='false'
+                  data-use-continue-as='false'
+                ></div>
+
                 <SmPillButton
                   text={'Sign in with Google'}
                   className=' bg-[#fffff] hover:bg-transparent border-2 w-full text-gray-900 hover:text-gray-900 font-medium h-9'

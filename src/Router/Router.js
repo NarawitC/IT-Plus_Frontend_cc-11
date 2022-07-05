@@ -47,6 +47,10 @@ function Router() {
       {/* todo wait for modify route */}
       <Route path='/' element={<Clientlayout />}>
         <Route path='' element={<Landingpage />} />
+        <Route
+          path='/auth/facebook'
+          element={<Navigate to='/auth/facebook'></Navigate>}
+        />
         <Route path='/product' element={<ClientDynamicProductPage />} />
         <Route path='/product/:productId' element={<ProductInfoPage />} />
         <Route path='/my-accout' element={<ClientProfilePage />} />
