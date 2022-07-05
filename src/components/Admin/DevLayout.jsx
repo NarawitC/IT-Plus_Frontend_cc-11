@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 
 function DevLayout() {
   return (
-    <div data-theme='luxury' className='w-full h-screen '>
+    <div data-theme='cupcake' className='w-full h-screen '>
       <DevSearchBar />
       <DevSideBar />
       <div>

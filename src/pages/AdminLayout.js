@@ -7,7 +7,7 @@ import DevStat from '../components/Admin/DevStat';
 function DevHomePage() {
   return (
     <>
-      <div data-theme='luxury'>
+      <div data-theme='cupcake'>
         <DevSearchBar />
         <DevSideBar />
         <div>

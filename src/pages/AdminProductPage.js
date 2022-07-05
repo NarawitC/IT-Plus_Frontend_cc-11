@@ -4,7 +4,7 @@ import DevStat from '../components/Admin/DevStat';
 import DevStepProcess from '../components/Admin/DevStepProcess';
 function AdminProductPage() {
   return (
-    <div data-theme='luxury'>
+    <div data-theme='cupcake'>
       <DevStat />
       <DevStepProcess />
       <DevProductTable />
