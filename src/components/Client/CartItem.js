@@ -31,15 +31,15 @@ function CartItem() {
   // console.log(cartOrder);
 
   useEffect(() => {
-    const fetchCartDb = async () => {
-      if (dbcart) {
-        const rescart = await GetCartsbyId(dbcart);
-        // console.log(rescart)
-        setcartOrder(rescart.CartItems);
-        return rescart.CartItems;
-      }
-    };
-    fetchCartDb();
+    // const fetchCartDb = async () => {
+    //   if (dbcart) {
+    //     const rescart = await GetCartsbyId(dbcart);
+    //     // console.log(rescart);
+    //     setcartOrder(rescart.CartItems);
+    //     return rescart.CartItems;
+    //   }
+    // };
+    // fetchCartDb();
   }, []);
 
   const navigate = useNavigate();
@@ -49,6 +49,7 @@ function CartItem() {
     // console.log(userid);
     // console.log(userid);
     const cartId = await createCarts(tempCarts, userid);
+    console.log(cartId);
     setdbcart(cartId);
 
     // navigate('/cart/checkout');
@@ -56,8 +57,9 @@ function CartItem() {
   };
   const handleCreateOrder = async (dbcart, address) => {
     if (checkoutAddress) {
-      const res = await createOrderandOrderItems(dbcart, 'address is here');
-      // console.log(res);
+      // console.log(dbcart);
+      const res = await createOrderandOrderItems(dbcart, 'checkoutAddress');
+      console.log(res);
       setdbcart(null);
       // settempCarts(null);
       setDBorders(res.bulkOrder);

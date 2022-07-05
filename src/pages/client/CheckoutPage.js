@@ -18,7 +18,7 @@ function CheckoutPage() {
   const [OrderArr, setOrderArr] = useState(null);
 
   const { dbcart, dborders } = useProductfilter();
-  const { setIsLoading } = useLoading();
+  // const { setIsLoading } = useLoading();
   useEffect(() => {
     // console.log(dbcart);
     const fetchorderDb = async () => {
@@ -38,7 +38,7 @@ function CheckoutPage() {
       }
     };
     const sumPrice = async () => {
-      setIsLoading(true);
+      // setIsLoading(true);
       const resOrderdb = await fetchorderDb();
       setOrderArr(resOrderdb);
       if (resOrderdb?.length > 0) {
@@ -80,14 +80,14 @@ function CheckoutPage() {
         setTotalamount(totalAmount);
         setTotalPrice(total);
         // setTotaltoOdcart(total);
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     };
     sumPrice();
   }, []);
   // console.log(OrderArr);
   const handlePayment = async () => {
-    console.log(OrderArr);
+    // console.log(OrderArr);
     // const res = await createOrderandOrderItems(dbcart, checkoutAddress);
   };
 
@@ -102,11 +102,14 @@ function CheckoutPage() {
           </div>
           <div className='font-bold '>ตรวจสอบยอด</div>
         </div>
-        {OrderArr?.map((elOrder, idx) => {
+        {OrderArr?.map((elOrder, index) => {
           // console.log(elOrder);
           return (
-            <div key={idx} className='border-b-2 pb-4 px-4'>
-              <div className='flex justify-between mt-4 '>
+            <div className='border-b-2 pb-4 px-4'>
+              <p className='mt-2 text-sm'>
+                หมายเลขคำสั่งซื้อ i00xp{elOrder.id}
+              </p>
+              <div className='flex flex-col mt-4 '>
                 {elOrder.OrderItems?.map((elpds, idx) => {
                   //product OrderItem lists here
                   // console.log(elpds);

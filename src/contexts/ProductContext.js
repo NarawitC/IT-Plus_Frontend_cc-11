@@ -124,7 +124,7 @@ function ProductfilterContextProvider({ children }) {
     });
     // const resitem = await createCartitems(2, cartItems);
     const resitem = await createCartitems(res.data.cart.id, cartItems);
-    const cartId = res.data.cart.id;
+    const cartId = await res.data.cart.id;
 
     // setdbcart(cartId);
     // console.log(resitem.data);
