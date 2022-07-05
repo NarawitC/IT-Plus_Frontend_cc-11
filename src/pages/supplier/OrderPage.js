@@ -18,7 +18,7 @@ import {
 } from '../../apis/supplier/supplierShippingOrder';
 import { FaRoad } from 'react-icons/fa';
 import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
-
+import { checkStatusOrder } from '../../services/checkstatusOrder';
 // const mockArr = [
 //   {
 //     firstName: 'Panit Su',
@@ -473,34 +473,29 @@ function OrderPage() {
                           </th>
                           <th>
                             <label className=''>
-                              {/* el.PurchasedOrder !== null */}
-                              {el.PurchasedOrder !== null ? (
-                                <>
-                                  <div className=' text-success text-center'>
-                                    CONFIRMED
-                                  </div>
-                                  {/* <div className='swap-off text-success  text-center'>
-                                    {el.purchasedOrderStatus}
-                                  </div> */}
-                                </>
-                              ) : (
-                                <>
-                                  {/* <div className='swap-off text-success  text-center'>
-                                    {el.purchasedOrderStatus}
-                                  </div> */}
-                                  <div className=' text-warning text-center'>
-                                    PENDING
-                                  </div>
-                                </>
-                              )}
+                              <div className=' text-warning text-center'>
+                                {el.PurchasedOrder ? (
+                                  <>
+                                    <div className=' text-success text-center'>
+                                      CONFIRMED
+                                    </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className=' text-warning text-center'>
+                                      PENDING
+                                    </div>
+                                  </>
+                                )}
+                              </div>
                             </label>
                           </th>
                           <th className=''>
                             {el.PurchasedOrder?.ShippingOrder?.trackingId ||
                             // 1 ? (
-                            el.PurchasedOrder ? (
+                            el.PurchasedOrder !== null ? (
                               <>
-                                <input
+                                {/* <input
                                   className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary '
                                   placeholder='Tracking Id'
                                   onChange={(event) =>
@@ -517,51 +512,60 @@ function OrderPage() {
                                     ])
                                   }
                                   value={el.trackingId}
+                                /> */}
+                                <input
+                                  className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary '
+                                  placeholder='Tracking Id'
+                                  onChange={(event) =>
+                                    setTrackingId(event.target.value)
+                                  }
+                                  value={trackingId}
                                 />
                               </>
                             ) : (
                               <>
-                                <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
-                                  {el.PurchasedOrder?.ShippingOrder
-                                    ?.trackingId || '-'}
-                                </p>
+                                {el.PurchasedOrder?.ShippingOrder?.trackingId &&
+                                el.PurchasedOrder !== null ? (
+                                  <>
+                                    <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
+                                      {el.PurchasedOrder?.ShippingOrder
+                                        ?.trackingId || '-'}
+                                    </p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
+                                      -
+                                    </p>
+                                  </>
+                                )}
                               </>
                             )}
                           </th>
                           {/* el.PurchasedOrder?.ShippingOrder?.trackingId */}
                           <th className=''>
-                            {el.PurchasedOrder !== null &&
-                            el.PurchasedOrder?.ShippingOrder?.trackingId ? (
+                            {el.PurchasedOrder === null ? (
                               <>
-                                <p className='text-center'>กำลังส่ง</p>
+                                <p className='text-center'>-</p>
                               </>
                             ) : (
-                              // <select
-                              //   className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
-                              //   onChange={(event) =>
-                              //     //
-                              //     setShippingDetails((prevShippingDetail) => [
-                              //       ...prevShippingDetail.slice(0, idx),
-                              //       {
-                              //         ...prevShippingDetail[idx],
-                              //         status: event.target.value.trim(),
-                              //         orderId: el.id,
-                              //       },
-                              //       ...prevShippingDetail.slice(idx + 1),
-                              //     ])
-                              //   }
-                              //   value={el.status}
-                              //   type='text'
-                              //   placeholder={el.status}
-                              // >
-                              //   <option value='TO_SHIPPING_COMPANY'>
-                              //     กำลังส่ง
-                              //   </option>
-                              //   <option value='TO_CLIENT'>กำลังส่ง</option>
-                              //   <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
-                              // </select>
-                              <p className='text-center'>-</p>
-                              // <p className='text-center'>ต้องส่ง</p>
+                              <>
+                                {el.PurchasedOrder !== null &&
+                                el.PurchasedOrder?.ShippingOrder === null ? (
+                                  <>
+                                    <p className='text-center'>ต้องส่ง</p>
+                                  </>
+                                ) : (
+                                  <>
+                                    {el.PurchasedOrder !== null &&
+                                      el.PurchasedOrder?.ShippingOrder
+                                        ?.trackingId === true}
+                                    <p className='text-center'>
+                                      กำลังส่งไปหาลูกค้า
+                                    </p>
+                                  </>
+                                )}
+                              </>
                             )}
                           </th>
                         </tr>
@@ -579,6 +583,31 @@ function OrderPage() {
       </>
     </div>
   );
+  // <select
+  //   className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
+  //   onChange={(event) =>
+  //     //
+  //     setShippingDetails((prevShippingDetail) => [
+  //       ...prevShippingDetail.slice(0, idx),
+  //       {
+  //         ...prevShippingDetail[idx],
+  //         status: event.target.value.trim(),
+  //         orderId: el.id,
+  //       },
+  //       ...prevShippingDetail.slice(idx + 1),
+  //     ])
+  //   }
+  //   value={el.status}
+  //   type='text'
+  //   placeholder={el.status}
+  // >
+  //   <option value='TO_SHIPPING_COMPANY'>
+  //     กำลังส่ง
+  //   </option>
+  //   <option value='TO_CLIENT'>กำลังส่ง</option>
+  //   <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
+  // </select>
+  // <p className='text-center'>ต้องส่ง</p>
 }
 
 export default OrderPage;
