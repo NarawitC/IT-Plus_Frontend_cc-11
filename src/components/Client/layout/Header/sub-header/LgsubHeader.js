@@ -23,6 +23,7 @@ function LgsubHeader() {
 
     setSearchParams((prev) => ({ ...prev, categoryId }));
   };
+
   const [hoverIcon, sethoverIcon] = useState([
     false,
     false,
