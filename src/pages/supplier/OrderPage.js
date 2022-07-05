@@ -1,6 +1,6 @@
 import { TbTruckDelivery } from 'react-icons/tb';
 import { GiEmptyMetalBucket } from 'react-icons/gi';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ShippingOrderStatusContext } from '../../contexts/Supplier/ShippingOrderStatusContext';
 import { useContext } from 'react';
 import { CgFileDocument } from 'react-icons/cg';
@@ -19,6 +19,8 @@ import {
 import { FaRoad } from 'react-icons/fa';
 import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
 import { checkStatusOrder } from '../../services/checkstatusOrder';
+import { FcCheckmark } from 'react-icons/fc';
+import AddTrackingIdRow from '../../components/supplier/form/AddTrackingIdRow';
 // const mockArr = [
 //   {
 //     firstName: 'Panit Su',
@@ -67,8 +69,10 @@ function OrderPage() {
   console.log(orders);
   const [orderSearchTerm, setOrderSearchTerm] = useState('');
   const [searchBy, setSearchBy] = useState('id');
+  const modalRef = useRef();
   const navigate = useNavigate();
-  const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
+  // const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
+  const [trackingId, setTrackingId] = useState('');
   const [hasTracking, setHasTracking] = useState(false);
   const [shippingDetails, setShippingDetails] = useState(orders);
   // console.log(shippingDetails);
@@ -367,7 +371,7 @@ function OrderPage() {
                       value={orderSearchTerm}
                       className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
                     >
-                      <option value=''>กรุณาเลือกสถานะการจัดส่ง</option>
+                      {/* <option value=''>กรุณาเลือกสถานะการจัดส่ง</option> */}
                       <option value='TO_SHIPPING_COMPANY'>ต้องส่ง</option>
                       <option value='TO_CLIENT'>กำลังส่ง</option>
                       <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
@@ -427,6 +431,7 @@ function OrderPage() {
                 <th className='text-end'>ยอดคำสั่งซื้อ</th>
                 <th className='text-center'>สถานะการชำระเงิน</th>
                 <th className='flex justify-center'>Tracking Id</th>
+                <th className='text-center'></th>
                 <th className='text-center'>Shipping Order Status</th>
               </tr>
             </thead>
@@ -513,19 +518,16 @@ function OrderPage() {
                                   }
                                   value={el.trackingId}
                                 /> */}
-                                <input
-                                  className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary '
-                                  placeholder='Tracking Id'
-                                  onChange={(event) =>
-                                    setTrackingId(event.target.value)
-                                  }
-                                  value={trackingId}
+                                <AddTrackingIdRow
+                                  trackingId={trackingId}
+                                  setTrackingId={setTrackingId}
                                 />
                               </>
                             ) : (
                               <>
-                                {el.PurchasedOrder?.ShippingOrder?.trackingId &&
-                                el.PurchasedOrder !== null ? (
+                                {el.PurchasedOrder !== null &&
+                                el.PurchasedOrder?.ShippingOrder?.trackingId !==
+                                  null ? (
                                   <>
                                     <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
                                       {el.PurchasedOrder?.ShippingOrder
@@ -542,27 +544,78 @@ function OrderPage() {
                               </>
                             )}
                           </th>
-                          {/* el.PurchasedOrder?.ShippingOrder?.trackingId */}
                           <th className=''>
-                            {el.PurchasedOrder === null ? (
-                              <>
-                                <p className='text-center'>-</p>
-                              </>
+                            <label
+                              type='button'
+                              htmlFor='my-modal-4'
+                              className=' border-2 rounded-lg px-3  hover:scale-110 text-white border-success h-[56px] flex items-center '
+                            >
+                              {<FcCheckmark size={20} />}
+                            </label>
+                            <input
+                              type='checkbox'
+                              id='my-modal-4'
+                              className='modal-toggle'
+                              ref={modalRef}
+                            />
+                            <div className='modal'>
+                              <div className='modal-box'>
+                                <label className='flex  flex-col justify-center items-center '>
+                                  <div className=' pt-2'>
+                                    <label
+                                      htmlFor='my-modal-4'
+                                      className='btn btn-sm btn-circle absolute right-2 top-2 '
+                                    >
+                                      ✕
+                                    </label>
+                                  </div>
+                                  <h1>
+                                    คุณยืนยัน tracking id ของ order
+                                    นี้ตามนี้ใช่หรือไม่?
+                                  </h1>
+                                </label>
+                                <div className='modal-action flex justify-center'>
+                                  <label
+                                    htmlFor='my-modal-4'
+                                    className='btn btn-primary w-24'
+                                    onClick={() => {
+                                      modalRef.current.click();
+                                    }}
+                                  >
+                                    ยกเลิก
+                                  </label>
+                                  <button
+                                    type='button'
+                                    htmlFor='my-modal-4'
+                                    className='btn btn-secondary w-24'
+                                    onClick={async () => {
+                                      await updateStatusToClient(
+                                        el.PurchasedOrder?.ShippingOrder?.id,
+                                        trackingId
+                                      );
+                                      modalRef.current.click();
+                                    }}
+                                  >
+                                    ยืนยัน
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </th>
+                          <th className=''>
+                            {el.PurchasedOrder ? (
+                              <p className='text-center'>TO_SHIPPING_COMPANY</p>
                             ) : (
                               <>
-                                {el.PurchasedOrder !== null &&
-                                el.PurchasedOrder?.ShippingOrder === null ? (
+                                {el.PurchasedOrder?.ShippingOrder?.status ? (
                                   <>
-                                    <p className='text-center'>ต้องส่ง</p>
+                                    <p className='text-center'>
+                                      {el.PurchasedOrder?.ShippingOrder?.status}
+                                    </p>
                                   </>
                                 ) : (
                                   <>
-                                    {el.PurchasedOrder !== null &&
-                                      el.PurchasedOrder?.ShippingOrder
-                                        ?.trackingId === true}
-                                    <p className='text-center'>
-                                      กำลังส่งไปหาลูกค้า
-                                    </p>
+                                    <p className='text-center'>-</p>
                                   </>
                                 )}
                               </>
