@@ -5,7 +5,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import BreadCrumbs from '../../../components/Client/products/productInfo/BreadCrumbs';
 import addCartIcon from '../../../../src/components/Client/products/productInfo/icons/add-to-cart.svg';
 import Property from './Property';
-import { useLoading } from '../../../contexts/LoadingContext';
+// import { useLoading } from '../../../contexts/LoadingContext';
 import { useProductfilter } from '../../../contexts/ProductContext';
 import { useNavigate } from 'react-router-dom';
 import LocalstringComma, {
@@ -29,7 +29,7 @@ function ProductInfoPage({}) {
   const [rejectReason, setRejectReason] = useState('');
   const { admin } = useAdminContext();
   const { getsinglepd, settempCarts, tempCarts } = useProductfilter();
-  const { setIsLoading } = useLoading();
+  // const { setIsLoading } = useLoading();
   const { productId } = useParams();
   useEffect(() => {
     // const params = new URLSearchParams(window.location.search);
@@ -38,7 +38,7 @@ function ProductInfoPage({}) {
     // }
     const fetchPd = async () => {
       setsinglepd(null);
-      setIsLoading(true);
+      // setIsLoading(true);
       const singlePD = await getsinglepd(productId);
       // await console.log(singlePD);
       await setsinglepd(singlePD);
@@ -58,7 +58,7 @@ function ProductInfoPage({}) {
         },
       ];
       await setObjectJa(ObjectJa);
-      await setIsLoading(false);
+      // await setIsLoading(false);
     };
     fetchPd();
     // console.log(Objecturl);

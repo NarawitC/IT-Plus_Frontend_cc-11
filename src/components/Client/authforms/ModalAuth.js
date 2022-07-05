@@ -63,7 +63,7 @@ function ModalAny({ inputEmodal }) {
                   }}
                 />
                 <div
-                  class='fb-login-button btn'
+                  className='fb-login-button btn'
                   data-width=''
                   data-size='large'
                   data-button-type='continue_with'

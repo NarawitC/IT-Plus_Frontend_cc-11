@@ -59,8 +59,8 @@ function SideDrawer({ eldrawer }) {
           <img sec />
           สินค้าทั้งหมด
           {/* <!-- Sidebar content here --> */}
-          {categories?.map((el) => (
-            <li>
+          {categories?.map((el, idx) => (
+            <li key={idx}>
               <a>{el.categoryName}</a>
             </li>
           ))}
