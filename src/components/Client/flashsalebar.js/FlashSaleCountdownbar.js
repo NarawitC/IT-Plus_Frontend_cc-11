@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Ficon from '../../../../src/icons/fs-1.svg';
 import { useCountdown } from '../../../contexts/clountdownContext';
-import { useLoading } from '../../../contexts/LoadingContext';
+// import { useLoading } from '../../../contexts/LoadingContext';
 import { useProductfilter } from '../../../contexts/ProductContext';
 import SmPillButton from '../../commonUtils/SmPillButton';
 import DynamicClientProductCard from '../products/DynamicClientProductCard';
