@@ -24,6 +24,8 @@ function CartItem() {
     createOrderandOrderItems,
     dbcart,
     setdbcart,
+    dborders,
+    setDBorders,
     GetCartsbyId,
   } = useProductfilter();
   // console.log(cartOrder);
@@ -32,7 +34,7 @@ function CartItem() {
     const fetchCartDb = async () => {
       if (dbcart) {
         const rescart = await GetCartsbyId(dbcart);
-        // console.log(rescart);
+        // console.log(rescart)
         setcartOrder(rescart.CartItems);
         return rescart.CartItems;
       }
@@ -53,16 +55,17 @@ function CartItem() {
     // console.log(reponse);
   };
   const handleCreateOrder = async (dbcart, address) => {
-
     if (checkoutAddress) {
       const res = await createOrderandOrderItems(dbcart, 'address is here');
-      console.log(res);
-      setdbcart(res.bulkOrder);
+      // console.log(res);
+      setdbcart(null);
+      // settempCarts(null);
+      setDBorders(res.bulkOrder);
+      // setsetdbcart
       navigate('/cart/checkout');
     } else {
       alert('กรุณาเพิ่มที่อยู่การจัดส่ง');
     }
-
   };
   const handleDelcartlist = async (id) => {
     await settempCarts((prev) => {
