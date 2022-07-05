@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getAllCategoryInfo } from '../../../../apis/client/category';
 import { useProductfilter } from '../../../../contexts/ProductContext';
+import headerlogo from '../../../../icons/IT_PLUS_smLOGO.png';
 
 function SideDrawer({ eldrawer }) {
-  const { categorySelectd } = useProductfilter();
+  const { categorySelectd, setSearchParams } = useProductfilter();
   const [categories, setcategories] = useState();
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchCategories = async () => {
       if (1) {
@@ -56,12 +59,38 @@ function SideDrawer({ eldrawer }) {
       <div className='drawer-side'>
         <label htmlFor='my-drawer' className='drawer-overlay'></label>
         <ul className='menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content'>
-          <img sec />
-          สินค้าทั้งหมด
+          <img
+            src={headerlogo}
+            className={'mask w-48   ring-gray-700/20 duration-150 rounded-md'}
+          />
+          <p
+            className='text-font-Kanit text-xl mt-8 cursor-pointer m-2'
+            onClick={() => {
+              navigate('/product');
+              setSearchParams((prev) => ({ ...prev, categoryId: null }));
+              eldrawer.current.click();
+              // setisDraw((prev) => prev);
+
+              // setSearchParams(el.id);
+            }}
+          >
+            สินค้าทั้งหมด
+          </p>
           {/* <!-- Sidebar content here --> */}
           {categories?.map((el) => (
             <li>
-              <a>{el.categoryName}</a>
+              <a
+                onClick={() => {
+                  navigate('/product');
+                  setSearchParams((prev) => ({ ...prev, categoryId: el.id }));
+                  eldrawer.current.click();
+                  // setisDraw((prev) => prev);
+
+                  // setSearchParams(el.id);
+                }}
+              >
+                {el.categoryName}
+              </a>
             </li>
           ))}
         </ul>
