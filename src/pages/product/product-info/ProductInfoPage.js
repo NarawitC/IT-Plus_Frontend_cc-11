@@ -282,7 +282,7 @@ function ProductInfoPage({}) {
                   Approve
                 </button>
                 <button
-                  className='btn btn-warning flex'
+                  className='btn btn-error flex'
                   onClick={handleRejectButton}
                 >
                   Reject

@@ -4,7 +4,7 @@ import DevSignIn from '../components/Admin/DevSignIn';
 
 function AdminSignInPage() {
   return (
-    <div data-theme='cupcake'>
+    <div data-theme='luxury'>
       <DevSignIn />
       <button
         onClick={() => {

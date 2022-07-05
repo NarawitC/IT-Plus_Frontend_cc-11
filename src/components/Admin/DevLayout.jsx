@@ -8,18 +8,17 @@ import { useLocation, useParams } from 'react-router-dom';
 
 function DevLayout() {
   const location = useLocation();
-  const { isAdminProductPage } = checkLocation(location);
+  const { isAdminProductPage, isAdminPromotionPage } = checkLocation(location);
   const params = useParams();
   const isAdminSelectedProductPage =
     params.productId && isAdminProductPage ? true : false;
-  console.log(isAdminSelectedProductPage);
   return (
-    <div data-theme='cupcake' className='w-full h-screen '>
-      {isAdminSelectedProductPage || <DevSearchBar />}
-      <DevSideBar />
-      <div>
+    <div data-theme='dark' className='w-full h-screen '>
+      <DevSideBar>
+        {isAdminSelectedProductPage || isAdminPromotionPage || <DevSearchBar />}
         <Outlet />
-      </div>
+      </DevSideBar>
+      <div></div>
     </div>
   );
 }
