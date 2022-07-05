@@ -33,6 +33,7 @@ function ModalAny({ inputEmodal }) {
       document.getElementById('signInDiv').hiden = true;
 
       setUser(login.data.user);
+      inputEmodal.current.click();
     } catch (err) {
       console.log(err);
     }
