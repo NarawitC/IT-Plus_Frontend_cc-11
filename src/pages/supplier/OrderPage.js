@@ -17,6 +17,8 @@ import {
   updateStatusToDelivered,
 } from '../../apis/supplier/supplierShippingOrder';
 import { FaRoad } from 'react-icons/fa';
+import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
+
 // const mockArr = [
 //   {
 //     firstName: 'Panit Su',
@@ -67,18 +69,38 @@ function OrderPage() {
   const [searchBy, setSearchBy] = useState('id');
   const navigate = useNavigate();
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
+  const [hasTracking, setHasTracking] = useState(false);
   const [shippingDetails, setShippingDetails] = useState(orders);
   // console.log(shippingDetails);
   const { role } = useContext(SupplierAuthContext);
-
   // console.log(orders);
   let accuDate = [];
 
   const getDateArr = orders.map((el) => {
     return accuDate.push(el.createdAt);
   });
+  const [products, setProducts] = useState([]);
 
   // console.log(getDateArr);
+
+  useEffect(() => {
+    const handleGetAllProductBySupplierId = async () => {
+      try {
+        const res = await getAllProductBySupplierId();
+        console.log(res.data);
+
+        setProducts(res.data.products);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleGetAllProductBySupplierId();
+  }, []);
+
+  const filterByStockIsZero = () => {
+    const resultArrByStockIsZero = products.filter((el) => +el.stock === 0);
+    return resultArrByStockIsZero.length;
+  };
 
   useEffect(() => {
     const handleGetAllOrdersBySupplierId = async () => {
@@ -136,7 +158,8 @@ function OrderPage() {
       const filterByStatus = (searchTerm) => {
         console.log(searchTerm.trim().replace(/\s/g, ''));
         const resultArrByStatus = orders.filter((el) =>
-          el?.status
+          // el?.status
+          el.PurchasedOrder?.ShippingOrder?.status
             ?.toLowerCase()
             .includes(searchTerm.trim().replace(/\s/g, ''))
         );
@@ -144,7 +167,71 @@ function OrderPage() {
       };
       filterByStatus(orderSearchTerm);
     }
-  }, [orderSearchTerm, orders, searchBy]);
+    if (searchBy === 'paymentStatus') {
+      const filterByStatus = (searchTerm) => {
+        if (searchTerm === 'PENDING') {
+          const resultArrByPaymentStatus = orders.filter(
+            (el) => el?.PurchasedOrder === null
+          );
+          console.log(resultArrByPaymentStatus);
+          setShippingDetails(resultArrByPaymentStatus);
+        }
+        if (searchTerm === 'CONFIRMED') {
+          const resultArrByPaymentStatus = orders.filter(
+            (el) => el?.PurchasedOrder !== null
+          );
+          console.log(resultArrByPaymentStatus);
+          setShippingDetails(resultArrByPaymentStatus);
+        }
+      };
+      filterByStatus(orderSearchTerm);
+    }
+
+    if (orderSearchTerm === 'CONFIRMED' && searchBy === 'paymentStatus') {
+      const getTodoOrders = (searchTerm, hasTracking) => {
+        if (searchTerm === 'CONFIRMED' && hasTracking === false) {
+          const resultArrGetTodoOrders = orders.filter(
+            (el) =>
+              el?.PurchasedOrder !== null &&
+              el.PurchasedOrder?.ShippingOrder?.trackingId === null
+          );
+          // console.log(resultArrGetTodoOrders);
+          setShippingDetails(resultArrGetTodoOrders);
+        }
+      };
+      getTodoOrders(orderSearchTerm);
+    }
+  }, [orderSearchTerm, orders, searchBy, hasTracking]);
+
+  const filterByStatusNo = (searchTerm) => {
+    if (searchTerm === 'PENDING') {
+      const resultArrByPaymentStatus = orders.filter(
+        (el) => el?.PurchasedOrder === null
+      );
+      return resultArrByPaymentStatus.length;
+    }
+  };
+  const getTodoOrdersNo = () => {
+    if (hasTracking === false) {
+      const resultArrGetTodoOrders = orders.filter(
+        (el) =>
+          el?.PurchasedOrder !== null &&
+          el.PurchasedOrder?.ShippingOrder?.trackingId === null
+      );
+      return resultArrGetTodoOrders.length;
+    }
+  };
+
+  const getAllShippingStatusIsToClientOrdersNumber = (searchTerm) => {
+    const resultArrByStatus = orders.filter((el) =>
+      // el?.status
+      el.PurchasedOrder?.ShippingOrder?.status.includes(
+        searchTerm.trim().replace(/\s/g, '')
+      )
+    );
+    return resultArrByStatus.length;
+  };
+  getAllShippingStatusIsToClientOrdersNumber(orderSearchTerm);
 
   // const filterByUserId = (userId) => {};
   // const filterByStatus = (status) => {};
@@ -157,14 +244,35 @@ function OrderPage() {
     <div className=''>
       <br />
       <div className=' grid grid-cols-2 gap-10'>
-        <div className='stat flex justify-between items-center border-2 rounded-3xl hover:border-secondary '>
+        <button
+          onClick={() => {
+            setSearchBy('paymentStatus');
+            setOrderSearchTerm('PENDING');
+          }}
+          type='button'
+          className='stat   flex justify-between items-center border-2 rounded-3xl hover:border-secondary '
+        >
           <div className=''>
             <div className='stat-title'>รอชำระ</div>
-            <div className='stat-value text-secondary'>2</div>
+            <div className='stat-value text-secondary'>
+              {filterByStatusNo('PENDING')}
+            </div>
           </div>
           <div className=' text-secondary '>{<RiTodoLine size={45} />}</div>
-        </div>
-        <div className='stat  border-2 rounded-3xl hover:border-warning'>
+        </button>
+        <button
+          onClick={() => {
+            setSearchBy('paymentStatus');
+            setOrderSearchTerm('CONFIRMED');
+            // setHasTracking((hasTracking) => !hasTracking);
+          }}
+          type='button'
+          className='stat  border-2 rounded-3xl hover:border-warning flex justify-between'
+        >
+          <div className='w-[69px]'>
+            <div className='stat-title'>ต้องส่ง</div>
+            <div className='stat-value text-warning'>{getTodoOrdersNo()}</div>
+          </div>
           <div className='stat-figure text-warning'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -180,25 +288,42 @@ function OrderPage() {
               ></path>
             </svg>
           </div>
-          <div className='stat-title'>ต้องส่ง</div>
-          <div className='stat-value text-warning'>12</div>
-        </div>
-        <div className='stat border-2 rounded-3xl hover:border-accent'>
+        </button>
+        <button
+          onClick={() => {
+            setSearchBy('status');
+            setOrderSearchTerm('TO_CLIENT');
+          }}
+          type='button'
+          className=' stat border-2 rounded-3xl hover:border-accent flex justify-between'
+        >
+          <div>
+            <div className='stat-title'>กำลังส่ง</div>
+            <div className='stat-value'>
+              {getAllShippingStatusIsToClientOrdersNumber('TO_CLIENT')}
+            </div>
+          </div>
           <div className='stat-figure text-secondary '>
             <div className='stat-figure text-accent   '>
               {<TbTruckDelivery size={45} />}
             </div>
           </div>
-          <div className='stat-title'>กำลังส่ง</div>
-          <div className='stat-value'>15</div>
-        </div>
-        <div className='stat border-2 rounded-3xl hover:border-info'>
+        </button>
+        <button
+          onClick={() => {
+            navigate({ pathname: '/supplier/my-product', search: '?stock=0' });
+          }}
+          type='button'
+          className='flex justify-between stat border-2 rounded-3xl hover:border-info'
+        >
+          <div>
+            <div className='stat-title'>สินค้าหมด</div>
+            <div className='stat-value'>{filterByStockIsZero()}</div>
+          </div>
           <div className='stat-figure text-info'>
             {<GiEmptyMetalBucket size={45} />}
           </div>
-          <div className='stat-title'>สินค้าหมด</div>
-          <div className='stat-value'>4</div>
-        </div>
+        </button>
       </div>
       <br />
       <br />
@@ -228,6 +353,7 @@ function OrderPage() {
                   <option value='id'>หมายเลขคำสั่งซื้อ</option>
                   <option value='firstName'>ชื่อลูกค้า</option>
                   <option value='status'>สถานะการจัดส่ง</option>
+                  <option value='paymentStatus'>สถานะการชำระเงิน</option>
                 </select>
               </div>
               <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
@@ -249,15 +375,34 @@ function OrderPage() {
                   </>
                 ) : (
                   <>
-                    <input
-                      type='text'
-                      placeholder='ค้นหาคำสั่งซื้อ'
-                      className='input w-[395px] text-lg'
-                      onChange={(event) => {
-                        setOrderSearchTerm(event.target.value);
-                      }}
-                      value={orderSearchTerm}
-                    />
+                    {searchBy === 'paymentStatus' ? (
+                      <>
+                        <select
+                          type='text'
+                          onChange={(event) => {
+                            setOrderSearchTerm(event.target.value);
+                          }}
+                          value={orderSearchTerm}
+                          className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
+                        >
+                          <option value=''>กรุณาเลือกสถานะการชำระเงิน</option>
+                          <option value='CONFIRMED'>ชำระแล้ว</option>
+                          <option value='PENDING'>รอชำระ</option>
+                        </select>
+                      </>
+                    ) : (
+                      <>
+                        <input
+                          type='text'
+                          placeholder='ค้นหาคำสั่งซื้อ'
+                          className='input w-[395px] text-lg'
+                          onChange={(event) => {
+                            setOrderSearchTerm(event.target.value);
+                          }}
+                          value={orderSearchTerm}
+                        />
+                      </>
+                    )}
                   </>
                 )}
               </div>
@@ -415,7 +560,8 @@ function OrderPage() {
                               //   <option value='TO_CLIENT'>กำลังส่ง</option>
                               //   <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
                               // </select>
-                              <p className='text-center'>ต้องส่ง</p>
+                              <p className='text-center'>-</p>
+                              // <p className='text-center'>ต้องส่ง</p>
                             )}
                           </th>
                         </tr>
