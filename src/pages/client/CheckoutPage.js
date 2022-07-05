@@ -17,17 +17,17 @@ function CheckoutPage() {
   const [Totalamount, setTotalamount] = useState(null);
   const [OrderArr, setOrderArr] = useState(null);
 
-  const { dbcart } = useProductfilter();
+  const { dbcart, dborders } = useProductfilter();
   const { setIsLoading } = useLoading();
   useEffect(() => {
     // console.log(dbcart);
     const fetchorderDb = async () => {
       // get thisorder by rescart
-      if (dbcart) {
+      if (dborders) {
         const {
           data: { orders },
         } = await getAllOrders();
-        const arrOrderid = await dbcart
+        const arrOrderid = await dborders
           .map((el) => el.id)
           .map((elodid) => {
             for (let k of orders) {
@@ -96,16 +96,6 @@ function CheckoutPage() {
       <BreadCrumbsCart />
 
       <div className='border-2 rounded-lg py-4 my-4 col-span-2'>
-        <>
-          <div className='bg-black max-w-2xl mx-auto py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8'>
-            <div className='flex flex-row gap-2'>
-              <p className=' font-bold text-lg text-zinc-600'>
-                IT Plus Recommend
-              </p>
-              <div className='grid grid-cols-4 gap-4 py-4 '></div>
-            </div>
-          </div>
-        </>
         <div className='flex gap-4 border-b-2 pb-4 px-2 '>
           <div>
             <img src={sumCheck} />
