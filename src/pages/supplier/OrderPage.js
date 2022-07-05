@@ -21,6 +21,7 @@ import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
 import { checkStatusOrder } from '../../services/checkstatusOrder';
 import { FcCheckmark } from 'react-icons/fc';
 import AddTrackingIdRow from '../../components/supplier/form/AddTrackingIdRow';
+import TrackingIdButton from '../../components/supplier/form/TrackingIdButton';
 // const mockArr = [
 //   {
 //     firstName: 'Panit Su',
@@ -519,8 +520,9 @@ function OrderPage() {
                                   value={el.trackingId}
                                 /> */}
                                 <AddTrackingIdRow
-                                  trackingId={trackingId}
-                                  setTrackingId={setTrackingId}
+                                  idx={idx}
+                                  // trackingId={trackingId}
+                                  // setTrackingId={setTrackingId}
                                 />
                               </>
                             ) : (
@@ -545,13 +547,19 @@ function OrderPage() {
                             )}
                           </th>
                           <th className=''>
-                            <label
-                              type='button'
-                              htmlFor='my-modal-4'
-                              className=' border-2 rounded-lg px-3  hover:scale-110 text-white border-success h-[56px] flex items-center '
-                            >
-                              {<FcCheckmark size={20} />}
-                            </label>
+                            {el.PurchasedOrder ? (
+                              <>
+                                <label
+                                  type='button'
+                                  htmlFor='my-modal-4'
+                                  className=' border-2 rounded-lg px-3  hover:scale-110 text-white border-success h-[56px] flex items-center '
+                                >
+                                  {<FcCheckmark size={20} />}
+                                </label>
+                              </>
+                            ) : (
+                              <></>
+                            )}
                             <input
                               type='checkbox'
                               id='my-modal-4'
@@ -584,7 +592,13 @@ function OrderPage() {
                                   >
                                     ยกเลิก
                                   </label>
-                                  <button
+                                  <TrackingIdButton
+                                    modalRef={modalRef}
+                                    shippingOrderId={
+                                      el.PurchasedOrder?.ShippingOrder?.id
+                                    }
+                                  />
+                                  {/* <button
                                     type='button'
                                     htmlFor='my-modal-4'
                                     className='btn btn-secondary w-24'
@@ -597,7 +611,7 @@ function OrderPage() {
                                     }}
                                   >
                                     ยืนยัน
-                                  </button>
+                                  </button> */}
                                 </div>
                               </div>
                             </div>

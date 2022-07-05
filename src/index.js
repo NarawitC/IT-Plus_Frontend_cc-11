@@ -17,13 +17,13 @@ root.render(
       <BrowserRouter>
         <ReRenderContextProvider>
           <SupplierAuthContextProvider>
-            <SupplierProductContextProvider>
-              <OrderContextProvider>
-                <ShippingOrderStatusContextProvider>
+            <ShippingOrderStatusContextProvider>
+              <SupplierProductContextProvider>
+                <OrderContextProvider>
                   <App />
-                </ShippingOrderStatusContextProvider>
-              </OrderContextProvider>
-            </SupplierProductContextProvider>
+                </OrderContextProvider>
+              </SupplierProductContextProvider>
+            </ShippingOrderStatusContextProvider>
           </SupplierAuthContextProvider>
         </ReRenderContextProvider>
       </BrowserRouter>
