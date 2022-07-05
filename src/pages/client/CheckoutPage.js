@@ -5,7 +5,7 @@ import homeIcon from '../../../src/pictures/home-icon.svg';
 import { useEffect, useState } from 'react';
 import { getAllOrders, getCart } from '../../apis/client/order';
 import { localsting } from '../../services/LocalstringComma';
-import { useLoading } from '../../contexts/LoadingContext';
+// import { useLoading } from '../../contexts/LoadingContext';
 import ModalAddress from '../../components/Client/clentCart/modalAddress';
 import { useOrderContext } from '../../contexts/Client/orderContext';
 import OmisePaymentButton from '../../components/Client/order/payment/OmisePaymentButton';
@@ -18,7 +18,7 @@ function CheckoutPage() {
   const [OrderArr, setOrderArr] = useState(null);
 
   const { dbcart, dborders } = useProductfilter();
-  const { setIsLoading } = useLoading();
+  // const { setIsLoading } = useLoading();
   useEffect(() => {
     // console.log(dbcart);
     const fetchorderDb = async () => {
@@ -38,7 +38,7 @@ function CheckoutPage() {
       }
     };
     const sumPrice = async () => {
-      setIsLoading(true);
+      // setIsLoading(true);
       const resOrderdb = await fetchorderDb();
       setOrderArr(resOrderdb);
       if (resOrderdb?.length > 0) {
@@ -80,7 +80,7 @@ function CheckoutPage() {
         setTotalamount(totalAmount);
         setTotalPrice(total);
         // setTotaltoOdcart(total);
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     };
     sumPrice();
@@ -170,7 +170,7 @@ function CheckoutPage() {
           <OmisePaymentButton
             className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl text-white text-[24px] hover:from-blue-600 hover:to-blue-400'
             orders={OrderArr}
-            totalPrice={localsting(TotalPrice)}
+            totalPrice={TotalPrice}
           >
             ชำระเงิน
           </OmisePaymentButton>
