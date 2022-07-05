@@ -7,6 +7,7 @@ function AddTrackingIdRow(trackingId, setTrackingId) {
         placeholder='Tracking Id'
         onChange={(event) => setTrackingId(event.target.value)}
         value={trackingId}
+        type='text'
       />
     </div>
   );
