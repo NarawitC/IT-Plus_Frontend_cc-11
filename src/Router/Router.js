@@ -38,6 +38,7 @@ import ClientOrderPage from '../pages/client/orderPage';
 
 import DynamicSelectedTransactionPage from '../pages/supplier/DynamicSelectedTransactionPage';
 import DynamicEditSelectedProductPage from '../pages/supplier/DynamicEditSelectedProductPage';
+
 function Router() {
   const { admin } = useAdminContext();
   const { supplier } = useSupplierContext();
