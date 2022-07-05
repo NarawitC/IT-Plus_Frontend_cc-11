@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Client/layout/Header/Header';
-import SideDrawer from '../components/Client/layout/Header/SideDrawer';
+import SideDrawer from '../components/Client/layout/Header/SideDraver';
 import DynamicAlerttoast from '../components/commonUtils/DynamicAlerttoast';
 import LoadingPage from '../components/commonUtils/Loadingpage';
 import AuthContextProvider from '../contexts/Client/AuthCcontexts';
