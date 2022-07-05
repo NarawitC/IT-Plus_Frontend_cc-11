@@ -14,6 +14,31 @@ function ModalAny({ inputEmodal }) {
   const [authOption, setauthOption] = useState(null);
   const navigate = useNavigate();
 
+  const fbCall = async () => {
+    // let headers = new Headers();
+    // // headers.append('Access-Control-Allow-Origin', '*');
+    // headers.append('Access-Control-Allow-Credentials', 'true');
+    // const link = await axios.get('/oauth/facebook', {
+    //   headers: {
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Access-Control-Allow-Headers': '*',
+    //     'Access-Control-Allow-Credentials': 'true',
+    //   },
+    // });
+    const link = 'http://localhost:8000/oauth/facebook';
+    // console.log(link);
+    window.open(link);
+    // window.location.href = link;
+  };
+
+  const fbreacall = async () => {
+    const link = await axios.get('/oauth/facebook', {
+      headers: { 'Access-Control-Allow-Origin': true },
+    });
+    // const link = 'http://localhost:8000/oauth/facebook';
+    // console.log(link);
+  };
+
   return (
     <div
       ref={inputEmodal}
@@ -61,6 +86,7 @@ function ModalAny({ inputEmodal }) {
                   className=' bg-[#3983FC] hover:bg-[#3983FC] border-2 w-full text-white font-medium h-9'
                   icon={<BsFacebook size={25} className='absolute' />}
                   onClick={(e) => {
+                    fbCall();
                     // navigete('/auth/facebook');
                     //                     navigate('/auth/facebook');
                     // axios

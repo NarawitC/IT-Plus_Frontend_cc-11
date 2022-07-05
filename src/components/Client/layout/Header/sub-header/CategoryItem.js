@@ -15,7 +15,7 @@ function CategoryItem({
   return (
     <div
       key={index}
-      className=' hover:ring-2 rounded-lg ring-blue-200  hover:bg carousel-item hover:scale-110 hover:font-bold  duration-150  cursor-pointer w-1/8 min-w-[90px] max-w-md p-1 flex flex-col items-center text-mono '
+      className=' hover:ring-1 rounded-lg ring-blue-200  hover:bg carousel-item  hover:font-bold  duration-150  cursor-pointer w-1/8 min-w-[80px] max-w-md p-1 flex flex-col items-center text-mono mx-2'
       onClick={() => {
         handleCategoryButton(category.id);
       }}
