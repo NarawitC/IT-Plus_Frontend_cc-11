@@ -58,7 +58,7 @@ function AddPropertyRow({ property, properties, setProperties, order, index }) {
                 ...property.slice(0, index),
                 {
                   ...property[index],
-                  description: event.target.value.trim(),
+                  description: event.target.value,
                 },
                 ...property.slice(index + 1),
               ])

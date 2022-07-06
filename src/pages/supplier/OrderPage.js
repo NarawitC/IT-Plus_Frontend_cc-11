@@ -164,9 +164,7 @@ function OrderPage() {
         console.log(searchTerm.trim().replace(/\s/g, ''));
         const resultArrByStatus = orders.filter((el) =>
           // el?.status
-          el.PurchasedOrder?.ShippingOrder?.status
-            ?.toLowerCase()
-            .includes(searchTerm.trim().replace(/\s/g, ''))
+          el.PurchasedOrder?.ShippingOrder?.status.includes(searchTerm)
         );
         setShippingDetails(resultArrByStatus);
       };
@@ -497,8 +495,7 @@ function OrderPage() {
                             </label>
                           </th>
                           <th className=''>
-                            {el.PurchasedOrder?.ShippingOrder?.trackingId ===
-                              null &&
+                            {el.PurchasedOrder?.ShippingOrder === null &&
                             // 1 ? (
                             el.PurchasedOrder !== null ? (
                               <>
@@ -554,7 +551,8 @@ function OrderPage() {
                             )}
                           </th>
                           <th className=''>
-                            {el.PurchasedOrder ? (
+                            {el.PurchasedOrder &&
+                            el.PurchasedOrder?.ShippingOrder === null ? (
                               <>
                                 <label
                                   type='button'
@@ -574,38 +572,13 @@ function OrderPage() {
                               ref={modalRef}
                             />
                             <div className='modal'>
-                              <div className='modal-box'>
-                                <label className='flex  flex-col justify-center items-center '>
-                                  <div className=' pt-2'>
-                                    <label
-                                      htmlFor='my-modal-4'
-                                      className='btn btn-sm btn-circle absolute right-2 top-2 '
-                                    >
-                                      ✕
-                                    </label>
-                                  </div>
-                                  <h1>
-                                    คุณยืนยัน tracking id ของ order
-                                    นี้ตามนี้ใช่หรือไม่?
-                                  </h1>
-                                </label>
-                                <div className='modal-action flex justify-center'>
-                                  <label
-                                    htmlFor='my-modal-4'
-                                    className='btn btn-primary w-24'
-                                    onClick={() => {
-                                      modalRef.current.click();
-                                    }}
-                                  >
-                                    ยกเลิก
-                                  </label>
-                                  <TrackingIdButton
-                                    modalRef={modalRef}
-                                    shippingOrderId={
-                                      el.PurchasedOrder?.ShippingOrder?.id
-                                    }
-                                  />
-                                  {/* <button
+                              <TrackingIdButton
+                                modalRef={modalRef}
+                                shippingOrderId={
+                                  el.PurchasedOrder?.ShippingOrder?.id
+                                }
+                              />
+                              {/* <button
                                     type='button'
                                     htmlFor='my-modal-4'
                                     className='btn btn-secondary w-24'
@@ -619,8 +592,6 @@ function OrderPage() {
                                   >
                                     ยืนยัน
                                   </button> */}
-                                </div>
-                              </div>
                             </div>
                           </th>
                           <th className=''>
