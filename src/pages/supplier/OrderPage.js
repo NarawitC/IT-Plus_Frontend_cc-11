@@ -107,19 +107,19 @@ function OrderPage() {
     return resultArrByStockIsZero.length;
   };
 
+  const handleGetAllOrdersBySupplierId = async () => {
+    try {
+      const res = await getAllOrdersBySupplierId();
+      console.log(res.data);
+      setOrders(res.data.orders);
+      // setOrders(mockArr);
+      setShippingDetails(res.data.orders);
+      // setShippingDetails(mockArr);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const handleGetAllOrdersBySupplierId = async () => {
-      try {
-        const res = await getAllOrdersBySupplierId();
-        console.log(res.data);
-        setOrders(res.data.orders);
-        // setOrders(mockArr);
-        setShippingDetails(res.data.orders);
-        // setShippingDetails(mockArr);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     handleGetAllOrdersBySupplierId();
   }, [setOrders]);
 
@@ -161,7 +161,7 @@ function OrderPage() {
     }
     if (searchBy === 'status') {
       const filterByStatus = (searchTerm) => {
-        console.log(searchTerm.trim().replace(/\s/g, ''));
+        // console.log(searchTerm);
         const resultArrByStatus = orders.filter((el) =>
           // el?.status
           el.PurchasedOrder?.ShippingOrder?.status.includes(searchTerm)
@@ -219,7 +219,8 @@ function OrderPage() {
       const resultArrGetTodoOrders = orders.filter(
         (el) =>
           el?.PurchasedOrder !== null &&
-          el.PurchasedOrder?.ShippingOrder?.trackingId === null
+          (el.PurchasedOrder?.ShippingOrder?.trackingId === null ||
+            el.PurchasedOrder?.ShippingOrder?.trackingId === '')
       );
       return resultArrGetTodoOrders.length;
     }
@@ -265,9 +266,8 @@ function OrderPage() {
         </button>
         <button
           onClick={() => {
-            setSearchBy('paymentStatus');
-            setOrderSearchTerm('CONFIRMED');
-            // setHasTracking((hasTracking) => !hasTracking);
+            setSearchBy('status');
+            setOrderSearchTerm('TO_SHIPPING_COMPANY');
           }}
           type='button'
           className='stat  border-2 rounded-3xl hover:border-warning flex justify-between'
@@ -371,9 +371,10 @@ function OrderPage() {
                       className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
                     >
                       {/* <option value=''>กรุณาเลือกสถานะการจัดส่ง</option> */}
+                      <option value=''>กรุณาเลือกสถานะการจัดส่ง</option>
                       <option value='TO_SHIPPING_COMPANY'>ต้องส่ง</option>
                       <option value='TO_CLIENT'>กำลังส่ง</option>
-                      <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
+                      <option value='DELIVERED'>ส่งเสร็จสิ้น</option>
                     </select>
                   </>
                 ) : (
@@ -495,45 +496,17 @@ function OrderPage() {
                             </label>
                           </th>
                           <th className=''>
-                            {el.PurchasedOrder?.ShippingOrder === null &&
-                            // 1 ? (
-                            el.PurchasedOrder !== null ? (
+                            {el.PurchasedOrder === null ||
+                            el.PurchasedOrder?.ShippingOrder === null ? (
                               <>
-                                {/* <input
-                                  className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary '
-                                  placeholder='Tracking Id'
-                                  onChange={(event) =>
-                                    setShippingDetails((prevShippingDetail) => [
-                                      ...prevShippingDetail.slice(0, idx),
-                                      {
-                                        ...prevShippingDetail[idx],
-                                        trackingId: event.target.value,
-                                        orderId: el.id,
-                                        shippingOrderId:
-                                          el.PurchasedOrder?.ShippingOrder?.id,
-                                      },
-                                      ...prevShippingDetail.slice(idx + 1),
-                                    ])
-                                  }
-                                  value={el.trackingId}
-                                /> */}
-                                <AddTrackingIdRow
-                                  idx={idx}
-                                  order={el}
-                                  setTrackingIdObj={setTrackingIdObj}
-                                  shippingOrderId={
-                                    el.PurchasedOrder?.ShippingOrder?.id
-                                  }
-
-                                  // trackingId={trackingId}
-                                  // setTrackingId={setTrackingId}
-                                />
+                                <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
+                                  -
+                                </p>
                               </>
                             ) : (
                               <>
-                                {el.PurchasedOrder !== null &&
-                                el.PurchasedOrder?.ShippingOrder?.trackingId !==
-                                  null ? (
+                                {el.PurchasedOrder?.ShippingOrder
+                                  ?.trackingId ? (
                                   <>
                                     <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
                                       {el.PurchasedOrder?.ShippingOrder
@@ -542,57 +515,48 @@ function OrderPage() {
                                   </>
                                 ) : (
                                   <>
-                                    <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
-                                      -
-                                    </p>
+                                    <AddTrackingIdRow
+                                      idx={idx}
+                                      order={el}
+                                      setTrackingIdObj={setTrackingIdObj}
+                                      shippingOrderId={
+                                        el.PurchasedOrder?.ShippingOrder?.id
+                                      }
+                                    />
                                   </>
                                 )}
                               </>
                             )}
                           </th>
                           <th className=''>
-                            {el.PurchasedOrder &&
+                            {el.PurchasedOrder === null ||
                             el.PurchasedOrder?.ShippingOrder === null ? (
-                              <>
-                                <label
-                                  type='button'
-                                  htmlFor='my-modal-4'
-                                  className=' border-2 rounded-lg px-3  hover:scale-110 text-white border-success h-[56px] flex items-center '
-                                >
-                                  {<FcCheckmark size={20} />}
-                                </label>
-                              </>
-                            ) : (
                               <></>
+                            ) : (
+                              <>
+                                {el.PurchasedOrder?.ShippingOrder
+                                  ?.trackingId ? (
+                                  <></>
+                                ) : (
+                                  <>
+                                    <div className=' w-[50px]'>
+                                      <label
+                                        type='button'
+                                        htmlFor='my-modal-4'
+                                        className='text-center border-2 rounded-lg px-3  hover:scale-110 text-white border-success h-[56px] flex items-center '
+                                      >
+                                        {<FcCheckmark size={20} />}
+                                      </label>
+                                      <TrackingIdButton
+                                        handleGetAllOrdersBySupplierId={
+                                          handleGetAllOrdersBySupplierId
+                                        }
+                                      />
+                                    </div>
+                                  </>
+                                )}
+                              </>
                             )}
-                            <input
-                              type='checkbox'
-                              id='my-modal-4'
-                              className='modal-toggle'
-                              ref={modalRef}
-                            />
-                            <div className='modal'>
-                              <TrackingIdButton
-                                modalRef={modalRef}
-                                shippingOrderId={
-                                  el.PurchasedOrder?.ShippingOrder?.id
-                                }
-                              />
-                              {/* <button
-                                    type='button'
-                                    htmlFor='my-modal-4'
-                                    className='btn btn-secondary w-24'
-                                    onClick={async () => {
-                                      await updateStatusToClient(
-                                        el.PurchasedOrder?.ShippingOrder?.id,
-                                        trackingId
-                                      );
-                                      modalRef.current.click();
-                                    }}
-                                  >
-                                    ยืนยัน
-                                  </button> */}
-                            </div>
                           </th>
                           <th className=''>
                             {el.PurchasedOrder &&

@@ -1,15 +1,16 @@
 import { updateStatusToClient } from '../../../apis/supplier/supplierShippingOrder';
 import { ShippingOrderStatusContext } from '../../../contexts/Supplier/ShippingOrderStatusContext';
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-function TrackingIdButton({ modalRef, shippingOrderId }) {
+function TrackingIdButton({ handleGetAllOrdersBySupplierId }) {
   // const handlEdittirackingId = async () => {
   //   if (shippingOrderId && trackingId) {
   //     updateStatusToClient(shippingOrderId, trackingId);
   //   }
   // };
+  const modalRef = useRef();
   const navigate = useNavigate();
-  console.log(shippingOrderId);
+
   const { trackingId } = useContext(ShippingOrderStatusContext);
   console.log(trackingId);
   // const handleUpdateTrackingId = async () => {
@@ -18,6 +19,12 @@ function TrackingIdButton({ modalRef, shippingOrderId }) {
   // };
   return (
     <>
+      <input
+        type='checkbox'
+        id='my-modal-4'
+        className='modal-toggle'
+        ref={modalRef}
+      />
       <div className='modal'>
         <div className='modal-box'>
           <label className='flex  flex-col justify-center items-center '>
@@ -32,7 +39,8 @@ function TrackingIdButton({ modalRef, shippingOrderId }) {
             <h1>คุณยืนยัน tracking id ของ order นี้ตามนี้ใช่หรือไม่?</h1>
           </label>
           <div className='modal-action flex justify-center'>
-            <label
+            <button
+              type='button'
               htmlFor='my-modal-4'
               className='btn btn-primary w-24'
               onClick={() => {
@@ -40,7 +48,7 @@ function TrackingIdButton({ modalRef, shippingOrderId }) {
               }}
             >
               ยกเลิก
-            </label>
+            </button>
             <button
               type='button'
               htmlFor='my-modal-4'
@@ -51,6 +59,7 @@ function TrackingIdButton({ modalRef, shippingOrderId }) {
                   trackingId.idx
                 );
                 modalRef.current.click();
+                handleGetAllOrdersBySupplierId();
               }}
             >
               ยืนยัน

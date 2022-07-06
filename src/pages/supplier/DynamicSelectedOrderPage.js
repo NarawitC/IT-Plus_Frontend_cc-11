@@ -122,7 +122,9 @@ function DynamicSelectedOrderPage() {
             </div>
             <div className=' flex flex-col'>
               <h className='text-3xl pl-4 text-black '>Tracking ID</h>
-              <p className='text-2xl pl-4 text-gray-600'>KER98900</p>
+              <p className='text-2xl pl-4 text-gray-600'>
+                {selectedOrderObj?.PurchasedOrder?.ShippingOrder?.trackingId}
+              </p>
             </div>
           </div>
           <br />
@@ -135,7 +137,11 @@ function DynamicSelectedOrderPage() {
             </div>
             <div className='flex flex-col'>
               <h className='text-3xl pl-4 text-black '>สถานะการจัดส่ง</h>
-              <p className='text-2xl pl-4 text-gray-600'>ส่งเสร็จสิ้น</p>
+              <p className='text-2xl pl-4 text-gray-600'>
+                {' '}
+                {selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status ||
+                  'TO_SHIPPING_COMPANY'}
+              </p>
             </div>
           </div>
         </div>
@@ -145,33 +151,54 @@ function DynamicSelectedOrderPage() {
         <div className='text-[23px] flex flex-col items-center'>
           <div className='flex gap-3'>
             <h1 className='text-gray-600'>สถานะการจัดส่งสินค้า : </h1>
-            <h1 className='text-yellow-500'>{'กำลังดำเนินการ'}</h1>
+            <h1 className='text-yellow-500'>
+              {selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status ||
+                'TO_SHIPPING_COMPANY'}
+            </h1>
           </div>
         </div>
         <br />
         <div className='flex justify-center h-auto  items-center '>
           <button className='' type='button'>
-            <StatusButton status={'กำลังดำเนินการ'} option={'กำลังดำเนินการ'} />
+            <StatusButton
+              status={
+                selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status ||
+                'TO_SHIPPING_COMPANY'
+              }
+              option={'TO_SHIPPING_COMPANY'}
+            />
           </button>
           <div className='pb-10'>
             <img src={line} alt='line' className='w-[180px] h-[70px] ' />
           </div>
           <button className='' type='button'>
-            <StatusButton status={'กำลังดำเนินการ'} option={'ส่งแล้ว'} />
+            <StatusButton
+              status={
+                selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status ||
+                'TO_SHIPPING_COMPANY'
+              }
+              option={'TO_CLIENT'}
+            />
           </button>
           <div className='pb-10'>
             <img src={line} alt='line' className='w-[180px] h-[70px]  ' />
           </div>
           <button className='' type='button'>
-            <StatusButton status={'กำลังดำเนินการ'} option={'ส่งเสร็จสิ้น'} />
+            <StatusButton
+              status={
+                selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status ||
+                'TO_SHIPPING_COMPANY'
+              }
+              option={'DELIVERED'}
+            />
           </button>
         </div>
       </div>
       <br />
       <br />
-      <div className='overflow-x-auto flex justify-end flex-col'>
-        <table className='table '>
-          <thead>
+      <div className='overflow-x-auto flex justify-end flex-col '>
+        <table className='table  '>
+          <thead className=' '>
             <tr className=''>
               <th>ลำดับ</th>
               <th></th>
@@ -181,12 +208,12 @@ function DynamicSelectedOrderPage() {
               <th className='text-center'>จำนวนเงิน</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className=''>
             {selectedOrderObj.OrderItems.map((el, index) => {
               return (
                 <>
                   <tr
-                    className='hover cursor-pointer'
+                    className='hover cursor-pointer border-b-2  '
                     onClick={() => {
                       navigate(`/supplier/product/${el.Product.id}`);
                     }}
@@ -234,6 +261,8 @@ function DynamicSelectedOrderPage() {
             })}
           </tbody>
         </table>
+        <br />
+        <br />
         <div className=' flex flex-col items-end  h-[112px] text-ghost'>
           <div className='w-[216.95px] flex flex-col  '>
             <div className='flex justify-between '>
