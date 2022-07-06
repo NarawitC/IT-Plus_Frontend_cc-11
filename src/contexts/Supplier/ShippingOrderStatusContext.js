@@ -1,9 +1,9 @@
 import { createContext, useContext, useState } from 'react';
 
-const ShippingOrderStatusContext = createContext();
+export const ShippingOrderStatusContext = createContext();
 
 function ShippingOrderStatusContextProvider({ children }) {
-  const [trackingId, setTrackingId] = useState('');
+  const [trackingId, setTrackingId] = useState({});
 
   return (
     <ShippingOrderStatusContext.Provider value={{ trackingId, setTrackingId }}>
@@ -13,4 +13,3 @@ function ShippingOrderStatusContextProvider({ children }) {
 }
 
 export default ShippingOrderStatusContextProvider;
-export { ShippingOrderStatusContext };

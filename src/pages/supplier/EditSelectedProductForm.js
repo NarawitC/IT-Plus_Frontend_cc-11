@@ -688,7 +688,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                     แบรนด์สินค้า
                   </label>
                   <input
-                    disabled={isEdit ? false : true}
+                    disabled={true}
                     type='text'
                     id='brand'
                     className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -702,7 +702,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
               <div className=''>
                 <div className='flex flex-col justify-center'>
                   <label
-                    htmlFor='amount'
+                    htmlFor='stock'
                     className='block mb-2 text-sm font-medium text-gray-1200 '
                   >
                     stock
@@ -710,7 +710,7 @@ function EditSelectedProductForm({ updateProductByProductId }) {
                   <input
                     disabled={isEdit ? false : true}
                     type='text'
-                    id='amount'
+                    id='stock'
                     className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                     placeholder='stock'
                     required

@@ -1,6 +1,6 @@
 import { TbTruckDelivery } from 'react-icons/tb';
 import { GiEmptyMetalBucket } from 'react-icons/gi';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ShippingOrderStatusContext } from '../../contexts/Supplier/ShippingOrderStatusContext';
 import { useContext } from 'react';
 import { CgFileDocument } from 'react-icons/cg';
@@ -11,7 +11,17 @@ import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
 import { MdOutlineCancel } from 'react-icons/md';
 import { OrderContext } from '../../contexts/Supplier/OrderContext';
 import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
-
+import {
+  createShippingOrder,
+  updateStatusToClient,
+  updateStatusToDelivered,
+} from '../../apis/supplier/supplierShippingOrder';
+import { FaRoad } from 'react-icons/fa';
+import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
+import { checkStatusOrder } from '../../services/checkstatusOrder';
+import { FcCheckmark } from 'react-icons/fc';
+import AddTrackingIdRow from '../../components/supplier/form/AddTrackingIdRow';
+import TrackingIdButton from '../../components/supplier/form/TrackingIdButton';
 // const mockArr = [
 //   {
 //     firstName: 'Panit Su',
@@ -55,24 +65,47 @@ import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext
 //   },
 // ];
 function OrderPage() {
+  const [isEditTrackingId, setIsEditTrackingId] = useState(false);
   const { orders, setOrders } = useContext(OrderContext);
   console.log(orders);
   const [orderSearchTerm, setOrderSearchTerm] = useState('');
   const [searchBy, setSearchBy] = useState('id');
+  const modalRef = useRef();
   const navigate = useNavigate();
-  const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
+  // const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
+  const [trackingIdObj, setTrackingIdObj] = useState({});
+  const [hasTracking, setHasTracking] = useState(false);
   const [shippingDetails, setShippingDetails] = useState(orders);
   // console.log(shippingDetails);
   const { role } = useContext(SupplierAuthContext);
-
   // console.log(orders);
   let accuDate = [];
 
   const getDateArr = orders.map((el) => {
     return accuDate.push(el.createdAt);
   });
+  const [products, setProducts] = useState([]);
 
   // console.log(getDateArr);
+
+  useEffect(() => {
+    const handleGetAllProductBySupplierId = async () => {
+      try {
+        const res = await getAllProductBySupplierId();
+        console.log(res.data);
+
+        setProducts(res.data.products);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleGetAllProductBySupplierId();
+  }, []);
+
+  const filterByStockIsZero = () => {
+    const resultArrByStockIsZero = products.filter((el) => +el.stock === 0);
+    return resultArrByStockIsZero.length;
+  };
 
   useEffect(() => {
     const handleGetAllOrdersBySupplierId = async () => {
@@ -130,15 +163,78 @@ function OrderPage() {
       const filterByStatus = (searchTerm) => {
         console.log(searchTerm.trim().replace(/\s/g, ''));
         const resultArrByStatus = orders.filter((el) =>
-          el?.status
-            ?.toLowerCase()
-            .includes(searchTerm.trim().replace(/\s/g, ''))
+          // el?.status
+          el.PurchasedOrder?.ShippingOrder?.status.includes(searchTerm)
         );
         setShippingDetails(resultArrByStatus);
       };
       filterByStatus(orderSearchTerm);
     }
-  }, [orderSearchTerm, orders, searchBy]);
+    if (searchBy === 'paymentStatus') {
+      const filterByStatus = (searchTerm) => {
+        if (searchTerm === 'PENDING') {
+          const resultArrByPaymentStatus = orders.filter(
+            (el) => el?.PurchasedOrder === null
+          );
+          console.log(resultArrByPaymentStatus);
+          setShippingDetails(resultArrByPaymentStatus);
+        }
+        if (searchTerm === 'CONFIRMED') {
+          const resultArrByPaymentStatus = orders.filter(
+            (el) => el?.PurchasedOrder !== null
+          );
+          console.log(resultArrByPaymentStatus);
+          setShippingDetails(resultArrByPaymentStatus);
+        }
+      };
+      filterByStatus(orderSearchTerm);
+    }
+
+    if (orderSearchTerm === 'CONFIRMED' && searchBy === 'paymentStatus') {
+      const getTodoOrders = (searchTerm, hasTracking) => {
+        if (searchTerm === 'CONFIRMED' && hasTracking === false) {
+          const resultArrGetTodoOrders = orders.filter(
+            (el) =>
+              el?.PurchasedOrder !== null &&
+              el.PurchasedOrder?.ShippingOrder?.trackingId === null
+          );
+          // console.log(resultArrGetTodoOrders);
+          setShippingDetails(resultArrGetTodoOrders);
+        }
+      };
+      getTodoOrders(orderSearchTerm);
+    }
+  }, [orderSearchTerm, orders, searchBy, hasTracking]);
+
+  const filterByStatusNo = (searchTerm) => {
+    if (searchTerm === 'PENDING') {
+      const resultArrByPaymentStatus = orders.filter(
+        (el) => el?.PurchasedOrder === null
+      );
+      return resultArrByPaymentStatus.length;
+    }
+  };
+  const getTodoOrdersNo = () => {
+    if (hasTracking === false) {
+      const resultArrGetTodoOrders = orders.filter(
+        (el) =>
+          el?.PurchasedOrder !== null &&
+          el.PurchasedOrder?.ShippingOrder?.trackingId === null
+      );
+      return resultArrGetTodoOrders.length;
+    }
+  };
+
+  const getAllShippingStatusIsToClientOrdersNumber = (searchTerm) => {
+    const resultArrByStatus = orders.filter((el) =>
+      // el?.status
+      el.PurchasedOrder?.ShippingOrder?.status.includes(
+        searchTerm.trim().replace(/\s/g, '')
+      )
+    );
+    return resultArrByStatus.length;
+  };
+  getAllShippingStatusIsToClientOrdersNumber(orderSearchTerm);
 
   // const filterByUserId = (userId) => {};
   // const filterByStatus = (status) => {};
@@ -151,14 +247,35 @@ function OrderPage() {
     <div className=''>
       <br />
       <div className=' grid grid-cols-2 gap-10'>
-        <div className='stat flex justify-between items-center border-2 rounded-3xl hover:border-secondary '>
+        <button
+          onClick={() => {
+            setSearchBy('paymentStatus');
+            setOrderSearchTerm('PENDING');
+          }}
+          type='button'
+          className='stat   flex justify-between items-center border-2 rounded-3xl hover:border-secondary '
+        >
           <div className=''>
-            <div className='stat-title'>ที่ต้องชำระ</div>
-            <div className='stat-value text-secondary'>2</div>
+            <div className='stat-title'>รอชำระ</div>
+            <div className='stat-value text-secondary'>
+              {filterByStatusNo('PENDING')}
+            </div>
           </div>
           <div className=' text-secondary '>{<RiTodoLine size={45} />}</div>
-        </div>
-        <div className='stat  border-2 rounded-3xl hover:border-warning'>
+        </button>
+        <button
+          onClick={() => {
+            setSearchBy('paymentStatus');
+            setOrderSearchTerm('CONFIRMED');
+            // setHasTracking((hasTracking) => !hasTracking);
+          }}
+          type='button'
+          className='stat  border-2 rounded-3xl hover:border-warning flex justify-between'
+        >
+          <div className='w-[69px]'>
+            <div className='stat-title'>ต้องส่ง</div>
+            <div className='stat-value text-warning'>{getTodoOrdersNo()}</div>
+          </div>
           <div className='stat-figure text-warning'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -174,25 +291,42 @@ function OrderPage() {
               ></path>
             </svg>
           </div>
-          <div className='stat-title'>ที่ต้องจัดส่ง</div>
-          <div className='stat-value text-warning'>12</div>
-        </div>
-        <div className='stat border-2 rounded-3xl hover:border-accent'>
+        </button>
+        <button
+          onClick={() => {
+            setSearchBy('status');
+            setOrderSearchTerm('TO_CLIENT');
+          }}
+          type='button'
+          className=' stat border-2 rounded-3xl hover:border-accent flex justify-between'
+        >
+          <div>
+            <div className='stat-title'>กำลังส่ง</div>
+            <div className='stat-value'>
+              {getAllShippingStatusIsToClientOrdersNumber('TO_CLIENT')}
+            </div>
+          </div>
           <div className='stat-figure text-secondary '>
             <div className='stat-figure text-accent   '>
               {<TbTruckDelivery size={45} />}
             </div>
           </div>
-          <div className='stat-title'>กำลังจัดส่ง</div>
-          <div className='stat-value'>15</div>
-        </div>
-        <div className='stat border-2 rounded-3xl hover:border-info'>
+        </button>
+        <button
+          onClick={() => {
+            navigate({ pathname: '/supplier/my-product', search: '?stock=0' });
+          }}
+          type='button'
+          className='flex justify-between stat border-2 rounded-3xl hover:border-info'
+        >
+          <div>
+            <div className='stat-title'>สินค้าหมด</div>
+            <div className='stat-value'>{filterByStockIsZero()}</div>
+          </div>
           <div className='stat-figure text-info'>
             {<GiEmptyMetalBucket size={45} />}
           </div>
-          <div className='stat-title'>สินค้าหมด</div>
-          <div className='stat-value'>4</div>
-        </div>
+        </button>
       </div>
       <br />
       <br />
@@ -222,6 +356,7 @@ function OrderPage() {
                   <option value='id'>หมายเลขคำสั่งซื้อ</option>
                   <option value='firstName'>ชื่อลูกค้า</option>
                   <option value='status'>สถานะการจัดส่ง</option>
+                  <option value='paymentStatus'>สถานะการชำระเงิน</option>
                 </select>
               </div>
               <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
@@ -235,25 +370,42 @@ function OrderPage() {
                       value={orderSearchTerm}
                       className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
                     >
-                      <option value=''>กรุณาเลือกสถานะการจัดส่ง</option>
-                      <option value='TO_SHIPPING_COMPANY'>
-                        กำลังดำเนินการ
-                      </option>
-                      <option value='TO_CLIENT'>กำลังจัดส่ง</option>
+                      {/* <option value=''>กรุณาเลือกสถานะการจัดส่ง</option> */}
+                      <option value='TO_SHIPPING_COMPANY'>ต้องส่ง</option>
+                      <option value='TO_CLIENT'>กำลังส่ง</option>
                       <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
                     </select>
                   </>
                 ) : (
                   <>
-                    <input
-                      type='text'
-                      placeholder='ค้นหาคำสั่งซื้อ'
-                      className='input w-[395px] text-lg'
-                      onChange={(event) => {
-                        setOrderSearchTerm(event.target.value);
-                      }}
-                      value={orderSearchTerm}
-                    />
+                    {searchBy === 'paymentStatus' ? (
+                      <>
+                        <select
+                          type='text'
+                          onChange={(event) => {
+                            setOrderSearchTerm(event.target.value);
+                          }}
+                          value={orderSearchTerm}
+                          className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
+                        >
+                          <option value=''>กรุณาเลือกสถานะการชำระเงิน</option>
+                          <option value='CONFIRMED'>ชำระแล้ว</option>
+                          <option value='PENDING'>รอชำระ</option>
+                        </select>
+                      </>
+                    ) : (
+                      <>
+                        <input
+                          type='text'
+                          placeholder='ค้นหาคำสั่งซื้อ'
+                          className='input w-[395px] text-lg'
+                          onChange={(event) => {
+                            setOrderSearchTerm(event.target.value);
+                          }}
+                          value={orderSearchTerm}
+                        />
+                      </>
+                    )}
                   </>
                 )}
               </div>
@@ -278,6 +430,7 @@ function OrderPage() {
                 <th className='text-end'>ยอดคำสั่งซื้อ</th>
                 <th className='text-center'>สถานะการชำระเงิน</th>
                 <th className='flex justify-center'>Tracking Id</th>
+                <th className='text-center'></th>
                 <th className='text-center'>Shipping Order Status</th>
               </tr>
             </thead>
@@ -323,35 +476,30 @@ function OrderPage() {
                             </p>
                           </th>
                           <th>
-                            <label class='swap'>
-                              <input type='checkbox' />
-                              {/* el.PurchasedOrder !== null */}
-                              {el.PurchasedOrder !== null ? (
-                                <>
-                                  <div className=' text-success text-center'>
-                                    CONFIRMED
-                                  </div>
-                                  {/* <div className='swap-off text-success  text-center'>
-                                    {el.purchasedOrderStatus}
-                                  </div> */}
-                                </>
-                              ) : (
-                                <>
-                                  {/* <div className='swap-off text-success  text-center'>
-                                    {el.purchasedOrderStatus}
-                                  </div> */}
-                                  <div className=' text-warning text-center'>
-                                    PENDING
-                                  </div>
-                                </>
-                              )}
+                            <label className=''>
+                              <div className=' text-warning text-center'>
+                                {el.PurchasedOrder ? (
+                                  <>
+                                    <div className=' text-success text-center'>
+                                      CONFIRMED
+                                    </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className=' text-warning text-center'>
+                                      PENDING
+                                    </div>
+                                  </>
+                                )}
+                              </div>
                             </label>
                           </th>
                           <th className=''>
-                            {el.PurchasedOrder?.ShippingOrder?.trackingId ||
-                            el.PurchasedOrder ? (
+                            {el.PurchasedOrder?.ShippingOrder === null &&
+                            // 1 ? (
+                            el.PurchasedOrder !== null ? (
                               <>
-                                <input
+                                {/* <input
                                   className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary '
                                   placeholder='Tracking Id'
                                   onChange={(event) =>
@@ -361,51 +509,110 @@ function OrderPage() {
                                         ...prevShippingDetail[idx],
                                         trackingId: event.target.value,
                                         orderId: el.id,
+                                        shippingOrderId:
+                                          el.PurchasedOrder?.ShippingOrder?.id,
                                       },
                                       ...prevShippingDetail.slice(idx + 1),
                                     ])
                                   }
                                   value={el.trackingId}
+                                /> */}
+                                <AddTrackingIdRow
+                                  idx={idx}
+                                  order={el}
+                                  setTrackingIdObj={setTrackingIdObj}
+                                  shippingOrderId={
+                                    el.PurchasedOrder?.ShippingOrder?.id
+                                  }
+
+                                  // trackingId={trackingId}
+                                  // setTrackingId={setTrackingId}
                                 />
                               </>
                             ) : (
                               <>
-                                <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
-                                  {el.PurchasedOrder?.ShippingOrder
-                                    ?.trackingId || '-'}
-                                </p>
+                                {el.PurchasedOrder !== null &&
+                                el.PurchasedOrder?.ShippingOrder?.trackingId !==
+                                  null ? (
+                                  <>
+                                    <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
+                                      {el.PurchasedOrder?.ShippingOrder
+                                        ?.trackingId || '-'}
+                                    </p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
+                                      -
+                                    </p>
+                                  </>
+                                )}
                               </>
                             )}
                           </th>
                           <th className=''>
-                            {el.PurchasedOrder?.status === 'CONFIRMED' ||
-                            el.PurchasedOrder?.ShippingOrder?.trackingId ? (
-                              <select
-                                className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
-                                onChange={(event) =>
-                                  //
-                                  setShippingDetails((prevShippingDetail) => [
-                                    ...prevShippingDetail.slice(0, idx),
-                                    {
-                                      ...prevShippingDetail[idx],
-                                      status: event.target.value.trim(),
-                                      orderId: el.id,
-                                    },
-                                    ...prevShippingDetail.slice(idx + 1),
-                                  ])
-                                }
-                                value={el.status}
-                                type='text'
-                                placeholder={el.status}
-                              >
-                                <option value='TO_SHIPPING_COMPANY'>
-                                  กำลังดำเนินการ
-                                </option>
-                                <option value='TO_CLIENT'>กำลังจัดส่ง</option>
-                                <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
-                              </select>
+                            {el.PurchasedOrder &&
+                            el.PurchasedOrder?.ShippingOrder === null ? (
+                              <>
+                                <label
+                                  type='button'
+                                  htmlFor='my-modal-4'
+                                  className=' border-2 rounded-lg px-3  hover:scale-110 text-white border-success h-[56px] flex items-center '
+                                >
+                                  {<FcCheckmark size={20} />}
+                                </label>
+                              </>
                             ) : (
-                              <p className='text-center'>-</p>
+                              <></>
+                            )}
+                            <input
+                              type='checkbox'
+                              id='my-modal-4'
+                              className='modal-toggle'
+                              ref={modalRef}
+                            />
+                            <div className='modal'>
+                              <TrackingIdButton
+                                modalRef={modalRef}
+                                shippingOrderId={
+                                  el.PurchasedOrder?.ShippingOrder?.id
+                                }
+                              />
+                              {/* <button
+                                    type='button'
+                                    htmlFor='my-modal-4'
+                                    className='btn btn-secondary w-24'
+                                    onClick={async () => {
+                                      await updateStatusToClient(
+                                        el.PurchasedOrder?.ShippingOrder?.id,
+                                        trackingId
+                                      );
+                                      modalRef.current.click();
+                                    }}
+                                  >
+                                    ยืนยัน
+                                  </button> */}
+                            </div>
+                          </th>
+                          <th className=''>
+                            {el.PurchasedOrder &&
+                            el.PurchasedOrder?.ShippingOrder?.trackingId ===
+                              null ? (
+                              <p className='text-center'>TO_SHIPPING_COMPANY</p>
+                            ) : (
+                              <>
+                                {el.PurchasedOrder?.ShippingOrder?.status ? (
+                                  <>
+                                    <p className='text-center'>
+                                      {el.PurchasedOrder?.ShippingOrder?.status}
+                                    </p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <p className='text-center'>-</p>
+                                  </>
+                                )}
+                              </>
                             )}
                           </th>
                         </tr>
@@ -423,6 +630,31 @@ function OrderPage() {
       </>
     </div>
   );
+  // <select
+  //   className='p-2  h-14 rounded-lg border-2 hover:border-warning text-ghost text-center '
+  //   onChange={(event) =>
+  //     //
+  //     setShippingDetails((prevShippingDetail) => [
+  //       ...prevShippingDetail.slice(0, idx),
+  //       {
+  //         ...prevShippingDetail[idx],
+  //         status: event.target.value.trim(),
+  //         orderId: el.id,
+  //       },
+  //       ...prevShippingDetail.slice(idx + 1),
+  //     ])
+  //   }
+  //   value={el.status}
+  //   type='text'
+  //   placeholder={el.status}
+  // >
+  //   <option value='TO_SHIPPING_COMPANY'>
+  //     กำลังส่ง
+  //   </option>
+  //   <option value='TO_CLIENT'>กำลังส่ง</option>
+  //   <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
+  // </select>
+  // <p className='text-center'>ต้องส่ง</p>
 }
 
 export default OrderPage;

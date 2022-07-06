@@ -12,6 +12,8 @@ import { SupplierProductContext } from '../../contexts/Supplier/SupplierProductC
 import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
 import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
 import defaultPic from '../../pictures/defaultPic.png';
+import { useSearchParams } from 'react-router-dom';
+
 // const mockArr = [
 //   {
 //     mainPicture: speaker,
@@ -48,6 +50,18 @@ import defaultPic from '../../pictures/defaultPic.png';
 
 function ProductPage() {
   const navigate = useNavigate();
+  const [query] = useSearchParams(); //destructure //query is method เอาไว้ get query
+
+  const stockAmountFiltered = query.get('stock');
+  const [productSearchTerm, setProductSearchTerm] = useState('');
+
+  useEffect(() => {
+    if (stockAmountFiltered) {
+      setSearchBy('stock');
+      setProductSearchTerm('0');
+    }
+  }, []);
+
   const { supplierProducts, setSupplierProducts } = useContext(
     SupplierProductContext
   );
@@ -59,7 +73,7 @@ function ProductPage() {
   //   { PRODUCT_STATUS: 'REJECTED', color: 'error' },
   //   { PRODUCT_STATUS: 'HIDDEN', color: 'base-content' },
   // ];
-  const [productSearchTerm, setProductSearchTerm] = useState('');
+
   const [searchBy, setSearchBy] = useState('productName');
 
   const [products, setProducts] = useState([]);
@@ -114,6 +128,16 @@ function ProductPage() {
   }, [setSupplierProducts]);
 
   useEffect(() => {
+    if (searchBy === 'stock') {
+      const filterByStockIsZero = () => {
+        const resultArrByStockIsZero = supplierProducts.filter(
+          (el) => +el.stock === +productSearchTerm
+        );
+        console.log(resultArrByStockIsZero);
+        setProducts(resultArrByStockIsZero);
+      };
+      filterByStockIsZero();
+    }
     // console.log(searchBy);
     if (searchBy === 'productName') {
       const filterByProductName = (searchTerm) => {
@@ -168,7 +192,7 @@ function ProductPage() {
       filterByBrand(productSearchTerm);
     }
   }, [productSearchTerm, searchBy, supplierProducts]);
-
+  console.log(products);
   return (
     <div className='flex flex-col mb-[160px] h-auto'>
       <div className='h-[185px]'>
@@ -197,6 +221,7 @@ function ProductPage() {
                 <option value='status'>สถานะสินค้า</option>
                 <option value='id'>รหัสสินค้า</option>
                 <option value='brand'>ยี่ห้อ</option>
+                <option value='stock'>stock</option>
               </select>
             </div>
             <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
@@ -213,6 +238,7 @@ function ProductPage() {
                     <option value=''>กรุณาเลือกสถานะสินค้า</option>
                     <option value='PENDING'>อยู่ระหว่างดำเนินการ</option>
                     <option value='APPROVED'>อนุมัติแล้ว</option>
+                    <option value='REJECTED'>ถูกระงับ</option>
                   </select>
                 </>
               ) : (
@@ -247,7 +273,7 @@ function ProductPage() {
               <th></th>
               <th className='text-center'>รายการ</th>
               <th className='flex justify-center'>stock</th>
-              <th>ราคาต่อหน่วย</th>
+              <th className='text-end'>ราคาต่อหน่วย</th>
               <th className='text-center'>สถานะ</th>
               <th className='text-center'>หมายเหตุ</th>
               <th className=''></th>
@@ -269,7 +295,7 @@ function ProductPage() {
                         <td className='text-center font-bold'>{index + 1}</td>
                         <td className='text-center font-bold '>{el.id || 0}</td>
                         <td>
-                          <div className='flex items-center space-x-3 justify-center'>
+                          <div className='flex items-center space-x-3 justify-center  h-16 w-[60px] '>
                             <img
                               className='object-contain h-16 w-[60px] '
                               src={el.mainPicture || defaultPic}
@@ -282,7 +308,7 @@ function ProductPage() {
                             <div className='font-bold  text-lg text-blue-900'>
                               {el.brand}
                             </div>
-                            <div className=' w-[380px] flex overflow-x-auto h-12 items-center font-bold'>
+                            <div className=' w-[323px] flex overflow-x-auto h-12 items-center font-bold'>
                               {el.productName}
                             </div>
                           </div>

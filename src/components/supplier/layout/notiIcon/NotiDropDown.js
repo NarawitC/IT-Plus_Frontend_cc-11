@@ -20,13 +20,13 @@ function NotiDropDown() {
             <div className='flex gap-3'>
               <img src={img1} alt='blue' className='w-16 h-16' />
               <div>
-                <h1 className='text-bold text-lg'>Shipped Out</h1>
+                <h1 className='text-bold text-lg'>Delivered</h1>
                 <br />
                 <p className='text-sm'>
-                  Parcel for your order{' '}
+                  Parcel of order id{' '}
                   <span className='text-secondary'>213313989348NSDUHD</span> has
-                  been shipped out by Flash Express. Click here to see order
-                  details and track your parcel.
+                  been delivered to client client name. Click here to see order
+                  details
                 </p>
                 <p className='text-xs'>02-12-64 16:20</p>
               </div>
@@ -41,10 +41,9 @@ function NotiDropDown() {
                 <h1 className='text-bold text-lg'>Payment Confirmed</h1>
                 <br />
                 <p className='text-sm'>
-                  Payment for order{' '}
+                  Payment for order id{' '}
                   <span className='text-secondary'>213313989348NSDUHD</span> has
-                  been confirmed and we've notified the seller. Kindly wait for
-                  your shipment.
+                  been confirmed. Kindly wait for your shipment.
                 </p>
                 <p className='text-xs'>02-12-64 16:20</p>
               </div>
