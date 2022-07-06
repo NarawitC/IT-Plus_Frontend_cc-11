@@ -495,45 +495,17 @@ function OrderPage() {
                             </label>
                           </th>
                           <th className=''>
-                            {el.PurchasedOrder?.ShippingOrder === null &&
-                            // 1 ? (
-                            el.PurchasedOrder !== null ? (
+                            {el.PurchasedOrder === null ||
+                            el.PurchasedOrder?.ShippingOrder === null ? (
                               <>
-                                {/* <input
-                                  className='text-ghost text-center w-[170px] h-14 rounded-lg border-2 hover:border-primary '
-                                  placeholder='Tracking Id'
-                                  onChange={(event) =>
-                                    setShippingDetails((prevShippingDetail) => [
-                                      ...prevShippingDetail.slice(0, idx),
-                                      {
-                                        ...prevShippingDetail[idx],
-                                        trackingId: event.target.value,
-                                        orderId: el.id,
-                                        shippingOrderId:
-                                          el.PurchasedOrder?.ShippingOrder?.id,
-                                      },
-                                      ...prevShippingDetail.slice(idx + 1),
-                                    ])
-                                  }
-                                  value={el.trackingId}
-                                /> */}
-                                <AddTrackingIdRow
-                                  idx={idx}
-                                  order={el}
-                                  setTrackingIdObj={setTrackingIdObj}
-                                  shippingOrderId={
-                                    el.PurchasedOrder?.ShippingOrder?.id
-                                  }
-
-                                  // trackingId={trackingId}
-                                  // setTrackingId={setTrackingId}
-                                />
+                                <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
+                                  -
+                                </p>
                               </>
                             ) : (
                               <>
-                                {el.PurchasedOrder !== null &&
-                                el.PurchasedOrder?.ShippingOrder?.trackingId !==
-                                  null ? (
+                                {el.PurchasedOrder?.ShippingOrder
+                                  ?.trackingId ? (
                                   <>
                                     <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
                                       {el.PurchasedOrder?.ShippingOrder
@@ -542,57 +514,44 @@ function OrderPage() {
                                   </>
                                 ) : (
                                   <>
-                                    <p className='text-ghost text-center items-center flex justify-center  w-[170px] h-14 rounded-lg   '>
-                                      -
-                                    </p>
+                                    <AddTrackingIdRow
+                                      idx={idx}
+                                      order={el}
+                                      setTrackingIdObj={setTrackingIdObj}
+                                      shippingOrderId={
+                                        el.PurchasedOrder?.ShippingOrder?.id
+                                      }
+                                    />
                                   </>
                                 )}
                               </>
                             )}
                           </th>
                           <th className=''>
-                            {el.PurchasedOrder &&
+                            {el.PurchasedOrder === null ||
                             el.PurchasedOrder?.ShippingOrder === null ? (
-                              <>
-                                <label
-                                  type='button'
-                                  htmlFor='my-modal-4'
-                                  className=' border-2 rounded-lg px-3  hover:scale-110 text-white border-success h-[56px] flex items-center '
-                                >
-                                  {<FcCheckmark size={20} />}
-                                </label>
-                              </>
-                            ) : (
                               <></>
+                            ) : (
+                              <>
+                                {el.PurchasedOrder?.ShippingOrder
+                                  ?.trackingId ? (
+                                  <></>
+                                ) : (
+                                  <>
+                                    <div className=' w-[50px]'>
+                                      <label
+                                        type='button'
+                                        htmlFor='my-modal-4'
+                                        className='text-center border-2 rounded-lg px-3  hover:scale-110 text-white border-success h-[56px] flex items-center '
+                                      >
+                                        {<FcCheckmark size={20} />}
+                                      </label>
+                                      <TrackingIdButton />
+                                    </div>
+                                  </>
+                                )}
+                              </>
                             )}
-                            <input
-                              type='checkbox'
-                              id='my-modal-4'
-                              className='modal-toggle'
-                              ref={modalRef}
-                            />
-                            <div className='modal'>
-                              <TrackingIdButton
-                                modalRef={modalRef}
-                                shippingOrderId={
-                                  el.PurchasedOrder?.ShippingOrder?.id
-                                }
-                              />
-                              {/* <button
-                                    type='button'
-                                    htmlFor='my-modal-4'
-                                    className='btn btn-secondary w-24'
-                                    onClick={async () => {
-                                      await updateStatusToClient(
-                                        el.PurchasedOrder?.ShippingOrder?.id,
-                                        trackingId
-                                      );
-                                      modalRef.current.click();
-                                    }}
-                                  >
-                                    ยืนยัน
-                                  </button> */}
-                            </div>
                           </th>
                           <th className=''>
                             {el.PurchasedOrder &&
