@@ -23,6 +23,18 @@ function SupplierAuthContextProvider({ children }) {
   //url get myShop
   const location = useLocation();
 
+  useEffect(() => {
+    const token = getAccessToken();
+    if (token) {
+      const getSup = async () => {
+        const resSupplier = await getSupplierInfo();
+        setSupplier(resSupplier.data.user);
+        setRole(resSupplier.data.user.role);
+      };
+      getSup();
+    }
+  }, []);
+
   const fetchSupplier = async () => {
     try {
       if (location.pathname.startsWith('/supplier')) {

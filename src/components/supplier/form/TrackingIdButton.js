@@ -2,7 +2,7 @@ import { updateStatusToClient } from '../../../apis/supplier/supplierShippingOrd
 import { ShippingOrderStatusContext } from '../../../contexts/Supplier/ShippingOrderStatusContext';
 import { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-function TrackingIdButton() {
+function TrackingIdButton({ handleGetAllOrdersBySupplierId }) {
   // const handlEdittirackingId = async () => {
   //   if (shippingOrderId && trackingId) {
   //     updateStatusToClient(shippingOrderId, trackingId);
@@ -59,6 +59,7 @@ function TrackingIdButton() {
                   trackingId.idx
                 );
                 modalRef.current.click();
+                handleGetAllOrdersBySupplierId();
               }}
             >
               ยืนยัน

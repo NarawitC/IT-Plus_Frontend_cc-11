@@ -221,7 +221,7 @@ function ProductPage() {
                 <option value='status'>สถานะสินค้า</option>
                 <option value='id'>รหัสสินค้า</option>
                 <option value='brand'>ยี่ห้อ</option>
-                <option value='stock'>stock</option>
+                <option value='stock'>สินค้าหมดสต็อค</option>
               </select>
             </div>
             <div className='w-[400px] border-2 hover:border-primary rounded-lg'>

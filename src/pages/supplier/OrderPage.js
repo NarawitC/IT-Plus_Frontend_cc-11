@@ -107,19 +107,19 @@ function OrderPage() {
     return resultArrByStockIsZero.length;
   };
 
+  const handleGetAllOrdersBySupplierId = async () => {
+    try {
+      const res = await getAllOrdersBySupplierId();
+      console.log(res.data);
+      setOrders(res.data.orders);
+      // setOrders(mockArr);
+      setShippingDetails(res.data.orders);
+      // setShippingDetails(mockArr);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const handleGetAllOrdersBySupplierId = async () => {
-      try {
-        const res = await getAllOrdersBySupplierId();
-        console.log(res.data);
-        setOrders(res.data.orders);
-        // setOrders(mockArr);
-        setShippingDetails(res.data.orders);
-        // setShippingDetails(mockArr);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     handleGetAllOrdersBySupplierId();
   }, [setOrders]);
 
@@ -547,7 +547,11 @@ function OrderPage() {
                                       >
                                         {<FcCheckmark size={20} />}
                                       </label>
-                                      <TrackingIdButton />
+                                      <TrackingIdButton
+                                        handleGetAllOrdersBySupplierId={
+                                          handleGetAllOrdersBySupplierId
+                                        }
+                                      />
                                     </div>
                                   </>
                                 )}
