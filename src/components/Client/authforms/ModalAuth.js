@@ -38,8 +38,8 @@ function ModalAny({ inputEmodal }) {
     const link = 'http://localhost:8000/oauth/facebook';
     // console.log(link);
     window.open(link);
-    const { data } = await axios.get('/oauth/facebook/callback');
-    console.log(data);
+    // const { data } = await axios.get('/oauth/facebook');
+    // console.log(data);
 
     // window.location.href = link;
   };
@@ -147,17 +147,18 @@ function ModalAny({ inputEmodal }) {
                   }}
                 />
 
-                <div
-                  id='singinFB'
-                  className='fb-login-button btn'
-                  data-width=''
-                  data-size='large'
-                  data-button-type='continue_with'
-                  data-layout='rounded'
-                  data-auto-logout-link='false'
-                  data-use-continue-as='false'
-                ></div>
-
+                {/* <div className='mx-auto py-2'>
+                  <div
+                    id='singinFB'
+                    className='fb-login-button'
+                    data-width=''
+                    data-size='large'
+                    data-button-type='continue_with'
+                    data-layout='rounded'
+                    data-auto-logout-link='false'
+                    data-use-continue-as='false'
+                  ></div>
+                </div> */}
                 <div className=' '>
                   <div className=' z-50 absolute space-x-center opacity-[1%] '>
                     <button ref={inputEmodal} id='signInDiv'></button>
