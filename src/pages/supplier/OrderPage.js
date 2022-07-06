@@ -161,7 +161,7 @@ function OrderPage() {
     }
     if (searchBy === 'status') {
       const filterByStatus = (searchTerm) => {
-        console.log(searchTerm.trim().replace(/\s/g, ''));
+        // console.log(searchTerm);
         const resultArrByStatus = orders.filter((el) =>
           // el?.status
           el.PurchasedOrder?.ShippingOrder?.status.includes(searchTerm)
@@ -219,7 +219,8 @@ function OrderPage() {
       const resultArrGetTodoOrders = orders.filter(
         (el) =>
           el?.PurchasedOrder !== null &&
-          el.PurchasedOrder?.ShippingOrder?.trackingId === null
+          (el.PurchasedOrder?.ShippingOrder?.trackingId === null ||
+            el.PurchasedOrder?.ShippingOrder?.trackingId === '')
       );
       return resultArrGetTodoOrders.length;
     }
@@ -265,9 +266,8 @@ function OrderPage() {
         </button>
         <button
           onClick={() => {
-            setSearchBy('paymentStatus');
-            setOrderSearchTerm('CONFIRMED');
-            // setHasTracking((hasTracking) => !hasTracking);
+            setSearchBy('status');
+            setOrderSearchTerm('TO_SHIPPING_COMPANY');
           }}
           type='button'
           className='stat  border-2 rounded-3xl hover:border-warning flex justify-between'
