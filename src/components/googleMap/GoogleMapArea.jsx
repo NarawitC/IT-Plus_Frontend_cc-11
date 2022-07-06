@@ -6,6 +6,7 @@ import { GOOGLE_MAP_API_KEY } from '../../config/constants';
 const containerStyle = {
   width: '500px',
   height: '500px',
+  // cursor: 'copy',
 };
 
 const center = {
@@ -37,7 +38,7 @@ function GoogleMapArea() {
         if (results[0]) {
           const address = results[0].formatted_address;
           setGoogleMapAddress(address);
-          // console.log(address);
+          console.log(address);
         } else {
           console.log('No results found');
         }

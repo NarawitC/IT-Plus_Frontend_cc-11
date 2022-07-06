@@ -4,6 +4,7 @@ import { getProvince } from '../../../apis/openapis/location';
 import location from '../../../apis/fakeapi/locationProvince.json';
 import { useOrderContext } from '../../../contexts/Client/orderContext';
 import axios from 'axios';
+import GoogleMapArea from '../../googleMap/GoogleMapArea';
 
 function ModalAddress({ user }) {
   const { setCheckoutAddress } = useOrderContext();
@@ -12,6 +13,7 @@ function ModalAddress({ user }) {
   const [subDistrict, setSubDistrict] = useState([]);
   const [postcode, setPostcode] = useState(null);
   const [textaddress, setTextaddress] = useState('');
+  const [isGoogleMode, setisGoogleMode] = useState('');
 
   useEffect(() => {
     setProvince(location[0]);
@@ -42,104 +44,120 @@ function ModalAddress({ user }) {
           <div className='flex'>
             <img src={homeIcon} className='px-2' />
             <div className='text-left'>
-              <p className='text-[20px]'>เพิ่มที่อยู่ใหม่</p>
+              <div className='flex  flex-row     gap-4'>
+                <p className='text-[20px]'>เพิ่มที่อยู่ใหม่</p>
+                <p
+                  className='text-[20px] btn '
+                  onClick={() => {
+                    setisGoogleMode((prev) => !prev);
+                  }}
+                >
+                  เพิ่มที่อยู่ด้วยตำแหน่งของฉัน
+                </p>
+              </div>
               <p className='text-[14px] text-gray-500 opacity-50'>
                 ที่อยู่จัดส่งสินค้า
               </p>
             </div>
           </div>
         </h3>
-        <div className='py-4'>
-          <form>
-            <div className='grid grid-cols-2 col gap-8'></div>
-            <div>
-              <p className='text-left'>ที่อยู่</p>
-              <textarea
-                className='textarea textarea-primary w-full'
-                placeholder='กรอกที่อยู่'
-                name='textaddress'
-                value={textaddress}
-                onChange={(e) => setTextaddress(e.target.value)}
-              ></textarea>
-            </div>
-            <div className='grid grid-cols-2 w-full gap-8'>
-              {/* -------------------------------------------------------------- */}
+        {isGoogleMode ? (
+          <div className=' cursor-copy'>
+            <GoogleMapArea />
+          </div>
+        ) : (
+          <div className='py-4'>
+            <form>
+              <div className='grid grid-cols-2 col gap-8'></div>
               <div>
-                <p className='text-left'>จังหวัด</p>
-                <select
-                  className='border-2 w-full'
-                  placeholder='กรอกจังหวัด'
-                  onChange={(e) => {
-                    setProvince(() => {
-                      const province = location.find(
-                        (item) => item.id === +e.target.value
-                      );
-                      return province;
-                    });
-                  }}
-                >
-                  {location.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name_th}
-                    </option>
-                  ))}
-                </select>
+                <p className='text-left'>ที่อยู่</p>
+                <textarea
+                  className='textarea textarea-primary w-full'
+                  placeholder='กรอกที่อยู่'
+                  name='textaddress'
+                  value={textaddress}
+                  onChange={(e) => setTextaddress(e.target.value)}
+                ></textarea>
               </div>
-              {/* ----------------------------------------------------------- */}
-              <div>
-                <p className='text-left'>เขต</p>
-                <select
-                  className='border-2 w-full'
-                  placeholder='กรอกเขต'
-                  onChange={(e) => {
-                    setDistrict(() => {
-                      const district = province.amphure.find(
-                        (item) => item.id === +e.target.value
-                      );
-                      return district;
-                    });
-                  }}
-                >
-                  {province.amphure?.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name_th}
-                    </option>
-                  ))}
-                </select>
+              <div className='grid grid-cols-2 w-full gap-8'>
+                {/* -------------------------------------------------------------- */}
+                <div>
+                  <p className='text-left'>จังหวัด</p>
+                  <select
+                    className='border-2 w-full'
+                    placeholder='กรอกจังหวัด'
+                    onChange={(e) => {
+                      setProvince(() => {
+                        const province = location.find(
+                          (item) => item.id === +e.target.value
+                        );
+                        return province;
+                      });
+                    }}
+                  >
+                    {location.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name_th}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {/* ----------------------------------------------------------- */}
+                <div>
+                  <p className='text-left'>เขต</p>
+                  <select
+                    className='border-2 w-full'
+                    placeholder='กรอกเขต'
+                    onChange={(e) => {
+                      setDistrict(() => {
+                        const district = province.amphure.find(
+                          (item) => item.id === +e.target.value
+                        );
+                        return district;
+                      });
+                    }}
+                  >
+                    {province.amphure?.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name_th}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {/* ------------------------------------------------------------- */}
               </div>
-              {/* ------------------------------------------------------------- */}
-            </div>
-            <div className='grid grid-cols-2 gap-8'>
-              <div>
-                <p className='text-left'>ตำบล</p>
-                <select
-                  className='border-2 w-full'
-                  placeholder='กรอกตำบล'
-                  onChange={(e) => {
-                    setSubDistrict(() => {
-                      const subDistrict = district.tambon.find(
-                        (item) => item.id === +e.target.value
-                      );
-                      return subDistrict;
-                    });
-                  }}
-                >
-                  {district.tambon?.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name_th}
-                    </option>
-                  ))}
-                </select>
+              <div className='grid grid-cols-2 gap-8'>
+                <div>
+                  <p className='text-left'>ตำบล</p>
+                  <select
+                    className='border-2 w-full'
+                    placeholder='กรอกตำบล'
+                    onChange={(e) => {
+                      setSubDistrict(() => {
+                        const subDistrict = district.tambon.find(
+                          (item) => item.id === +e.target.value
+                        );
+                        return subDistrict;
+                      });
+                    }}
+                  >
+                    {district.tambon?.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name_th}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {/* -------------------------------------------------------------- */}
+                <div>
+                  <p className='text-left'>รหัสไปรษณี</p>
+                  <div className='border-2 w-full text-left'>{postcode}</div>
+                </div>
+                {/* ----------------------------------------------------------------- */}
               </div>
-              {/* -------------------------------------------------------------- */}
-              <div>
-                <p className='text-left'>รหัสไปรษณี</p>
-                <div className='border-2 w-full text-left'>{postcode}</div>
-              </div>
-              {/* ----------------------------------------------------------------- */}
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
+        )}
         <div className='flex justify-end gap-8 px-4'>
           <div className='modal-action'>
             <label
