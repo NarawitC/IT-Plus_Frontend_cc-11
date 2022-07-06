@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { updateStatusToClient } from '../../../apis/supplier/supplierShippingOrder';
 import { ShippingOrderStatusContext } from '../../../contexts/Supplier/ShippingOrderStatusContext';
-function AddTrackingIdRow({ idx }) {
+function AddTrackingIdRow({ idx, shippingOrderId }) {
   const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
   console.log(trackingId);
 
@@ -17,7 +17,7 @@ function AddTrackingIdRow({ idx }) {
         placeholder='Tracking Id'
         onChange={(e) =>
           setTrackingId((prev) => {
-            return { idx: e.target.value };
+            return { idx: e.target.value, shippingOrderId: shippingOrderId };
           })
         }
         value={trackingId[idx]}

@@ -73,7 +73,7 @@ function OrderPage() {
   const modalRef = useRef();
   const navigate = useNavigate();
   // const { trackingId, setTrackingId } = useContext(ShippingOrderStatusContext);
-  const [trackingId, setTrackingId] = useState('');
+  const [trackingIdObj, setTrackingIdObj] = useState({});
   const [hasTracking, setHasTracking] = useState(false);
   const [shippingDetails, setShippingDetails] = useState(orders);
   // console.log(shippingDetails);
@@ -497,7 +497,8 @@ function OrderPage() {
                             </label>
                           </th>
                           <th className=''>
-                            {el.PurchasedOrder?.ShippingOrder?.trackingId ||
+                            {el.PurchasedOrder?.ShippingOrder?.trackingId ===
+                              null &&
                             // 1 ? (
                             el.PurchasedOrder !== null ? (
                               <>
@@ -521,6 +522,12 @@ function OrderPage() {
                                 /> */}
                                 <AddTrackingIdRow
                                   idx={idx}
+                                  order={el}
+                                  setTrackingIdObj={setTrackingIdObj}
+                                  shippingOrderId={
+                                    el.PurchasedOrder?.ShippingOrder?.id
+                                  }
+
                                   // trackingId={trackingId}
                                   // setTrackingId={setTrackingId}
                                 />
