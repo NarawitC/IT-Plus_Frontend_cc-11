@@ -11,6 +11,12 @@ import CSignin from './signin';
 import axios from 'axios';
 import { setAccessToken } from '../../../services/localStorage';
 import { useAuthContext } from '../../../contexts/Client/AuthCcontexts';
+// import {
+//   initFacebookSdk,
+//   jwtInterceptor,
+//   errorInterceptor,
+//   history,
+// } from '../../../services/FacebookSdk';
 
 function ModalAny({ inputEmodal }) {
   const { user, setUser } = useAuthContext();
@@ -82,7 +88,10 @@ function ModalAny({ inputEmodal }) {
     });
   }, []);
 
-  console.log(user);
+  useEffect(() => {
+    /* global google */
+    //
+  }, []);
 
   return (
     <div
@@ -137,6 +146,7 @@ function ModalAny({ inputEmodal }) {
                     // setauthOption(1);
                   }}
                 />
+
                 <div
                   id='singinFB'
                   className='fb-login-button btn'

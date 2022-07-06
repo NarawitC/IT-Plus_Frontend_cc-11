@@ -7,6 +7,14 @@ import AdminSearchContextProvider from './contexts/Admin/AdminSearchContext';
 import { AnimatePresence } from 'framer-motion';
 import Router from './Router/Router';
 import AdminContextProvider from './contexts/Admin/AdminContext';
+import {
+  initFacebookSdk,
+  jwtInterceptor,
+  errorInterceptor,
+  history,
+} from './services/FacebookSdk';
+
+initFacebookSdk().then(Router);
 
 function App() {
   return (
