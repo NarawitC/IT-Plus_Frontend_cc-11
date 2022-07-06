@@ -624,7 +624,9 @@ function OrderPage() {
                             </div>
                           </th>
                           <th className=''>
-                            {el.PurchasedOrder ? (
+                            {el.PurchasedOrder &&
+                            el.PurchasedOrder?.ShippingOrder?.trackingId ===
+                              null ? (
                               <p className='text-center'>TO_SHIPPING_COMPANY</p>
                             ) : (
                               <>
