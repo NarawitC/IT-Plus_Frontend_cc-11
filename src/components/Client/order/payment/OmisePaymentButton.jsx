@@ -6,8 +6,10 @@ import { useAuthContext } from '../../../../contexts/Client/AuthCcontexts';
 import { createShippingOrder } from '../../../../apis/supplier/supplierShippingOrder';
 import { localsting } from '../../../../services/LocalstringComma';
 import { useRef } from 'react';
+import { useErrorContext } from '../../../../contexts/ErrorContext';
 
 function OmisePaymentButton({ className, orders, totalPrice }) {
+  const { setError } = useErrorContext();
   const formElement = useRef();
   const displayName = 'IT Plus';
   const navigate = useNavigate();
@@ -47,7 +49,7 @@ function OmisePaymentButton({ className, orders, totalPrice }) {
           token,
         });
         if (status !== 'successful') {
-          alert('Payment failed');
+          setError({ text: 'Payment failed' });
         } else if (status === 'successful') {
           const {
             data: { purchasedOrders },

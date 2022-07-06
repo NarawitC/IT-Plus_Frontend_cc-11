@@ -6,14 +6,50 @@ import DynamicOrdercard from './MyorderCard/DynamicOrdercard';
 function SaleOrderPage() {
   const [orders, SetOrders] = useState([]);
   const { cilentgetAllOrders } = useProductfilter();
+  const [CliOrderOpt, setCliOrderOpt] = useState(null);
+  const functFilterOrders = {
+    1: (el) => {
+      if (!el.PurchasedOrder) return el;
+    },
+    2: (el) => {
+      if (
+        el?.PurchasedOrder &&
+        el?.PurchasedOrder?.ShippingOrder?.status === 'TO_SHIPPING_COMPANY'
+      )
+        return el;
+    },
+    3: (el) => {
+      if (
+        el?.PurchasedOrder &&
+        el?.PurchasedOrder?.ShippingOrder?.status === 'TO_CLIENT'
+      )
+        return el;
+    },
+    4: (el) => {
+      if (
+        el.PurchasedOrder &&
+        el?.PurchasedOrder?.ShippingOrder?.status === 'DELIVERED'
+      )
+        return el;
+    },
+    5: 'COMPLETED',
+  };
+
   useEffect(() => {
     const fetchOders = async () => {
       const orderlists = await cilentgetAllOrders();
-      SetOrders(orderlists.orders);
-      console.log(orderlists);
+      if (CliOrderOpt) {
+        const arr = await orderlists.orders?.filter(
+          functFilterOrders[CliOrderOpt]
+        );
+        // SetOrders(orderlists.orders);
+        console.log(arr);
+        SetOrders(arr);
+      } else SetOrders(orderlists.orders);
     };
     fetchOders();
-  }, []);
+    console.log(orders);
+  }, [CliOrderOpt]);
   return (
     <>
       <div className='flex w-full justify-center text-font-Kanit  '>
@@ -23,10 +59,37 @@ function SaleOrderPage() {
               รายการคำสั่งซื้อ
             </h3>
             <div className=' w-full flex flex-row bg-white'>
-              <SmPillButton className={'hover:text-blue-500'} text='ทั้งหมด' />
-              <SmPillButton text='ตะกร้าทั้งหมด' />
-              <SmPillButton text='ชำระแล้ว' />
-              <SmPillButton text='เสร็จสิ้น' />
+              <SmPillButton
+                className={'hover:text-blue-500'}
+                text='ทั้งหมด'
+                onClick={() => {
+                  setCliOrderOpt(null);
+                }}
+              />
+              <SmPillButton
+                text='อยู่ในตระกร้า'
+                onClick={() => {
+                  setCliOrderOpt(1);
+                }}
+              />
+              <SmPillButton
+                text='ชำระแล้ว'
+                onClick={() => {
+                  setCliOrderOpt(2);
+                }}
+              />
+              <SmPillButton
+                text='กำลังจัดส่ง'
+                onClick={() => {
+                  setCliOrderOpt(3);
+                }}
+              />
+              <SmPillButton
+                text='เสร็จสิ้น'
+                onClick={() => {
+                  setCliOrderOpt(4);
+                }}
+              />
             </div>
           </div>
           {orders?.map((el, idx) => {
