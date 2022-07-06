@@ -2,22 +2,43 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from '../../config/axios';
+import { localsting } from '../../services/LocalstringComma';
 
 function DevStat() {
   const [AllOrder, setAllOrder] = useState();
+  const [paidOrder, setpaidOrder] = useState(null);
+  const [onDeleved, setonDeleved] = useState(null);
   useEffect(() => {
     const fetchOrder = async () => {
       try {
         const res = await axios.get('/admin/order');
         const orderList = res.data.orders;
+
         // console.log(res.data);
         // if (+orderId) {
         //   const order = orderList.find((el) => el.id === +orderId);
         //   if (order) {
         //     setAllOrder([order]);
         //   }
-        console.log(orderList);
+        const PaidorderValue = orderList
+          .filter((el) => {
+            if (el.PurchasedOrder && el.PurchasedOrder?.ShippingOrder?.status)
+              return el;
+          })
+          .map((el) => el.productPrice);
+        const Ondelivery = orderList
+          .filter((el) => {
+            if (
+              el.PurchasedOrder &&
+              el.PurchasedOrder?.ShippingOrder?.status === 'DELIVERED'
+            )
+              return el;
+          })
+          .map((el) => el.productPrice);
+        // console.log(PaidorderValue);
         // } else {
+        setonDeleved(Ondelivery);
+        setpaidOrder(PaidorderValue);
         setAllOrder(orderList);
         // }
       } catch (e) {
@@ -46,8 +67,8 @@ function DevStat() {
             </svg>
           </div>
           <div className='stat-title'>Orders</div>
-          <div className='stat-value'>121K</div>
-          <div className='stat-desc'></div>
+          <div className='stat-value'>{localsting(AllOrder?.length)}</div>
+          <div className='stat-desc'>transactions</div>
         </div>
 
         <div className='stat'>
@@ -67,8 +88,10 @@ function DevStat() {
             </svg>
           </div>
           <div className='stat-title'>Paid</div>
-          <div className='stat-value'>11k</div>
-          <div className='stat-desc'>↗︎ 400 (62%)</div>
+          <div className='stat-value'>
+            {localsting(paidOrder?.reduce((a, b) => a + b, 0))}
+          </div>
+          <div className='stat-desc'>THB</div>
         </div>
 
         <div className='stat'>
@@ -87,9 +110,11 @@ function DevStat() {
               ></path>
             </svg>
           </div>
-          <div className='stat-title'>New Registers</div>
-          <div className='stat-value'>1,200</div>
-          <div className='stat-desc'>↘︎ 90 (14%)</div>
+          <div className='stat-title'>On Delivered</div>
+          <div className='stat-value'>
+            {localsting(onDeleved?.reduce((a, b) => a + b, 0))}
+          </div>
+          <div className='stat-desc'>THB</div>
         </div>
       </div>
       {/* STEP */}
