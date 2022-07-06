@@ -1,6 +1,31 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import axios from '../../config/axios';
 
 function DevStat() {
+  const [AllOrder, setAllOrder] = useState();
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const res = await axios.get('/admin/order');
+        const orderList = res.data.orders;
+        // console.log(res.data);
+        // if (+orderId) {
+        //   const order = orderList.find((el) => el.id === +orderId);
+        //   if (order) {
+        //     setAllOrder([order]);
+        //   }
+        console.log(orderList);
+        // } else {
+        setAllOrder(orderList);
+        // }
+      } catch (e) {
+        console.log(e.response.data);
+      }
+    };
+    fetchOrder();
+  }, []);
   return (
     <div className='w-full flex justify-center items-center flex-col gap-6 '>
       <div className='stats shadow mt-6'>
@@ -20,9 +45,9 @@ function DevStat() {
               ></path>
             </svg>
           </div>
-          <div className='stat-title'>Downloads</div>
+          <div className='stat-title'>Orders</div>
           <div className='stat-value'>121K</div>
-          <div className='stat-desc'>Jan 1st - Feb 1st</div>
+          <div className='stat-desc'></div>
         </div>
 
         <div className='stat'>
@@ -41,7 +66,7 @@ function DevStat() {
               ></path>
             </svg>
           </div>
-          <div className='stat-title'>New Users</div>
+          <div className='stat-title'>Paid</div>
           <div className='stat-value'>11k</div>
           <div className='stat-desc'>↗︎ 400 (62%)</div>
         </div>
