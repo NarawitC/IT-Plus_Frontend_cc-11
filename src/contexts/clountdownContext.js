@@ -10,6 +10,7 @@ function CountdownContextProvider({ children }) {
   const [Hrs, setHrs] = useState(null);
   const [Mins, setMins] = useState(null);
   const [Secs, setSecs] = useState(null);
+
   const daysinmonths = async (Targetmonth, Nmonth) => {
     // = tM - nM;
     //   if (mdiff > 0) {
@@ -88,13 +89,12 @@ function CountdownContextProvider({ children }) {
     // setMins(diffMin);
     // setSecs(diffSec);
     let fDay = days;
-    setDays(fDay);
     let fHour = 0;
-    if (days < 2) {
+    if (days <= 1) {
       setDays(0);
       let fHour = days * 24;
-    }
-
+    } else setDays(fDay);
+    console.log(fDay);
     setHrs(0);
     setMins(0);
     setSecs(0);
@@ -132,6 +132,86 @@ function CountdownContextProvider({ children }) {
       // console.log('tick');
     }, 1000);
   };
+
+  const SetcountdownStrbystr = async (string) => {
+    setHrs(null);
+    setMins(null);
+    setSecs(null);
+
+    const minutems = 1000 * 60;
+    const hourms = minutems * 60;
+    const dayms = hourms * 24;
+    const yearms = dayms * 365;
+    const datePro = new Date(string);
+    const datePNow = new Date();
+    // console.log(datePro.getTime());
+    const ENDdate = (await datePro.getTime()) / dayms;
+    const NowDate = datePNow.getTime() / dayms;
+
+    // console.log(datePro);
+    // console.log(datePNow);
+    // console.log(ENDdate);
+    // console.log(NowDate);
+    const daydiff = ENDdate - NowDate;
+    const Hourtdiff = ((daydiff - Math.floor(daydiff)) * dayms) / hourms;
+    const mindiff = ((Hourtdiff - Math.floor(Hourtdiff)) * hourms) / minutems;
+    const secdiff = ((mindiff - Math.floor(mindiff)) * minutems) / 1000;
+
+    console.log(daydiff);
+    console.log(Hourtdiff);
+    console.log(mindiff);
+    console.log(secdiff);
+    // let i = 0;
+    // // Setm
+    // setDays(daydiff);
+    // if (diffday < 0) {
+    //   setDays(mdiffdays - diffday);
+    //   console.log(mdiffdays - diffday);
+    // }
+    await setInterval(() => {
+      if (Hrs == 0) setDays(daydiff);
+      if (Mins == 0) setHrs(Hourtdiff);
+      if (Secs == 0) setMins(mindiff);
+      setSecs(secdiff);
+    }, 1000);
+    //   let fHour = daydiff;
+    //   let fDay = Hourtdiff;
+    //   let fMin = mindiff;
+    //   let fSec = secdiff;
+
+    //   await setInterval(() => {
+    //     if (fHour < 1) {
+    //       fHour = +24;
+    //       setHrs(fHour);
+    //       fDay--;
+    //       setDays(fDay);
+    //     }
+    //     if (fMin < 1) {
+    //       fMin = +60;
+    //       setMins(fMin);
+    //       fHour--;
+    //       setHrs(fHour);
+    //     }
+    //     if (fSec === 0) {
+    //       fSec = +60;
+    //       setSecs(fSec);
+    //       fMin--;
+    //       setMins(fMin);
+    //     } else {
+    //       fSec--;
+    //       setSecs(fSec);
+    //     }
+    //     // setSecs(secdiff - i);
+    //     // i++;
+    //     // console.log(i);
+    //     // setDays(tD - nD);
+    //     // setHrs(tH);
+    //     // setMins(Hourtdiff);
+    //     // console.log(nS);
+    //     // console.log('tick');
+    //   }, 1000);
+  };
+
   //next get them - now date
   // console.log(new Date(string));
   // setDays(string.5)
@@ -149,6 +229,7 @@ function CountdownContextProvider({ children }) {
         Hrs,
         Mins,
         Secs,
+        SetcountdownStrbystr,
       }}
     >
       {children}

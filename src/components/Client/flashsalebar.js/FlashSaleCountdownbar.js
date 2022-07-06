@@ -6,9 +6,11 @@ import { useProductfilter } from '../../../contexts/ProductContext';
 import SmPillButton from '../../commonUtils/SmPillButton';
 import DynamicClientProductCard from '../products/DynamicClientProductCard';
 import { dateFormat } from '../../../services/dateFormat';
+import { faBuildingCircleXmark } from '@fortawesome/free-solid-svg-icons';
 function FlashSaleCountdownbar() {
   const [FlashsaleProducts, setFlashsaleProducts] = useState([]);
-  const { SetcountdownStrbydate, Days, Hrs, Mins, Secs } = useCountdown();
+  const { SetcountdownStrbydate, Days, Hrs, Mins, Secs, SetcountdownStrbystr } =
+    useCountdown();
   const { product } = useProductfilter();
   // const { setIsLoading } = useLoading();
 
@@ -23,27 +25,33 @@ function FlashSaleCountdownbar() {
       // setIsLoading(false);
     };
     fetchFlashsale();
+    // StratCountdown();
   }, [product]);
-
-  const minute = 1000 * 60;
-  const hour = minute * 60;
-  const day = hour * 24;
-  const year = day * 365;
-  const StratCountdown = async () => {
-    const datePro = new Date(FlashsaleProducts[0]?.Promotions[0]?.endedAt);
-    const datePNow = new Date();
-    // console.log(datePro.getTime());
-    const ENDdate = datePro.getTime() / day;
-    const NowDate = datePNow.getTime() / day;
-    console.log(dateFormat(FlashsaleProducts[0]?.Promotions[0]?.endedAt));
-    if (NowDate - ENDdate > 0) {
-      SetcountdownStrbydate(NowDate - ENDdate);
+  useEffect(() => {
+    StratCountdown();
+    // funx();
+  }, [FlashsaleProducts]);
+  const funx = async () => {
+    if (FlashsaleProducts) {
+      const str = await FlashsaleProducts[0]?.Promotions[0]?.endedAt;
+      // SetcountdownStrbystr(str);
     }
   };
 
-  useEffect(() => {
-    StratCountdown();
-  }, []);
+  const StratCountdown = async () => {
+    const minute = 1000 * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
+    const year = day * 365;
+
+    const datePro = new Date(FlashsaleProducts[0]?.Promotions[0]?.endedAt);
+    const datePNow = new Date();
+    const ENDdate = datePro.getTime() / day;
+    const NowDate = datePNow.getTime() / day;
+    if (NowDate - ENDdate < 0) {
+      await SetcountdownStrbydate(ENDdate - NowDate);
+    }
+  };
 
   return (
     <>
