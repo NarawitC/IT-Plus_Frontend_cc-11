@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Outlet } from 'react-router-dom';
+import Footer from '../components/allpages/Footer';
 import Header from '../components/Client/layout/Header/Header';
 import SideDrawer from '../components/Client/layout/Header/SideDraver';
 import DynamicAlerttoast from '../components/commonUtils/DynamicAlerttoast';
@@ -28,6 +29,7 @@ function Clientlayout() {
             <Header clicksidebar={clicksidebar} />
             <Outlet />
           </div>
+          <Footer />
         </div>
       </CountdownContextProvider>
     </AuthContextProvider>

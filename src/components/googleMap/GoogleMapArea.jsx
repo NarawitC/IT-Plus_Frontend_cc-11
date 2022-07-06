@@ -50,6 +50,7 @@ function GoogleMapArea() {
 
   return (
     <GoogleMap
+      htmlFor='my-modal-5'
       mapContainerStyle={containerStyle}
       center={center}
       zoom={15}
