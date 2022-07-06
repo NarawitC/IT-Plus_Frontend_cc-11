@@ -44,11 +44,14 @@ function DynamicOrdercard({ el }) {
                 'TO_SHIPPING_COMPANY'
               ? 'รอการจัดส่ง'
               : el?.PurchasedOrder?.ShippingOrder?.status === 'TO_CLIENT'
-              ? 'รอการชำระ'
+              ? 'กำลังส่ง'
               : el?.PurchasedOrder?.ShippingOrder?.status === 'DELIVERED'
               ? 'เสร็จสิ้น'
               : 'รอการชำระ'
           }`}</span>
+          {el?.PurchasedOrder?.ShippingOrder?.trackingId
+            ? el?.PurchasedOrder?.ShippingOrder?.trackingId
+            : null}
         </div>
         <div className='flex flex-col justify-between'>
           <span className='block cursor-default'>{`รวมคำสั่งซื้อ: ${localsting(
