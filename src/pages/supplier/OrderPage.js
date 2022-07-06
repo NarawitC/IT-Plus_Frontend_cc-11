@@ -371,9 +371,10 @@ function OrderPage() {
                       className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
                     >
                       {/* <option value=''>กรุณาเลือกสถานะการจัดส่ง</option> */}
+                      <option value=''>กรุณาเลือกสถานะการจัดส่ง</option>
                       <option value='TO_SHIPPING_COMPANY'>ต้องส่ง</option>
                       <option value='TO_CLIENT'>กำลังส่ง</option>
-                      <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
+                      <option value='DELIVERED'>ส่งเสร็จสิ้น</option>
                     </select>
                   </>
                 ) : (
