@@ -9,3 +9,21 @@ export const dateFormat = (date) => {
   });
   return result;
 };
+
+// export function TimeComp({ time }) {
+//   const [timeer, settimer] = useState('');
+//   // timeAgo(new Date(da))
+//   useEffect(() => {
+//     console.log(time);
+//   }, []);
+//   const thistime = setInterval(() => {
+//     // return settimer(moment().second(Number));
+//     return settimer(timeAgo.format(new Date(time), 'round-minute'));
+//   }, 6000);
+//   console.log(timeer);
+//   return (
+//     <span>
+//       {timeer.split(0, 2) < 15 || timeer.includes('hour') ? 'Timeout' : timeer}
+//     </span>
+//   );
+// }

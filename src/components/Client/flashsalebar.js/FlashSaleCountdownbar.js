@@ -5,16 +5,17 @@ import { useCountdown } from '../../../contexts/clountdownContext';
 import { useProductfilter } from '../../../contexts/ProductContext';
 import SmPillButton from '../../commonUtils/SmPillButton';
 import DynamicClientProductCard from '../products/DynamicClientProductCard';
-
+import { dateFormat } from '../../../services/dateFormat';
 function FlashSaleCountdownbar() {
   const [FlashsaleProducts, setFlashsaleProducts] = useState([]);
   const { SetcountdownStrbydate, Days, Hrs, Mins, Secs } = useCountdown();
   const { product } = useProductfilter();
   // const { setIsLoading } = useLoading();
+
   useEffect(() => {
     const fetchFlashsale = async () => {
       // setIsLoading(true);
-      SetcountdownStrbydate(1);
+      // SetcountdownStrbydate(1);
       const onlyPros = await product?.filter((el) => el.Promotions.length > 0);
       setFlashsaleProducts(onlyPros);
       // console.log(onlyPros);
@@ -23,6 +24,26 @@ function FlashSaleCountdownbar() {
     };
     fetchFlashsale();
   }, [product]);
+
+  const minute = 1000 * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+  const year = day * 365;
+  const StratCountdown = async () => {
+    const datePro = new Date(FlashsaleProducts[0]?.Promotions[0]?.endedAt);
+    const datePNow = new Date();
+    // console.log(datePro.getTime());
+    const ENDdate = datePro.getTime() / day;
+    const NowDate = datePNow.getTime() / day;
+    console.log(dateFormat(FlashsaleProducts[0]?.Promotions[0]?.endedAt));
+    if (NowDate - ENDdate > 0) {
+      SetcountdownStrbydate(NowDate - ENDdate);
+    }
+  };
+
+  useEffect(() => {
+    StratCountdown();
+  }, []);
 
   return (
     <>
@@ -79,7 +100,7 @@ function FlashSaleCountdownbar() {
       </div>
 
       <div className='bg-white max-w-2xl mx-auto py-4 px-4  sm:px-6 lg:max-w-7xl lg:px-8 '>
-        <div className='mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-1 lg:grid-cols-4 xl:gap-x-8 '>
+        <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
           {FlashsaleProducts?.map((el, idx) => (
             <DynamicClientProductCard el={el} key={idx} />
           ))}

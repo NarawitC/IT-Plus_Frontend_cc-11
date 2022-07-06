@@ -26,7 +26,7 @@ function Topheader({ clicksidebar }) {
   };
 
   return (
-    <div className='navbar flex flex-row justify-start h-1/2'>
+    <div className='navbar  flex sticky top-0 flex-row justify-start h-1/2'>
       <ModalAny inputEmodal={inputEmodal} />
       <Dragbutton clicksidebar={clicksidebar} />
       <div className='flex-1'>
