@@ -6,7 +6,6 @@ import ModalAddress from './modalAddress';
 import { motion } from 'framer-motion';
 
 function DynamicClientCheckoutmode() {
-
   const { checkoutAddress, setCheckoutAddress } = useOrderContext();
 
   const { user } = useAuthContext();
@@ -75,22 +74,9 @@ function DynamicClientCheckoutmode() {
                 <div className='bg-gray-200  rounded-t-xl py-4'>
                   <p className='font-bold text-[20px]'>ที่อยู่่จัดส่งสินค้า</p>
                 </div>
-                <div className='grid grid-cols-5  text-left px-6 py-8'>
-                  <div className='font-bold'>
-                    <p>ที่อยู่</p>
-                    <p>แขวง</p>
-                    <p>เขต</p>
-                    <p>จังหวัด</p>
-                    <p>รหัสไปรษณีย์</p>
-                  </div>
+                <div className=' text-left px-6 py-8'>
                   <div className='col-span-4  text-left'>
-                    <p className='break-words overflow-x-auto '>
-                      {checkoutAddress?.textaddress}
-                    </p>
-                    <p>{checkoutAddress?.subDistrict}</p>
-                    <p>{checkoutAddress?.district}</p>
-                    <p>{checkoutAddress?.province}</p>
-                    <p>{checkoutAddress?.postcode}</p>
+                    <div>{checkoutAddress}</div>
                   </div>
                 </div>
               </div>
