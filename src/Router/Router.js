@@ -58,6 +58,7 @@ function Router() {
         <Route path='/cart' element={<CartPage />} />
         <Route path='/cart/checkout' element={<CheckoutPage />} />
         <Route path='/order/:order' element={<ClientOrderPage />} />
+        <Route path='*' element={<Navigate to='/'></Navigate>} />
       </Route>
 
       <>
@@ -125,7 +126,6 @@ function Router() {
           </>
         )}
       </>
-      <Route path='*' element={<Navigate to='/'></Navigate>} />
     </Routes>
   );
 }

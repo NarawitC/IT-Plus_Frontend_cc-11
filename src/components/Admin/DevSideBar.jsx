@@ -4,6 +4,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { useAdminContext } from '../../contexts/Admin/AdminContext';
 import { useState } from 'react';
 import { MdOutlineDarkMode } from 'react-icons/md';
+import { CareateSubcat } from '../../apis/admin/adminUserAPI';
 
 function DevSideBar({ children, setDarkonDark }) {
   const { signOut } = useAdminContext();
@@ -42,6 +43,8 @@ function DevSideBar({ children, setDarkonDark }) {
         <button
           className='btn  btn-active cursor-pointer '
           onClick={() => {
+            // CareateSubcat();
+
             setDarkonDark((prev) => !prev);
           }}
         >
