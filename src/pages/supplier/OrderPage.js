@@ -1,24 +1,16 @@
 import { TbTruckDelivery } from 'react-icons/tb';
 import { GiEmptyMetalBucket } from 'react-icons/gi';
 import { useState, useEffect, useRef } from 'react';
-import { ShippingOrderStatusContext } from '../../contexts/Supplier/ShippingOrderStatusContext';
 import { useContext } from 'react';
 import { CgFileDocument } from 'react-icons/cg';
 import { RiTodoLine } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
 import { MdOutlineCancel } from 'react-icons/md';
 import { OrderContext } from '../../contexts/Supplier/OrderContext';
 import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
-import {
-  createShippingOrder,
-  updateStatusToClient,
-  updateStatusToDelivered,
-} from '../../apis/supplier/supplierShippingOrder';
-import { FaRoad } from 'react-icons/fa';
 import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
-import { checkStatusOrder } from '../../services/checkstatusOrder';
+// import { checkStatusOrder } from '../../services/checkstatusOrder';
 import { FcCheckmark } from 'react-icons/fc';
 import AddTrackingIdRow from '../../components/supplier/form/AddTrackingIdRow';
 import TrackingIdButton from '../../components/supplier/form/TrackingIdButton';
@@ -143,7 +135,7 @@ function OrderPage() {
         //     return elIn.firstName.replace(/\s/g, '').toLowerCase().includes(el);
         //   });
         const resultArrByName = orders.filter((elIn, idx) => {
-          return elIn.Client.User.firstName
+          return elIn.Client?.User?.firstName
             .trim()
             .replace(/\s/g, '')
             .toLowerCase()

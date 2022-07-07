@@ -71,3 +71,4 @@ const useAdminContext = () => {
   return ctx;
 };
 export { useAdminContext };
+export { AdminContext };

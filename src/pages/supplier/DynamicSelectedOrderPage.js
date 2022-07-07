@@ -13,9 +13,13 @@ import { useContext, useEffect, useState } from 'react';
 import { getAllOrdersBySupplierId } from '../../apis/supplier/supplierOrder';
 import { useParams } from 'react-router-dom';
 import defaultPic from '../../pictures/defaultPic.png';
+import { AdminContext } from '../../contexts/Admin/AdminContext';
+import axios from '../../config/axios';
 function DynamicSelectedOrderPage() {
   const { orders, setOrders } = useContext(OrderContext);
   // console.log(orders);
+  const { admin } = useContext(AdminContext);
+
   const params = useParams();
   // console.log(params);
   const navigate = useNavigate();
@@ -58,14 +62,26 @@ function DynamicSelectedOrderPage() {
   useEffect(() => {
     const handleGetSelectedOrder = async () => {
       try {
-        const res = await getAllOrdersBySupplierId();
-        // console.log(res.data);
-        setOrders(res.data.orders);
-        const selectedOrder = res.data.orders.find(
-          (el) => +el.id === +params.orderId
-        );
-        if (selectedOrder) {
-          setSelectedOrderObj(selectedOrder);
+        if (admin) {
+          const res = await axios.get('/admin/order');
+          console.log(res.data);
+          setOrders(res.data.orders);
+          const selectedOrder = res.data.orders.find(
+            (el) => +el.id === +params.orderId
+          );
+          if (selectedOrder) {
+            setSelectedOrderObj(selectedOrder);
+          }
+        } else {
+          const res = await getAllOrdersBySupplierId();
+          // console.log(res.data);
+          setOrders(res.data.orders);
+          const selectedOrder = res.data.orders.find(
+            (el) => +el.id === +params.orderId
+          );
+          if (selectedOrder) {
+            setSelectedOrderObj(selectedOrder);
+          }
         }
       } catch (error) {
         console.log(error);
@@ -78,7 +94,7 @@ function DynamicSelectedOrderPage() {
   console.log(selectedOrderObj);
 
   let sum = 0;
-  selectedOrderObj.OrderItems.forEach((el) => {
+  selectedOrderObj?.OrderItems.forEach((el) => {
     sum = sum + +el.Product.price * +el.quantity;
     // console.log(sum);
   });
@@ -95,7 +111,7 @@ function DynamicSelectedOrderPage() {
             <div>
               <h className='text-3xl pl-4 text-black '>หมายเลขคำสั่งซื้อ</h>
               <p className='text-2xl pl-4 text-gray-600'>
-                {+selectedOrderObj.id || 0}
+                {+selectedOrderObj?.id || 0}
               </p>
             </div>
           </div>
@@ -107,7 +123,7 @@ function DynamicSelectedOrderPage() {
             <div>
               <h className='text-3xl pl-4 text-black '>ที่อยู่ในการจัดส่ง</h>
               <p className='text-2xl pl-4 text-gray-600 w-[680px] '>
-                {selectedOrderObj.deliveryAddress || ''}
+                {selectedOrderObj?.deliveryAddress || ''}
               </p>
             </div>
           </div>
@@ -138,9 +154,7 @@ function DynamicSelectedOrderPage() {
             <div className='flex flex-col'>
               <h className='text-3xl pl-4 text-black '>สถานะการจัดส่ง</h>
               <p className='text-2xl pl-4 text-gray-600'>
-                {' '}
-                {selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status ||
-                  'TO_SHIPPING_COMPANY'}
+                {selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status || '-'}
               </p>
             </div>
           </div>
@@ -152,8 +166,7 @@ function DynamicSelectedOrderPage() {
           <div className='flex gap-3'>
             <h1 className='text-gray-600'>สถานะการจัดส่งสินค้า : </h1>
             <h1 className='text-yellow-500'>
-              {selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status ||
-                'TO_SHIPPING_COMPANY'}
+              {selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status || '-'}
             </h1>
           </div>
         </div>
@@ -162,8 +175,7 @@ function DynamicSelectedOrderPage() {
           <button className='' type='button'>
             <StatusButton
               status={
-                selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status ||
-                'TO_SHIPPING_COMPANY'
+                selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status || '-'
               }
               option={'TO_SHIPPING_COMPANY'}
             />
@@ -174,8 +186,7 @@ function DynamicSelectedOrderPage() {
           <button className='' type='button'>
             <StatusButton
               status={
-                selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status ||
-                'TO_SHIPPING_COMPANY'
+                selectedOrderObj?.PurchasedOrder?.ShippingOrder?.status || '-'
               }
               option={'TO_CLIENT'}
             />
@@ -208,14 +219,14 @@ function DynamicSelectedOrderPage() {
               <th className='text-center'>จำนวนเงิน</th>
             </tr>
           </thead>
-          <tbody className=''>
-            {selectedOrderObj.OrderItems.map((el, index) => {
+          <tbody>
+            {selectedOrderObj?.OrderItems.map((el, index) => {
               return (
                 <>
                   <tr
                     className='hover cursor-pointer border-b-2  '
                     onClick={() => {
-                      navigate(`/supplier/product/${el.Product.id}`);
+                      navigate(`/supplier/product/${el.Product?.id}`);
                     }}
                   >
                     <td className='text-center'>{index + 1}</td>
@@ -223,35 +234,36 @@ function DynamicSelectedOrderPage() {
                       <div className='flex items-center justify-center  '>
                         <img
                           className='object-contain h-16  '
-                          src={el.Product.mainPicture || defaultPic}
+                          src={el?.Product?.mainPicture || defaultPic}
                           alt='mainPic'
                         />
                       </div>
                     </td>
                     <td className=''>
                       <div className='font-bold  text-lg text-blue-900 '>
-                        {el.Product.brand || ''}
+                        {el?.Product?.brand || ''}
                       </div>
                       <div className='font-bold overflow-x-auto w-[380px] h-12 '>
-                        {el.Product.productName || ''}
+                        {el?.Product?.productName || ''}
                       </div>
                     </td>
                     <td>
                       <div className='flex justify-center'>
                         <p className='text-ghost font-bold '>
-                          {+el.quantity || 0}
+                          {+el?.quantity || 0}
                         </p>
                       </div>
                     </td>
                     <th>
                       <div className='flex justify-end'>
-                        <p className=''>{el.Product.price.toFixed(2) || 0}</p>
+                        <p className=''>{el?.Product?.price.toFixed(2) || 0}</p>
                       </div>
                     </th>
                     <th>
                       <div className='flex justify-end'>
                         <p className='text-center justify-end'>
-                          {(+el.quantity * +el.Product.price).toFixed(2) || 0}
+                          {(+el?.quantity * +el?.Product?.price).toFixed(2) ||
+                            0}
                         </p>
                       </div>
                     </th>
@@ -274,13 +286,13 @@ function DynamicSelectedOrderPage() {
             <div className='flex justify-between '>
               <p>ค่าขนส่ง</p>
               <div className='flex  font-bold pr-4'>
-                {selectedOrderObj.deliveryPrice.toFixed(2) || 0}
+                {selectedOrderObj?.deliveryPrice.toFixed(2) || 0}
               </div>
             </div>
             <div className='flex justify-between '>
               <p>รวม</p>
               <div className='flex font-bold pr-4 text-secondary '>
-                {(+selectedOrderObj.deliveryPrice + +netPrice).toFixed(2) || 0}
+                {(+selectedOrderObj?.deliveryPrice + +netPrice).toFixed(2) || 0}
               </div>
             </div>
           </div>

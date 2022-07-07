@@ -65,7 +65,7 @@ function Router() {
 
       <>
         <Route path='/supplier' element={<SupplierLayout />}>
-          {supplier && (
+          {(supplier ? 1 : 0 || admin ? 1 : 0) && (
             <>
               <Route path='' element={<DynamicOrderPage />} />
               <Route path='signup' element={<SupplierSignUpPage />} />
@@ -107,6 +107,11 @@ function Router() {
             <Route path='/admin' element={<DevLayout />}>
               <Route path='client' element={<AdminClientPage />} />
               <Route path='order' element={<AdminOrderPage />} />
+              <Route
+                path='order/:orderId'
+                element={<DynamicSelectedOrderPage />}
+              />
+
               <Route path='product' element={<AdminProductPage />} />
               <Route path='product/:productId' element={<ProductInfoPage />} />
               {/* <Route path='sign-in' element={<AdminSignInPage />} /> */}
