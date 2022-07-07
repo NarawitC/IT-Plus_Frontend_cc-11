@@ -1,7 +1,7 @@
 import axios from '../../config/axios';
 
-export const createShippingOrder = async (purchasedOrderId) => {
-  return axios.post(`/supplier/shipping-order/${purchasedOrderId}`);
+export const createShippingOrder = async (input) => {
+  return axios.post(`/supplier/shipping-order`, input);
 };
 
 export const updateStatusToClient = async (shippingOrderId, trackingId) => {

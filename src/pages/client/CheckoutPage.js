@@ -12,7 +12,7 @@ import OmisePaymentButton from '../../components/Client/order/payment/OmisePayme
 
 function CheckoutPage() {
   const { checkoutAddress } = useOrderContext();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [TotalPrice, setTotalPrice] = useState([]);
   const [Totalamount, setTotalamount] = useState(null);
   const [OrderArr, setOrderArr] = useState(null);
@@ -91,7 +91,9 @@ function CheckoutPage() {
     // console.log(OrderArr);
     // const res = await createOrderandOrderItems(dbcart, checkoutAddress);
   };
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <BreadCrumbsCart />
@@ -175,10 +177,13 @@ function CheckoutPage() {
             className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl text-white text-[24px] hover:from-blue-600 hover:to-blue-400'
             orders={OrderArr}
             totalPrice={TotalPrice}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
           >
             ชำระเงิน
           </OmisePaymentButton>
         </div>
+        {}
       </div>
     </div>
     // </div>
