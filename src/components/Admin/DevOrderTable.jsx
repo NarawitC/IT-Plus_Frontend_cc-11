@@ -149,7 +149,7 @@ function DevOrderTable() {
         </div>
       </div> */}
       <>
-        <div className='h-auto'>
+        <div className='h-auto pl-44'>
           <div className='flex items-center '>
             {<CgFileDocument size={45} />}
             <h className='text-4xl pl-4 '>คำสั่งซื้อทั้งหมด</h>
