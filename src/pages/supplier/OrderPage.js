@@ -22,6 +22,8 @@ import { checkStatusOrder } from '../../services/checkstatusOrder';
 import { FcCheckmark } from 'react-icons/fc';
 import AddTrackingIdRow from '../../components/supplier/form/AddTrackingIdRow';
 import TrackingIdButton from '../../components/supplier/form/TrackingIdButton';
+import { BiListCheck } from 'react-icons/bi';
+import { TbHourglassEmpty } from 'react-icons/tb';
 // const mockArr = [
 //   {
 //     firstName: 'Panit Su',
@@ -65,6 +67,7 @@ import TrackingIdButton from '../../components/supplier/form/TrackingIdButton';
 //   },
 // ];
 function OrderPage() {
+  const [countOrder, setCountOrder] = useState(0);
   const [isEditTrackingId, setIsEditTrackingId] = useState(false);
   const { orders, setOrders } = useContext(OrderContext);
   console.log(orders);
@@ -112,6 +115,7 @@ function OrderPage() {
       const res = await getAllOrdersBySupplierId();
       console.log(res.data);
       setOrders(res.data.orders);
+      setCountOrder(orders.length);
       // setOrders(mockArr);
       setShippingDetails(res.data.orders);
       // setShippingDetails(mockArr);
@@ -269,7 +273,9 @@ function OrderPage() {
               {filterByStatusNo('PENDING')}
             </div>
           </div>
-          <div className=' text-secondary '>{<RiTodoLine size={45} />}</div>
+          <div className=' text-secondary '>
+            {<TbHourglassEmpty size={45} />}
+          </div>
         </button>
         <button
           onClick={() => {
@@ -309,7 +315,7 @@ function OrderPage() {
         >
           <div>
             <div className='stat-title'>กำลังส่ง</div>
-            <div className='stat-value'>
+            <div className='stat-value text-accent'>
               {getAllShippingStatusIsToClientOrdersNumber('TO_CLIENT')}
             </div>
           </div>
@@ -328,7 +334,7 @@ function OrderPage() {
         >
           <div>
             <div className='stat-title'>สินค้าหมด</div>
-            <div className='stat-value'>{filterByStockIsZero()}</div>
+            <div className='stat-value text-info'>{filterByStockIsZero()}</div>
           </div>
           <div className='stat-figure text-info'>
             {<GiEmptyMetalBucket size={45} />}
@@ -336,10 +342,30 @@ function OrderPage() {
         </button>
       </div>
       <br />
+      <button
+        onClick={() => {
+          setSearchBy('');
+          setOrderSearchTerm('');
+          handleGetAllOrdersBySupplierId();
+        }}
+        type='button'
+        className=' stat border-2 rounded-3xl hover:border-primary flex justify-between'
+      >
+        <div>
+          <div className='stat-title'>ออเดอร์ทั้งหมด</div>
+          <div className='stat-value  pr-10 text-primary '>{countOrder}</div>
+        </div>
+        <div className='stat-figure text-secondary '>
+          <div className='stat-figure text-primary   '>
+            {<RiTodoLine size={45} />}
+          </div>
+        </div>
+      </button>
+      <br />
       <br />
       <>
         <div className='h-auto'>
-          <div className='flex items-center '>
+          <div className='flex items-center  '>
             {<CgFileDocument size={45} />}
             <h className='text-4xl pl-4 '>คำสั่งซื้อทั้งหมด</h>
           </div>
