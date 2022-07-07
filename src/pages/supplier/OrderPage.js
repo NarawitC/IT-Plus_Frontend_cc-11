@@ -248,6 +248,11 @@ function OrderPage() {
   };
   getAllShippingStatusIsToClientOrdersNumber(orderSearchTerm);
 
+  const countAllOrderNo = () => {
+    return orders.length;
+  };
+  countAllOrderNo();
+
   // const filterByUserId = (userId) => {};
   // const filterByStatus = (status) => {};
 
@@ -353,7 +358,9 @@ function OrderPage() {
       >
         <div>
           <div className='stat-title'>ออเดอร์ทั้งหมด</div>
-          <div className='stat-value  pr-10 text-primary '>{countOrder}</div>
+          <div className='stat-value  pr-10 text-primary '>
+            {countAllOrderNo()}
+          </div>
         </div>
         <div className='stat-figure text-secondary '>
           <div className='stat-figure text-primary   '>
