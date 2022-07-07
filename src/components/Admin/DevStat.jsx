@@ -49,7 +49,7 @@ function DevStat() {
   }, []);
   return (
     <div className='w-full flex justify-center items-center flex-col gap-6 '>
-      <div className='stats shadow mt-6'>
+      {/* <div className='stats shadow mt-6'>
         <div className='stat'>
           <div className='stat-figure text-secondary'>
             <svg
@@ -116,7 +116,7 @@ function DevStat() {
           </div>
           <div className='stat-desc'>THB</div>
         </div>
-      </div>
+      </div> */}
       {/* STEP */}
     </div>
   );

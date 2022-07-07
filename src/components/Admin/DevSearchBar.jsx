@@ -32,7 +32,7 @@ function DevSearchBar() {
       data-theme='cupcake'
       className='flex justify-center items-center flex-row gap-5 '
     >
-      <input
+      {/* <input
         value={searchValue}
         placeholder={`${dynamicPlaceholder()}`}
         className='input input-bordered w-full max-w-xs'
@@ -45,7 +45,7 @@ function DevSearchBar() {
       >
         Find
         <BsSearch />
-      </button>
+      </button> */}
     </div>
   );
 }
