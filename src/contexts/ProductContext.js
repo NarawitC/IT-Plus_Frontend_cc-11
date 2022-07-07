@@ -307,7 +307,7 @@ function ProductfilterContextProvider({ children }) {
         totalPage,
         setPage,
         page,
-
+        getAllproduct,
         categorySelectd,
         setcategorySelectd,
 
