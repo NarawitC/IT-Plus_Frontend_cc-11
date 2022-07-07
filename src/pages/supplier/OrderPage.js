@@ -126,10 +126,17 @@ function OrderPage() {
   useEffect(() => {
     if (searchBy === 'id') {
       const filterByOrderId = (searchTerm) => {
-        const resultArrByOrderId = orders.filter((el) =>
-          String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
-        );
-        setShippingDetails(resultArrByOrderId);
+        if (searchTerm.length === 1) {
+          const resultArrByOrderId = orders.filter(
+            (el) => String(el.id) === searchTerm.trim().replace(/\s/g, '')
+          );
+          setShippingDetails(resultArrByOrderId);
+        } else {
+          const resultArrByOrderId = orders.filter((el) =>
+            String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
+          );
+          setShippingDetails(resultArrByOrderId);
+        }
       };
       filterByOrderId(orderSearchTerm);
     }
