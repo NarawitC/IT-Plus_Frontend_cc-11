@@ -418,6 +418,7 @@ function SupplierSignUpForm() {
             Sign Up
           </SubmitButtonYup>
         </div>
+        {/* <div className='btn '>wtf</div> */}
       </FormYup>
     </div>
   );

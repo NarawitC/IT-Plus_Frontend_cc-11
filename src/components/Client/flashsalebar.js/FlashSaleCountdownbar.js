@@ -19,8 +19,11 @@ function FlashSaleCountdownbar() {
       // setIsLoading(true);
       // SetcountdownStrbydate(1);
       const onlyPros = await product?.filter((el) => el.Promotions.length > 0);
-      setFlashsaleProducts(onlyPros);
-      console.log(onlyPros);
+      if (onlyPros.length > 0) {
+        setFlashsaleProducts(onlyPros);
+        console.log(onlyPros);
+      } else {
+      }
       // console.log('onlyPros');
       // setIsLoading(false);
     };

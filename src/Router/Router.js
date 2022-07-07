@@ -42,10 +42,8 @@ import DynamicEditSelectedProductPage from '../pages/supplier/DynamicEditSelecte
 function Router() {
   const { admin } = useAdminContext();
   const { supplier } = useSupplierContext();
-  // console.log(admin);
   return (
     <Routes>
-      {/* todo wait for modify route */}
       <Route path='/' element={<Clientlayout />}>
         <Route path='' element={<Landingpage />} />
         <Route
@@ -54,13 +52,12 @@ function Router() {
         />
         <Route path='/product' element={<ClientDynamicProductPage />} />
         <Route path='/product/:productId' element={<ProductInfoPage />} />
+        <Route path='/shop/:subplierId' element={<ProductByBrand />} />
         <Route path='/my-accout' element={<ClientProfilePage />} />
         <Route path='/order-history' element={<SaleOrderPage />} />
         <Route path='/cart' element={<CartPage />} />
         <Route path='/cart/checkout' element={<CheckoutPage />} />
         <Route path='/order/:order' element={<ClientOrderPage />} />
-
-        <Route path='/shop/:subplierId' element={<ProductByBrand />} />
       </Route>
 
       <>
@@ -128,6 +125,7 @@ function Router() {
           </>
         )}
       </>
+      <Route path='*' element={<Navigate to='/'></Navigate>} />
     </Routes>
   );
 }
