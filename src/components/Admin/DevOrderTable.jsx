@@ -25,7 +25,7 @@ function DevOrderTable() {
         const res = await axios.get('/admin/order');
         const orderList = res.data.orders;
 
-        // console.log(res.data);
+        console.log(res.data.orders);
         setInitialAllOrderFilter(orderList);
         setAllOrder(orderList);
 
@@ -132,7 +132,7 @@ function DevOrderTable() {
                   value={searchBy}
                 >
                   <option value='id'>หมายเลขคำสั่งซื้อ</option>
-                  <option value='firstName'>ชื่อลูกค้า</option>
+                  <option value='firstName'>ชื่อร้านค้า</option>
                   <option value='status'>สถานะการจัดส่ง</option>
                   <option value='paymentStatus'>สถานะการชำระเงิน</option>
                 </select>
@@ -203,7 +203,7 @@ function DevOrderTable() {
               <tr className=''>
                 <th className=''>ลำดับ</th>
                 <th className='text-center'>วันที่</th>
-                <th className=''>ชื่อลูกค้า</th>
+                <th className=''>ชื่อร้านค้า</th>
                 <th className='flex justify-center'>หมายเลขคำสั่งซื้อ</th>
                 <th className='text-end'>ยอดคำสั่งซื้อ</th>
                 <th className='text-center'>สถานะการชำระเงิน</th>
@@ -230,7 +230,8 @@ function DevOrderTable() {
                           <div class='flex items-center space-x-3'>
                             <div className='flex w-[40px] justify-center'>
                               <div class='font-bold'>
-                                {el.Client.User.firstName || ''}
+                                {/* {el.Client?.User?.firstName || ''} */}
+                                {el.supplierId || ''}
                               </div>
                             </div>
                           </div>
