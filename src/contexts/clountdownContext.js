@@ -88,7 +88,7 @@ function CountdownContextProvider({ children }) {
     // setHrs(diffHrs);
     // setMins(diffMin);
     // setSecs(diffSec);
-    let fDay = days;
+    let fDay = Math.round(days);
     let fHour = 0;
     if (days <= 1) {
       setDays(0);

@@ -9,6 +9,7 @@ import { dateFormat } from '../../../services/dateFormat';
 import { faBuildingCircleXmark } from '@fortawesome/free-solid-svg-icons';
 function FlashSaleCountdownbar() {
   const [FlashsaleProducts, setFlashsaleProducts] = useState([]);
+  // console.log()
   const { SetcountdownStrbydate, Days, Hrs, Mins, Secs, SetcountdownStrbystr } =
     useCountdown();
   const { product } = useProductfilter();
@@ -20,7 +21,7 @@ function FlashSaleCountdownbar() {
       // SetcountdownStrbydate(1);
       const onlyPros = await product?.filter((el) => el.Promotions.length > 0);
       setFlashsaleProducts(onlyPros);
-      // console.log(onlyPros);
+      console.log(onlyPros);
       // console.log('onlyPros');
       // setIsLoading(false);
     };
