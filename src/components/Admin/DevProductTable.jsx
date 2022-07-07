@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEye } from 'react-icons/fa';
 import { useAdminSearchContext } from '../../contexts/Admin/AdminSearchContext';
+import { localsting } from '../../services/LocalstringComma';
 
 function DevProductTable() {
   const [AllProduct, setAllProduct] = useState();
@@ -74,7 +75,7 @@ function DevProductTable() {
                   {el.productName}
                   <span className='badge badge-ghost badge-sm'>{el.brand}</span>
                 </td>
-                <td>{el.price}</td>
+                <td>{localsting(el.price)}</td>
                 <td>{el.stock}</td>
                 <td>{el.supplierId}</td>
                 <td>{el.status}</td>

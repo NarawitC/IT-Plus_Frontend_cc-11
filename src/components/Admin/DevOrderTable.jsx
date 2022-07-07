@@ -14,6 +14,7 @@ import { FcCheckmark } from 'react-icons/fc';
 import Searchbar from '../Client/layout/Header/Searchbar/Searchbar';
 import { MdOutlinePaid } from 'react-icons/md';
 import { BiDetail } from 'react-icons/bi';
+import { localsting } from '../../services/LocalstringComma';
 function DevOrderTable() {
   const [AllOrder, setAllOrder] = useState([]);
   const [initialAllOrderFilter, setInitialAllOrderFilter] = useState([]);
@@ -384,7 +385,7 @@ function DevOrderTable() {
                         </td>
                         <th>
                           <p className='flex justify-end '>
-                            {el.productPrice.toFixed(2)}
+                            {localsting(el.productPrice)}
                           </p>
                         </th>
                         <th>

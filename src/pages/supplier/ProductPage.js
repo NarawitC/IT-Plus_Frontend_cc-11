@@ -14,6 +14,7 @@ import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
 import defaultPic from '../../pictures/defaultPic.png';
 import { useSearchParams } from 'react-router-dom';
 import { GiEskimo } from 'react-icons/gi';
+import { localsting } from '../../services/LocalstringComma';
 
 // const mockArr = [
 //   {
@@ -322,7 +323,7 @@ function ProductPage() {
                         </td>
                         <td>
                           <div className='flex justify-end font-bold'>
-                            <p className=''>{el.price.toFixed(2)}</p>
+                            <p className=''>{localsting(el?.price)}</p>
                           </div>
                         </td>
                         <td>
