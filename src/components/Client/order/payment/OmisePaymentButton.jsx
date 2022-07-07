@@ -5,10 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../../../contexts/Client/AuthCcontexts';
 import { createShippingOrder } from '../../../../apis/supplier/supplierShippingOrder';
 import { localsting } from '../../../../services/LocalstringComma';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useErrorContext } from '../../../../contexts/ErrorContext';
 
-function OmisePaymentButton({ className, orders, totalPrice }) {
+function OmisePaymentButton({
+  className,
+  orders,
+  totalPrice,
+  setIsLoading,
+}) {
   const { setError } = useErrorContext();
   const formElement = useRef();
   const displayName = 'IT Plus';
@@ -21,6 +26,7 @@ function OmisePaymentButton({ className, orders, totalPrice }) {
   });
   const omiseCard = window.OmiseCard;
   const handleClickCheckoutButton = (e) => {
+    setIsLoading(true);
     e.preventDefault();
     omiseCard.configure({
       publicKey: OMISE_PUBLIC_KEY,
@@ -62,9 +68,11 @@ function OmisePaymentButton({ className, orders, totalPrice }) {
           purchasedOrders.forEach((purchasedOrder) => {
             purchasedOrderIds.push({ purchasedOrderId: purchasedOrder.id });
           });
+
           await createShippingOrder({ purchasedOrderIds });
           alert(`Payment successful, order id: ${orderIds.join(', ')}`);
-          navigate('/');
+          navigate('/product');
+          setIsLoading(false);
         }
       },
       onFormClosed: () => {},
