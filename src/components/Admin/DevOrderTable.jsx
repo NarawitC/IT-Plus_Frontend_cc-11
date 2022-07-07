@@ -12,38 +12,41 @@ import { useNavigate } from 'react-router-dom';
 import { MdOutlineCancel } from 'react-icons/md';
 import { FcCheckmark } from 'react-icons/fc';
 import Searchbar from '../Client/layout/Header/Searchbar/Searchbar';
-
+import { MdOutlinePaid } from 'react-icons/md';
 function DevOrderTable() {
   const [AllOrder, setAllOrder] = useState([]);
   const [initialAllOrderFilter, setInitialAllOrderFilter] = useState([]);
   const { orderId } = useAdminSearchContext();
   const [searchBy, setSearchBy] = useState('orderId');
   const [orderSearchTerm, setOrderSearchTerm] = useState('');
+  const [noOrder, setNoOrder] = useState(0);
   const navigate = useNavigate();
+
+  const fetchOrder = async () => {
+    try {
+      const res = await axios.get('/admin/order');
+      const orderList = res.data.orders;
+
+      console.log(res.data.orders);
+      setInitialAllOrderFilter(orderList);
+      setAllOrder(orderList);
+      setNoOrder(orderList.length);
+
+      // if (+orderId) {
+      //   const order = orderList.find((el) => el.id === +orderId);
+      //   if (order) {
+      //     setAllOrder([order]);
+      //   }
+      // } else {
+      //   setAllOrder(orderList);
+      // }
+    } catch (e) {
+      console.log(e.response.data);
+    }
+  };
   useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const res = await axios.get('/admin/order');
-        const orderList = res.data.orders;
-
-        console.log(res.data.orders);
-        setInitialAllOrderFilter(orderList);
-        setAllOrder(orderList);
-
-        // if (+orderId) {
-        //   const order = orderList.find((el) => el.id === +orderId);
-        //   if (order) {
-        //     setAllOrder([order]);
-        //   }
-        // } else {
-        //   setAllOrder(orderList);
-        // }
-      } catch (e) {
-        console.log(e.response.data);
-      }
-    };
     fetchOrder();
-  }, [orderId, searchBy]);
+  }, [orderId]);
   // console.log(AllOrder);
 
   useEffect(() => {
@@ -96,6 +99,35 @@ function DevOrderTable() {
       filterByShippingStatus(orderSearchTerm);
     }
   }, [orderSearchTerm, searchBy]);
+
+  const filterByStatusNo = (searchTerm) => {
+    if (searchTerm === 'CONFIRMED') {
+      const resultArrByPaymentStatus = initialAllOrderFilter.filter(
+        (el) => el?.PurchasedOrder !== null
+      );
+      return resultArrByPaymentStatus.length;
+    }
+  };
+
+  const getTodoOrdersNo = () => {
+    const resultArrGetTodoOrders = initialAllOrderFilter.filter(
+      (el) =>
+        el?.PurchasedOrder !== null ||
+        el.PurchasedOrder?.ShippingOrder?.trackingId === null
+    );
+    return resultArrGetTodoOrders.length;
+  };
+
+  const getAllShippingStatusIsDeliveredOrdersNumber = (searchTerm) => {
+    const resultArrByStatus = initialAllOrderFilter.filter((el) =>
+      // el?.status
+      el.PurchasedOrder?.ShippingOrder?.status.includes(
+        searchTerm.trim().replace(/\s/g, '')
+      )
+    );
+    return resultArrByStatus.length;
+  };
+  getAllShippingStatusIsDeliveredOrdersNumber(orderSearchTerm);
   return (
     <>
       {/* <div>
@@ -149,6 +181,66 @@ function DevOrderTable() {
         </div>
       </div> */}
       <>
+        <div className=' grid grid-cols-3 gap-10 px-32'>
+          <button
+            onClick={() => {
+              setSearchBy('paymentStatus');
+              setOrderSearchTerm('CONFIRMED');
+            }}
+            type='button'
+            className='stat flex justify-between items-center border-2 rounded-3xl hover:border-secondary '
+          >
+            <div className=''>
+              <div className='stat-title'>ชำระแล้ว</div>
+              <div className='stat-value text-secondary'>
+                {filterByStatusNo('CONFIRMED')}
+              </div>
+            </div>
+            <div className=' text-secondary '>
+              {<MdOutlinePaid size={45} />}
+            </div>
+          </button>
+          <button
+            onClick={() => {
+              fetchOrder();
+              // setSearchBy('paymentStatus');
+              // setOrderSearchTerm('CONFIRMED');
+              // setHasTracking((hasTracking) => !hasTracking);
+            }}
+            type='button'
+            className='stat  border-2 rounded-3xl hover:border-warning flex justify-between items-center'
+          >
+            <div className='w-[69px]'>
+              <div className='stat-title'>ออเดอร์ทั้งหมด</div>
+              <div className='stat-value text-warning'>{noOrder}</div>
+            </div>
+            <div className='text-warning flex items-center'>
+              {<RiTodoLine size={45} />}
+            </div>
+          </button>
+          <button
+            onClick={() => {
+              setSearchBy('status');
+              setOrderSearchTerm('DELIVERED');
+            }}
+            type='button'
+            className=' stat border-2 rounded-3xl hover:border-accent flex justify-between'
+          >
+            <div>
+              <div className='stat-title'>ส่งเสร็จสิ้น</div>
+              <div className='stat-value'>
+                {getAllShippingStatusIsDeliveredOrdersNumber('DELIVERED')}
+              </div>
+            </div>
+            <div className='stat-figure text-secondary '>
+              <div className='stat-figure text-accent   '>
+                {<TbTruckDelivery size={45} />}
+              </div>
+            </div>
+          </button>
+        </div>
+        <br />
+        <br />
         <div className='h-auto pl-44'>
           <div className='flex items-center '>
             {<CgFileDocument size={45} />}
@@ -280,7 +372,7 @@ function DevOrderTable() {
                           <div
                             className='flex space-x-3 justify-center items-center font-bold'
                             onClick={() => {
-                              navigate(`/supplier/order/${el.id}`);
+                              navigate(`/admin/order/${el.id}`);
                             }}
                           >
                             <p className='cursor-pointer border-2 hover:border-primary w-[90px] rounded-lg text-center p-2 h-14 flex items-center justify-center bg-white '>
