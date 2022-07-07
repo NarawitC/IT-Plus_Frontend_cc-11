@@ -11,6 +11,7 @@ import { RiTodoLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineCancel } from 'react-icons/md';
 import { FcCheckmark } from 'react-icons/fc';
+import Searchbar from '../Client/layout/Header/Searchbar/Searchbar';
 
 function DevOrderTable() {
   const [AllOrder, setAllOrder] = useState([]);
@@ -42,20 +43,59 @@ function DevOrderTable() {
       }
     };
     fetchOrder();
-  }, [orderId]);
+  }, [orderId, searchBy]);
   // console.log(AllOrder);
 
   useEffect(() => {
     if (searchBy === 'orderId') {
       const filterByOrderId = (searchTerm) => {
-        const resultArrByOrderId = initialAllOrderFilter.filter((el) =>
-          String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
-        );
-        setAllOrder(resultArrByOrderId);
+        if (searchTerm.length === 1) {
+          const resultArrByOrderId = initialAllOrderFilter.filter(
+            (el) => String(el.id) === searchTerm.trim().replace(/\s/g, '')
+          );
+          setAllOrder(resultArrByOrderId);
+        } else {
+          const resultArrByOrderId = initialAllOrderFilter.filter((el) =>
+            String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
+          );
+          setAllOrder(resultArrByOrderId);
+        }
       };
       filterByOrderId(orderSearchTerm);
     }
-  }, []);
+    if (searchBy === 'paymentStatus') {
+      const filterByPaymentStatus = (searchTerm) => {
+        if (searchTerm === 'PENDING') {
+          const resultArrByPaymentStatus = initialAllOrderFilter.filter(
+            (el) => el?.PurchasedOrder === null
+          );
+          console.log(resultArrByPaymentStatus);
+          setAllOrder(resultArrByPaymentStatus);
+        }
+        if (searchTerm === 'CONFIRMED') {
+          const resultArrByPaymentStatus = initialAllOrderFilter.filter(
+            (el) => el?.PurchasedOrder !== null
+          );
+          console.log(resultArrByPaymentStatus);
+          setAllOrder(resultArrByPaymentStatus);
+        }
+      };
+      filterByPaymentStatus(orderSearchTerm);
+    }
+    if (searchBy === 'status') {
+      console.log('555555555');
+      const filterByShippingStatus = (searchTerm) => {
+        console.log(searchTerm.trim().replace(/\s/g, ''));
+        const resultArrByStatus = initialAllOrderFilter.filter(
+          (el) =>
+            // el?.status
+            el.PurchasedOrder?.ShippingOrder?.status === searchTerm
+        );
+        setAllOrder(resultArrByStatus);
+      };
+      filterByShippingStatus(orderSearchTerm);
+    }
+  }, [orderSearchTerm, searchBy]);
   return (
     <>
       {/* <div>
@@ -131,7 +171,7 @@ function DevOrderTable() {
                   }}
                   value={searchBy}
                 >
-                  <option value='id'>หมายเลขคำสั่งซื้อ</option>
+                  <option value='orderId'>หมายเลขคำสั่งซื้อ</option>
                   <option value='firstName'>ชื่อร้านค้า</option>
                   <option value='status'>สถานะการจัดส่ง</option>
                   <option value='paymentStatus'>สถานะการชำระเงิน</option>
@@ -143,15 +183,15 @@ function DevOrderTable() {
                     <select
                       type='text'
                       onChange={(event) => {
+                        console.log(event.target.value);
                         setOrderSearchTerm(event.target.value);
                       }}
                       value={orderSearchTerm}
                       className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
                     >
-                      {/* <option value=''>กรุณาเลือกสถานะการจัดส่ง</option> */}
-                      <option value='TO_SHIPPING_COMPANY'>ต้องส่ง</option>
+                      <option value=''>กรุณาเลือกสถานะการจัดส่ง</option>
                       <option value='TO_CLIENT'>กำลังส่ง</option>
-                      <option value='COMPLETED'>ส่งเสร็จสิ้น</option>
+                      <option value='DELIVERED'>ส่งเสร็จสิ้น</option>
                     </select>
                   </>
                 ) : (
