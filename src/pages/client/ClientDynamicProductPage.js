@@ -10,9 +10,6 @@ function ClientDynamicProductPage() {
   const navigate = useNavigate();
   const { categorySelectd } = useProductfilter();
 
-  useEffect(() => {
-    console.log(categorySelectd);
-  }, []);
   const { product, totalPage, page, setPage, searchParams } =
     useProductfilter();
   const totalPageArr = [];

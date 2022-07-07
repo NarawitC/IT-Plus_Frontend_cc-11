@@ -5,7 +5,6 @@ const ErrorContext = createContext();
 function ErrorContextProvider({ children }) {
   const [error, setError] = useState(null);
   const [trigger, setTrigger] = useState(false);
-  console.log(error);
   return (
     <ErrorContext.Provider value={{ error, setError, trigger, setTrigger }}>
       {children}
