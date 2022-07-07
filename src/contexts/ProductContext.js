@@ -31,11 +31,10 @@ function ProductfilterContextProvider({ children }) {
   const [productquery, setProductquery] = useState(null);
   const [totalPage, setTotalPage] = useState(null);
   const [page, setPage] = useState(1);
-
   const [searchParams, setSearchParams] = useState({});
-
   const [categorySelectd, setcategorySelectd] = useState(null);
   const location = useLocation();
+
   useEffect(() => {
     const sumPrice = () => {
       if (tempCarts?.length > 0) {
@@ -75,6 +74,10 @@ function ProductfilterContextProvider({ children }) {
       PriceRangeFiler(priceRange);
     }
   }, [priceRange, searchParams]);
+
+  useEffect(() => {
+    setSearchParams((prev) => ({ ...prev, page: page }));
+  }, [page]);
   const PriceRangeFiler = async (productRange) => {
     // console.log('first');
     const res = await getAllproduct();

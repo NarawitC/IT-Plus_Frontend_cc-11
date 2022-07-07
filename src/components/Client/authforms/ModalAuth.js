@@ -11,13 +11,7 @@ import CSignin from './signin';
 import axios from 'axios';
 import { setAccessToken } from '../../../services/localStorage';
 import { useAuthContext } from '../../../contexts/Client/AuthCcontexts';
-import { CareateSubcat } from '../../../apis/admin/adminUserAPI';
-// import {
-//   initFacebookSdk,
-//   jwtInterceptor,
-//   errorInterceptor,
-//   history,
-// } from '../../../services/FacebookSdk';
+import { getUserInfo } from '../../../apis/client/client';
 
 function ModalAny({ inputEmodal }) {
   const { user, setUser } = useAuthContext();
@@ -66,8 +60,8 @@ function ModalAny({ inputEmodal }) {
       setAccessToken(token);
 
       document.getElementById('signInDiv').hiden = true;
-
-      setUser(login.data.user);
+      const resMe = await getUserInfo();
+      setUser(resMe.data.user);
       inputEmodal.current.click();
     } catch (err) {
       console.log(err);

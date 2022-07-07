@@ -1,6 +1,6 @@
 import AddProductForm from '../../components/supplier/form/AddProductForm';
 import { ReRenderContext } from '../../contexts/ReRenderContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import axios from '../../config/axios';
 import {
   createProduct,
@@ -9,6 +9,10 @@ import {
 
 function DynamicAddProductPage() {
   const { setReRender } = useContext(ReRenderContext);
+  const [isLoading, setIsLoading] = useState(false);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   const addNewProductSupplier = async ({
     productName,
@@ -25,6 +29,7 @@ function DynamicAddProductPage() {
     subPicture4,
     properties,
   }) => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.append('productName', productName);
     formData.append('description', description);
@@ -43,6 +48,7 @@ function DynamicAddProductPage() {
     console.log(res.data.product);
     await createProductPropertyByProductId(res.data.product.id, properties);
     setReRender((reRender) => !reRender);
+    setIsLoading(false);
   };
 
   return (

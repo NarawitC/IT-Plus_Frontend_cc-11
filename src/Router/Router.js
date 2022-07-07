@@ -45,7 +45,7 @@ function Router() {
   return (
     <Routes>
       <Route path='/' element={<Clientlayout />}>
-        <Route path='' element={<Landingpage />} />
+        <Route path='' element={<ClientDynamicProductPage />} />
         <Route
           path='/auth/facebook'
           element={<Navigate to='/auth/facebook'></Navigate>}
