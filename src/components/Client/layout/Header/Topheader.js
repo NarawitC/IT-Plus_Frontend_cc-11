@@ -16,6 +16,7 @@ function Topheader({ clicksidebar }) {
   const { setError } = useErrorContext();
   const { setSearchParams } = useProductfilter();
   const inputEmodal = useRef();
+  const inputProfileDrop = useRef();
 
   const navigate = useNavigate();
   const handleBacktohome = async () => {
@@ -30,11 +31,12 @@ function Topheader({ clicksidebar }) {
       <ModalAny inputEmodal={inputEmodal} />
       <Dragbutton clicksidebar={clicksidebar} />
       <div className='flex-1'>
-        <Link
+        <a
           className='mr-2 normal-case text-xl font-bold'
-          to={'/'}
           onClick={() => {
+            // console.log('click');
             handleBacktohome();
+            // inputProfileDrop.current.focus();
           }}
         >
           <div>
@@ -45,7 +47,7 @@ function Topheader({ clicksidebar }) {
             {/* <span className='text-primary'>IT </span>
             <span>Plus</span> */}
           </div>
-        </Link>
+        </a>
         <Searchbar />
         {!user ? (
           <>
@@ -77,7 +79,7 @@ function Topheader({ clicksidebar }) {
           </>
         ) : (
           <>
-            <Clientinfo />
+            <Clientinfo inputProfileDrop={inputProfileDrop} />
             <DynamicCartDropdown inputEmodal={inputEmodal} />
           </>
         )}

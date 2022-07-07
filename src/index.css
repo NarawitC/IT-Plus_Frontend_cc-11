@@ -55,13 +55,35 @@ body {
 .overflow-displayNone {
   overflow-x: scroll;
 }
+body::-webkit-scrollbar {
+  display: none;
+  display: none;
+}
 div::-webkit-scrollbar {
   display: none;
   display: none;
 }
 /* :overflow-y {
   display: none;
+
+  
+
 } */
+
+/* ///////////////animated */
+.shadow-drop-center {
+  -webkit-animation: shadow-drop-center 0.4s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: shadow-drop-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+/* flippp */
+.flip-diagonal-2-fwd {
+  -webkit-animation: flip-diagonal-2-fwd 0.4s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: flip-diagonal-2-fwd 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
+}
+/*  */
 .box {
   border: 1px solid black;
 }

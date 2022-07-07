@@ -1,14 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../../../contexts/Client/AuthCcontexts';
-
-function Clientinfo() {
+import { CgProfile } from 'react-icons/cg';
+function Clientinfo({ inputProfileDrop }) {
   const { signOut } = useAuthContext();
   return (
     <div className='dropdown dropdown-end'>
-      <label tabIndex='0' className='btn btn-ghost btn-circle avatar'>
-        <div className='w-10 rounded-full'>
-          <img src='https://api.lorem.space/image/face?hash=33791' />
+      <label
+        tabIndex='0'
+        className='btn btn-ghost btn-circle avatar '
+        ref={inputProfileDrop}
+      >
+        <div
+          className='w-10 rounded-full px-1 pt-1 flex justify-center items-center'
+          onMouseOver={() => {
+            inputProfileDrop.current.focus();
+          }}
+          onMouseLeave={() => {
+            // inputProfileDrop.current.click();
+          }}
+        >
+          <CgProfile size={30} />
+          {/* <img src='https://api.lorem.space/image/face?hash=33791' /> */}
         </div>
       </label>
       <ul
