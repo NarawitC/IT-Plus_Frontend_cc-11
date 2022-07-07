@@ -6,7 +6,7 @@ import { useProductfilter } from '../../../contexts/ProductContext';
 import SmPillButton from '../../commonUtils/SmPillButton';
 import DynamicClientProductCard from '../products/DynamicClientProductCard';
 import { dateFormat } from '../../../services/dateFormat';
-import { faBuildingCircleXmark } from '@fortawesome/free-solid-svg-icons';
+// import { faBuildingCircleXmark } from '@fortawesome/free-solid-svg-icons';
 function FlashSaleCountdownbar() {
   const [FlashsaleProducts, setFlashsaleProducts] = useState([]);
   // console.log()
