@@ -372,7 +372,7 @@ function DevOrderTable() {
                           <div
                             className='flex space-x-3 justify-center items-center font-bold'
                             onClick={() => {
-                              navigate(`/supplier/order/${el.id}`);
+                              navigate(`/admin/order/${el.id}`);
                             }}
                           >
                             <p className='cursor-pointer border-2 hover:border-primary w-[90px] rounded-lg text-center p-2 h-14 flex items-center justify-center bg-white '>
