@@ -55,10 +55,10 @@ function SaleOrderPage() {
       <div className='flex w-full justify-center text-font-Kanit  '>
         <div className='flex flex-col w-2/3 justify-center'>
           <div className=' mb-2  rounded-xl  mt-4   border-2'>
-            <h3 className='ml-2 p-2 sm:p-4 text-lg rounded-t-xl cursor-default font-medium bg-[#FAFAFA] mb-2 leading-6 text-gray-900'>
+            <h3 className=' p-2 sm:p-4 text-lg text-center rounded-t-xl cursor-default font-medium bg-[#FAFAFA] mb-2 leading-6 text-gray-900'>
               รายการคำสั่งซื้อ
             </h3>
-            <div className=' w-full flex flex-row bg-white'>
+            <div className=' w-full flex flex-row items-center justify-center bg-white'>
               <SmPillButton
                 className={'hover:text-blue-500'}
                 text='ทั้งหมด'
@@ -66,24 +66,28 @@ function SaleOrderPage() {
                   setCliOrderOpt(null);
                 }}
               />
+              <span className='text-sm cursor-default'>|</span>
               <SmPillButton
                 text='อยู่ในตระกร้า'
                 onClick={() => {
                   setCliOrderOpt(1);
                 }}
               />
+              <span className='text-sm cursor-default'>|</span>
               <SmPillButton
                 text='ชำระแล้ว'
                 onClick={() => {
                   setCliOrderOpt(2);
                 }}
               />
+              <span className='text-sm cursor-default'>|</span>
               <SmPillButton
-                text='กำลังจัดส่ง'
+                text='จัดส่งแล้ว'
                 onClick={() => {
                   setCliOrderOpt(3);
                 }}
               />
+              <span className='text-sm cursor-default'>|</span>
               <SmPillButton
                 text='เสร็จสิ้น'
                 onClick={() => {

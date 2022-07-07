@@ -13,6 +13,8 @@ import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext
 import { getAllProductBySupplierId } from '../../apis/supplier/supplierProduct';
 import defaultPic from '../../pictures/defaultPic.png';
 import { useSearchParams } from 'react-router-dom';
+import { GiEskimo } from 'react-icons/gi';
+import { localsting } from '../../services/LocalstringComma';
 
 // const mockArr = [
 //   {
@@ -275,6 +277,7 @@ function ProductPage() {
               <th className='flex justify-center'>stock</th>
               <th className='text-end'>ราคาต่อหน่วย</th>
               <th className='text-center'>สถานะ</th>
+              <th className='text-center'>สินค้า</th>
               <th className='text-center'>หมายเหตุ</th>
               <th className=''></th>
             </tr>
@@ -320,7 +323,7 @@ function ProductPage() {
                         </td>
                         <td>
                           <div className='flex justify-end font-bold'>
-                            <p className=''>{el.price.toFixed(2)}</p>
+                            <p className=''>{localsting(el?.price)}</p>
                           </div>
                         </td>
                         <td>
@@ -331,6 +334,12 @@ function ProductPage() {
                               {el.status}
                             </p>
                           </div>
+                        </td>
+                        <td>
+                          <p className=' text-xs w-[90px] flex overflow-x-auto justify-center'>
+                            {el.rejectReason || '-'}
+                            {el?.type}
+                          </p>
                         </td>
                         <td>
                           <p className=' text-xs w-[90px] flex overflow-x-auto justify-center'>

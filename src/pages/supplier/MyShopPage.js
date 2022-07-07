@@ -21,8 +21,8 @@ function MyShopPage() {
   // console.log({ supplier: supplier });
 
   return (
-    <div className=' '>
-      <div className='bg-white flex flex-col items-center  h-[320px] pt-6 '>
+    <div className='text-font-Kanit rounded-lg my-auto'>
+      <div className='bg-white flex flex-col rounded-t-lg items-center  h-[320px] pt-6 '>
         <div className='image overflow-hidden flex flex-col  w-[266px] justify-center items-center pt-6 '>
           <img
             className='rounded-full w-52 h-52 bg-gradient-to-r p-[3px] from-info to-primary drop-shadow-xl hover:scale-110 object-fit '
@@ -35,7 +35,7 @@ function MyShopPage() {
           </h1>
         </div>
       </div>
-      <div className='bg-white shadow-sm rounded-sm  p-10'>
+      <div className='bg-white rounded-b-lg shadow-sm   p-10'>
         <div className='flex items-center space-x-2 font-semibold text-gray-900 leading-8'>
           <span clas='text-green-500'>
             <svg

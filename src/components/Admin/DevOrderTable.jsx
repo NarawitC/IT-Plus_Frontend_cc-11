@@ -13,6 +13,8 @@ import { MdOutlineCancel } from 'react-icons/md';
 import { FcCheckmark } from 'react-icons/fc';
 import Searchbar from '../Client/layout/Header/Searchbar/Searchbar';
 import { MdOutlinePaid } from 'react-icons/md';
+import { BiDetail } from 'react-icons/bi';
+import { localsting } from '../../services/LocalstringComma';
 function DevOrderTable() {
   const [AllOrder, setAllOrder] = useState([]);
   const [initialAllOrderFilter, setInitialAllOrderFilter] = useState([]);
@@ -342,6 +344,7 @@ function DevOrderTable() {
                 <th className='flex justify-center'>Tracking Id</th>
                 <th className='text-center'></th>
                 <th className='text-center'>Shipping Order Status</th>
+                <th className='text-center'></th>
               </tr>
             </thead>
             <>
@@ -370,7 +373,7 @@ function DevOrderTable() {
                         </td>
                         <td>
                           <div
-                            className='flex space-x-3 justify-center items-center font-bold'
+                            className='flex space-x-3 justify-center items-center font-bold text-primary'
                             onClick={() => {
                               navigate(`/admin/order/${el.id}`);
                             }}
@@ -382,7 +385,7 @@ function DevOrderTable() {
                         </td>
                         <th>
                           <p className='flex justify-end '>
-                            {el.productPrice.toFixed(2)}
+                            {localsting(el.productPrice)}
                           </p>
                         </th>
                         <th>
@@ -431,6 +434,17 @@ function DevOrderTable() {
                               )}
                             </>
                           )}
+                        </th>
+                        <th>
+                          <div
+                            className='flex gap-2 items-center hover:scale-105 hover:text-info'
+                            onClick={() => {
+                              navigate(`/admin/order/${el.id}`);
+                            }}
+                          >
+                            {<BiDetail size={25} />}
+                            <p>รายละเอียด</p>
+                          </div>
                         </th>
                       </tr>
                     </>
