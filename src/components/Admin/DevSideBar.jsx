@@ -2,14 +2,16 @@ import React from 'react';
 import DevSidebarMenu from './DevSidebarMenu';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useAdminContext } from '../../contexts/Admin/AdminContext';
+import { useState } from 'react';
+import { MdOutlineDarkMode } from 'react-icons/md';
 
-function DevSideBar({ children }) {
+function DevSideBar({ children, setDarkonDark }) {
   const { signOut } = useAdminContext();
   return (
     <>
       <div className='drawer sticky  z-20'>
         <input id='my-drawer' type='checkbox' className='drawer-toggle' />
-        <div className='drawer-content mt-4 '>
+        <div className='drawer-content '>
           <label htmlFor='my-drawer' className=' btn btn-primary drawer-button'>
             Admin
             <GiHamburgerMenu className='ml-3' />
@@ -28,6 +30,16 @@ function DevSideBar({ children }) {
             <DevSidebarMenu title='Create Promotion' path='/admin/promotion' />
             <DevSidebarMenu title='Logout' path='/admin/sign-in' />
           </ul>
+        </div>
+        <div className='absolute w-full   flex justify-end    '>
+          <button
+            className='btn  btn-active cursor-pointer '
+            onClick={() => {
+              setDarkonDark((prev) => !prev);
+            }}
+          >
+            <MdOutlineDarkMode />. Dark
+          </button>
         </div>
       </div>
     </>

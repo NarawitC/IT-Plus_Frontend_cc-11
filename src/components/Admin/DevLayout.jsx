@@ -20,8 +20,8 @@ function DevLayout() {
       data-theme={`${DarkonDark ? 'luxury' : 'dark'}`}
       className='w-full h-screen  '
     >
-      <DevSideBar>
-        <div className=' absolute w-full  z-10 flex justify-end mt-4   '>
+      <DevSideBar setDarkonDark={setDarkonDark}>
+        {/* <div className=' absolute w-full  z-10 flex justify-end    '>
           <button
             className='btn  btn-active cursor-pointer '
             onClick={() => {
@@ -30,7 +30,7 @@ function DevLayout() {
           >
             <MdOutlineDarkMode />. Dark
           </button>
-        </div>
+        </div> */}
         {isAdminSelectedProductPage || isAdminPromotionPage || <DevSearchBar />}
         <Outlet />
       </DevSideBar>
