@@ -1,12 +1,13 @@
 import DynamicClientProductCard from '../../components/Client/products/DynamicClientProductCard';
 import { FaRegThumbsUp } from 'react-icons/fa';
 import { useProductfilter } from '../../contexts/ProductContext';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import BreadCrumbs from '../../components/Client/products/productInfo/BreadCrumbs';
 
 function ClientDynamicProductPage() {
   const locate = useLocation();
+  const navigate = useNavigate();
   const { categorySelectd } = useProductfilter();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ function ClientDynamicProductPage() {
   }
   return (
     <>
-      <div className='bg-white '>
+      <div className='bg-white'>
         <BreadCrumbs />
         <div className='max-w-2xl mx-auto py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8'>
           <div className='flex flex-row gap-2'>
@@ -35,18 +36,22 @@ function ClientDynamicProductPage() {
             ))}
           </div>
 
-          <div className='btn-group py-4 justify-center '>
+          <div className='btn-group py-4 justify-center mt-10'>
             {totalPageArr.length > 0
               ? totalPageArr.map((el, idx) => (
-                  <button
+                  <a
                     key={idx}
+                    role='button'
+                    href='#top'
                     className={`btn btn-primary ${
                       +page === el || 'bg-white text-primary hover:text-white '
                     }`}
-                    onClick={() => setPage(el)}
+                    onClick={() => {
+                      setPage(el);
+                    }}
                   >
                     {el}
-                  </button>
+                  </a>
                 ))
               : null}
           </div>

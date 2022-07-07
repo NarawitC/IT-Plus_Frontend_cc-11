@@ -7,7 +7,6 @@ import SmPillButton from '../../components/commonUtils/SmPillButton';
 import { useCountdown } from '../../contexts/clountdownContext';
 function Landingpage() {
   const { SetcountdownStrbydate } = useCountdown();
-  useEffect(() => {}, []);
   return (
     <motion.div
       initial={{ opacity: 0 }}
