@@ -59,7 +59,6 @@ import TrackingIdButton from '../../components/supplier/form/TrackingIdButton';
 function OrderPage() {
   const [isEditTrackingId, setIsEditTrackingId] = useState(false);
   const { orders, setOrders } = useContext(OrderContext);
-  console.log(orders);
   const [orderSearchTerm, setOrderSearchTerm] = useState('');
   const [searchBy, setSearchBy] = useState('id');
   const modalRef = useRef();
@@ -84,8 +83,6 @@ function OrderPage() {
     const handleGetAllProductBySupplierId = async () => {
       try {
         const res = await getAllProductBySupplierId();
-        console.log(res.data);
-
         setProducts(res.data.products);
       } catch (error) {
         console.log(error);
@@ -102,11 +99,8 @@ function OrderPage() {
   const handleGetAllOrdersBySupplierId = async () => {
     try {
       const res = await getAllOrdersBySupplierId();
-      console.log(res.data);
       setOrders(res.data.orders);
-      // setOrders(mockArr);
       setShippingDetails(res.data.orders);
-      // setShippingDetails(mockArr);
     } catch (error) {
       console.log(error);
     }
@@ -168,14 +162,12 @@ function OrderPage() {
           const resultArrByPaymentStatus = orders.filter(
             (el) => el?.PurchasedOrder === null
           );
-          console.log(resultArrByPaymentStatus);
           setShippingDetails(resultArrByPaymentStatus);
         }
         if (searchTerm === 'CONFIRMED') {
           const resultArrByPaymentStatus = orders.filter(
             (el) => el?.PurchasedOrder !== null
           );
-          console.log(resultArrByPaymentStatus);
           setShippingDetails(resultArrByPaymentStatus);
         }
       };

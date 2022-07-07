@@ -5,7 +5,5 @@ export const supplierSignIn = async (email, password) => {
 };
 
 export const supplierSignUp = async (input) => {
-  console.log('input');
-  console.log(input);
   return await axios.post('/supplier/auth/sign-up', input);
 };
