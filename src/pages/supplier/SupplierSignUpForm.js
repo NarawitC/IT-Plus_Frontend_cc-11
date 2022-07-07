@@ -8,20 +8,32 @@ import InputYup from '../../components/form/InputYup';
 import SubmitButtonYup from '../../components/form/SubmitButtonYup';
 import TextAreaYup from '../../components/form/TextAreaYup';
 import { SupplierAuthContext } from '../../contexts/Supplier/SupplierAuthContext';
+import { useErrorContext } from '../../contexts/ErrorContext';
+import { useSupplierContext } from '../../contexts/Supplier/SupplierAuthContext';
+import { useGoogleMapContext } from '../../contexts/googleMap/googleMap';
+import AddAddressSupplier from '../../components/supplier/form/addAddressSupplier';
+
 function SupplierSignUpForm() {
+  const { signIn } = useSupplierContext();
+  const { setError } = useErrorContext();
   const [IsLoading, setIsLoading] = useState(false);
+  const { googleMapAddress } = useGoogleMapContext();
+  const [confirmAddress, setConfirmAddress] = useState(null);
+  const [showMap, setShowMap] = useState(false);
   const navigate = useNavigate();
   const inputEl = useRef();
   const [profilePicture, setImage] = useState(null);
   const [imageURL, setImageURL] = useState('');
   const { signUp } = useContext(SupplierAuthContext);
 
+  console.log(confirmAddress);
+
   useEffect(() => {
     if (profilePicture === null) {
       return;
     }
     const newImageURL = URL.createObjectURL(profilePicture);
-    console.log(newImageURL);
+    // console.log(newImageURL);
     setImageURL(newImageURL);
   }, [profilePicture]); //ให้re render ทุกครั้งที่มีการอัพโหลดรูปภาพตัวใหม่
 
@@ -49,7 +61,7 @@ function SupplierSignUpForm() {
     displayName: yup.string().required('Shop name is required'),
     password: yup.string().required('Password is required'),
     lineId: yup.string().required('lineId is required'),
-    description: yup.string().required('description is required'),
+    description: yup.string(),
     bankName: yup.string().required('Bank account name is required'),
     bankAccount: yup
       .string()
@@ -57,30 +69,42 @@ function SupplierSignUpForm() {
       .min(10, 'Phone number must be 10 characters')
       .max(10, 'Phone number must be 10 characters'),
     confirmPassword: yup.string().required('Confirm password is required'),
-    streetName: yup.string().trim().nullable(),
-    province: yup.string().trim().nullable(),
-    district: yup.string().trim().nullable(),
-    postalCode: yup.string().trim().nullable(),
-    address: yup.string().trim().nullable(),
+    address: yup.string().trim().required(),
   });
+
+  const toggleClickMap = () => {
+    setShowMap((p) => !p);
+  };
 
   const handleSignUpSubmit = async (data) => {
     try {
-      setIsLoading(true);
-      console.log('data');
-      console.log(data);
-      await signUp(data);
-      navigate('/supplier');
-      // reset();
-      setIsLoading(false);
+      const formData = new FormData();
+      formData.append('firstName', data.firstName);
+      formData.append('lastName', data.lastName);
+      formData.append('phoneNumber', data.phoneNumber);
+      formData.append('email', data.email);
+      formData.append('displayName', data.displayName);
+      formData.append('password', data.password);
+      formData.append('lineId', data.lineId);
+      formData.append('description', data.description);
+      formData.append('bankName', data.bankName);
+      formData.append('bankAccount', data.bankAccount);
+      formData.append('confirmPassword', data.confirmPassword);
+      formData.append('address', data.address);
+      formData.append('profilePicture', profilePicture);
+      const {
+        data: { email, password },
+      } = await signUp(formData);
+      await signIn(email, password);
     } catch (err) {
-      console.log(err);
-      // setError(err.response.data.message);
+      alert(err.response.data.message);
     }
   };
 
+  console.log(confirmAddress);
+
   return (
-    <>
+    <div className=''>
       <FormYup
         onSubmit={handleSignUpSubmit}
         // className=''
@@ -95,12 +119,14 @@ function SupplierSignUpForm() {
           bankName: '',
           bankAccount: '',
           description: '',
-          address: '',
+          address: 'confirmAddress',
         }}
         schema={schema}
       >
         <br />
-        <h1 className='text-3xl text-center'>สมัครเป็นผู้ขาย</h1>
+        <div className='text-3xl text-center mx-40'>
+          <h1>สมัครเป็นผู้ขาย</h1>
+        </div>
 
         <div>
           <div
@@ -209,7 +235,7 @@ function SupplierSignUpForm() {
           </div>
           <div className=''>
             <label
-              for='email'
+              htmlFor='email'
               className='block mb-2 text-sm font-medium text-gray-1200'
             >
               E-mail
@@ -225,7 +251,7 @@ function SupplierSignUpForm() {
           </div>
           <div>
             <label
-              for='displayName'
+              htmlFor='displayName'
               className='block mb-2 text-sm font-medium text-gray-1200'
             >
               ชื่อร้าน
@@ -241,7 +267,7 @@ function SupplierSignUpForm() {
           </div>
           <div>
             <label
-              for='password'
+              htmlFor='password'
               className='block mb-2 text-sm font-medium text-gray-1200'
             >
               รหัสผ่าน
@@ -257,7 +283,7 @@ function SupplierSignUpForm() {
           </div>
           <div>
             <label
-              for='confirmPassword'
+              htmlFor='confirmPassword'
               className='block mb-2 text-sm font-medium text-gray-1200'
             >
               ยืนยันรหัสผ่าน
@@ -274,9 +300,9 @@ function SupplierSignUpForm() {
         </div>
         <br />
         <div className='flex justify-center'>
-          <div>
+          <div className='w-full'>
             <label
-              for='bankName'
+              htmlFor='bankName'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               ชื่อบัญชีผู้ขาย
@@ -285,7 +311,7 @@ function SupplierSignUpForm() {
               name='bankName'
               type='text'
               id='bankName'
-              className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='w-full bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 '
               placeholder='ชื่อบัญชีผู้ขาย'
               required
             />
@@ -293,9 +319,9 @@ function SupplierSignUpForm() {
         </div>
         <br />
         <div className='flex justify-center'>
-          <div>
+          <div className='w-full'>
             <label
-              for='bankAccount'
+              htmlFor='bankAccount'
               className='block mb-2 text-sm font-medium text-gray-1200 '
             >
               เลขที่บัญชีผู้ขาย
@@ -305,34 +331,65 @@ function SupplierSignUpForm() {
               // text={'bankAccount'}
               type='text'
               id='bankAccount'
-              className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='w-full bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='เลขที่บัญชีผู้ขาย'
               required
             />
           </div>
         </div>
 
-        <div className='flex  justify-center'>
-          <div>
+        <div className='flex  justify-center '>
+          <div className='w-full'>
             <label
               htmlFor='address'
-              className='block mb-2 text-sm font-medium text-gray-1200 '
+              className='block mb-2 text-sm font-medium text-gray-1200  '
             >
               ที่อยู่
             </label>
-            <InputYup
+
+            {/* <InputYup
               name='address'
               // text={'adress'}
               type='text'
+              value={confirmAddress}
               id='address'
-              className='w-[380px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='invisible w-0 h-0 bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              placeholder='ที่อยู่'
+              required
+            /> */}
+            <InputYup
+              name='address'
+              // text={'adress'}
+              value={confirmAddress}
+              type='text'
+              id='address'
+              className='w-full  bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='ที่อยู่'
               required
             />
+            <div className='flex justify-center pb-4'>
+              <div
+                className='btn space-center w-1/2 btn-success border-none '
+                onClick={() => toggleClickMap()}
+              >
+                เพิ่มที่อยู่ด้วยตำแหน่งของฉัน
+              </div>
+            </div>
+            <div className=''>
+              {showMap && (
+                <AddAddressSupplier
+                  confirmAddress={confirmAddress}
+                  setConfirmAddress={setConfirmAddress}
+                  googleMapAddress={googleMapAddress}
+                  toggleClickMap={toggleClickMap}
+                />
+              )}
+            </div>
           </div>
         </div>
+
         <div className='flex justify-center'>
-          <div>
+          <div className='w-full'>
             <label
               htmlFor='description'
               className='block mb-2 text-sm font-medium text-gray-1200 '
@@ -344,9 +401,8 @@ function SupplierSignUpForm() {
               // text={'description'}
               type='textarea'
               id='description'
-              className='w-[380px] h-[110px] bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='w-full h-auto bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='รายละเอียดผู้ขาย'
-              required
             />
           </div>
         </div>
@@ -363,7 +419,7 @@ function SupplierSignUpForm() {
           </SubmitButtonYup>
         </div>
       </FormYup>
-    </>
+    </div>
   );
 }
 

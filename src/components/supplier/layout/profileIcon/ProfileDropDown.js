@@ -12,7 +12,6 @@ import defaultPic from '../../../../pictures/previewPic.png';
 function ProfileDropDown() {
   const navigate = useNavigate();
   const { signOut, role, supplier } = useContext(SupplierAuthContext);
-  console.log(role);
 
   return (
     <>

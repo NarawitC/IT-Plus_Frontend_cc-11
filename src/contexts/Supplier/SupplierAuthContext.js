@@ -55,10 +55,7 @@ function SupplierAuthContextProvider({ children }) {
   };
 
   const signIn = async (email, password) => {
-    console.log(email);
-    console.log(password);
     const response = await supplierSignIn(email, password);
-    console.log(response.data.token);
     setAccessToken(response.data.token); //
     // console.log(response.data);
     // setRole(response.data.role);
@@ -67,10 +64,7 @@ function SupplierAuthContextProvider({ children }) {
     //   const resSupplier = await axios.get('/suppliers/me');
     //   setSupplier(resSupplier.data.supplier);
     // }
-    console.log('--------------------');
     const resSupplier = await axios.get('/supplier/supplier');
-    console.log('--------------------');
-    console.log(resSupplier.data);
     // fetchSupplier();
     setSupplier(resSupplier.data.user);
     setRole(resSupplier.data.user.role);
@@ -89,11 +83,7 @@ function SupplierAuthContextProvider({ children }) {
 
   const signUp = async (input) => {
     const response = await supplierSignUp(input);
-    console.log(response.data.message);
-    // setAccessToken(response.data.token); //สมัครเสร็จ ลอคอินได้เลย
-    // const resMe = await getSupplierInfo();
-    // setSupplier(resMe.data.user);
-    // navigate('/supplier/my-shop');
+    return response;
   };
 
   return (
