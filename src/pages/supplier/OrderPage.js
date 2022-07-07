@@ -118,10 +118,17 @@ function OrderPage() {
   useEffect(() => {
     if (searchBy === 'id') {
       const filterByOrderId = (searchTerm) => {
-        const resultArrByOrderId = orders.filter((el) =>
-          String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
-        );
-        setShippingDetails(resultArrByOrderId);
+        if (searchTerm.length === 1) {
+          const resultArrByOrderId = orders.filter(
+            (el) => String(el.id) === searchTerm.trim().replace(/\s/g, '')
+          );
+          setShippingDetails(resultArrByOrderId);
+        } else {
+          const resultArrByOrderId = orders.filter((el) =>
+            String(el.id).includes(searchTerm.trim().replace(/\s/g, ''))
+          );
+          setShippingDetails(resultArrByOrderId);
+        }
       };
       filterByOrderId(orderSearchTerm);
     }
@@ -181,7 +188,6 @@ function OrderPage() {
       };
       filterByStatus(orderSearchTerm);
     }
-
     if (orderSearchTerm === 'CONFIRMED' && searchBy === 'paymentStatus') {
       const getTodoOrders = (searchTerm, hasTracking) => {
         if (searchTerm === 'CONFIRMED' && hasTracking === false) {
@@ -234,7 +240,6 @@ function OrderPage() {
   // <option value='id'>หมายเลขคำสั่งซื้อ</option>
   // <option value='userId'>ชื่อลูกค้า</option>
   // <option value='status'>สถานะการจัดส่ง</option>
-
   return (
     <div className=''>
       <br />
