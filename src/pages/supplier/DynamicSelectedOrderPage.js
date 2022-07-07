@@ -260,7 +260,7 @@ function DynamicSelectedOrderPage() {
                         <div className='flex justify-end'>
                           <p className='text-center justify-end'>
                             {(+el?.quantity * +el?.Product?.price).toFixed(2) ||
-                              0}
+                              (0.0).toFixed(2)}
                           </p>
                         </div>
                       </th>
@@ -282,7 +282,8 @@ function DynamicSelectedOrderPage() {
               <div className='flex justify-between '>
                 <p>ค่าขนส่ง</p>
                 <div className='flex  font-bold pr-4'>
-                  {selectedOrderObj?.deliveryPrice}
+                  {selectedOrderObj?.deliveryPrice.toFixed(2) ||
+                    (0.0).toFixed(2)}
                 </div>
               </div>
               <div className='flex justify-between '>
