@@ -87,8 +87,8 @@ function SideDrawer({ eldrawer }) {
           </p>
           {/* <!-- Sidebar content here --> */}
 
-          {categories?.map((el) => (
-            <li>
+          {categories?.map((el, idx) => (
+            <li key={idx}>
               <a
                 onClick={() => {
                   navigate('/product');
