@@ -357,7 +357,7 @@ function SupplierSignUpForm() {
               placeholder='ที่อยู่'
               required
             /> */}
-            <InputYup
+            <TextAreaYup
               name='address'
               // text={'adress'}
               value={confirmAddress}

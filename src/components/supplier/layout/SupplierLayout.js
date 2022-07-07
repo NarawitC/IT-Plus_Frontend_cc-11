@@ -8,8 +8,7 @@ function SupplierLayout() {
   return (
     <div className='h-full ' data-theme={DarkonDark ? 'dark' : `light`}>
       <Header setDarkonDark={setDarkonDark} />
-
-      <div className=' flex  align-middle fixed'>
+      <div className=' flex align-middle fixed'>
         <div className={` text-font-Kanit`}>
           <SideBar />
         </div>
