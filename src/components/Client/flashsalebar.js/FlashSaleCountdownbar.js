@@ -118,12 +118,12 @@ function FlashSaleCountdownbar() {
           className='w-full flex justify-center mt-4
       '
         >
-          <SmPillButton
+          {/* <SmPillButton
             text='See All FlashSales'
             className={
               'btn btn-primary mx-auto self-center  hover:bg-white hover:text-gray-700/50 duration-200'
             }
-          />
+          /> */}
         </div>
       </div>
     </>
