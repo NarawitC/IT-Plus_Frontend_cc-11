@@ -9,8 +9,8 @@ function DevSideBar({ children }) {
     <>
       <div className='drawer sticky  z-20'>
         <input id='my-drawer' type='checkbox' className='drawer-toggle' />
-        <div className='drawer-content'>
-          <label htmlFor='my-drawer' className='btn btn-primary drawer-button'>
+        <div className='drawer-content mt-4 '>
+          <label htmlFor='my-drawer' className=' btn btn-primary drawer-button'>
             Admin
             <GiHamburgerMenu className='ml-3' />
           </label>

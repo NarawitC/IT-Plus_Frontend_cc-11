@@ -16,7 +16,7 @@ function StatusButton({ status, option }) {
             <img alt='circle' className=' rounded-full' src={circle} />
           </span>
           <br />
-          <p className='text-gray-600'>{`${option}`}</p>
+          <p className='text-gray-600 font-bold'>{`${option}`}</p>
         </div>
       ) : (
         <>
@@ -27,7 +27,7 @@ function StatusButton({ status, option }) {
               src={circle}
             />
             <br />
-            <p className='text-gray-600'>{`${option}`}</p>
+            <p className='text-gray-600 font-bold'>{`${option}`}</p>
           </div>
         </>
       )}

@@ -21,9 +21,9 @@ function DevLayout() {
       className='w-full h-screen  '
     >
       <DevSideBar>
-        <div className=' absolute w-full  z-10 my-2 mr-8 flex   justify-end'>
+        <div className=' absolute w-full  z-10 flex justify-end mt-4   '>
           <button
-            className='btn mx-10 btn-active cursor-pointer '
+            className='btn  btn-active cursor-pointer '
             onClick={() => {
               setDarkonDark((prev) => !prev);
             }}
