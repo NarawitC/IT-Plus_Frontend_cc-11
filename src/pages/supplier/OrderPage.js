@@ -237,9 +237,9 @@ function OrderPage() {
   // <option value='status'>สถานะการจัดส่ง</option>
 
   return (
-    <div className=''>
+    <div className=' '>
       <br />
-      <div className=' grid grid-cols-2 gap-10'>
+      <div className=' grid grid-cols-2 gap-10 text-font-Kanit'>
         <button
           onClick={() => {
             setSearchBy('paymentStatus');
@@ -322,14 +322,14 @@ function OrderPage() {
       </div>
       <br />
       <br />
-      <>
-        <div className='h-auto'>
-          <div className='flex items-center '>
+      <div className='sticky pb-20'>
+        <div className=''>
+          <div className='flex items-center  '>
             {<CgFileDocument size={45} />}
             <h className='text-4xl pl-4 '>คำสั่งซื้อทั้งหมด</h>
           </div>
           <br />
-          <div className='w-auto flex p-2 h-auto '>
+          <div className='w-auto flex p-2 h-full '>
             <div className='flex gap-4 items-center   '>
               <div className=' flex items-center justify-center text-lg gap-2 '>
                 <label for='searches' className=''>
@@ -429,7 +429,7 @@ function OrderPage() {
             </thead>
             {role === 'SUPPLIER' ? (
               <>
-                <tbody>
+                <tbody className=''>
                   {shippingDetails?.map((el, idx) => {
                     return (
                       <>
@@ -583,7 +583,7 @@ function OrderPage() {
           </table>
         </div>
         <br />
-      </>
+      </div>
     </div>
   );
   // <select

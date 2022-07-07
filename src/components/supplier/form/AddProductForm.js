@@ -38,6 +38,7 @@ function AddProductForm({ addNewProductSupplier }) {
   const [stock, setStock] = useState('');
   const [categoryId, setCategoryId] = useState(0);
   const [subCategoryId, setSubCategoryId] = useState('');
+  const [type, setType] = useState('');
   const [description, setDescription] = useState('');
   const [properties, setProperties] = useState([]);
   const [subCatOptions, setSubCatOptions] = useState([]);
@@ -231,7 +232,7 @@ function AddProductForm({ addNewProductSupplier }) {
 
   return (
     <>
-      <form className='pt-5'>
+      <form className='pt-5 text-font-Kanit'>
         <br />
         <div className='flex gap-2 font-bold'>
           {<IoAddCircleOutline size={25} />}
@@ -561,6 +562,24 @@ function AddProductForm({ addNewProductSupplier }) {
                 </option>
                 <option value='it-accessories'>อุปกรณ์ไอที</option>
                 <option value='music-movie'>ดูหนัง ฟังเพลง</option> */}
+              </select>
+            </div>
+            <div className='flex flex-col justify-center'>
+              <label
+                htmlFor='subCategory'
+                className='block mb-2 text-sm font-medium text-gray-1200 '
+              >
+                ชนิดสินค้า
+              </label>
+              <select
+                id='subCategory'
+                className=' bg-gray-50 border border-gray-300 text-gray-1200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                required
+                value={type}
+                onChange={(event) => setType(event.target.value)}
+              >
+                <option className=''>สินค้าใหม่</option>
+                <option className=''>สินค้ามือสอง</option>
               </select>
             </div>
           </div>

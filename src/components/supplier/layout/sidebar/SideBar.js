@@ -41,8 +41,8 @@ function SideBar() {
   const [active, setActive] = useState('');
 
   return (
-    <aside className='' aria-label='Sidebar'>
-      <div className='overflow-y-auto py-4 px-3 bg-gray-50  dark:bg-gray-800 h-screen w-[256px]'>
+    <aside className='z-20' aria-label='Sidebar'>
+      <div className='overflow-y-auto py-4 px-3 fixed bg-gray-50  dark:bg-gray-800 h-screen w-[256px]'>
         <ul className='space-y-2'>
           {mockList.map((el, idx) => {
             return (
@@ -86,7 +86,6 @@ function SideBar() {
                           );
                         })}
                       </>
-                      )
                     </li>
                   </ul>
                 )}

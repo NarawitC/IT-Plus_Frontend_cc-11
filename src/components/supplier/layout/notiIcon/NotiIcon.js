@@ -1,9 +1,15 @@
 import NotiDropDown from './NotiDropDown';
-
-function NotiIcon() {
+import { MdDarkMode } from 'react-icons/md';
+function NotiIcon({ setDarkonDark }) {
   return (
-    <div>
-      <NotiDropDown />
+    <div
+      className='btn btn-active btn-circle'
+      onClick={() => {
+        setDarkonDark((prev) => !prev);
+      }}
+    >
+      <MdDarkMode />
+      {/* <NotiDropDown /> */}
     </div>
   );
 }

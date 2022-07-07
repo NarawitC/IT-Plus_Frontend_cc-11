@@ -1,14 +1,16 @@
 import Sidebar from '../sidebar/SideBar';
 import ProfileIcon from '../profileIcon/ProfileIcon';
 import NotiIcon from '../notiIcon/NotiIcon';
-import { AiOutlineSmile } from 'react-icons/ai';
+// import { AiOutlineSmile } from 'react-icons/ai';
 import { MdLogin } from 'react-icons/md';
 import LogInForm from '../../form/LogInForm';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useRef, useContext, useState } from 'react';
+import Logo from '../../../..//icons/LOGO1.svg';
+
 import { SupplierAuthContext } from '../../../../contexts/Supplier/SupplierAuthContext';
-function Header() {
+function Header({ setDarkonDark }) {
   const navigate = useNavigate();
   const { signIn, role } = useContext(SupplierAuthContext);
 
@@ -20,12 +22,18 @@ function Header() {
 
   return (
     <>
-      <div className=' h-[80px] bg-gradient-to-r from-primary via-white to-warning  flex items-center '>
+      <div className=' h-[80px] relative bg-gradient-to-r from-primary via-white to-warning  flex items-center '>
         <div className='flex justify-between  items-center w-screen'>
           <Link to={`/supplier/order`}>
-            <button className='flex items-center text-warning text-3xl w-[150px] justify-center gap-1 animate-bounce'>
-              {<AiOutlineSmile />}
-              <h1 className=''>iT+</h1>
+            <button
+              className='flex items-center text-warning text-3xl w-[150px] justify-center gap-1  hover:scale-110 duration-100'
+              onClick={() => {
+                navigate('/supplier');
+              }}
+            >
+              {/* {<AiOutlineSmile />}
+              <h1 className=''>iT+</h1> */}
+              <img src={Logo} className='w-60 ml-8 ' />
             </button>
           </Link>
           <div className='flex mr-12 gap-7 items-center justify-around'>
@@ -120,7 +128,8 @@ function Header() {
                 </div>
               </div>
             </div>
-            <NotiIcon />
+
+            <NotiIcon setDarkonDark={setDarkonDark} />
           </div>
         </div>
       </div>
