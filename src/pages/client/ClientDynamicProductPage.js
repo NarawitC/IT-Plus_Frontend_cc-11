@@ -7,17 +7,10 @@ import BreadCrumbs from '../../components/Client/products/productInfo/BreadCrumb
 
 function ClientDynamicProductPage() {
   const locate = useLocation();
+  const { categorySelectd } = useProductfilter();
+
   useEffect(() => {
-    // const params={
-    //   page: page,
-    //   time: locate)
-    // }
-    // const arrv1 = locate.search.slice(1).split('&');
-    // const arrv2 = arrv1.map((el) => el.split('='));
-    // // setProductquery(Object.fromEntries(arrv2));
-    // // console.log(arrv1);
-    // // console.log(arrv2);
-    // const params = Object.fromEntries(arrv2);
+    console.log(categorySelectd);
   }, []);
   const { product, totalPage, page, setPage, searchParams } =
     useProductfilter();

@@ -10,7 +10,7 @@ function ProductByBrand() {
   const { product } = useProductfilter();
 
   const [supplier, setSupplier] = useState(null);
-  console.log(supplier);
+  // console.log(supplier);
 
   useEffect(() => {
     const fetchSupplier = async () => {
@@ -19,6 +19,7 @@ function ProductByBrand() {
           user: { Supplier },
         },
       } = await getSupplierInfo();
+      console.log(Supplier);
 
       setSupplier(Supplier);
     };

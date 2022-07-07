@@ -60,17 +60,8 @@ function Router() {
         <Route path='/cart/checkout' element={<CheckoutPage />} />
         <Route path='/order/:order' element={<ClientOrderPage />} />
 
-        <Route
-          path='/product/supplier/:subplierId'
-          element={<ProductByBrand />}
-        />
+        <Route path='/shop/:subplierId' element={<ProductByBrand />} />
       </Route>
-      {/* <Route path='signup' element={<ClientSignUpPage />} />
-        <Route path='payment' element={<PaymentPage />} />
-        <Route path='sale-order' element={<SaleOrderPage />} />
-        <Route path='budget-me' element={<BudgetMePage />} />
-        <Route path='my-spec' element={<MySpecPage />} />
-      </Route> */}
 
       <>
         <Route path='/supplier' element={<SupplierLayout />}>

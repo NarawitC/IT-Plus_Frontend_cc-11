@@ -153,7 +153,7 @@ function ProductInfoPage({}) {
         </div>
         <div className='w-80'>
           <div className='text-[10px] border-b-5'>
-            <a href={`/product/supplier/${singlepd?.Supplier.id}`}>
+            <a href={`/shop/${singlepd?.Supplier.id}`}>
               {singlepd?.Supplier.displayName}
             </a>
           </div>

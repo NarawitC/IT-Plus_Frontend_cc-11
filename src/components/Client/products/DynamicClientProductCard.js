@@ -17,7 +17,7 @@ function DynamicClientProductCard({ el }) {
   return (
     <div
       key={id}
-      className='group relative border-2 border-neutral-600 px-4 py-4 rounded-sm shadow-md  hover:ring-1 ring-[#00CDF8]'
+      className='group relative  border-2 border-neutral-600 px-4 py-4 rounded-sm shadow-md  hover:ring-1 ring-[#00CDF8]'
       onClick={() => {
         navigate(`/product/${id}`);
       }}
