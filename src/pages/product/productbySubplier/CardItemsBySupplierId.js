@@ -9,7 +9,7 @@ function CardItemsBySupplierId({ supplierId }) {
     // console.log
     const result = product?.filter((item) => item.supplierId === supplierId);
     setProductBySupplier(result);
-    console.log(supplierId);
+    // console.log(supplierId);
   }, [product, supplierId]);
 
   console.log(productBySupplier);

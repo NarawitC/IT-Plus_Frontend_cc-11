@@ -196,177 +196,181 @@ function ProductPage() {
   }, [productSearchTerm, searchBy, supplierProducts]);
   console.log(products);
   return (
-    <div className='flex flex-col mb-[160px] h-auto'>
-      <div className='h-[185px]'>
-        <div className='flex items-center m-4'>
-          {<FiShoppingBag size={45} />}
-          <h className='text-4xl pl-4 '>สินค้าทั้งหมด</h>
-        </div>
-        <br />
-        <div className='w-[740px] flex p-2'>
-          <div className='flex gap-4'>
-            <div className='w-[360px]  h-[53px] flex items-center justify-center text-lg gap-4 '>
-              <label for='searches' className=''>
-                ค้นหาโดย:
-              </label>
-              <select
-                onChange={(e) => {
-                  setSearchBy(e.target.value);
-                  setProductSearchTerm('');
-                }}
-                value={searchBy}
-                name='searches'
-                id='searches'
-                className=' text-bold text-primary-focus border-2 h-[53px] w-[230px] rounded-lg '
+    <div>
+      <div className='flex flex-col mb-[160px] px-auto h-auto'>
+        <div className='h-[185px]'>
+          <div className='flex items-center m-4'>
+            {<FiShoppingBag size={45} />}
+            <h className='text-4xl pl-4 '>สินค้าทั้งหมด</h>
+          </div>
+          <br />
+          <div className='w-[740px] flex p-2'>
+            <div className='flex gap-4'>
+              <div className='w-[360px]  h-[53px] flex items-center justify-center text-lg gap-4 '>
+                <label for='searches' className=''>
+                  ค้นหาโดย:
+                </label>
+                <select
+                  onChange={(e) => {
+                    setSearchBy(e.target.value);
+                    setProductSearchTerm('');
+                  }}
+                  value={searchBy}
+                  name='searches'
+                  id='searches'
+                  className=' text-bold text-primary-focus border-2 h-[53px] w-[230px] rounded-lg '
+                >
+                  <option value='productName'>ชื่อสินค้า</option>
+                  <option value='status'>สถานะสินค้า</option>
+                  <option value='id'>รหัสสินค้า</option>
+                  <option value='brand'>ยี่ห้อ</option>
+                  <option value='stock'>สินค้าหมดสต็อค</option>
+                </select>
+              </div>
+              <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
+                {searchBy === 'status' ? (
+                  <>
+                    <select
+                      type='text'
+                      onChange={(event) => {
+                        setProductSearchTerm(event.target.value);
+                      }}
+                      value={productSearchTerm}
+                      className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
+                    >
+                      <option value=''>กรุณาเลือกสถานะสินค้า</option>
+                      <option value='PENDING'>อยู่ระหว่างดำเนินการ</option>
+                      <option value='APPROVED'>อนุมัติแล้ว</option>
+                      <option value='REJECTED'>ถูกระงับ</option>
+                    </select>
+                  </>
+                ) : (
+                  <>
+                    <input
+                      type='text'
+                      placeholder='ค้นหาสินค้า'
+                      className='input w-[395px] text-lg '
+                      onChange={(event) => {
+                        setProductSearchTerm(event.target.value);
+                      }}
+                      value={productSearchTerm}
+                    />
+                  </>
+                )}
+              </div>
+              <button
+                onClick={() => setProductSearchTerm('')}
+                className='hover:scale-125 '
               >
-                <option value='productName'>ชื่อสินค้า</option>
-                <option value='status'>สถานะสินค้า</option>
-                <option value='id'>รหัสสินค้า</option>
-                <option value='brand'>ยี่ห้อ</option>
-                <option value='stock'>สินค้าหมดสต็อค</option>
-              </select>
+                {<MdOutlineCancel size={25} />}
+              </button>
             </div>
-            <div className='w-[400px] border-2 hover:border-primary rounded-lg'>
-              {searchBy === 'status' ? (
-                <>
-                  <select
-                    type='text'
-                    onChange={(event) => {
-                      setProductSearchTerm(event.target.value);
-                    }}
-                    value={productSearchTerm}
-                    className=' w-[395px] h-[50px] rounded-lg text-lg p-2'
-                  >
-                    <option value=''>กรุณาเลือกสถานะสินค้า</option>
-                    <option value='PENDING'>อยู่ระหว่างดำเนินการ</option>
-                    <option value='APPROVED'>อนุมัติแล้ว</option>
-                    <option value='REJECTED'>ถูกระงับ</option>
-                  </select>
-                </>
-              ) : (
-                <>
-                  <input
-                    type='text'
-                    placeholder='ค้นหาสินค้า'
-                    className='input w-[395px] text-lg '
-                    onChange={(event) => {
-                      setProductSearchTerm(event.target.value);
-                    }}
-                    value={productSearchTerm}
-                  />
-                </>
-              )}
-            </div>
-            <button
-              onClick={() => setProductSearchTerm('')}
-              className='hover:scale-125 '
-            >
-              {<MdOutlineCancel size={25} />}
-            </button>
           </div>
         </div>
-      </div>
-      <div className='flex m-4  object-contain h-auto overflow-x-auto justify-center '>
-        <table className='table'>
-          <thead className=''>
-            <tr className=''>
-              <th>ลำดับ</th>
-              <th>รหัสสินค้า</th>
-              <th></th>
-              <th className='text-center'>รายการ</th>
-              <th className='flex justify-center'>stock</th>
-              <th className='text-end'>ราคาต่อหน่วย</th>
-              <th className='text-center'>สถานะ</th>
-              <th className='text-center'>สินค้า</th>
-              <th className='text-center'>หมายเหตุ</th>
-              <th className=''></th>
-            </tr>
-          </thead>
-          {role === 'SUPPLIER' ? (
-            <>
-              <tbody className=''>
-                {products?.map((el, index) => {
-                  let color = findColor(el.status);
-                  return (
-                    <>
-                      <tr
-                        className='hover cursor-pointer'
-                        onClick={() => {
-                          navigate(`/supplier/product/${el.id}`);
-                        }}
-                      >
-                        <td className='text-center font-bold'>{index + 1}</td>
-                        <td className='text-center font-bold '>{el.id || 0}</td>
-                        <td>
-                          <div className='flex items-center space-x-3 justify-center  h-16 w-[60px] '>
-                            <img
-                              className='object-contain h-16 w-[60px] '
-                              src={el.mainPicture || defaultPic}
-                              alt='mainPic'
-                            />
-                          </div>
-                        </td>
-                        <td>
-                          <div>
-                            <div className='font-bold  text-lg text-blue-900'>
-                              {el.brand}
+        <div className='flex m-4  object-contain h-auto overflow-x-auto justify-center '>
+          <table className='table'>
+            <thead className=''>
+              <tr className=''>
+                <th>ลำดับ</th>
+                <th>รหัสสินค้า</th>
+                <th></th>
+                <th className='text-center'>รายการ</th>
+                <th className='flex justify-center'>stock</th>
+                <th className='text-end'>ราคาต่อหน่วย</th>
+                <th className='text-center'>สถานะ</th>
+                <th className='text-center'>สินค้า</th>
+                <th className='text-center'>หมายเหตุ</th>
+                <th className=''></th>
+              </tr>
+            </thead>
+            {role === 'SUPPLIER' ? (
+              <>
+                <tbody className=''>
+                  {products?.map((el, index) => {
+                    let color = findColor(el.status);
+                    return (
+                      <>
+                        <tr
+                          className='hover cursor-pointer'
+                          onClick={() => {
+                            navigate(`/supplier/product/${el.id}`);
+                          }}
+                        >
+                          <td className='text-center font-bold'>{index + 1}</td>
+                          <td className='text-center font-bold '>
+                            {el.id || 0}
+                          </td>
+                          <td>
+                            <div className='flex items-center space-x-3 justify-center  h-16 w-[60px] '>
+                              <img
+                                className='object-contain h-16 w-[60px] '
+                                src={el.mainPicture || defaultPic}
+                                alt='mainPic'
+                              />
                             </div>
-                            <div className=' w-[323px] flex overflow-x-auto h-12 items-center font-bold'>
-                              {el.productName}
+                          </td>
+                          <td>
+                            <div>
+                              <div className='font-bold  text-lg text-blue-900'>
+                                {el.brand}
+                              </div>
+                              <div className=' w-[323px] flex overflow-x-auto h-12 items-center font-bold'>
+                                {el.productName}
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div className='flex justify-center'>
-                            <p className='text-ghost font-bold'>{el.stock}</p>
-                          </div>
-                        </td>
-                        <td>
-                          <div className='flex justify-end font-bold'>
-                            <p className=''>{localsting(el?.price)}</p>
-                          </div>
-                        </td>
-                        <td>
-                          <div className='flex justify-center'>
-                            <p
-                              className={`text-center font-bold justify-end text-${color}`}
-                            >
-                              {el.status}
+                          </td>
+                          <td>
+                            <div className='flex justify-center'>
+                              <p className='text-ghost font-bold'>{el.stock}</p>
+                            </div>
+                          </td>
+                          <td>
+                            <div className='flex justify-end font-bold'>
+                              <p className=''>{localsting(el?.price)}</p>
+                            </div>
+                          </td>
+                          <td>
+                            <div className='flex justify-center'>
+                              <p
+                                className={`text-center font-bold justify-end text-${color}`}
+                              >
+                                {el.status}
+                              </p>
+                            </div>
+                          </td>
+                          <td>
+                            <p className=' text-xs w-[90px] flex overflow-x-auto justify-center'>
+                              {el.rejectReason || '-'}
+                              {el?.type}
                             </p>
-                          </div>
-                        </td>
-                        <td>
-                          <p className=' text-xs w-[90px] flex overflow-x-auto justify-center'>
-                            {el.rejectReason || '-'}
-                            {el?.type}
-                          </p>
-                        </td>
-                        <td>
-                          <p className=' text-xs w-[90px] flex overflow-x-auto justify-center'>
-                            {el.rejectReason || '-'}
-                          </p>
-                        </td>
-                        <td>
-                          <button
-                            className='flex gap-2 items-center hover:scale-105'
-                            onClick={() => {
-                              navigate('/supplier/product/selected');
-                            }}
-                          >
-                            <MdOutlineEditNote size={25} />
-                            <p>แก้ไขสินค้า</p>
-                          </button>
-                        </td>
-                      </tr>
-                    </>
-                  );
-                })}
-              </tbody>
-            </>
-          ) : (
-            <></>
-          )}
-        </table>
+                          </td>
+                          <td>
+                            <p className=' text-xs w-[90px] flex overflow-x-auto justify-center'>
+                              {el.rejectReason || '-'}
+                            </p>
+                          </td>
+                          <td>
+                            <button
+                              className='flex gap-2 items-center hover:scale-105'
+                              onClick={() => {
+                                navigate('/supplier/product/selected');
+                              }}
+                            >
+                              <MdOutlineEditNote size={25} />
+                              <p>แก้ไขสินค้า</p>
+                            </button>
+                          </td>
+                        </tr>
+                      </>
+                    );
+                  })}
+                </tbody>
+              </>
+            ) : (
+              <></>
+            )}
+          </table>
+        </div>
       </div>
     </div>
   );
