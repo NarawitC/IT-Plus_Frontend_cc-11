@@ -7,8 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { IoAddCircleOutline } from 'react-icons/io5';
 import { getAllCategoryInfo } from '../../../apis/supplier/supplierCategory';
 import { getSubCategoryByCategoryId } from '../../../apis/supplier/supplierSubCategory';
+import { useLoading } from '../../../contexts/LoadingContext';
 function AddProductForm({ addNewProductSupplier }) {
   const navigate = useNavigate();
+  const { setIsLoading } = useLoading();
   // const inputEl = useRef();
   const inputElMain = useRef();
   const [mainPicture, setMainPicture] = useState(null);
@@ -79,6 +81,7 @@ function AddProductForm({ addNewProductSupplier }) {
   //------------------------------------------
 
   useEffect(() => {
+    setIsLoading(true);
     const handleGetAllCategory = async () => {
       try {
         const res = await getAllCategoryInfo();
@@ -107,6 +110,7 @@ function AddProductForm({ addNewProductSupplier }) {
     //   }
     // };
     // handleGetSubCategoryByCategoryId(+categoryId);
+    setIsLoading(false);
   }, [categoryId]);
 
   //------------------------------------------
@@ -718,6 +722,7 @@ function AddProductForm({ addNewProductSupplier }) {
             type='button'
             className='btn btn-secondary btn-md'
             onClick={async () => {
+              setIsLoading(true);
               await addNewProductSupplier({
                 productName,
                 description,
@@ -733,6 +738,7 @@ function AddProductForm({ addNewProductSupplier }) {
                 subPicture4,
                 properties,
               });
+              setIsLoading(false);
               navigate('/supplier/my-product');
             }}
           >

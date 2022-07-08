@@ -21,7 +21,6 @@ function Clientlayout() {
     <AuthContextProvider>
       <CountdownContextProvider>
         <div data-theme='winter'>
-          {IsLoading ? <LoadingPage /> : null}
           {error ? <DynamicAlerttoast error={error} /> : null}
           {/* {error ? <DynamicAlerttoast /> : null} */}
           <SideDrawer eldrawer={eldrawer} />

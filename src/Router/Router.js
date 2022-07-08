@@ -38,96 +38,110 @@ import ClientOrderPage from '../pages/client/orderPage';
 
 import DynamicSelectedTransactionPage from '../pages/supplier/DynamicSelectedTransactionPage';
 import DynamicEditSelectedProductPage from '../pages/supplier/DynamicEditSelectedProductPage';
+import LoadingPage from '../components/commonUtils/Loadingpage';
+import DynamicAlerttoast from '../components/commonUtils/DynamicAlerttoast';
+import { useErrorContext } from '../contexts/ErrorContext';
 
 function Router() {
   const { admin } = useAdminContext();
   const { supplier } = useSupplierContext();
+  const { IsLoading } = useLoading();
+  const { error } = useErrorContext();
+
   return (
-    <Routes>
-      <Route path='/' element={<Clientlayout />}>
-        <Route path='' element={<Landingpage />} />
-        <Route
-          path='/auth/facebook'
-          element={<Navigate to='/auth/facebook'></Navigate>}
-        />
-        <Route path='/product' element={<ClientDynamicProductPage />} />
-        <Route path='/product/:productId' element={<ProductInfoPage />} />
-        <Route path='/shop/:subplierId' element={<ProductByBrand />} />
-        <Route path='/my-accout' element={<ClientProfilePage />} />
-        <Route path='/order-history' element={<SaleOrderPage />} />
-        <Route path='/cart' element={<CartPage />} />
-        <Route path='/cart/checkout' element={<CheckoutPage />} />
+    <>
+      {IsLoading ? <LoadingPage /> : null}
+      {error ? <DynamicAlerttoast error={error} /> : null}
 
-        <Route path='/order/:order' element={<ClientOrderPage />} />
-        {/* <Route path='*' element={<Navigate to='/'></Navigate>} /> */}
-      </Route>
+      <Routes>
+        <Route path='/' element={<Clientlayout />}>
+          <Route path='' element={<Landingpage />} />
+          <Route
+            path='/auth/facebook'
+            element={<Navigate to='/auth/facebook'></Navigate>}
+          />
+          <Route path='/product' element={<ClientDynamicProductPage />} />
+          <Route path='/product/:productId' element={<ProductInfoPage />} />
+          <Route path='/shop/:subplierId' element={<ProductByBrand />} />
+          <Route path='/my-accout' element={<ClientProfilePage />} />
+          <Route path='/order-history' element={<SaleOrderPage />} />
+          <Route path='/cart' element={<CartPage />} />
+          <Route path='/cart/checkout' element={<CheckoutPage />} />
 
-      <>
-        <Route path='/supplier' element={<SupplierLayout />}>
-          {(supplier ? 1 : 0 || admin ? 1 : 0) && (
-            <>
-              <Route path='' element={<DynamicOrderPage />} />
-              <Route path='signup' element={<SupplierSignUpPage />} />
-              <Route path='my-product' element={<ProductPage />} />
-              <Route path='add-product' element={<DynamicAddProductPage />} />
-              <Route path='my-shop' element={<MyShopPage />} />
-              <Route path='balance-wallet' element={<BalanceWalletPage />} />
-              <Route path='order' element={<DynamicOrderPage />} />
-              {/* <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} /> */}
-              <Route
-                path='order/:orderId'
-                element={<DynamicSelectedOrderPage />}
-              />
-              {/* <Route path='product/:productId' element={<DynamicSelectedProductPage />} /> */}
-              {/* <Route
+          <Route path='/order/:order' element={<ClientOrderPage />} />
+          {/* <Route path='*' element={<Navigate to='/'></Navigate>} /> */}
+        </Route>
+
+        <>
+          <Route path='/supplier' element={<SupplierLayout />}>
+            {(supplier ? 1 : 0 || admin ? 1 : 0) && (
+              <>
+                <Route path='' element={<DynamicOrderPage />} />
+                <Route path='signup' element={<SupplierSignUpPage />} />
+                <Route path='my-product' element={<ProductPage />} />
+                <Route path='add-product' element={<DynamicAddProductPage />} />
+                <Route path='my-shop' element={<MyShopPage />} />
+                <Route path='balance-wallet' element={<BalanceWalletPage />} />
+                <Route path='order' element={<DynamicOrderPage />} />
+                {/* <Route path='order/:orderId' element={<DynamicSelectedOrderPage />} /> */}
+                <Route
+                  path='order/:orderId'
+                  element={<DynamicSelectedOrderPage />}
+                />
+                {/* <Route path='product/:productId' element={<DynamicSelectedProductPage />} /> */}
+                {/* <Route
                 path='product/selected'
                 element={<DynamicSelectedProductPage />}
               />
               <Route path='tracking' element={<TrackingPage />} /> */}
-              <Route
-                path='product/:productId'
-                element={<DynamicEditSelectedProductPage />}
-              />
-              {/* <Route path='tracking' element={<TrackingPage />} /> */}
-              <Route
-                path='transaction/selected'
-                element={<DynamicSelectedTransactionPage />}
-              />
+                <Route
+                  path='product/:productId'
+                  element={<DynamicEditSelectedProductPage />}
+                />
+                {/* <Route path='tracking' element={<TrackingPage />} /> */}
+                <Route
+                  path='transaction/selected'
+                  element={<DynamicSelectedTransactionPage />}
+                />
+              </>
+            )}
+            <Route path='' element={<SupplierSignUpPage />} />
+            <Route path='*' element={<Navigate to='/supplier'></Navigate>} />
+          </Route>
+        </>
+        <>
+          <Route path='/admin/sign-in' element={<AdminSignInPage />} />
+          {admin && (
+            <>
+              <Route path='/admin' element={<DevLayout />}>
+                <Route path='client' element={<AdminClientPage />} />
+                <Route path='order' element={<AdminOrderPage />} />
+                <Route
+                  path='order/:orderId'
+                  element={<DynamicSelectedOrderPage />}
+                />
+
+                <Route path='product' element={<AdminProductPage />} />
+                <Route
+                  path='product/:productId'
+                  element={<ProductInfoPage />}
+                />
+                {/* <Route path='sign-in' element={<AdminSignInPage />} /> */}
+                <Route
+                  path='*'
+                  element={<Navigate to='/admin/order'></Navigate>}
+                />
+                <Route
+                  path=''
+                  element={<Navigate to='/admin/order'></Navigate>}
+                />
+                <Route path='promotion' element={<AdminPromotion />} />
+              </Route>
             </>
           )}
-          <Route path='' element={<SupplierSignUpPage />} />
-          <Route path='*' element={<Navigate to='/supplier'></Navigate>} />
-        </Route>
-      </>
-      <>
-        <Route path='/admin/sign-in' element={<AdminSignInPage />} />
-        {admin && (
-          <>
-            <Route path='/admin' element={<DevLayout />}>
-              <Route path='client' element={<AdminClientPage />} />
-              <Route path='order' element={<AdminOrderPage />} />
-              <Route
-                path='order/:orderId'
-                element={<DynamicSelectedOrderPage />}
-              />
-
-              <Route path='product' element={<AdminProductPage />} />
-              <Route path='product/:productId' element={<ProductInfoPage />} />
-              {/* <Route path='sign-in' element={<AdminSignInPage />} /> */}
-              <Route
-                path='*'
-                element={<Navigate to='/admin/order'></Navigate>}
-              />
-              <Route
-                path=''
-                element={<Navigate to='/admin/order'></Navigate>}
-              />
-              <Route path='promotion' element={<AdminPromotion />} />
-            </Route>
-          </>
-        )}
-      </>
-    </Routes>
+        </>
+      </Routes>
+    </>
   );
 }
 

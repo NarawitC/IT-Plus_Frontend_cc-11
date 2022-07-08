@@ -6,6 +6,7 @@ import { useOrderContext } from '../../../contexts/Client/orderContext';
 import axios from 'axios';
 import GoogleMapArea from '../../googleMap/GoogleMapArea';
 import { useGoogleMapContext } from '../../../contexts/googleMap/googleMap';
+import { set } from 'react-hook-form';
 
 function ModalAddress({ user }) {
   const { setCheckoutAddress } = useOrderContext();
@@ -63,7 +64,15 @@ function ModalAddress({ user }) {
             </div>
           </div>
         </h3>
-        <div className=' cursor-copy flex justify-center bor border-4'>
+        <div
+          className=' cursor-copy flex justify-center bor border-4'
+          onMouseOver={() => {
+            console.log('KYU');
+          }}
+          onMouseLeave={() => {
+            console.log('KYU');
+          }}
+        >
           <GoogleMapArea />
         </div>
         {/* {isGoogleMode ? (
@@ -174,7 +183,11 @@ function ModalAddress({ user }) {
               htmlFor='my-modal-5'
               className='btn bg-gradient-to-b border-none from-blue-400 to-blue-700 rounded-3xl w-40'
               onClick={
-                () => setCheckoutAddress(googleMapAddress) // setCheckoutAddress((prev) => ({
+                () => {
+                  setCheckoutAddress(googleMapAddress);
+                  // set
+                } // setCheckoutAddress((prev) => ({
+
                 //   ...prev,
                 //   textaddress,
                 //   province: province.name_th,

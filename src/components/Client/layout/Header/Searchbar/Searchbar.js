@@ -14,6 +14,7 @@ function Searchbar() {
     e.preventDefault();
     navigate('/product');
     setSearchParams((prev) => ({ ...prev, searchText }));
+    setSearchText('');
   };
 
   return (
@@ -26,7 +27,14 @@ function Searchbar() {
               placeholder='Search items with itplus'
               className=' input appearance-none self-center h-6 w-full align-middle focus:outline-none text-base text-slate-500'
               value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearchButton(e);
+                }
+              }}
             ></input>
           </div>
           <div className='w-1/10 relative block -mt-1 '>

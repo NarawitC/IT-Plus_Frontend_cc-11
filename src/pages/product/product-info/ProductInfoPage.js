@@ -17,6 +17,8 @@ import {
   adminRejectProduct,
 } from '../../../apis/admin/productAdmin';
 import { PRODUCT_STATUS } from '../../../config/constants';
+import { BsCartCheck } from 'react-icons/bs';
+import { useLoading } from '../../../contexts/LoadingContext';
 
 function ProductInfoPage({}) {
   const locate = useLocation();
@@ -31,15 +33,14 @@ function ProductInfoPage({}) {
   const { getsinglepd, settempCarts, tempCarts } = useProductfilter();
   // const { setIsLoading } = useLoading();
   const { productId } = useParams();
+  const { setIsLoading } = useLoading();
   useEffect(() => {
-    // const params = new URLSearchParams(window.location.search);
-    // for (const param of params) {
-    //   console.log(param);
-    // }
+    setIsLoading(true);
     const fetchPd = async () => {
       setsinglepd(null);
       // setIsLoading(true);
       const singlePD = await getsinglepd(productId);
+
       // await console.log(singlePD);
       await setsinglepd(singlePD);
       await setCount(1);
@@ -61,6 +62,7 @@ function ProductInfoPage({}) {
       // await setIsLoading(false);
     };
     fetchPd();
+    setIsLoading(false);
     // console.log(Objecturl);
   }, []);
   // console.log(singlepd);
