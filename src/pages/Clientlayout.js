@@ -15,8 +15,6 @@ import { useCompletedActionContext } from '../contexts/Client/completedAction';
 function Clientlayout() {
   const { isShowCompletedAction } = useCompletedActionContext();
   const eldrawer = useRef();
-  const { IsLoading } = useLoading();
-  const { error } = useErrorContext();
   const clicksidebar = () => {
     eldrawer.current.click();
   };
@@ -24,7 +22,6 @@ function Clientlayout() {
     <AuthContextProvider>
       <CountdownContextProvider>
         <div data-theme='winter'>
-          {error ? <DynamicAlerttoast error={error} /> : null}
           {/* {error ? <DynamicAlerttoast /> : null} */}
           <SideDrawer eldrawer={eldrawer} />
           <div className=' min-h-screen max-w-[1200px] self-center m-auto'>

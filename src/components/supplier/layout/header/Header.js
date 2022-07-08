@@ -22,7 +22,7 @@ function Header({ setDarkonDark }) {
 
   return (
     <>
-      <div className=' h-[80px] relative bg-neutral  flex items-center '>
+      <div className=' h-[80px] relative bg-gradient-to-r from-white via-warning to-primary  flex items-center '>
         <div className='flex justify-between  items-center w-screen'>
           <Link to={`/supplier/order`}>
             <button
