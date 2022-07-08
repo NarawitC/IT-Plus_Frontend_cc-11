@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" style="margin: auto; background: rgb(241, 242, 243); display: block; shape-rendering: auto; animation-play-state: running; animation-delay: 0s;" width="280" height="250" preserveAspectRatio="xMidYMid">
+<style type="text/css" style="animation-play-state: running; animation-delay: 0s;">
+  text {
+    text-anchor: middle; font-size: 80px; opacity: 0;
+  }
+</style>
+<g style="transform-origin: 140px 125px; transform: scale(1); animation-play-state: running; animation-delay: 0s;">
+<g transform="translate(140,125)" style="animation-play-state: running; animation-delay: 0s;">
+  <g transform="translate(0,0)" style="animation-play-state: running; animation-delay: 0s;"><g class="path" style="opacity: 1; transform-origin: -11.6px -0.722402px; animation: 1s linear 0s infinite normal forwards running blink-df5af53e-a3ce-423f-86e6-a4a5a677b5e4;"><path d="M11.60 0L5.59 0L5.59-6.02L11.60-6.02L11.60 0" fill="#5699d2" stroke="none" stroke-width="none" transform="translate(-20.19500732421875,2.287598180770874)" style="fill: rgb(86, 153, 210); animation-play-state: running; animation-delay: 0s;"></path></g><g class="path" style="opacity: 1; transform-origin: 5.58499px -0.722402px; animation: 1s linear -0.22s infinite normal forwards running blink-df5af53e-a3ce-423f-86e6-a4a5a677b5e4;"><path d="M28.79 0L22.77 0L22.77-6.02L28.79-6.02L28.79 0" fill="#5699d2" stroke="none" stroke-width="none" transform="translate(-20.19500732421875,2.287598180770874)" style="fill: rgb(86, 153, 210); animation-play-state: running; animation-delay: 0s;"></path></g><g class="path" style="opacity: 1; transform-origin: 22.775px -0.722402px; animation: 1s linear -0.44s infinite normal forwards running blink-df5af53e-a3ce-423f-86e6-a4a5a677b5e4;"><path d="M45.98 0L39.96 0L39.96-6.02L45.98-6.02L45.98 0" fill="#5699d2" stroke="none" stroke-width="none" transform="translate(-20.19500732421875,2.287598180770874)" style="fill: rgb(86, 153, 210); animation-play-state: running; animation-delay: 0s;"></path></g></g>
+</g>
+</g>
+<style id="blink-df5af53e-a3ce-423f-86e6-a4a5a677b5e4" data-anikit="">@keyframes blink-df5af53e-a3ce-423f-86e6-a4a5a677b5e4 {
+  0% { opacity: 1; }
+  49.75% { opacity: 1; }
+  50.25% { opacity: 0; }
+  99.5% { opacity: 0; }
+  100% { opacity: 1; }
+}</style></svg>

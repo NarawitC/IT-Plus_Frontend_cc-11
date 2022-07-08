@@ -21,17 +21,17 @@ function App() {
     <>
       <AnimatePresence>
         <AuthContextProvider>
-          {/* <LoadingContextProvider> */}
-          <ProductfilterContextProvider>
-            <OrderContextProvider>
-              <AdminSearchContextProvider>
-                <AdminContextProvider>
-                  <Router />
-                </AdminContextProvider>
-              </AdminSearchContextProvider>
-            </OrderContextProvider>
-          </ProductfilterContextProvider>
-          {/* </LoadingContextProvider> */}
+          <LoadingContextProvider>
+            <ProductfilterContextProvider>
+              <OrderContextProvider>
+                <AdminSearchContextProvider>
+                  <AdminContextProvider>
+                    <Router />
+                  </AdminContextProvider>
+                </AdminSearchContextProvider>
+              </OrderContextProvider>
+            </ProductfilterContextProvider>
+          </LoadingContextProvider>
         </AuthContextProvider>
       </AnimatePresence>
     </>

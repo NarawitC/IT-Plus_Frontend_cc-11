@@ -45,7 +45,7 @@ function Router() {
   return (
     <Routes>
       <Route path='/' element={<Clientlayout />}>
-        <Route path='' element={<ClientDynamicProductPage />} />
+        <Route path='' element={<Landingpage />} />
         <Route
           path='/auth/facebook'
           element={<Navigate to='/auth/facebook'></Navigate>}
@@ -57,8 +57,9 @@ function Router() {
         <Route path='/order-history' element={<SaleOrderPage />} />
         <Route path='/cart' element={<CartPage />} />
         <Route path='/cart/checkout' element={<CheckoutPage />} />
+
         <Route path='/order/:order' element={<ClientOrderPage />} />
-        <Route path='*' element={<Navigate to='/'></Navigate>} />
+        {/* <Route path='*' element={<Navigate to='/'></Navigate>} /> */}
       </Route>
 
       <>

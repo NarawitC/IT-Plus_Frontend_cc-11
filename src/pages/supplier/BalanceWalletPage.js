@@ -97,7 +97,7 @@ function BalanceWalletPage() {
   }, [balance]);
 
   return (
-    <>
+    <div className='flex flex-col justify-center'>
       <div className='mt-16'>
         <div className=''>
           <h1 className='text-4xl text-center font-bold'>Seller Balance</h1>
@@ -306,7 +306,7 @@ function BalanceWalletPage() {
         </table>
         <br />
       </div>
-    </>
+    </div>
   );
 }
 
