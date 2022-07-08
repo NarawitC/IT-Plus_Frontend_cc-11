@@ -19,22 +19,24 @@ function ClientDynamicProductPage() {
   }
   return (
     <>
-      <div className='bg-white'>
-        <BreadCrumbs />
+      <BreadCrumbs />
+      <div className='bg-white flex flex-row'>
         {/* piceRangeilter */}
-        {/* <div className='p-2 text-sm -ml-2  border-spacing-1 flex justify-start flex-col '>
+        <div className='p-2 text-sm -ml-2  w-52 border-spacing-1 flex justify-start flex-col '>
           <span className='text-font-Kanits'>ช่วงราคา</span>
           <RangrPrice />
-        </div> */}
-        {/* piceRangeilter */}
-        <div className=' col-span-4 flex gap-2 w-full'>
-          <FaRegThumbsUp className='block mt-1' size={20} />
-          <p className=' font-bold text-lg text-zinc-600'>IT Plus Recommend</p>
         </div>
+        {/* piceRangeilter */}
 
-        <div className='max-w-2xl mx-auto py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8'>
+        <div className='max-w-2xl  mx-auto py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8'>
+          <div className=' col-span-4 flex gap-2 w-full'>
+            <FaRegThumbsUp className='block mt-1' size={20} />
+            <p className=' font-bold text-lg text-zinc-600'>
+              IT Plus Recommend
+            </p>
+          </div>
           <div className='flex flex-row'>
-            <div className='mt-6 flex-1 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 '>
+            <div className='mt-6 flex-1 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 '>
               {product?.map((el, idx) => (
                 <DynamicClientProductCard key={idx} el={el} />
               ))}
