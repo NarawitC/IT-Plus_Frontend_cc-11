@@ -94,13 +94,14 @@ function Router() {
                 element={<DynamicSelectedProductPage />}
               />
               <Route path='tracking' element={<TrackingPage />} /> */}
+
                 <Route
                   path='product/:productId'
                   element={<DynamicEditSelectedProductPage />}
                 />
                 {/* <Route path='tracking' element={<TrackingPage />} /> */}
                 <Route
-                  path='transaction/selected'
+                  path='transaction/:transactionId'
                   element={<DynamicSelectedTransactionPage />}
                 />
               </>
