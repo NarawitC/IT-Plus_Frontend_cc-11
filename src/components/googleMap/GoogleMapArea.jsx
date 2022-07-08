@@ -33,6 +33,12 @@ function GoogleMapArea() {
       destination.lat,
       destination.lng
     );
+    new window.google.maps.Marker({
+      position: destination,
+      map,
+      title: 'Here',
+    });
+
     geocoder.geocode({ latLng: latLng }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
