@@ -3,6 +3,7 @@ import { FaRegThumbsUp } from 'react-icons/fa';
 import { useProductfilter } from '../../contexts/ProductContext';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import BreadCrumbs from '../../components/Client/products/productInfo/BreadCrumbs';
 import RangrPrice from '../../components/Client/products/productbysupplierId/RangrPrice';
 
@@ -18,17 +19,23 @@ function ClientDynamicProductPage() {
     totalPageArr.push(i);
   }
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <BreadCrumbs />
-      <div className='bg-white flex flex-row'>
+      <div className='bg-white grid grid-cols-10'>
         {/* piceRangeilter */}
-        <div className='p-2 text-sm -ml-2  w-52 border-spacing-1 flex justify-start flex-col '>
-          <span className='text-font-Kanits'>ช่วงราคา</span>
+        <div className='px-4 pt-4 text-sm border-spacing-1 col-span-2'>
+          <div className=' font-bold mt-2'>
+            <span className='text-font-Kanits '>ช่วงราคา</span>
+          </div>
           <RangrPrice />
         </div>
         {/* piceRangeilter */}
 
-        <div className='max-w-2xl  mx-auto py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8'>
+        <div className='w-full mx-auto py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8  col-span-8'>
           <div className=' col-span-4 flex gap-2 w-full'>
             <FaRegThumbsUp className='block mt-1' size={20} />
             <p className=' font-bold text-lg text-zinc-600'>
@@ -66,7 +73,7 @@ function ClientDynamicProductPage() {
       </div>
 
       {/* <CardItems /> */}
-    </>
+    </motion.div>
   );
 }
 

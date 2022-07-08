@@ -9,6 +9,18 @@ function RangrPrice() {
         <input
           type='radio'
           name='range'
+          value={[0, 1000000]}
+          className='checkbox checkbox-primary '
+          onChange={(e) => {
+            setPriceRange([e.target.value]);
+          }}
+        />
+        <label>ALL</label>
+      </div>
+      <div className='flex gap-4 '>
+        <input
+          type='radio'
+          name='range'
           value={[0, 3000]}
           className='checkbox checkbox-primary '
           onChange={(e) => {
