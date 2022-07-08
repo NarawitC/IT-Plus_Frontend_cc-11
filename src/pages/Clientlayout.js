@@ -9,8 +9,11 @@ import AuthContextProvider from '../contexts/Client/AuthCcontexts';
 import CountdownContextProvider from '../contexts/clountdownContext';
 import { useErrorContext } from '../contexts/ErrorContext';
 import { useLoading } from '../contexts/LoadingContext';
+import CompletedModal from '../components/commonUtils/CompletedModal';
+import { useCompletedActionContext } from '../contexts/Client/completedAction';
 
 function Clientlayout() {
+  const { isShowCompletedAction } = useCompletedActionContext();
   const eldrawer = useRef();
   const clicksidebar = () => {
     eldrawer.current.click();
@@ -23,6 +26,8 @@ function Clientlayout() {
           <SideDrawer eldrawer={eldrawer} />
           <div className=' min-h-screen max-w-[1200px] self-center m-auto'>
             <Header clicksidebar={clicksidebar} />
+            {isShowCompletedAction ? <CompletedModal></CompletedModal> : null}
+            {/* <CompletedModal></CompletedModal> */}
             <Outlet />
           </div>
           <Footer />

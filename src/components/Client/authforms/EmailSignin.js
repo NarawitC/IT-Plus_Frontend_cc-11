@@ -7,8 +7,11 @@ import InputYup from '../../form/InputYup';
 import FormYup from '../../form/FormYup';
 import SubmitButtonYup from '../../form/SubmitButtonYup';
 import { useAuthContext } from '../../../contexts/Client/AuthCcontexts';
+import { useCompletedActionContext } from '../../../contexts/Client/completedAction';
 
 function EmailSignin({ setUserAuthmodal }) {
+  const { setIsShowCompletedAction, setCompletedText } =
+    useCompletedActionContext();
   const [IsLoading, setIsLoading] = useState(false);
   const { signIn } = useAuthContext();
 
@@ -33,6 +36,8 @@ function EmailSignin({ setUserAuthmodal }) {
       // navigate('/auth/signUpCompleted');
       setIsLoading(false);
       setUserAuthmodal(false);
+      setCompletedText('Sign in successfully');
+      setIsShowCompletedAction(true);
     } catch (err) {
       console.log(err);
       // setError(err.response.data.message);
