@@ -6,9 +6,12 @@ import FormYup from '../../form/FormYup';
 import InputYup from '../../form/InputYup';
 import SubmitButtonYup from '../../form/SubmitButtonYup';
 import SmPillButton from '../../../components/commonUtils/SmPillButton';
+import { useCompletedActionContext } from '../../../contexts/Client/completedAction';
 
 import { useAuthContext } from '../../../contexts/Client/AuthCcontexts';
 function EmailSignup() {
+  const { setIsShowCompletedAction, setCompletedText } =
+    useCompletedActionContext();
   const [IsLoading, setIsLoading] = useState(false);
   const { signUp } = useAuthContext();
   const elSubmit = useRef();
@@ -38,6 +41,8 @@ function EmailSignup() {
         // navigate('/auth/signUpCompleted');
         // reset();
         setIsLoading(false);
+        setCompletedText('Sign up completed');
+        setIsShowCompletedAction(true);
       }
     } catch (err) {
       console.log(err);

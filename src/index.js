@@ -11,23 +11,26 @@ import ShippingOrderStatusContextProvider from './contexts/Supplier/ShippingOrde
 import OrderContextProvider from './contexts/Supplier/OrderContext';
 import SupplierProductContextProvider from './contexts/Supplier/SupplierProductContext';
 import GoogleMapContextProvider from './contexts/googleMap/googleMap';
+import CompletedActionProvider from './contexts/Client/completedAction';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ErrorContextProvider>
       <BrowserRouter>
         <ReRenderContextProvider>
-          <GoogleMapContextProvider>
-            <SupplierAuthContextProvider>
-              <SupplierProductContextProvider>
-                <OrderContextProvider>
-                  <ShippingOrderStatusContextProvider>
-                    <App />
-                  </ShippingOrderStatusContextProvider>
-                </OrderContextProvider>
-              </SupplierProductContextProvider>
-            </SupplierAuthContextProvider>
-          </GoogleMapContextProvider>
+          <CompletedActionProvider>
+            <GoogleMapContextProvider>
+              <SupplierAuthContextProvider>
+                <SupplierProductContextProvider>
+                  <OrderContextProvider>
+                    <ShippingOrderStatusContextProvider>
+                      <App />
+                    </ShippingOrderStatusContextProvider>
+                  </OrderContextProvider>
+                </SupplierProductContextProvider>
+              </SupplierAuthContextProvider>
+            </GoogleMapContextProvider>
+          </CompletedActionProvider>
         </ReRenderContextProvider>
       </BrowserRouter>
     </ErrorContextProvider>

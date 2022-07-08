@@ -12,8 +12,11 @@ import axios from 'axios';
 import { setAccessToken } from '../../../services/localStorage';
 import { useAuthContext } from '../../../contexts/Client/AuthCcontexts';
 import { getUserInfo } from '../../../apis/client/client';
+import { useCompletedActionContext } from '../../../contexts/Client/completedAction';
 
 function ModalAny({ inputEmodal }) {
+  const { setIsShowCompletedAction, setCompletedText } =
+    useCompletedActionContext();
   const { user, setUser } = useAuthContext();
   const [UserAuthmodal, setUserAuthmodal] = useState(false);
   const [authOption, setauthOption] = useState(null);
@@ -52,17 +55,15 @@ function ModalAny({ inputEmodal }) {
       const obj = { googleData: response.credential };
       // const token = jwt_decode(response.credential);
       // console.log(token);
-
       const login = await axios.post('/client/auth/sign-in-google', obj);
-      console.log(login.data);
-
       const token = login.data.token;
       setAccessToken(token);
-
       document.getElementById('signInDiv').hiden = true;
       const resMe = await getUserInfo();
       setUser(resMe.data.user);
       inputEmodal.current.click();
+      setCompletedText('Sign in google successfully');
+      setIsShowCompletedAction(true);
     } catch (err) {
       console.log(err);
     }

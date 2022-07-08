@@ -7,13 +7,11 @@ import { createShippingOrder } from '../../../../apis/supplier/supplierShippingO
 import { localsting } from '../../../../services/LocalstringComma';
 import { useRef, useState } from 'react';
 import { useErrorContext } from '../../../../contexts/ErrorContext';
+import { useCompletedActionContext } from '../../../../contexts/Client/completedAction';
 
-function OmisePaymentButton({
-  className,
-  orders,
-  totalPrice,
-  setIsLoading,
-}) {
+function OmisePaymentButton({ className, orders, totalPrice, setIsLoading }) {
+  const { setIsShowCompletedAction, setCompletedText } =
+    useCompletedActionContext();
   const { setError } = useErrorContext();
   const formElement = useRef();
   const displayName = 'IT Plus';
@@ -70,9 +68,11 @@ function OmisePaymentButton({
           });
 
           await createShippingOrder({ purchasedOrderIds });
-          alert(`Payment successful, order id: ${orderIds.join(', ')}`);
-          navigate('/product');
           setIsLoading(false);
+          setCompletedText(
+            `Payment successful, order id: ${orderIds.join(', ')}`
+          );
+          setIsShowCompletedAction(true);
         }
       },
       onFormClosed: () => {},
