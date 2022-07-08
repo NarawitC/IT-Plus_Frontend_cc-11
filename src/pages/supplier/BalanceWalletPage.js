@@ -17,7 +17,7 @@ function BalanceWalletPage() {
   const mockArr = [
     {
       createdAt: '2022-06-19',
-      type: 'รับ',
+      type: 'transfer',
       description: 'รายรับจาก order 200425EAN',
       amount: 100.0,
       status: 'COMPLETED',
@@ -25,7 +25,7 @@ function BalanceWalletPage() {
     },
     {
       createdAt: '2022-06-18',
-      type: 'รับ',
+      type: 'transfer',
       description: 'รายรับจาก order 200325EAN',
       amount: 900.0,
       status: 'COMPLETED',
@@ -33,7 +33,7 @@ function BalanceWalletPage() {
     },
     {
       createdAt: '2022-06-17',
-      type: 'รับ',
+      type: 'transfer',
       description: 'รายรับจาก order 200435EAN',
       amount: 1000.0,
       status: 'COMPLETED',
@@ -41,7 +41,7 @@ function BalanceWalletPage() {
     },
     {
       createdAt: '2022-06-16',
-      type: 'รับ',
+      type: 'transfer',
       description: 'รายรับจาก order 200335EAN',
       amount: 1000.0,
       status: 'COMPLETED',
@@ -49,7 +49,7 @@ function BalanceWalletPage() {
     },
     {
       createdAt: '2022-06-15',
-      type: 'ถอน',
+      type: 'withdrawal',
       description: 'การถอนไปยังเลขที่บัญชี (*1234)',
       amount: 2000.0,
       status: 'PENDING',
@@ -57,7 +57,7 @@ function BalanceWalletPage() {
     },
     {
       createdAt: '2022-06-14',
-      type: 'ถอน',
+      type: 'withdrawal',
       description: 'การถอนไปยังเลขที่บัญชี (*1235)',
       amount: 1000.0,
       status: 'COMPLETED',
@@ -245,7 +245,7 @@ function BalanceWalletPage() {
                       0,
                       4
                     )}`}</td>
-                    {el.type === 'รับ' ? (
+                    {el.type === 'transfer' ? (
                       <>
                         <td className='text-success font-bold'>{el.type}</td>
                       </>
@@ -255,7 +255,7 @@ function BalanceWalletPage() {
                       </>
                     )}
                     <td>
-                      {el.type === 'รับ' ? (
+                      {el.type === 'transfer' ? (
                         <>
                           <button
                             type='buttom'
