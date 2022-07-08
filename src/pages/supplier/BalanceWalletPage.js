@@ -65,7 +65,7 @@ function BalanceWalletPage() {
     },
   ];
   const [transactions, setTransactions] = useState([]);
-  const [mapTransactionDetails, setMapTransactionDetails] = useState([]);
+  const [mapTransactionDetails, setMapTransactionDetails] = useState(mockArr);
   const [balance, setBalance] = useState(0);
   const [withdrawalAmount, setWithdrawalAmount] = useState('');
 
@@ -206,8 +206,11 @@ function BalanceWalletPage() {
           <button
             type='button'
             className='btn btn-secondary w-[140px] hover:scale-105 font-bold text-2xl'
-            onClick={() => {
-              createWithdrawalTransaction(withdrawalAmount);
+            onClick={async () => {
+              await createWithdrawalTransaction(+withdrawalAmount);
+              setOpenWithdrawalForm(false);
+              await handleGetAllTransactionsBySupplierId();
+              setOpenTransactions(true);
             }}
           >
             ยืนยัน

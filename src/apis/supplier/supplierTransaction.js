@@ -5,7 +5,7 @@ export const getAllTransactionsBySupplierId = async () => {
 };
 
 export const createWithdrawalTransaction = async (withdrawalAmount) => {
-  return axios.post(`/supplier/withdraw`, {
+  return axios.post('/supplier/withdraw', {
     withdrawalAmount: withdrawalAmount,
   });
 };
