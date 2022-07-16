@@ -9,4 +9,4 @@ export const PRODUCT_STATUS = {
   HIDDEN: 'HIDDEN',
 };
 
-export const GOOGLE_MAP_API_KEY = 'AIzaSyA_qd0eTMchM9MLphPooedQNE0dSgaJ8KA';
+export const GOOGLE_MAP_API_KEY = 'AIzaSyC-SMnbKqIwuS5pkPb7qU5zBXL7BVCniDg';
