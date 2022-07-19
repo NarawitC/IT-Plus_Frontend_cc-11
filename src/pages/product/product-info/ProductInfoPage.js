@@ -19,9 +19,10 @@ import {
 import { PRODUCT_STATUS } from '../../../config/constants';
 import { BsCartCheck } from 'react-icons/bs';
 import { useLoading } from '../../../contexts/LoadingContext';
+import { useAuthContext } from '../../../contexts/Client/AuthCcontexts';
 
 function ProductInfoPage({}) {
-  const locate = useLocation();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
 
   const [idx, setIdx] = useState(0);
@@ -67,6 +68,10 @@ function ProductInfoPage({}) {
   }, []);
   // console.log(singlepd);
   const HandleAddcart = async () => {
+    if (!user) {
+      alert('Please login to add to cart');
+      return;
+    }
     const findAlredyCart = tempCarts.find((el) => {
       return el.id === singlepd.id;
     });
@@ -97,6 +102,7 @@ function ProductInfoPage({}) {
       await settempCarts((prev) => [...prev, singlepd]);
       setCount(1);
     }
+    navigate('/cart');
   };
 
   const handleApproveButton = async () => {
@@ -257,7 +263,6 @@ function ProductInfoPage({}) {
                     className='btn btn-primary'
                     onClick={() => {
                       HandleAddcart();
-                      navigate('/cart');
                     }}
                   >
                     ซื้อเลย
