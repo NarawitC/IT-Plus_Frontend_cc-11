@@ -14,18 +14,31 @@ function FlashSaleCountdownbar() {
   const { product } = useProductfilter();
   // const { setIsLoading } = useLoading();
 
+  const presentTime = new Date();
   useEffect(() => {
     const fetchFlashsale = async () => {
       // setIsLoading(true);
       // SetcountdownStrbydate(1);
-      const onlyPros = await product?.filter((el) => el.Promotions.length > 0);
-      if (onlyPros.length > 0) {
+      const onlyPros = await product?.filter((el) => {
+        const startedAt = new Date(
+          el.Promotions[el.Promotions.length - 1]?.startedAt
+        );
+        const endedAt = new Date(
+          el.Promotions[el.Promotions.length - 1]?.endedAt
+        );
+        if (
+          el.Promotions.length > 0 &&
+          startedAt <= presentTime &&
+          endedAt >= presentTime
+        ) {
+          return el;
+        }
+      });
+      // console.log(onlyPros);
+      if (onlyPros?.length > 0) {
         setFlashsaleProducts(onlyPros);
         console.log(onlyPros);
-      } else {
       }
-      // console.log('onlyPros');
-      // setIsLoading(false);
     };
     fetchFlashsale();
     // StratCountdown();
