@@ -15,7 +15,6 @@ function FlashSaleCountdownbar() {
   const { product } = useProductfilter();
   // const { setIsLoading } = useLoading();
 
-  const presentTime = new Date();
   useEffect(() => {
     const fetchFlashsale = async () => {
       const {
