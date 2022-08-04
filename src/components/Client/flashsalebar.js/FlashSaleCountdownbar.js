@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Ficon from '../../../../src/icons/fs-1.svg';
 import { useCountdown } from '../../../contexts/clountdownContext';
-// import { useLoading } from '../../../contexts/LoadingContext';
 import { useProductfilter } from '../../../contexts/ProductContext';
-import SmPillButton from '../../commonUtils/SmPillButton';
 import DynamicClientProductCard from '../products/DynamicClientProductCard';
+import { getApprovedPromotionProduct } from '../../../apis/client/product';
+
+import SmPillButton from '../../commonUtils/SmPillButton';
 import { dateFormat } from '../../../services/dateFormat';
 function FlashSaleCountdownbar() {
   const [FlashsaleProducts, setFlashsaleProducts] = useState([]);
@@ -16,16 +17,10 @@ function FlashSaleCountdownbar() {
 
   useEffect(() => {
     const fetchFlashsale = async () => {
-      // setIsLoading(true);
-      // SetcountdownStrbydate(1);
-      const onlyPros = await product?.filter((el) => el.Promotions.length > 0);
-      if (onlyPros.length > 0) {
-        setFlashsaleProducts(onlyPros);
-        console.log(onlyPros);
-      } else {
-      }
-      // console.log('onlyPros');
-      // setIsLoading(false);
+      const {
+        data: { promotionProducts },
+      } = await getApprovedPromotionProduct();
+      setFlashsaleProducts(promotionProducts);
     };
     fetchFlashsale();
     // StratCountdown();

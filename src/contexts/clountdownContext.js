@@ -42,7 +42,6 @@ function CountdownContextProvider({ children }) {
       (a, b) => a + b,
       0
     );
-    console.log(addmoredays);
   };
 
   // const str = '2022-06-30 17:44:43';
@@ -94,7 +93,7 @@ function CountdownContextProvider({ children }) {
       setDays(0);
       let fHour = days * 24;
     } else setDays(fDay);
-    console.log(fDay);
+    // console.log(fDay);
     setHrs(0);
     setMins(0);
     setSecs(0);
